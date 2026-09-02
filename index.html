@@ -503,11 +503,16 @@ function renderPersona(p){
       '</div>'+
     '</div>';
   observe();
+  toast('已按「'+p.nm+'」为你定制引擎主页与咨询，进入在线体验即可查看');
   document.getElementById('pview').scrollIntoView({behavior:'smooth'});
   document.getElementById('gate').style.display='none';
 }
 var curP='student';
-function pickPersona(k){curP=k;renderPersona(PERSONA[k]);window.scrollTo({top:0,behavior:'smooth'});}
+function pickPersona(k){
+  curP=k;renderPersona(PERSONA[k]);
+  try{localStorage.setItem('seawhy-lex-role',k);localStorage.setItem('seawhy-lex-role-skip','1');}catch(e){}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 function reGate(){document.getElementById('gate').style.display='';document.getElementById('pviewHost').innerHTML='';window.scrollTo({top:0,behavior:'smooth'});}
 function suggestQuestion(){return PERSONA[curP].suggest;}
 function kbAction(k){/* 领域chip → 打开在线体验并提示方向 */driveChat(PERSONA[curP].suggest);toast('已带入 AI 咨询，可从「知识库分库」结合检索「'+k+'」');}

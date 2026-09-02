@@ -1,4 +1,4 @@
-var CACHE = "lvheng-v2";
+var CACHE = "lvheng-v3";
 self.addEventListener("install", function(e) { self.skipWaiting(); });
 self.addEventListener("activate", function(e) {
   e.waitUntil(caches.keys().then(function(keys) {

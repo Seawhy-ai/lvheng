@@ -1000,6 +1000,73 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     .pm-toggle.on{background:var(--accent);border-color:var(--accent)}
     .pm-toggle.on::before{left:25px;background:#fff}
 
+
+    /* ===== 角色系统（主页身份定制） ===== */
+    .role-chip{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:var(--accent-light);color:var(--accent);border-radius:20px;padding:7px 15px;font-size:12.5px;font-weight:700;cursor:pointer;position:relative;z-index:1;transition:transform .15s;letter-spacing:.5px;user-select:none}
+    .role-chip:active{transform:scale(.95)}
+    .role-chip .sw{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
+    .role-quicks{display:flex;gap:8px;overflow-x:auto;padding:12px 16px 2px;scrollbar-width:none;max-width:420px;margin:0 auto;width:calc(100% - 20px);position:relative;z-index:1;-webkit-overflow-scrolling:touch;justify-content:flex-start}
+    .role-quicks::-webkit-scrollbar{display:none}
+    .role-quicks:empty{display:none}
+    .rq{flex:0 0 auto;display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:10px 15px;font-size:12.5px;font-weight:600;color:var(--text);cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:transform .15s;white-space:nowrap;font-family:inherit}
+    .rq:active{transform:scale(.95)}
+    .rq .ico{font-size:15px}
+    .ph-role{display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:var(--accent-light);color:var(--accent);border-radius:16px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer}
+    /* 角色选择面板（底部弹层，移动端友好） */
+    .role-sheet-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:800;opacity:0;transition:opacity .25s;display:flex;align-items:flex-end;justify-content:center}
+    .role-sheet-backdrop.show{opacity:1}
+    .role-sheet{background:var(--card-bg);width:100%;max-width:430px;max-height:80vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:14px 16px calc(20px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.9,.35,1);box-shadow:0 -8px 40px rgba(0,0,0,.2)}
+    .role-sheet-backdrop.show .role-sheet{transform:translateY(0)}
+    .role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px}
+    .role-card{border:1.5px solid var(--card-border);border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .15s;background:var(--bg);font-family:inherit}
+    .role-card:active{transform:scale(.96)}
+    .role-card.on{border-color:var(--accent);background:var(--accent-light)}
+    .role-card .ri{font-size:30px;line-height:1.2}
+    .role-card .rn{font-size:13.5px;font-weight:800;margin-top:6px;color:var(--text)}
+    .role-card .rd{font-size:10.5px;color:var(--text2);margin-top:3px;line-height:1.4}
+    .role-card .rt{font-size:9.5px;color:var(--accent);margin-top:4px}
+    /* ===== 各角色主题（主题色 + 用户气泡） ===== */
+    body[data-role="worker"]{--accent:#0e7c66;--accent-strong:#0a5847;--accent-light:rgba(14,124,102,.10);--user-bubble:#C9EDE4}
+    body.dark[data-role="worker"]{--accent:#3fbf9f;--accent-strong:#7ddcc6;--accent-light:rgba(63,191,159,.18);--user-bubble:#0b4f41}
+    body[data-role="lawschool"]{--accent:#1a5276;--accent-strong:#0e3347;--accent-light:rgba(26,82,118,.08);--user-bubble:#C5DFF8}
+    body.dark[data-role="lawschool"]{--accent:#5dade2;--accent-strong:#8fc0ee;--accent-light:rgba(93,173,226,.18);--user-bubble:#054740}
+    body[data-role="student"]{--accent:#7c3aed;--accent-strong:#5b21b6;--accent-light:rgba(124,58,237,.10);--user-bubble:#E3DAFB}
+    body.dark[data-role="student"]{--accent:#a78bfa;--accent-strong:#c4b5fd;--accent-light:rgba(167,139,250,.18);--user-bubble:#3a2a66}
+    body[data-role="consumer"]{--accent:#d97706;--accent-strong:#92400e;--accent-light:rgba(217,119,6,.10);--user-bubble:#FCE3C8}
+    body.dark[data-role="consumer"]{--accent:#f59e0b;--accent-strong:#fbbf24;--accent-light:rgba(245,158,11,.18);--user-bubble:#5c3a10}
+    body[data-role="renter"]{--accent:#0e7490;--accent-strong:#155e75;--accent-light:rgba(14,116,144,.10);--user-bubble:#CDEDF5}
+    body.dark[data-role="renter"]{--accent:#22b8d4;--accent-strong:#67e8f9;--accent-light:rgba(34,184,212,.18);--user-bubble:#0b4453}
+    body[data-role="citizen"]{--accent:#4A90D9;--accent-strong:#2b6cb0;--accent-light:rgba(74,144,217,.10);--user-bubble:#D6E8FB}
+    body.dark[data-role="citizen"]{--accent:#7db4ea;--accent-strong:#a9cdf3;--accent-light:rgba(125,180,234,.18);--user-bubble:#1f3b5c}
+    body[data-role="senior"]{--accent:#b45309;--accent-strong:#7c2d12;--accent-light:rgba(180,83,9,.12);--user-bubble:#FFE8C2}
+    body.dark[data-role="senior"]{--accent:#f0a24a;--accent-strong:#f7b733;--accent-light:rgba(240,162,74,.20);--user-bubble:#5c3a10}
+    /* ===== 银发长辈：大字模式（字号/图标/触达面积全面放大） ===== */
+    body[data-role="senior"] .typewriter{font-size:clamp(24px,5.6vw,36px);letter-spacing:2px;line-height:1.4}
+    body[data-role="senior"] .role-chip{font-size:15px;padding:9px 18px}
+    body[data-role="senior"] .rq{font-size:15px;padding:14px 18px}
+    body[data-role="senior"] .dash-name{font-size:15px}
+    body[data-role="senior"] .dash-main{font-size:19px}
+    body[data-role="senior"] .todo-preview{font-size:14px}
+    body[data-role="senior"] #bottomNav .nav-item svg{width:30px;height:30px}
+    body[data-role="senior"] #bottomNav{padding:12px 14px}
+    body[data-role="senior"] .gs-box input{font-size:16px}
+    body[data-role="senior"] .quote-text{font-size:17px;line-height:1.9}
+    body[data-role="senior"] .quote-author{font-size:13px}
+    body[data-role="senior"] #chatView .msg-content{font-size:16.5px;line-height:1.85}
+    body[data-role="senior"] #chatView .input-field{font-size:16px}
+    body[data-role="senior"] #chatView .input-tool{font-size:15px;padding:9px 12px}
+    body[data-role="senior"] .wx-nav .title{font-size:17px}
+    body[data-role="senior"] .quick-btn{font-size:14px;padding:14px 12px}
+    body[data-role="senior"] .rightsBodyFont,body[data-role="senior"] #rightsBody{font-size:15px}
+    body[data-role="senior"] #rightsBody span,body[data-role="senior"] #rightsBody b,body[data-role="senior"] #rightsBody li{font-size:14px}
+    body[data-role="senior"] .pm-item{font-size:15.5px;padding:16px}
+    /* ===== 法学生：紧凑信息密度 ===== */
+    body[data-role="lawschool"] #chatView .msg-content{line-height:1.62}
+    body[data-role="lawschool"] .quick-btn{font-size:11.5px;padding:10px 9px}
+    /* 主页角色区在自定义背景上仍可读 */
+    .home-bg:not(.bg-default) ~ .role-quicks .rq{background:rgba(255,255,255,.72)}
+    body.dark .home-bg:not(.bg-default) ~ .role-quicks .rq{background:rgba(24,26,32,.78)}
+
 /* ===== 内置键盘 IME ===== */
     #ime{position:fixed;left:0;right:0;bottom:0;z-index:99999;background:var(--card-bg);border-top:1px solid var(--card-border);padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -6px 24px rgba(0,0,0,.14);font-family:inherit;user-select:none;-webkit-user-select:none;display:none}
     #ime.show{display:block}
@@ -1064,6 +1131,8 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <div class="welcome-hero">
     <div class="whale-icon">🐋</div>
     <h1 class="typewriter" id="typewriter"></h1>
+    <div class="role-chip" id="homeRoleChip" onclick="openRolePicker()" title="选择身份，定制你的界面"></div>
+    <div class="role-quicks" id="roleQuicks"></div>
   </div>
   <div class="global-search">
     <div class="gs-box">
@@ -1258,6 +1327,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
       <div class="ph-id-row">
         <span class="ph-id" id="profileIdChip">ID -----</span>
       </div>
+      <div class="ph-role" id="profileRoleChip" onclick="openRolePicker()" title="切换身份"></div>
     </div>
 
     <div class="profile-stats-row">
@@ -1272,6 +1342,11 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     </div>
 
     <div class="profile-menu">
+      <div class="pm-item" onclick="openRolePicker()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M16 3.5l1.5 1.5L21 1.5"/></svg>
+        <span>切换身份</span>
+        <span class="pm-arrow">›</span>
+      </div>
       <div class="pm-item" onclick="pickProfileAvatar()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <span>修改头像</span>
@@ -2496,6 +2571,7 @@ function handleRestoreFile(input) {
 function initApp() {
   clockStartLoop(); // 学习时钟秒级心跳(跨页面/刷新续算)
   currentUser = "guest";
+  initRole();
   var home = document.getElementById("homeScreen");
   if (home) {
     home.style.display = "";
@@ -2597,11 +2673,12 @@ try { applyBubbleStyle(); } catch(e) {}
 // ============================================================
 // AUTO CHANGELOG — 自动更新日志系统
 // ============================================================
-var APP_VERSION = "v4.0.0";
+var APP_VERSION = "v4.1.0";
 var APP_VERSION_DATE = "2026.09.03";
 var CHANGELOG_KEY = "seawhy-lex-changelog";
 
 var DEFAULT_CHANGELOG = [
+  { ver: "v4.1.0", date: "2026.09.03", notes: "新增主页角色系统：进入主页先选择身份（劳动从业者/法学生/在校大学生/消费者/租客与房东/普通市民/银发长辈），不同身份拥有专属主题色、用户气泡配色、字号与信息密度（长辈角色为大字模式）、主页快捷入口与AI咨询快捷问题，AI回答按身份定制语言与侧重；身份门选择将同步到引擎" },
   { ver: "v4.0.0", date: "2026.09.03", notes: "对齐《律衡项目书》：移除积分/夺宝/换装/课程表/视频/剧情等与普法无关的功能；系统提示词改为公益普法助手（结论-依据-行动-边界）；新增领域自动识别与知识库检索注入、FAQ 高频场景库（30条）、维权路径速查（渠道/流程/材料清单）、回答免责与刑事转介兜底；AI咨询/解析/笔记创建全部免费开放；数据全部本地化，去除云端同步与账号体系" }
 ];
 
@@ -3302,7 +3379,10 @@ function getLineHeight() {
 }
 function applyFontPrefs() {
   var s = getFontScale();
-  document.body.style.zoom = (s === 1 || !s) ? "" : s;
+  var rs = 1;
+  try { if (ROLES[curRole] && ROLES[curRole].scale) rs = ROLES[curRole].scale; } catch(e) {}
+  var eff = s * rs;
+  document.body.style.zoom = (eff === 1 || !eff) ? "" : eff;
   var lh = getLineHeight();
   document.body.style.setProperty("--rd-lh", lh);
   var sl = document.getElementById("fontScaleSlider");
@@ -3617,6 +3697,203 @@ function renderContinueFab() {
 }
 
 // ============================================================
+// 角色系统：主页选身份 → 主题色 / 字号 / 快捷入口 / AI 提示词全面定制
+// ============================================================
+var ROLE_KEY = "seawhy-lex-role";
+var ROLE_SKIP_KEY = "seawhy-lex-role-skip";
+var curRole = null;
+var ROLES = {
+  worker: {
+    name: "劳动从业者", ico: "👷", dom: "欠薪 · 辞退 · 工伤 · 加班", tag: "每一分辛苦，都值得被法律保护", scale: 1,
+    prompt: "用户是劳动从业者（打工人），关注欠薪、辞退赔偿、加班费、工伤、社保。语言朴实直接，优先给出维权步骤、材料清单和时限。",
+    quicks: [
+      { ico: "💬", t: "拖欠工资怎么讨回", act: "chat", arg: "公司拖欠我工资几个月了，该怎么办？请给我具体步骤。" },
+      { ico: "🧮", t: "辞退赔偿算一算", act: "calc", arg: "labor" },
+      { ico: "🗺️", t: "劳动维权路径", act: "rights", arg: "labor" },
+      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+    ],
+    cico: ["💼","🧾","⏰","📋"], chats: ["公司拖欠工资几个月了怎么办？", "被公司无故辞退，能要求赔偿吗？", "加班费应该怎么算？", "没有签劳动合同被欠薪怎么办？"]
+  },
+  lawschool: {
+    name: "法学生", ico: "⚖️", dom: "题库 · 法条 · 案例 · 深度分析", tag: "像鲸鱼一样，深潜到法律问题的底层", scale: 1,
+    prompt: "用户是法学生/法律学习者，有法学基础。回答可在保持结构清晰的前提下适当深入学理（构成要件、学说、经典案例），并推荐延伸检索的法条与文献方向。",
+    quicks: [
+      { ico: "❓", t: "题库 · 章节练习", act: "quiz", arg: "" },
+      { ico: "📖", t: "法条全文库", act: "db", arg: "" },
+      { ico: "📚", t: "案例数据库", act: "case", arg: "" },
+      { ico: "🃏", t: "法条闪卡", act: "flash", arg: "" },
+      { ico: "📄", t: "法律文书生成", act: "doc", arg: "" }
+    ],
+    cico: ["⚖️","📖","✍️","🧠"], chats: ["正当防卫的认定要件有哪些（刑法第20条）？", "合同无效与可撤销的区别是什么？", "借条和欠条在法律上有什么区别？", "表见代理的构成要件是什么？"]
+  },
+  student: {
+    name: "在校大学生", ico: "🎓", dom: "兼职 · 实习 · 校园贷 · 租房", tag: "年轻不是维权的障碍，懂法才是底气", scale: 1,
+    prompt: "用户是在校大学生，关注兼职报酬、实习协议、校园贷、校内租房。语气亲切平等，步骤具体可执行，提醒保留聊天记录等证据。",
+    quicks: [
+      { ico: "💬", t: "兼职工资被拖欠", act: "chat", arg: "公司拖欠兼职工资，可以要得回来吗？" },
+      { ico: "💬", t: "实习协议被扣押", act: "chat", arg: "实习协议被用人单位扣押，怎么拿回来？" },
+      { ico: "🗺️", t: "劳动维权路径", act: "rights", arg: "labor" },
+      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+    ],
+    cico: ["🎓","💼","🏦","🏠"], chats: ["公司拖欠兼职工资怎么办？", "实习协议被公司扣押怎么办？", "校园贷利息太高了怎么办？", "毕业租房押金被扣押怎么办？"]
+  },
+  consumer: {
+    name: "消费者", ico: "🛒", dom: "网购 · 退赔 · 三包 · 外卖", tag: "你的每一次较真，都在推动更公平的市场", scale: 1,
+    prompt: "用户是普通消费者，关注退赔、三包、网购与外卖纠纷。多引用消费者权益保护法与食品安全法，给出投诉渠道（平台/12315）与证据要点。",
+    quicks: [
+      { ico: "💬", t: "假货退一赔三", act: "chat", arg: "在网购平台买到假货，能退一赔三吗？" },
+      { ico: "🗺️", t: "消费维权路径", act: "rights", arg: "consumer" },
+      { ico: "🧮", t: "诉讼费算一算", act: "calc", arg: "fee" },
+      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+    ],
+    cico: ["🛒","📦","🍜","🧾"], chats: ["网购买到假货能退一赔三吗？", "七天无理由退货需要满足什么条件？", "外卖吃出异物怎么赔偿？", "商家拒绝三包怎么办？"]
+  },
+  renter: {
+    name: "租客与房东", ico: "🏠", dom: "押金 · 退租 · 维修 · 转租", tag: "一笔押金，把规矩讲在前面", scale: 1,
+    prompt: "用户是租客或房东，关注押金、提前退租、维修责任、转租。平衡双方视角，突出合同依据与留证要点。",
+    quicks: [
+      { ico: "💬", t: "押金不退怎么办", act: "chat", arg: "房东无理由不退押金，我能起诉吗？" },
+      { ico: "🗺️", t: "租房维权路径", act: "rights", arg: "rent" },
+      { ico: "📄", t: "房屋租赁文书", act: "doc", arg: "" },
+      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+    ],
+    cico: ["🏠","🔑","🌬️","📈"], chats: ["房东不退押金能起诉吗？", "提前退租押金会被全扣吗？", "房子甲醛超标能解除合同吗？", "租期内房东要涨租金怎么办？"]
+  },
+  citizen: {
+    name: "普通市民", ico: "🧑‍🤝‍🧑", dom: "婚姻 · 借贷 · 交通事故", tag: "婚、债、行，普通人绕不开的三类事", scale: 1,
+    prompt: "用户是普通市民，场景分散（婚姻家庭、民间借贷、交通事故、邻里纠纷）。先聚焦核心问题给结论，再给通用指引。",
+    quicks: [
+      { ico: "💬", t: "借钱没写借条", act: "chat", arg: "借钱给别人没写借条，还能要回来吗？" },
+      { ico: "💬", t: "交通事故全责理赔", act: "chat", arg: "发生交通事故对方全责，我该走什么流程？" },
+      { ico: "🗺️", t: "维权路径速查", act: "rights", arg: "loan" },
+      { ico: "🧮", t: "借贷利息算一算", act: "calc", arg: "loan" }
+    ],
+    cico: ["💰","🚗","💍","⏳"], chats: ["借钱给别人没写借条，还能要回来吗？", "交通事故对方全责怎么赔？", "离婚时财产怎么分割？", "诉讼时效是多久，怎么计算？"]
+  },
+  senior: {
+    name: "银发长辈", ico: "👵", dom: "大字模式 · 防骗 · 养老 · 借贷", tag: "字大一点，说得慢一点，防骗第一", scale: 1.18,
+    prompt: "用户是中老年人。请用更短的句子、更慢的节奏解释，避免专业术语，重点提示防诈骗与和家人商量，并醒目给出 12348 等求助电话。",
+    quicks: [
+      { ico: "📞", t: "一键拨打 12348", act: "tel", arg: "12348" },
+      { ico: "💬", t: "亲戚借钱不还", act: "chat", arg: "我把钱借给亲戚没有打借条，现在他不承认了，怎么办？" },
+      { ico: "💬", t: "疑似被骗了", act: "chat", arg: "我买了保健品感觉被骗了，钱还能要回来吗？" },
+      { ico: "🗺️", t: "维权路径（大字版）", act: "rights", arg: "consumer" }
+    ],
+    cico: ["📞","⚠️","🧧","👨‍👩‍👧"], chats: ["我把钱借给亲戚没打借条，他不承认怎么办？", "买了保健品感觉被骗了怎么办？", "有人打电话说交钱能领养老金，可信吗？", "子女不赡养老人怎么办？"]
+  }
+};
+function loadRole() { try { return localStorage.getItem(ROLE_KEY) || ""; } catch(e) { return ""; } }
+function roleOf(key) { return ROLES[key] || null; }
+function initRole() {
+  curRole = loadRole();
+  applyRole();
+  renderRoleUI();
+  if (!ROLES[curRole]) {
+    var skipped = false;
+    try { skipped = localStorage.getItem(ROLE_SKIP_KEY) === "1"; } catch(e) {}
+    if (!skipped) setTimeout(function() { openRolePicker(true); }, 600);
+  }
+}
+function applyRole() {
+  var r = roleOf(curRole);
+  if (r) document.body.setAttribute("data-role", curRole);
+  else document.body.removeAttribute("data-role");
+  applyFontPrefs();
+}
+function renderRoleUI() {
+  var r = roleOf(curRole);
+  var chip = document.getElementById("homeRoleChip");
+  if (chip) chip.innerHTML = r
+    ? '<span class="sw"></span>' + r.ico + " " + r.name + " · 点击切换 ▾"
+    : '👤 选择身份 · 定制你的律衡 ▾';
+  var box = document.getElementById("roleQuicks");
+  if (box) {
+    box.innerHTML = r ? r.quicks.map(function(q, i) {
+      return '<button class="rq" onclick="runRoleQuick(' + i + ')"><span class="ico">' + q.ico + '</span>' + q.t + '</button>';
+    }).join("") : "";
+  }
+  var pr = document.getElementById("profileRoleChip");
+  if (pr) pr.innerHTML = r ? r.ico + " " + r.name + " · 切换" : "选择身份";
+}
+function runRoleQuick(i) {
+  var r = roleOf(curRole); if (!r) return;
+  var q = r.quicks[i]; if (!q) return;
+  if (q.act === "chat") {
+    goHome(); enterChat();
+    var inp = document.getElementById("userInput");
+    if (inp) { inp.value = q.arg; try { inp.style.height = "auto"; } catch(e) {} }
+    showToast("已填入问题，点发送即可获得解答");
+  } else if (q.act === "calc") {
+    showCalc();
+    try { _calcCur = q.arg || CALC_TYPES[0].key; renderCalc(); } catch(e) {}
+  } else if (q.act === "rights") {
+    showRights();
+    setTimeout(function() { focusRights(q.arg); }, 120);
+  } else if (q.act === "quiz") { showQuizModule(); }
+  else if (q.act === "db") { showDatabase(); }
+  else if (q.act === "case") { showCaseDatabase(); }
+  else if (q.act === "flash") { showFlash(); }
+  else if (q.act === "doc") { showDocGen(); }
+  else if (q.act === "tel") { location.href = "tel:" + q.arg; }
+}
+function focusRights(domain) {
+  if (!domain) return;
+  var el = document.getElementById("rights-" + domain);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  el.style.transition = "box-shadow .4s";
+  el.style.boxShadow = "0 0 0 3px var(--accent)";
+  setTimeout(function() { el.style.boxShadow = ""; }, 1600);
+}
+function openRolePicker(firstRun) {
+  var old = document.getElementById("roleSheetBd");
+  if (old) old.remove();
+  var bd = document.createElement("div");
+  bd.className = "role-sheet-backdrop"; bd.id = "roleSheetBd";
+  var h = '<div class="role-sheet">';
+  h += '<div style="width:36px;height:4px;border-radius:2px;background:var(--card-border);margin:0 auto 12px"></div>';
+  h += '<h3 style="font-size:16px;font-weight:800;color:var(--text);margin:0 0 4px;text-align:center">' + (firstRun ? "欢迎来到律衡 🐋" : "选择你的身份") + '</h3>';
+  h += '<p style="font-size:12px;color:var(--text2);text-align:center;margin:0 0 14px;line-height:1.6">' + (firstRun ? "先告诉我你是谁——主页主题、字号与快捷入口会围绕你的场景定制" : "不同身份有专属的主题色、字号与快捷入口，随时可切换") + '</p>';
+  h += '<div class="role-grid">';
+  for (var k in ROLES) {
+    var it = ROLES[k];
+    h += '<button class="role-card' + (k === curRole ? " on" : "") + '" onclick="pickRole(\'' + k + '\')">'
+      + '<div class="ri">' + it.ico + '</div><div class="rn">' + it.name + '</div><div class="rd">' + it.dom + '</div>'
+      + '<div class="rt">' + (it.scale > 1 ? "大字模式" : it.dom.split(" · ")[0]) + '</div></button>';
+  }
+  h += '</div>';
+  h += '<button style="width:100%;margin-top:14px;padding:12px;border:none;border-radius:14px;background:var(--input-bg);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit" onclick="skipRolePicker()">稍后再说</button>';
+  h += '</div>';
+  bd.innerHTML = h;
+  document.body.appendChild(bd);
+  requestAnimationFrame(function() { bd.classList.add("show"); });
+  bd.addEventListener("click", function(e) { if (e.target === bd) skipRolePicker(); });
+}
+function skipRolePicker() {
+  try { localStorage.setItem(ROLE_SKIP_KEY, "1"); } catch(e) {}
+  var bd = document.getElementById("roleSheetBd");
+  if (bd) { bd.classList.remove("show"); setTimeout(function() { bd.remove(); }, 300); }
+}
+function pickRole(k) {
+  if (!ROLES[k]) return;
+  curRole = k;
+  try { localStorage.setItem(ROLE_KEY, k); localStorage.setItem(ROLE_SKIP_KEY, "1"); } catch(e) {}
+  applyRole(); renderRoleUI(); updateProfileUI();
+  var bd = document.getElementById("roleSheetBd");
+  if (bd) { bd.classList.remove("show"); setTimeout(function() { bd.remove(); }, 300); }
+  showToast(ROLES[k].ico + " 已切换为「" + ROLES[k].name + "」——" + ROLES[k].tag);
+}
+// 聊天欢迎页的角色化快捷问题
+function chatQuickButtons() {
+  var r = roleOf(curRole);
+  var list = r ? r.chats : ["公司拖欠工资几个月了怎么办？", "买到假货能退一赔三吗？", "房东不退押金能起诉吗？", "借钱没写借条能要回来吗？"];
+  var icons = r && r.cico ? r.cico : ["💼", "🛒", "🏠", "💰"];
+  return list.map(function(q, i) {
+    return '<button class="quick-btn" onclick="sendMsg(\'' + q.replace(/'/g, "\\'") + '\')">' + (icons[i % icons.length]) + " " + escHtml(q) + '</button>';
+  }).join("");
+}
+
+// ============================================================
 // 知识库：领域规则（FR-02 分流）+ FAQ 库（30+ 高频场景）+ 检索注入
 // ============================================================
 var DOMAIN_RULES = {
@@ -3756,7 +4033,7 @@ function renderRights() {
   h += '<p style="font-size:12px;color:var(--text2);line-height:1.7;margin:4px 2px 14px">按领域整理「找谁 · 流程 · 带什么材料」。重大或复杂纠纷请拨打 <b style="color:var(--accent)">12348</b> 法律援助热线。以下为普法信息，不构成法律意见。</p>';
   for (var i = 0; i < RIGHTS_DATA.length; i++) {
     var r = RIGHTS_DATA[i];
-    h += '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:16px;margin-bottom:14px">';
+    h += '<div id="rights-' + r.key + '" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:16px;margin-bottom:14px">';
     h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:22px">' + r.icon + '</span><b style="font-size:15px">' + r.name + '</b><span style="margin-left:auto;font-size:12px;color:var(--accent);background:var(--accent-light);padding:3px 10px;border-radius:12px;font-weight:700">热线 ' + r.hotline + '</span></div>';
     h += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin:8px 0 6px">① 找谁</div>';
     for (var j = 0; j < r.paths.length; j++) {
@@ -3808,6 +4085,10 @@ function buildSystemPrompt(userText) {
     "末尾固定附一句：以上为普法信息，不构成法律意见。"
   ].join("\n");
 
+  // 角色身份上下文（按身份定制回答语言与侧重）
+  var rc = roleOf(curRole);
+  if (rc) base += "\n\n【当前用户身份】" + rc.name + "。" + rc.prompt;
+
   // 领域自动识别与知识库注入（FR-02 / FR-04）
   var dk = detectDomain(userText || "");
   if (dk) {
@@ -3853,13 +4134,7 @@ function renderAllMessages() {
   if (messages.length === 0) {
     dom.messages.innerHTML = '<div class="welcome"><div class="wicon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div><h2>律衡 · 法律咨询</h2><p class="welcome-model-desc">面向普通公众的免费普法智能体<br>听得懂的解释 · 有依据的法条 · 可执行的指引</p>' +
       '<div class="capability-row"><span class="capability-chip highlight">劳动维权</span><span class="capability-chip">消费维权</span><span class="capability-chip">租房纠纷</span><span class="capability-chip">民间借贷</span><span class="capability-chip">交通事故</span><span class="capability-chip">婚姻家庭</span></div>' +
-      '<div class="section-label">试试这些高频问题</div><div class="quick-prompts" id="quickPrompts">' +
-      '<button class="quick-btn" onclick="sendMsg(\'公司拖欠工资几个月了，该怎么办？\')">💼 公司拖欠工资怎么办</button>' +
-      '<button class="quick-btn" onclick="sendMsg(\'在网购平台买到假货，能退一赔三吗？\')">🛒 买到假货退一赔三</button>' +
-      '<button class="quick-btn" onclick="sendMsg(\'房东无理由不退押金，我能起诉吗？\')">🏠 房东不退押金</button>' +
-      '<button class="quick-btn" onclick="sendMsg(\'借钱给别人没写借条，还能要回来吗？\')">💰 借钱没写借条</button>' +
-      '<button class="quick-btn" onclick="sendMsg(\'发生交通事故对方全责，我该走什么流程？\')">🚗 交通事故全责理赔</button>' +
-      '<button class="quick-btn" onclick="sendMsg(\'被公司无故辞退，有补偿或赔偿吗？\')">📄 被辞退怎么赔偿</button>' +
+            '<div class="section-label">' + (roleOf(curRole) ? "为你 · " + roleOf(curRole).name : "试试这些高频问题") + '</div><div class="quick-prompts" id="quickPrompts">' + chatQuickButtons() +
       '</div></div>';
     dom.inputBar.style.display = ""; dom.typing.style.display = "none";
     return;
