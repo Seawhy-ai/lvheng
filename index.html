@@ -497,7 +497,7 @@ function renderPersona(p){
         '</div>'+
         '<div class="quick">'+p.qs.map(function(q){return qcard(p,q);}).join('')+'</div>'+
         '<div style="margin:26px 0 8px;text-align:center">'+
-          '<button class="btn" onclick="driveChat(p.suggest)">💬 把这句问题带入 AI 咨询</button>'+
+          '<button class="btn" onclick="driveChat(PERSONA[curP].suggest)">💬 把这句问题带入 AI 咨询</button>'+
           '<button class="btn ghost" style="margin-left:10px" onclick="reGate()">↪ 返回身份选择</button>'+
         '</div>'+
       '</div>'+

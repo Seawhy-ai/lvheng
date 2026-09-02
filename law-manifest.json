@@ -1,12 +1,12 @@
 {
   "name": "律衡 · 全民法律知识普惠",
   "short_name": "律衡",
-  "description": "全民法律知识普惠 · 法律数据库 · AI咨询 · 题库练习",
-  "start_url": "/lvheng/law.html",
+  "description": "全民法律知识普惠智能体 · 法律咨询 · 维权指引 · 题库练习",
+  "start_url": "/lvheng/",
   "scope": "/lvheng/",
   "display": "standalone",
   "orientation": "portrait",
-  "theme_color": "#111111",
+  "theme_color": "#1a5276",
   "background_color": "#ffffff",
   "icons": [
     {
