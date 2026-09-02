@@ -1,0 +1,23 @@
+{
+  "name": "LexPilot · 法学生AI助手",
+  "short_name": "LexPilot",
+  "description": "法学生AI学习助手 · 法律数据库 · 深度案例分析",
+  "start_url": "/ai-chat/lexpilot/",
+  "scope": "/ai-chat/lexpilot/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1a5276",
+  "background_color": "#f8f9fa",
+  "icons": [
+    {
+      "src": "/ai-chat/swai-avatar.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/ai-chat/swai-avatar.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
