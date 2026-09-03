@@ -1067,6 +1067,41 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     .home-bg:not(.bg-default) ~ .role-quicks .rq{background:rgba(255,255,255,.72)}
     body.dark .home-bg:not(.bg-default) ~ .role-quicks .rq{background:rgba(24,26,32,.78)}
 
+
+    /* ===== 维权路径：可展开小卡片 ===== */
+    .rt-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;margin-bottom:10px;overflow:hidden;transition:border-color .2s, box-shadow .3s}
+    .rt-card.open{border-color:var(--accent);box-shadow:0 4px 16px rgba(26,82,118,.08)}
+    .rt-head{display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer;user-select:none}
+    .rt-head:active{background:var(--input-bg)}
+    .rt-ico{font-size:24px;line-height:1;flex-shrink:0}
+    .rt-main{flex:1;min-width:0}
+    .rt-main b{font-size:14.5px;color:var(--text);display:block}
+    .rt-sub{font-size:11px;color:var(--text2);display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rt-hotline{font-size:11px;color:var(--accent);background:var(--accent-light);padding:3px 9px;border-radius:12px;font-weight:700;flex-shrink:0}
+    .rt-arrow{color:var(--text2);font-size:13px;flex-shrink:0;transition:transform .25s}
+    .rt-arrow.open{transform:rotate(180deg);color:var(--accent)}
+    .rt-body{display:none;padding:2px 14px 14px;border-top:1px dashed var(--card-border)}
+    .rt-sec{margin-top:10px}
+    .rt-lab{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px}
+    .rt-path{font-size:12.5px;line-height:1.6;margin-bottom:5px}
+    .rt-path b{color:var(--text)}
+    .rt-path span{color:var(--text2)}
+    .rt-steps{font-size:12.5px;line-height:1.75;padding-left:18px;margin:0;color:var(--text)}
+    .rt-mats{font-size:12px;line-height:1.8}
+    .rt-mat{display:inline-block;background:var(--accent-light);color:var(--accent);border-radius:8px;padding:2px 8px;margin:0 6px 6px 0}
+
+    /* ===== 文书推荐徽标 / 聊天快捷栏 / 案例角色提示 ===== */
+    .doc-type-card{position:relative}
+    .dt-badge{position:absolute;top:8px;right:8px;font-size:9.5px;font-weight:700;color:var(--accent);background:var(--accent-light);border-radius:8px;padding:2px 7px;letter-spacing:.3px}
+    .chat-quickbar{display:flex;gap:6px;overflow-x:auto;padding:8px 12px 2px;scrollbar-width:none;max-width:600px;margin:0 auto;width:100%}
+    .chat-quickbar::-webkit-scrollbar{display:none}
+    .chat-quickbar:empty{display:none}
+    .cqb{flex:0 0 auto;font-size:12px;font-weight:600;color:var(--text);background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:8px 13px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:transform .15s}
+    .cqb:active{transform:scale(.94);background:var(--accent-light)}
+    .case-role-hint{display:none;font-size:11px;color:var(--accent);background:var(--accent-light);border-radius:10px;padding:5px 10px;margin:8px 12px 0}
+    .case-role-hint.show{display:inline-block}
+    .cd-src{font-size:11.5px;color:var(--text2);line-height:1.7}
+    .cd-src a{color:var(--accent);font-weight:700;text-decoration:underline}
 /* ===== 内置键盘 IME ===== */
     #ime{position:fixed;left:0;right:0;bottom:0;z-index:99999;background:var(--card-bg);border-top:1px solid var(--card-border);padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -6px 24px rgba(0,0,0,.14);font-family:inherit;user-select:none;-webkit-user-select:none;display:none}
     #ime.show{display:block}
@@ -1197,6 +1232,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <div class="typing-dots no-avatar" id="typing" style="display:none"><span></span><span></span><span></span></div>
   </main>
   <footer class="input-bar" id="inputBar">
+    <div class="chat-quickbar" id="chatQuickBar"></div>
     <div class="input-tools" id="inputTools">
       <button class="input-tool on" id="tDeep" onclick="toggleOptBtn('deep','tDeep')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> 深度</button>
       <button class="input-tool" id="tMulti" onclick="toggleOptBtn('multi','tMulti')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 多视角</button>
@@ -1245,6 +1281,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <span class="title">案例数据库</span>
   </div>
   <div class="case-cats" id="caseCats"></div>
+  <div style="text-align:center"><span class="case-role-hint" id="caseRoleHint"></span></div>
   <div class="case-body" id="caseList"></div>
 </div>
 <div class="case-detail" id="caseDetail">
@@ -1263,7 +1300,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
   <div class="db-body">
     <div class="db-header">
       <h2>核心法律法规</h2>
-      <p>全文可下载 · 仅供学习参考</p>
+      <p>来源：国家法律法规数据库（flk.npc.gov.cn）· 全文可下载 · 仅供学习参考</p>
     </div>
     <div class="db-search">
       <input type="text" id="dbSearch" placeholder="搜索法律名称…" oninput="filterLaws()" />
@@ -1943,9 +1980,9 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- Toast -->
 <div id="toast" style="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--toast-bg);color:var(--toast-text);padding:10px 20px;border-radius:20px;font-size:13px;z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.2)"></div>
 
-<script src="templates.js?v=1.2.6"></script>
+<script src="templates.js?v=1.3.0"></script>
 <script src="quiz_data.js?v=1.5.0"></script>
-<script src="case_data.js?v=1.2.6"></script>
+<script src="case_data.js?v=2.0.0"></script>
 <script src="quiz_extra.js?v=1.0.0"></script>
 <script src="ime_data.js?v=1.0.0"></script>
 <script src="fcitx5-bridge.js?v=1.0.0"></script>
@@ -2653,11 +2690,12 @@ try { applyBubbleStyle(); } catch(e) {}
 // ============================================================
 // AUTO CHANGELOG — 自动更新日志系统
 // ============================================================
-var APP_VERSION = "v4.2.0";
+var APP_VERSION = "v4.3.0";
 var APP_VERSION_DATE = "2026.09.03";
 var CHANGELOG_KEY = "seawhy-lex-changelog";
 
 var DEFAULT_CHANGELOG = [
+  { ver: "v4.3.0", date: "2026.09.03", notes: "维权路径改为可展开小卡片（点击展开找谁/流程/材料）；法律文书按所选角色优先排序并标注推荐；AI咨询底部新增角色化快捷输入栏；案例库按角色优先排序；案例库整体重建为最高人民法院官方发布的指导案例与典型案例（指导案例18/23/24号、涉欠薪/消费者权益/彩礼/虚假诉讼逃废债典型案例等13件，均附官方来源与原文链接）；法条库标注国家法律法规数据库来源" },
   { ver: "v4.2.0", date: "2026.09.03", notes: "底部导航按角色定制：劳动从业者显示计算器、消费者/租客/市民显示维权、长辈显示一键援助热线、法学生与大学生保留学习；主页移除打卡与待办卡片，打卡移入学习中心；普法服务新增法律计算器与学习工具入口；计算器新增加班费计算；文书生成新增劳动仲裁申请书与投诉书模板" },
   { ver: "v4.1.0", date: "2026.09.03", notes: "新增主页角色系统：进入主页先选择身份（劳动从业者/法学生/在校大学生/消费者/租客与房东/普通市民/银发长辈），不同身份拥有专属主题色、用户气泡配色、字号与信息密度（长辈角色为大字模式）、主页快捷入口与AI咨询快捷问题，AI回答按身份定制语言与侧重；身份门选择将同步到引擎" },
   { ver: "v4.0.0", date: "2026.09.03", notes: "对齐《律衡项目书》：移除积分/夺宝/换装/课程表/视频/剧情等与普法无关的功能；系统提示词改为公益普法助手（结论-依据-行动-边界）；新增领域自动识别与知识库检索注入、FAQ 高频场景库（30条）、维权路径速查（渠道/流程/材料清单）、回答免责与刑事转介兜底；AI咨询/解析/笔记创建全部免费开放；数据全部本地化，去除云端同步与账号体系" }
@@ -3288,11 +3326,28 @@ function goBackFromPlaza() {
   }
 }
 
+function renderChatQuickBar() {
+  var bar = document.getElementById("chatQuickBar");
+  if (!bar) return;
+  var r = roleOf(curRole);
+  var list = r ? r.chats : ["公司拖欠工资几个月了怎么办？", "买到假货能退一赔三吗？", "房东不退押金能起诉吗？"];
+  var icons = r && r.cico ? r.cico : ["💼", "🛒", "🏠", "💰"];
+  bar.innerHTML = list.map(function(q, i) {
+    var short = q.length > 15 ? q.slice(0, 15) + "…" : q;
+    return '<button class="cqb" data-q="' + q.replace(/"/g, "&quot;") + '" onclick="quickBarAsk(this)">' + icons[i % icons.length] + " " + escHtml(short) + '</button>';
+  }).join("");
+}
+function quickBarAsk(btn) {
+  var inp = document.getElementById("userInput");
+  if (inp) { inp.value = btn.getAttribute("data-q"); try { inp.style.height = "auto"; } catch(e) {} }
+  showToast("已填入问题，点发送即可");
+}
 function enterChat() {
   hideAllViews();
   document.getElementById("chatView").classList.add("show");
   updateOptUI();
   renderAllMessages();
+  renderChatQuickBar();
 }
 
 // ============================================================
@@ -3803,6 +3858,7 @@ function renderRoleUI() {
   var pr = document.getElementById("profileRoleChip");
   if (pr) pr.innerHTML = r ? r.ico + " " + r.name + " · 切换" : "选择身份";
   renderBottomNav();
+  renderChatQuickBar();
 }
 function runRoleQuick(i) {
   var r = roleOf(curRole); if (!r) return;
@@ -3827,7 +3883,8 @@ function runRoleQuick(i) {
 }
 function focusRights(domain) {
   if (!domain) return;
-  var el = document.getElementById("rights-" + domain);
+  toggleRightsCard(domain, true);
+  var el = document.getElementById("rt-card-" + domain);
   if (!el) return;
   el.scrollIntoView({ behavior: "smooth", block: "start" });
   el.style.transition = "box-shadow .4s";
@@ -4055,23 +4112,38 @@ function renderRights() {
   var box = document.getElementById("rightsBody");
   if (!box) return;
   var h = '<div style="max-width:640px;margin:0 auto;padding:6px 4px 30px">';
-  h += '<p style="font-size:12px;color:var(--text2);line-height:1.7;margin:4px 2px 14px">按领域整理「找谁 · 流程 · 带什么材料」。重大或复杂纠纷请拨打 <b style="color:var(--accent)">12348</b> 法律援助热线。以下为普法信息，不构成法律意见。</p>';
+  h += '<p style="font-size:12px;color:var(--text2);line-height:1.7;margin:4px 2px 14px">点开你的场景，查看「找谁 · 流程 · 带什么材料」。重大或复杂纠纷请拨打 <b style="color:var(--accent)">12348</b> 法律援助热线。以下为普法信息，不构成法律意见。</p>';
   for (var i = 0; i < RIGHTS_DATA.length; i++) {
     var r = RIGHTS_DATA[i];
-    h += '<div id="rights-' + r.key + '" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:16px;margin-bottom:14px">';
-    h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:22px">' + r.icon + '</span><b style="font-size:15px">' + r.name + '</b><span style="margin-left:auto;font-size:12px;color:var(--accent);background:var(--accent-light);padding:3px 10px;border-radius:12px;font-weight:700">热线 ' + r.hotline + '</span></div>';
-    h += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin:8px 0 6px">① 找谁</div>';
+    h += '<div class="rt-card" id="rt-card-' + r.key + '">';
+    h += '<div class="rt-head" onclick="toggleRightsCard(\'' + r.key + '\')">';
+    h += '<span class="rt-ico">' + r.icon + '</span>';
+    h += '<div class="rt-main"><b>' + escHtml(r.name) + '</b><span class="rt-sub">' + escHtml(r.paths[0].t) + '</span></div>';
+    h += '<span class="rt-hotline">热线 ' + r.hotline + '</span><span class="rt-arrow" id="rt-arrow-' + r.key + '">▾</span>';
+    h += '</div>';
+    h += '<div class="rt-body" id="rt-body-' + r.key + '">';
+    h += '<div class="rt-sec"><div class="rt-lab">① 找谁</div>';
     for (var j = 0; j < r.paths.length; j++) {
-      h += '<div style="font-size:12.5px;line-height:1.6;margin-bottom:6px"><b>' + escHtml(r.paths[j].t) + '</b><span style="color:var(--text2)"> — ' + escHtml(r.paths[j].d) + '</span></div>';
+      h += '<div class="rt-path"><b>' + escHtml(r.paths[j].t) + '</b><span> — ' + escHtml(r.paths[j].d) + '</span></div>';
     }
-    h += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin:8px 0 6px">② 流程</div><ol style="font-size:12.5px;line-height:1.7;padding-left:18px;margin:0">';
+    h += '</div><div class="rt-sec"><div class="rt-lab">② 流程</div><ol class="rt-steps">';
     for (var j = 0; j < r.steps.length; j++) h += '<li>' + escHtml(r.steps[j]) + '</li>';
-    h += '</ol><div style="font-size:12px;font-weight:700;color:var(--text2);margin:8px 0 6px">③ 材料清单</div><div style="font-size:12.5px;line-height:1.8">';
-    for (var j = 0; j < r.mats.length; j++) h += '<span style="display:inline-block;background:var(--accent-light);color:var(--accent);border-radius:8px;padding:2px 8px;margin:0 6px 6px 0">' + escHtml(r.mats[j]) + '</span>';
-    h += '</div></div>';
+    h += '</ol></div><div class="rt-sec"><div class="rt-lab">③ 材料清单</div><div class="rt-mats">';
+    for (var j = 0; j < r.mats.length; j++) h += '<span class="rt-mat">' + escHtml(r.mats[j]) + '</span>';
+    h += '</div></div></div></div>';
   }
   h += '</div>';
   box.innerHTML = h;
+}
+function toggleRightsCard(key, forceOpen) {
+  var body = document.getElementById("rt-body-" + key);
+  var arrow = document.getElementById("rt-arrow-" + key);
+  if (!body) return;
+  var willOpen = (forceOpen === true) ? true : (body.style.display !== "block");
+  body.style.display = willOpen ? "block" : "none";
+  if (arrow) { arrow.textContent = willOpen ? "▴" : "▾"; arrow.classList.toggle("open", willOpen); }
+  var card = document.getElementById("rt-card-" + key);
+  if (card) card.classList.toggle("open", willOpen);
 }
 
 // 回答边界后处理（FR-07）：刑事转介提醒 + 免责声明兜底
@@ -4349,12 +4421,27 @@ function clearHistory() {
 // CASE DATABASE
 // ============================================================
 var currentCaseCat = 0;
-function showCaseDatabase(){hideAllViews();document.getElementById("caseView").classList.add("show");recordLastStudy("caseView");if(typeof CASE_DATA!=='undefined'&&CASE_DATA.length>0){currentCaseCat=0;renderCaseCategories();renderCaseList();}}
+var CASE_ROLE_ORDER = {
+  worker: ["劳动纠纷","交通事故","消费维权","民间借贷","租房纠纷","婚姻家庭"],
+  lawschool: [],
+  student: ["劳动纠纷","租房纠纷","消费维权","民间借贷","交通事故","婚姻家庭"],
+  consumer: ["消费维权","民间借贷","租房纠纷","劳动纠纷","交通事故","婚姻家庭"],
+  renter: ["租房纠纷","消费维权","劳动纠纷","民间借贷","交通事故","婚姻家庭"],
+  citizen: ["民间借贷","婚姻家庭","交通事故","消费维权","租房纠纷","劳动纠纷"],
+  senior: ["民间借贷","消费维权","婚姻家庭","交通事故","租房纠纷","劳动纠纷"]
+};
+function orderCasesByRole(){
+  var r=roleOf(curRole);var pref=r&&CASE_ROLE_ORDER[curRole];
+  if(!pref||!pref.length)return false;
+  CASE_DATA.sort(function(a,b){return pref.indexOf(a.name)-pref.indexOf(b.name);});
+  return true;
+}
+function showCaseDatabase(){hideAllViews();document.getElementById("caseView").classList.add("show");recordLastStudy("caseView");if(typeof CASE_DATA!=='undefined'&&CASE_DATA.length>0){var ordered=orderCasesByRole();currentCaseCat=0;renderCaseCategories();renderCaseList();var hint=document.getElementById("caseRoleHint");if(hint){if(ordered&&roleOf(curRole)){hint.textContent="已按「"+roleOf(curRole).name+"」常见场景优先排序 · 案例均来自最高人民法院官方发布";hint.classList.add("show");}else{hint.classList.remove("show");}}}}
 function renderCaseCategories(){var h='';for(var i=0;i<CASE_DATA.length;i++){h+='<button class="case-cat-btn'+(i===currentCaseCat?' active':'')+'" onclick="switchCaseCat('+i+')">'+escHtml(CASE_DATA[i].name)+'</button>';}document.getElementById("caseCats").innerHTML=h;}
 function switchCaseCat(idx){currentCaseCat=idx;renderCaseCategories();renderCaseList();document.getElementById("caseList").scrollTop=0;}
 function renderCaseList(){var cat=CASE_DATA[currentCaseCat];var h='';for(var i=0;i<cat.cases.length;i++){var c=cat.cases[i];var t=c.t.replace(/^案例[一二三四五六七八九十\d]+[\s:：]*/,'').replace(/[:：]\s*$/,'');var ex=(c.f||'').replace(/\s+/g,' ').slice(0,50);if((c.f||'').replace(/\s+/g,' ').length>50)ex+='…';h+='<div class="case-card" onclick="openCaseDetail('+i+')"><div class="case-num">'+(i+1)+'</div><div class="case-info"><div class="case-title">'+escHtml(t)+'</div><div class="case-sub">'+escHtml(ex)+'</div></div><div class="case-arrow">›</div></div>';}document.getElementById("caseList").innerHTML=h;}
 function caseParas(s){var parts=s.split(/\n+/).map(function(x){return x.trim();}).filter(Boolean);return parts.map(function(p){return '<p>'+escHtml(p)+'</p>';}).join('');}
-function openCaseDetail(idx){var c=CASE_DATA[currentCaseCat].cases[idx];var t=c.t.replace(/^案例[一二三四五六七八九十\d]+[\s:：]*/,'').replace(/[:：]\s*$/,'');document.getElementById("cdTitle").textContent=t;var h='';h+='<div class="cd-head"><span class="cd-cat">'+escHtml(CASE_DATA[currentCaseCat].name)+'</span><div class="cd-t">'+escHtml(t)+'</div></div>';if(c.f)h+='<div class="cd-section card"><h5><span>📋</span> 基本案情</h5>'+caseParas(c.f)+'</div>';if(c.p)h+='<div class="cd-section card"><h5><span>⚖️</span> 裁判 / 处理</h5>'+caseParas(c.p)+'</div>';if(c.s)h+='<div class="cd-section card"><h5><span>💡</span> 典型意义</h5>'+caseParas(c.s)+'</div>';document.getElementById("cdContent").innerHTML=h;document.getElementById("caseDetail").classList.add("show");document.getElementById("caseDetail").scrollTop=0;}
+function openCaseDetail(idx){var c=CASE_DATA[currentCaseCat].cases[idx];var t=c.t.replace(/^案例[一二三四五六七八九十\d]+[\s:：]*/,'').replace(/[:：]\s*$/,'');document.getElementById("cdTitle").textContent=t;var h='';h+='<div class="cd-head"><span class="cd-cat">'+escHtml(CASE_DATA[currentCaseCat].name)+'</span><div class="cd-t">'+escHtml(t)+'</div></div>';if(c.f)h+='<div class="cd-section card"><h5><span>📋</span> 基本案情</h5>'+caseParas(c.f)+'</div>';if(c.p)h+='<div class="cd-section card"><h5><span>⚖️</span> 裁判 / 处理</h5>'+caseParas(c.p)+'</div>';if(c.s)h+='<div class="cd-section card"><h5><span>💡</span> 典型意义</h5>'+caseParas(c.s)+'</div>';if(c.sn)h+='<div class="cd-section card"><h5><span>🔎</span> 官方来源</h5><div class="cd-src">'+escHtml(c.sn)+(c.u?' · <a href="'+c.u+'" target="_blank" rel="noopener">查看官方原文 ↗</a>':'')+'</div></div>';document.getElementById("cdContent").innerHTML=h;document.getElementById("caseDetail").classList.add("show");document.getElementById("caseDetail").scrollTop=0;}
 function closeCaseDetail(){document.getElementById("caseDetail").classList.remove("show");}
 
 
@@ -7265,12 +7352,32 @@ function showDocGen() {
   document.getElementById("docResultArea").innerHTML = "";
 }
 
+var DOC_ROLE_ORDER = {
+  worker: ["laborarb", "employment", "complaint"],
+  lawschool: [],
+  student: ["complaint", "lease", "laborarb"],
+  consumer: ["complaint", "purchase", "loan"],
+  renter: ["lease", "complaint"],
+  citizen: ["complaint", "loan", "purchase"],
+  senior: ["complaint", "laborarb"]
+};
 function renderDocTypes() {
+  var pref = (roleOf(curRole) && DOC_ROLE_ORDER[curRole]) || [];
+  var list = DOC_TYPES.slice();
+  if (pref.length) list.sort(function(a, b) {
+    var ia = pref.indexOf(a.id), ib = pref.indexOf(b.id);
+    if (ia < 0 && ib < 0) return 0;
+    if (ia < 0) return 1;
+    if (ib < 0) return -1;
+    return ia - ib;
+  });
   var h = "";
-  for (var i = 0; i < DOC_TYPES.length; i++) {
-    var t = DOC_TYPES[i];
+  for (var i = 0; i < list.length; i++) {
+    var t = list[i];
     var sel = DOC_STATE.selectedType && DOC_STATE.selectedType.id === t.id ? " selected" : "";
+    var rec = pref.indexOf(t.id) >= 0 && pref.indexOf(t.id) < 2;
     h += '<div class="doc-type-card' + sel + '" onclick="selectDocType(\'' + t.id + '\')">';
+    if (rec) h += '<span class="dt-badge">' + (roleOf(curRole) ? roleOf(curRole).ico + " 为你推荐" : "推荐") + '</span>';
     h += '<div class="dt-icon">' + t.icon + '</div>';
     h += '<div class="dt-name">' + t.name + '</div>';
     h += '<div class="dt-desc">' + t.desc + '</div>';
