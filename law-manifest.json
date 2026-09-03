@@ -2,7 +2,7 @@
   "name": "律衡 · 全民法律知识普惠",
   "short_name": "律衡",
   "description": "全民法律知识普惠智能体 · 法律咨询 · 维权指引 · 题库练习",
-  "start_url": "/lvheng/",
+  "start_url": "/lvheng/law.html",
   "scope": "/lvheng/",
   "display": "standalone",
   "orientation": "portrait",
