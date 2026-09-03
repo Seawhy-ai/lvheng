@@ -48,7 +48,7 @@
     #loginScreen .screen{display:none!important}
     #loginScreen.screen.show{display:flex!important}
     body.dark #loginScreen{background:linear-gradient(180deg,#1a1a1a 0%,#151515 100%)!important}
-    #homeScreen{align-items:center;justify-content:space-between;padding:0;text-align:center;min-height:100dvh;min-height:-webkit-fill-available;background:transparent;position:relative;overflow:hidden}
+    #homeScreen{align-items:center;justify-content:space-between;padding:0;text-align:center;min-height:100dvh;min-height:-webkit-fill-available;background:transparent;position:relative;overflow-y:auto;overflow-x:hidden}
     /* default 模式背景迁移至 #homeBg（fixed 全屏，覆盖状态栏+底部安全区） */
     #homeBg.bg-default{background:linear-gradient(160deg,#ffffff 0%,#f1f6fd 18%,#e4eefa 40%,#d8e8f8 62%,#ecf3fb 100%)}
     body.dark #homeBg.bg-default{background:linear-gradient(160deg,#161a26 0%,#1c2436 26%,#232f4b 55%,#1b2338 80%,#161a26 100%)}
@@ -1060,6 +1060,13 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     body[data-role="senior"] .rightsBodyFont,body[data-role="senior"] #rightsBody{font-size:15px}
     body[data-role="senior"] #rightsBody span,body[data-role="senior"] #rightsBody b,body[data-role="senior"] #rightsBody li{font-size:14px}
     body[data-role="senior"] .pm-item{font-size:15.5px;padding:16px}
+    body[data-role="senior"] #homeScreen{justify-content:flex-start;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+    body[data-role="senior"] #homeScreen .welcome-hero{flex:0 0 auto;min-height:0;padding-top:calc(72px + var(--safe-top));padding-bottom:12px}
+    body[data-role="senior"] #homeScreen .quote-card{min-height:0;overflow:visible}
+    body[data-role="senior"] #homeScreen .quote-text{display:block;-webkit-line-clamp:unset;line-clamp:unset;overflow:visible}
+    body[data-role="senior"] #homeScreen .home-dash-right,body[data-role="senior"] #homeScreen .home-dash-right .dash-swipe-card,body[data-role="senior"] #homeScreen .dash-card{height:auto;min-height:148px}
+    body[data-role="senior"] #homeScreen .dash-card{overflow:visible}
+    body[data-role="senior"] #homeScreen #bottomNav{margin-bottom:0}
     /* ===== 法学生：紧凑信息密度 ===== */
     body[data-role="lawschool"] #chatView .msg-content{line-height:1.62}
     body[data-role="lawschool"] .quick-btn{font-size:11.5px;padding:10px 9px}
@@ -2057,6 +2064,44 @@ var LEGAL_QUOTES = [
   { "text": "法律就是秩序，有好的法律才有好的秩序。", "author": "亚里士多德" },
   { "text": "刑罚的威慑力不在于刑罚的严酷性，而在于其不可避免性。", "author": "贝卡利亚" }
 ];
+var ROLE_QUOTES = {
+  worker: [
+    { text: "劳动者的合法权益，应当得到法律的保护。", author: "《劳动合同法》" },
+    { text: "签字之前多问一句，工作之中的权益就多一分保障。", author: "律衡提示" },
+    { text: "证据留在手里，维权才有底气。", author: "律衡提示" }
+  ],
+  lawschool: [
+    { text: "法律的生命不在于逻辑，而在于经验。", author: "霍姆斯" },
+    { text: "正义不仅应当得到实现，而且要以人们看得见的方式实现。", author: "桑德拉·戴·奥康纳" },
+    { text: "程序是法治和恣意而治的分水岭。", author: "网络" }
+  ],
+  student: [
+    { text: "知法不是为了记住更多条文，而是为了在需要时保护自己。", author: "律衡提示" },
+    { text: "自由是做法律所许可的一切事情的权利。", author: "孟德斯鸠" },
+    { text: "权利不会永远等在原地，珍视权利也要主动维护它。", author: "律衡提示" }
+  ],
+  consumer: [
+    { text: "消费者的合法权益受法律保护。", author: "《消费者权益保护法》" },
+    { text: "没有被听见不是沉默的理由。", author: "网络" },
+    { text: "保留凭证，讲清事实，维权就有了起点。", author: "律衡提示" }
+  ],
+  renter: [
+    { text: "合同写清楚，居住才安心。", author: "律衡提示" },
+    { text: "法不强人所难。", author: "网络" },
+    { text: "权利和义务写在纸上，争议才有解决的依据。", author: "律衡提示" }
+  ],
+  citizen: [
+    { text: "法律面前人人平等。", author: "网络" },
+    { text: "法不能向不法让步。", author: "网络" },
+    { text: "遇到纠纷先留证，再依法解决。", author: "律衡提示" }
+  ],
+  senior: [
+    { text: "凡是要求先交钱、再办事的‘好消息’，都要先和家人商量。", author: "律衡防骗提示" },
+    { text: "不轻信，不转账，不透露验证码。", author: "律衡防骗提示" },
+    { text: "老年人的合法权益，同样受到法律保护。", author: "律衡提示" },
+    { text: "遇到拿不准的事，停一停，问一问，再决定。", author: "律衡防骗提示" }
+  ]
+};
 
 function typeWriter(el, text, speed, callback) {
   var i = 0;
@@ -2084,7 +2129,8 @@ var _quoteRotationTimer = null;
 var QUOTE_ROTATION_MS = 5000;
 
 function showRandomQuote() {
-  var available = LEGAL_QUOTES.length;
+  var quotes = ROLE_QUOTES[curRole] || LEGAL_QUOTES;
+  var available = quotes.length;
   var nextIndex = Math.floor(Math.random() * available);
   if (available > 1) {
     while (nextIndex === _lastQuoteIndex) {
@@ -2093,7 +2139,7 @@ function showRandomQuote() {
   }
   _lastQuoteIndex = nextIndex;
 
-  var q = LEGAL_QUOTES[nextIndex];
+  var q = quotes[nextIndex];
   var textEl = document.getElementById("quoteText");
   var authorEl = document.getElementById("quoteAuthor");
   var card = document.getElementById("quoteCard");
@@ -3854,6 +3900,8 @@ function applyRole() {
   if (r) document.body.setAttribute("data-role", curRole);
   else document.body.removeAttribute("data-role");
   applyFontPrefs();
+  _lastQuoteIndex = -1;
+  if (document.getElementById("quoteCard")) showRandomQuote();
 }
 function renderRoleUI() {
   var r = roleOf(curRole);
