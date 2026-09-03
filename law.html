@@ -4837,6 +4837,8 @@ var CALC_TYPES = [
 ];
 var _calcCur = "loan";
 function showCalc() {
+  var shown = document.querySelector(".show[id]");
+  _returnView = (shown && shown.id !== "calcView" && shown.id !== "roleSheetBd") ? shown.id : "homeScreen";
   hideAllViews("calcView");
   document.getElementById("calcView").classList.add("show");
   renderCalc();
@@ -5534,6 +5536,8 @@ function getStreak(stats) {
 }
 
 function showLearningCenter() {
+  var shown = document.querySelector(".show[id]");
+  _returnView = (shown && shown.id !== "learnCenterView" && shown.id !== "roleSheetBd") ? shown.id : "homeScreen";
   hideAllViews("learnCenterView");
   var el = document.getElementById("learnCenterView");
   el.style.display = "";
