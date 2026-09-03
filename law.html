@@ -347,6 +347,7 @@
     .law-name{font-size:14px;font-weight:600;line-height:1.3;margin-bottom:2px}
     .law-meta{font-size:11px;color:var(--text2);display:flex;gap:10px;flex-wrap:wrap}
     .law-meta span{white-space:nowrap}
+    .law-note{font-size:12px;line-height:1.5;color:var(--accent);margin-top:5px;word-break:break-word}
     .law-dl{flex-shrink:0;padding:6px 12px;border-radius:14px;border:1px solid var(--accent);color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;background:transparent;transition:all .15s;text-decoration:none;margin-left:4px}
     .law-dl:active{background:var(--accent);color:#fff}
     .law-view-btn{flex-shrink:0;padding:6px 12px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;margin-left:4px}
@@ -1174,9 +1175,6 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <button class="back" onclick="goHome()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">律衡 · 法律咨询</span>
     <div class="nav-right">
-      <button class="right-btn" id="btnHelp" onclick="showHelp()" title="帮助">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      </button>
       <div class="right-btn" id="btnSettings" onclick="toggleSettings()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         <div class="settings-drop" id="settingsDrop">
@@ -1184,12 +1182,6 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
         <div class="s-row">
           <button class="s-btn active" onclick="setTheme('light',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> 浅色</button>
           <button class="s-btn" onclick="setTheme('dark',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> 深色</button>
-        </div>
-        <div class="s-label" style="margin-top:8px">分析增强</div>
-        <div class="s-row" style="flex-wrap:wrap;gap:4px">
-          <button class="s-btn active" id="sDeep" onclick="toggleOptBtn('deep','sDeep')">深度</button>
-          <button class="s-btn" id="sMulti" onclick="toggleOptBtn('multi','sMulti')">多视角</button>
-          <button class="s-btn" id="sPractical" onclick="toggleOptBtn('practical','sPractical')">实务</button>
         </div>
         <div class="s-row" style="margin-top:8px;justify-content:space-between">
           <span class="s-label" style="margin:0">自动切换</span>
@@ -1217,11 +1209,6 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
   </main>
   <footer class="input-bar" id="inputBar">
     <div class="chat-quickbar" id="chatQuickBar"></div>
-    <div class="input-tools" id="inputTools">
-      <button class="input-tool on" id="tDeep" onclick="toggleOptBtn('deep','tDeep')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> 深度</button>
-      <button class="input-tool" id="tMulti" onclick="toggleOptBtn('multi','tMulti')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 多视角</button>
-      <button class="input-tool" id="tPractical" onclick="toggleOptBtn('practical','tPractical')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> 实务</button>
-    </div>
     <div class="input-row">
       <div class="input-field-wrap">
         <textarea id="userInput" class="input-field" placeholder="输入法律问题…" rows="1"></textarea>
@@ -1230,32 +1217,6 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     </div>
     <p class="input-hint">律衡 · AI可能出错 · 请交叉验证 · 仅供学习辅助</p>
   </footer>
-</div>
-
-<!-- ===== HELP MODAL ===== -->
-<div class="modal-overlay hide" id="helpModal">
-  <div class="modal-box">
-    <h3>分析增强功能说明</h3>
-    <p class="modal-sub">开启后，系统提示词会自动追加对应指令</p>
-    <div class="help-section">
-      <h4><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span> 深度分析</h4>
-      <p>对每个关键问题追问三层"为什么"，穿透法理底层。不满足于结论正确，要求AI展开学说对比和立法目的分析。</p>
-      <div class="help-example">例：不仅回答"合同有效"，还要分析有效要件、无效情形、可撤销事由的边界</div>
-    </div>
-    <div class="help-section">
-      <h4><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span> 多视角分析</h4>
-      <p>从原告、被告、法官、立法者、学者五个立场分别切入，全面覆盖诉讼各方的论证逻辑。</p>
-      <div class="help-example">例：同一违约行为，分别分析守约方主张、违约方抗辩、法官裁判思路</div>
-    </div>
-    <div class="help-section">
-      <h4><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></span> 实务指引</h4>
-      <p>补充证据收集清单、诉讼策略建议、类案检索关键词、文书写作要点。弥补AI"知道问题但不知道怎么解决"的短板。</p>
-      <div class="help-example">例：分析案件后，自动建议需要收集哪些证据、如何设计质证策略</div>
-    </div>
-    <div class="btn-row">
-      <button class="btn-primary" onclick="closeHelp()">知道了</button>
-    </div>
-  </div>
 </div>
 
 <!-- ===== DATABASE VIEW ===== -->
@@ -2728,7 +2689,7 @@ try { var s = JSON.parse(localStorage.getItem("seawhy-lex-config") || "{}"); SET
 var userTheme = "light";
 try { userTheme = JSON.parse(localStorage.getItem("seawhy-lex-theme") || '"light"'); } catch(e) {}
 
-var options = { deep: true, multi: false, practical: false, quoteAuto: true, showNickname: false, homeBg: "default", bubbleStyle: "classic" };
+var options = { quoteAuto: true, showNickname: false, homeBg: "default", bubbleStyle: "classic" };
 try { var o = JSON.parse(localStorage.getItem("seawhy-lex-opts") || "{}"); Object.keys(options).forEach(function(k){ if(k in o) options[k] = o[k]; }); } catch(e) {}
 // 立即应用已保存的背景与气泡样式（不等 DOMContentLoaded，避免外部脚本加载慢导致重开后恢复默认）
 try { applyHomeBg(); } catch(e) {}
@@ -3094,6 +3055,27 @@ var LAWS = [
   { name:"中华人民共和国治安管理处罚法", file:"public-security-law-2025.docx", date:"2026-01-01", cat:"行政", icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>', desc:"119条 — 2025修订版" },
   { name:"中华人民共和国危险化学品安全法", file:"hazardous-chemicals-safety-law-2025.docx", date:"2026-01-01", cat:"行政", icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>', desc:"新法 — 2025年通过" }
 ];
+var LAW_ROLE_NOTES = {
+  "civil-code-2020.docx": {
+    worker:"处理工资、借贷、租房、婚姻等日常纠纷时，很多基本规则都在这里。",
+    lawschool:"民事法律的基础法典，适合按总则、物权、合同等编目学习。",
+    student:"兼职、租房、借贷和消费纠纷，常常要先看民法典。",
+    consumer:"买卖、退货、合同违约等问题，可以先从民法典找基本规则。",
+    renter:"租赁合同、押金、维修和转租问题，重点看合同编。",
+    citizen:"借钱、婚姻、交通和邻里纠纷，都可能用到民法典。",
+    senior:"借钱、买东西、租房等生活问题，先看这部法的基本规则。"
+  },
+  "criminal-law-2020.docx": { lawschool:"刑事责任的基础法典，学习犯罪构成、刑罚和常见罪名时使用。", citizen:"遇到盗窃、诈骗、伤害等可能犯罪的情况，应先报警并寻求帮助。", senior:"遇到诈骗、盗窃或人身伤害，先拨打110，不要自己处理。" },
+  "civil-procedure-law-2023.docx": { lawschool:"民事案件如何起诉、举证、开庭和执行，按程序查找依据。", citizen:"想起诉或申请执行时，先看这里了解大致流程和期限。", senior:"打官司前先问家人或法律援助，程序和材料可以在这里核对。" },
+  "labor-contract-law-2012.docx": { worker:"工资、合同、加班、辞退等劳动问题，先看这部法再准备证据。", student:"兼职、实习和入职签约遇到问题，可以先看劳动合同相关规则。", lawschool:"劳动合同订立、履行、解除和终止的核心法律。" },
+  "work-safety-law-2021.docx": { worker:"工作场所存在危险或发生生产安全事故时，用来了解单位的安全责任。", lawschool:"生产经营单位安全保障义务与事故责任的主要法律依据。" },
+  "public-security-law-2025.docx": { citizen:"扰民、打架、毁物等治安问题，可能按这部法处理。", senior:"遇到骚扰、冲突或财物被损坏，可以报警并了解治安处罚规则。", lawschool:"处理违反治安管理行为和行政处罚程序的重要法律。" },
+  "hazardous-chemicals-safety-law-2025.docx": { worker:"从事危险化学品工作时，重点关注单位的安全管理和个人防护责任。", lawschool:"危险化学品生产、经营、储存和运输的专项安全规范。" }
+};
+function lawRoleNote(law) {
+  var notes = LAW_ROLE_NOTES[law.file] || {};
+  return notes[curRole] || (curRole === "lawschool" ? "适合结合条文结构学习，并在需要时回到原文核对。" : "遇到具体问题时，可以从相关条文开始核对，再按实际情况寻求帮助。");
+}
 
 function showDatabase() {
   hideAllViews();
@@ -3106,6 +3088,11 @@ function renderDatabase(filter) {
   var q = (filter || "").toLowerCase();
   var filtered = LAWS.filter(function(l) {
     return !q || l.name.indexOf(q) !== -1 || l.cat.indexOf(q) !== -1 || l.desc.indexOf(q) !== -1;
+  });
+  var roleOrder = (roleOf(curRole) && (curRole === "worker" ? ["labor-contract-law-2012.docx","work-safety-law-2021.docx"] : curRole === "consumer" ? ["civil-code-2020.docx"] : curRole === "renter" ? ["civil-code-2020.docx"] : curRole === "senior" ? ["civil-code-2020.docx","public-security-law-2025.docx","criminal-law-2020.docx"] : [])) || [];
+  filtered.sort(function(a, b) {
+    var ia = roleOrder.indexOf(a.file), ib = roleOrder.indexOf(b.file);
+    return (ia < 0 ? roleOrder.length : ia) - (ib < 0 ? roleOrder.length : ib);
   });
   var cats = {};
   filtered.forEach(function(l) {
@@ -3121,7 +3108,7 @@ function renderDatabase(filter) {
       h += '<div class="law-card">' +
         '<div class="law-icon" onclick="previewLaw(\'' + escAttr(law.file) + '\',\'' + escAttr(law.name) + '\')">' + law.icon + '</div>' +
         '<div class="law-info" onclick="previewLaw(\'' + escAttr(law.file) + '\',\'' + escAttr(law.name) + '\')"><div class="law-name">' + escHtml(law.name) + '</div>' +
-        '<div class="law-meta"><span>生效：' + law.date + '</span><span>' + law.desc + '</span></div></div>' +
+        '<div class="law-meta"><span>生效：' + law.date + '</span><span>' + law.desc + '</span></div><div class="law-note">大白话：' + escHtml(lawRoleNote(law)) + '</div></div>' +
         '<button class="law-view-btn" onclick="event.stopPropagation();openLawReader(\'' + escAttr(law.file) + '\',\'' + escAttr(law.name) + '\')">查看</button>' +
         '<a class="law-dl" href="laws/' + encodeURI(law.file) + '" download onclick="event.stopPropagation()">下载</a>' +
         '</div>';
@@ -4450,11 +4437,6 @@ function buildSystemPrompt(userText) {
     if (hits.length) base += "\n\n【知识库检索命中（可直接引用，注意核实）】\n" + hits.join("\n");
   }
 
-  var mods = [];
-  if (options.deep) mods.push("【深度模式】对关键结论补充说理：为什么这样规定、常见误区是什么。");
-  if (options.multi) mods.push("【多视角】从用户、对方当事人、处理机构三个角度说明各自关注的重点。");
-  if (options.practical) mods.push("【实务】补充证据收集清单与操作注意事项。");
-  if (mods.length > 0) base += "\n\n【当前增强模式】\n" + mods.join("\n");
   return base;
 }
 
@@ -4625,15 +4607,6 @@ function toggleSettings() {
     });
   }, 10);
 }
-
-// ============================================================
-// HELP MODAL
-// ============================================================
-function showHelp() { document.getElementById("helpModal").classList.remove("hide"); }
-function closeHelp() { document.getElementById("helpModal").classList.add("hide"); }
-document.getElementById("helpModal").addEventListener("click", function(e) {
-  if (e.target === this) closeHelp();
-});
 
 function toggleOptBtn(key, id) {
   options[key] = !options[key];
@@ -7071,7 +7044,7 @@ var DOC_TYPES = [
     {key:"purpose",label:"租赁用途",placeholder:"如：居住 / 办公 / 经营",type:"text"},
     {key:"extra",label:"其他约定（选填）",placeholder:"如：不得转租、装修限制等",type:"textarea"}
   ]},
-  { id:"complaint", name:"民事起诉状", icon:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="8"/><path d="M8 8h8a4 4 0 0 1 0 8H8a4 4 0 0 1 0-8z"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="12" y1="16" x2="12" y2="22"/></svg>', desc:"合同纠纷 · 侵权纠纷 · 婚姻家庭", fields:[
+  { id:"civilcomplaint", name:"民事起诉状", icon:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="8"/><path d="M8 8h8a4 4 0 0 1 0 8H8a4 4 0 0 1 0-8z"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="12" y1="16" x2="12" y2="22"/></svg>', desc:"合同纠纷 · 侵权纠纷 · 婚姻家庭", fields:[
     {key:"plaintiff",label:"原告",placeholder:"姓名/名称、性别、出生日期、身份证号、住址、联系电话",type:"textarea"},
     {key:"defendant",label:"被告",placeholder:"姓名/名称、住址、联系电话",type:"textarea"},
     {key:"cause",label:"案由",placeholder:"如：买卖合同纠纷 / 民间借贷纠纷 / 离婚纠纷",type:"text"},
@@ -7110,7 +7083,7 @@ var DOC_TYPES = [
     {key:"facts",label:"事实与理由",placeholder:"简述入职离职经过、欠薪或辞退情况、留证与沟通情况",type:"textarea"},
     {key:"amount",label:"争议金额合计（元）",placeholder:"如：38000",type:"text"}
   ]},
-  { id:"complaint", name:"投诉书（12315/12345）", icon:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>', desc:"消费维权 · 市场监管 · 政务服务", fields:[
+  { id:"consumercomplaint", name:"投诉书（12315/12345）", icon:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>', desc:"消费维权 · 市场监管 · 政务服务", fields:[
     {key:"cperson",label:"投诉人",placeholder:"姓名与联系方式",type:"text"},
     {key:"ctarget",label:"被投诉方",placeholder:"商家名称/平台",type:"text"},
     {key:"cgoods",label:"商品或服务",placeholder:"如：XX品牌运动鞋",type:"text"},
@@ -7133,13 +7106,13 @@ function showDocGen() {
 }
 
 var DOC_ROLE_ORDER = {
-  worker: ["laborarb", "employment", "complaint"],
+  worker: ["laborarb", "employment", "civilcomplaint"],
   lawschool: [],
-  student: ["complaint", "lease", "laborarb"],
-  consumer: ["complaint", "purchase", "loan"],
-  renter: ["lease", "complaint"],
-  citizen: ["complaint", "loan", "purchase"],
-  senior: ["complaint", "laborarb"]
+  student: ["civilcomplaint", "lease", "laborarb"],
+  consumer: ["consumercomplaint", "purchase", "loan"],
+  renter: ["lease", "civilcomplaint"],
+  citizen: ["civilcomplaint", "loan", "purchase"],
+  senior: ["civilcomplaint", "laborarb"]
 };
 function renderDocTypes() {
   var pref = (roleOf(curRole) && DOC_ROLE_ORDER[curRole]) || [];

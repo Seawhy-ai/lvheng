@@ -108,7 +108,7 @@ function buildDocTemplate(t, f) {
     h+="乙方（签字/盖章）：____________\n日期：____________\n\n";
     h+="【律师提示】\"买卖不破租赁\"原则保护承租人在租期内的使用权。房屋租赁建议办理备案登记。";
   }
-  else if(t.id==="complaint"){
+  else if(t.id==="civilcomplaint"){
     h+="                    民事起诉状\n\n";
     h+="原告："+v("plaintiff")+"\n\n";
     h+="被告："+v("defendant")+"\n\n";
@@ -136,7 +136,7 @@ function buildDocTemplate(t, f) {
     h+="申请人（签名）：____________\n"+ds+"\n\n";
     h+="【律师提示】劳动仲裁时效一般为一年（劳动报酬争议在职期间不受此限）。请附劳动合同、工资流水、考勤、聊天记录等证据材料复印件。";
   }
-  else if(t.id==="complaint"){
+  else if(t.id==="consumercomplaint"){
     h+="                    投诉书\n\n";
     h+="投诉人："+v("cperson")+"\n";
     h+="被投诉方："+v("ctarget")+"\n\n";
