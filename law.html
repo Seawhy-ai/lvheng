@@ -120,14 +120,19 @@
     .hbg-name{font-size:14px;font-weight:600;color:var(--text)}
     .hbg-desc{font-size:11px;color:var(--text2)}
 
+    .home-top{display:flex;align-items:center;gap:10px;padding:calc(14px + var(--safe-top)) 14px 0;max-width:440px;margin:0 auto;width:calc(100% - 16px);position:relative;z-index:10}
+    .home-top .profile-btn{position:relative!important;top:auto!important;left:auto!important;right:auto!important;flex-shrink:0}
+    .home-top .global-search{flex:1;min-width:0;margin:0;width:auto;max-width:none}
+    .home-top .gs-box{padding:9px 12px;border-radius:14px}
     .profile-btn{position:absolute!important;top:calc(16px + var(--safe-top));left:20px!important;right:auto!important;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:20px;background:var(--icon-bg);border:1px solid var(--card-border);z-index:10;transition:all .15s;overflow:hidden}
     body.dark .profile-btn{background:var(--icon-bg);border:1px solid var(--card-border)}
     .profile-btn:active{transform:scale(.92);opacity:.8}
 
     /* ===== WELCOME SCREEN ===== */
-    .welcome-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:calc(50px + var(--safe-top))}
+    .welcome-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;padding-top:calc(10px + var(--safe-top))}
     .whale-icon{font-size:52px;margin-bottom:28px;animation:whaleFloat 3s ease-in-out infinite;content:"●"}
     .whale-icon .esvg{width:56px;height:56px}
+    .whale-icon img{width:112px;height:112px;border-radius:50%;display:block;box-shadow:0 10px 30px rgba(41,128,185,.28)}
     @keyframes whaleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
     .typewriter{font-family:"SimSun","STSong","Songti SC","Noto Serif CJK SC",serif;font-size:clamp(30px,7vw,44px);font-weight:400;color:var(--text);min-height:60px;letter-spacing:6px;transition:opacity .3s}
     .typewriter .cursor{display:inline-block;width:3px;height:1em;background:var(--accent);margin-left:4px;animation:blink 1s step-end infinite;vertical-align:text-bottom}
@@ -1096,7 +1101,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     body[data-role="senior"] #rightsBody span,body[data-role="senior"] #rightsBody b,body[data-role="senior"] #rightsBody li{font-size:14px}
     body[data-role="senior"] .pm-item{font-size:15.5px;padding:16px}
     body[data-role="senior"] #homeScreen{justify-content:flex-start;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
-    body[data-role="senior"] #homeScreen .welcome-hero{flex:0 0 auto;min-height:0;padding-top:calc(72px + var(--safe-top));padding-bottom:12px}
+    body[data-role="senior"] #homeScreen .welcome-hero{flex:0 0 auto;min-height:0;padding-top:calc(18px + var(--safe-top));padding-bottom:12px}
     body[data-role="senior"] #homeScreen .quote-card{min-height:0;overflow:visible}
     body[data-role="senior"] #homeScreen .quote-card{width:calc(100% - 32px);max-width:520px;padding:22px 24px}
     body[data-role="senior"] #homeScreen .quote-text{display:block;-webkit-line-clamp:unset;line-clamp:unset;overflow:visible;font-size:20px;line-height:1.7;letter-spacing:0}
@@ -1181,20 +1186,22 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== HOME SCREEN ===== -->
 <div class="screen" id="homeScreen" style="display:none">
   <div class="home-bg" id="homeBg"></div>
-  <div class="profile-btn" id="homeProfileBtn" onclick="goToProfile()" title="个人中心"></div>
-<div class="welcome-hero">
-    <div class="whale-icon"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M3.5 13C3.5 9.7 6.6 7 10.5 7c2.5 0 4.7 1 6.3 2.6L20.5 6.5 18.3 10.5 21 13.5c-1.2 1.8-3.1 3-5.4 3H7.8C5.2 16.5 3.5 14.9 3.5 13z"/><circle fill="none" stroke="currentColor" cx="6.5" cy="10.8" r=".8"/><path fill="none" stroke="currentColor" d="M5.4 14c.8.5 1.7.8 2.6.8"/><path fill="none" stroke="currentColor" d="M10.8 6.8c-.6-1-1.3-1.7-2.2-2.2"/></svg></div>
+  <div class="home-top">
+    <div class="profile-btn" id="homeProfileBtn" onclick="goToProfile()" title="个人中心"></div>
+    <div class="global-search">
+      <div class="gs-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="globalSearchInput" placeholder="搜索法条关键词 / 案例关键词 / 案号…" maxlength="50" enterkeyhint="search" oninput="onGlobalSearchInput()" onkeydown="if(event.key==='Enter'){event.preventDefault();runGlobalSearch();this.blur()}" />
+        <button class="gs-btn" onclick="runGlobalSearch()">搜索</button>
+      </div>
+      <div id="globalSearchResults"></div>
+    </div>
+  </div>
+  <div class="welcome-hero">
+    <div class="whale-icon"><img src="whale-mascot.png" alt="律衡鲸鱼" width="112" height="112"></div>
     <h1 class="typewriter" id="typewriter"></h1>
     <div class="role-chip" id="homeRoleChip" onclick="openRolePicker()" title="选择身份，定制你的界面"></div>
     <div class="role-quicks" id="roleQuicks"></div>
-  </div>
-  <div class="global-search">
-    <div class="gs-box">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" id="globalSearchInput" placeholder="搜索法条关键词 / 案例关键词 / 案号…" maxlength="50" enterkeyhint="search" oninput="onGlobalSearchInput()" onkeydown="if(event.key==='Enter'){event.preventDefault();runGlobalSearch();this.blur()}" />
-      <button class="gs-btn" onclick="runGlobalSearch()">搜索</button>
-    </div>
-    <div id="globalSearchResults"></div>
   </div>
   <div class="quote-card" id="quoteCard">
     <div class="quote-text" id="quoteText"></div>
