@@ -2695,7 +2695,7 @@ var APP_VERSION_DATE = "2026.09.03";
 var CHANGELOG_KEY = "seawhy-lex-changelog";
 
 var DEFAULT_CHANGELOG = [
-  { ver: "v4.3.0", date: "2026.09.03", notes: "维权路径改为可展开小卡片（点击展开找谁/流程/材料）；法律文书按所选角色优先排序并标注推荐；AI咨询底部新增角色化快捷输入栏；案例库按角色优先排序；案例库整体重建为最高人民法院官方发布的指导案例与典型案例（指导案例18/23/24号、涉欠薪/消费者权益/彩礼/虚假诉讼逃废债典型案例等13件，均附官方来源与原文链接）；法条库标注国家法律法规数据库来源" },
+  { ver: "v4.3.0", date: "2026.09.03", notes: "维权路径改为可展开小卡片（点击展开找谁/流程/材料）；法律文书按所选角色优先排序并标注推荐；AI咨询底部新增角色化快捷输入栏；案例库按角色优先排序；案例库整体重建为最高人民法院官方发布的指导案例与典型案例（指导案例18/23/24号、涉欠薪/消费者权益/彩礼/虚假诉讼逃废债典型案例等13件，均附官方来源与原文链接）；法条库标注国家法律法规数据库来源；修复大字模式（zoom）下容器高度未补偿导致页面溢出、底部导航不可见的问题" },
   { ver: "v4.2.0", date: "2026.09.03", notes: "底部导航按角色定制：劳动从业者显示计算器、消费者/租客/市民显示维权、长辈显示一键援助热线、法学生与大学生保留学习；主页移除打卡与待办卡片，打卡移入学习中心；普法服务新增法律计算器与学习工具入口；计算器新增加班费计算；文书生成新增劳动仲裁申请书与投诉书模板" },
   { ver: "v4.1.0", date: "2026.09.03", notes: "新增主页角色系统：进入主页先选择身份（劳动从业者/法学生/在校大学生/消费者/租客与房东/普通市民/银发长辈），不同身份拥有专属主题色、用户气泡配色、字号与信息密度（长辈角色为大字模式）、主页快捷入口与AI咨询快捷问题，AI回答按身份定制语言与侧重；身份门选择将同步到引擎" },
   { ver: "v4.0.0", date: "2026.09.03", notes: "对齐《律衡项目书》：移除积分/夺宝/换装/课程表/视频/剧情等与普法无关的功能；系统提示词改为公益普法助手（结论-依据-行动-边界）；新增领域自动识别与知识库检索注入、FAQ 高频场景库（30条）、维权路径速查（渠道/流程/材料清单）、回答免责与刑事转介兜底；AI咨询/解析/笔记创建全部免费开放；数据全部本地化，去除云端同步与账号体系" }
@@ -3418,7 +3418,18 @@ function applyFontPrefs() {
   var rs = 1;
   try { if (ROLES[curRole] && ROLES[curRole].scale) rs = ROLES[curRole].scale; } catch(e) {}
   var eff = s * rs;
-  document.body.style.zoom = (eff === 1 || !eff) ? "" : eff;
+  // zoom 会把 100dvh 容器整体放大，导致底部导航被推出屏幕；
+  // 放大时反向压缩容器高度（并同步 homeScreen 的 min-height），保证缩放后正好占满一屏
+  var hs = document.getElementById("homeScreen");
+  if (eff === 1 || !eff) {
+    document.body.style.zoom = "";
+    document.body.style.height = "";
+    if (hs) hs.style.minHeight = "";
+  } else {
+    document.body.style.zoom = eff;
+    document.body.style.height = "calc(100dvh / " + eff + ")";
+    if (hs) hs.style.minHeight = "calc(100dvh / " + eff + ")";
+  }
   var lh = getLineHeight();
   document.body.style.setProperty("--rd-lh", lh);
   var sl = document.getElementById("fontScaleSlider");
