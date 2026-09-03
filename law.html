@@ -1063,7 +1063,9 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     body[data-role="senior"] #homeScreen{justify-content:flex-start;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
     body[data-role="senior"] #homeScreen .welcome-hero{flex:0 0 auto;min-height:0;padding-top:calc(72px + var(--safe-top));padding-bottom:12px}
     body[data-role="senior"] #homeScreen .quote-card{min-height:0;overflow:visible}
-    body[data-role="senior"] #homeScreen .quote-text{display:block;-webkit-line-clamp:unset;line-clamp:unset;overflow:visible}
+    body[data-role="senior"] #homeScreen .quote-card{width:calc(100% - 32px);max-width:520px;padding:22px 24px}
+    body[data-role="senior"] #homeScreen .quote-text{display:block;-webkit-line-clamp:unset;line-clamp:unset;overflow:visible;font-size:20px;line-height:1.7;letter-spacing:0}
+    body[data-role="senior"] #homeScreen .quote-author{font-size:15px}
     body[data-role="senior"] #homeScreen .home-dash-right,body[data-role="senior"] #homeScreen .home-dash-right .dash-swipe-card,body[data-role="senior"] #homeScreen .dash-card{height:auto;min-height:148px}
     body[data-role="senior"] #homeScreen .dash-card{overflow:visible}
     body[data-role="senior"] #homeScreen #bottomNav{margin-bottom:0}
@@ -3468,7 +3470,11 @@ function applyFontPrefs() {
   // zoom 会把 100dvh 容器整体放大，导致底部导航被推出屏幕；
   // 放大时反向压缩容器高度（并同步 homeScreen 的 min-height），保证缩放后正好占满一屏
   var hs = document.getElementById("homeScreen");
-  if (eff === 1 || !eff) {
+  if (curRole === "senior") {
+    document.body.style.zoom = "";
+    document.body.style.height = "";
+    if (hs) hs.style.minHeight = "";
+  } else if (eff === 1 || !eff) {
     document.body.style.zoom = "";
     document.body.style.height = "";
     if (hs) hs.style.minHeight = "";
