@@ -3368,9 +3368,7 @@ function showAbout() {
 // ============================================================
 function hideAllViews() {
   var shown = document.querySelector(".show[id]");
-  if (shown && shown.id !== "homeScreen" && shown.id !== "roleSheetBd") {
-    if (!_viewHistory.length || _viewHistory[_viewHistory.length - 1] !== shown.id) _viewHistory.push(shown.id);
-  }
+  if (shown && shown.id !== "homeScreen" && shown.id !== "roleSheetBd" && !_isGoingBack) _returnView = shown.id;
   ["homeScreen","chatView","dbView","aboutView","settingsView","quizView","docView","caseView","caseDetail","learnCenterView","materialsView","notebookView","plazaView","noteDetailView","profileView","clockView","calcView","flashView","rightsView","preventView","faqView"].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.classList.remove("show");
@@ -3382,21 +3380,25 @@ function hideAllViews() {
 }
 
 var _welcomePlayed = false;
-var _viewHistory = [];
+var _returnView = null;
+var _isGoingBack = false;
 function goBack() {
   var current = document.querySelector(".show[id]");
   if (current && current.id !== "homeScreen") current.classList.remove("show");
-  var previous = _viewHistory.pop();
+  var previous = _returnView;
+  _returnView = null;
   if (!previous) { goHome(); return; }
   var target = document.getElementById(previous);
   if (target) {
+    _isGoingBack = true;
     target.classList.add("show");
+    _isGoingBack = false;
     if (previous === "homeScreen") { renderHomeCards(); renderHomeAvatar(); }
   } else goHome();
 }
 function goHome() {
   hideAllViews();
-  _viewHistory = [];
+  _returnView = null;
   _fromPlaza = false;
   var home = document.getElementById("homeScreen");
   home.style.display = "";
