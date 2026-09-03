@@ -1202,7 +1202,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <div class="global-search">
       <div class="gs-box">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="text" id="globalSearchInput" placeholder="搜索法条关键词 / 案例关键词 / 案号…" maxlength="50" enterkeyhint="search" oninput="onGlobalSearchInput()" onkeydown="if(event.key==='Enter'){event.preventDefault();runGlobalSearch();this.blur()}" />
+        <input type="text" id="globalSearchInput" placeholder="说说你的问题，律衡帮你找解决方案" maxlength="50" enterkeyhint="search" oninput="onGlobalSearchInput()" onkeydown="if(event.key==='Enter'){event.preventDefault();runGlobalSearch();this.blur()}" />
         <button class="gs-btn" onclick="runGlobalSearch()">搜索</button>
       </div>
       <div id="globalSearchResults"></div>
@@ -3895,6 +3895,15 @@ function renderLawPlan(sc) {
   h += '</div>';
   return h;
 }
+(function initSearchTips() {
+  var el = document.getElementById("globalSearchInput");
+  if (!el) return;
+  var tips = ["说说你的问题，律衡帮你找解决方案", "欠薪 · 退货 · 押金 · 借钱，直接说你的难题", "也可搜索法条 / 案例 / 案号"];
+  var i = 0;
+  setInterval(function() {
+    if (document.activeElement !== el) { i = (i + 1) % tips.length; el.placeholder = tips[i]; }
+  }, 3500);
+})();
 function goDocGen(id) {
   showDocGen();
   if (id) selectDocType(id);
