@@ -797,8 +797,8 @@ body.dark .wr-bar{background:linear-gradient(180deg,#3d7fb8,#2565a0)}
 .pm-bind-row .bind-btn.ghost{background:var(--input-bg);color:var(--text);border:1px solid var(--card-border)}
 
 /* ===== 实用工具页（计算器/闪卡/辩论/图鉴/倒计时/海报） ===== */
-#calcView,#flashView,#rightsView{flex:1;display:none!important;flex-direction:column;overflow:hidden;overscroll-behavior:none;background:var(--bg)}
-#calcView.show,#flashView.show,#rightsView.show{display:flex!important}
+#calcView,#flashView,#rightsView,#preventView,#faqView{flex:1;display:none!important;flex-direction:column;overflow:hidden;overscroll-behavior:none;background:var(--bg)}
+#calcView.show,#flashView.show,#rightsView.show,#preventView.show,#faqView.show{display:flex!important}
 .tool-body{flex:1;overflow-y:auto;padding:16px 16px calc(20px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto;width:100%}
 .exam-cd:active{transform:scale(.98)}
 .exam-cd .ecd-ic{width:42px;height:42px;border-radius:12px;background:rgba(247,183,51,.2);display:flex;align-items:center;justify-content:center;color:#e67e22;flex-shrink:0}
@@ -1100,7 +1100,32 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     .cqb:active{transform:scale(.94);background:var(--accent-light)}
     .case-role-hint{display:none;font-size:11px;color:var(--accent);background:var(--accent-light);border-radius:10px;padding:5px 10px;margin:8px 12px 0}
     .case-role-hint.show{display:inline-block}
-    .cd-src{font-size:11.5px;color:var(--text2);line-height:1.7}
+    .cd-src a{color:var(--accent);font-weight:700;text-decoration:underline}
+/* ===== 事前防范 / 高频问答 ===== */
+    .rt-chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+    .rt-chip{font-size:12px;font-weight:700;padding:7px 13px;border-radius:16px;background:var(--card-bg);border:1px solid var(--card-border);color:var(--text2);cursor:pointer;font-family:inherit;transition:all .15s}
+    .rt-chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .pv-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:16px}
+    .pv-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .pv-head b{font-size:14.5px;color:var(--text)}
+    .pv-progress{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-light);border-radius:10px;padding:3px 9px}
+    .pv-bar{height:6px;background:var(--card-border);border-radius:3px;overflow:hidden;margin-bottom:10px}
+    .pv-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
+    .pv-item{display:flex;align-items:flex-start;gap:9px;padding:10px 8px;border-bottom:1px dashed var(--card-border);cursor:pointer;font-size:13px;line-height:1.65;color:var(--text)}
+    .pv-item:last-of-type{border-bottom:none}
+    .pv-item input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent);flex-shrink:0}
+    .pv-item.on span{color:var(--text2);text-decoration:line-through}
+    .pv-reset{margin-top:12px;width:100%;padding:10px;border:1px solid var(--card-border);border-radius:12px;background:var(--input-bg);color:var(--text2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit}
+    .pv-note{font-size:10.5px;color:var(--text2);line-height:1.6;margin:10px 0 0}
+    .faq-list{display:flex;flex-direction:column;gap:10px}
+    .faq-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:13px 14px;cursor:pointer}
+    .faq-card.open{border-color:var(--accent)}
+    .faq-q{font-size:13.5px;font-weight:700;color:var(--text);line-height:1.5;display:flex;align-items:flex-start;gap:6px}
+    .faq-arrow{margin-left:auto;color:var(--text2);font-size:12px;flex-shrink:0}
+    .faq-a{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--card-border)}
+    .faq-ans{font-size:12.5px;line-height:1.75;color:var(--text)}
+    .faq-law{font-size:11.5px;color:var(--accent);background:var(--accent-light);border-radius:8px;padding:6px 9px;margin-top:8px;line-height:1.6}
+.cd-src{font-size:11.5px;color:var(--text2);line-height:1.7}
     .cd-src a{color:var(--accent);font-weight:700;text-decoration:underline}
 
 </style>
@@ -1521,6 +1546,16 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
         <div class="lc-name">学习工具</div>
         <div class="lc-desc">时钟 · 闪卡 · 笔记 · 题库</div>
       </div>
+      <div class="learn-card" onclick="showPrevent()">
+        <div class="lc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="lc-name">事前防范清单</div>
+        <div class="lc-desc">签约前 · 租房前 · 借钱前必看</div>
+      </div>
+      <div class="learn-card" onclick="showFaq()">
+        <div class="lc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="lc-name">高频问答</div>
+        <div class="lc-desc">30+ 生活场景法律速答</div>
+      </div>
     </div>
     </div>
   </div>
@@ -1742,6 +1777,24 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <span class="title">法条闪卡</span>
   </div>
   <div class="tool-body" id="flashBody"></div>
+</div>
+
+<!-- ===== PREVENT VIEW 事前防范清单 ===== -->
+<div id="preventView" style="display:none">
+  <div class="wx-nav">
+    <button class="back" onclick="showPlaza()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <span class="title">事前防范清单</span>
+  </div>
+  <div class="tool-body" id="preventBody"></div>
+</div>
+
+<!-- ===== FAQ VIEW 高频问答 ===== -->
+<div id="faqView" style="display:none">
+  <div class="wx-nav">
+    <button class="back" onclick="showPlaza()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <span class="title">高频问答</span>
+  </div>
+  <div class="tool-body" id="faqBody"></div>
 </div>
 
 <!-- ===== RIGHTS VIEW 维权路径速查 ===== -->
@@ -2636,11 +2689,12 @@ try { applyBubbleStyle(); } catch(e) {}
 // ============================================================
 // AUTO CHANGELOG — 自动更新日志系统
 // ============================================================
-var APP_VERSION = "v4.4.0";
+var APP_VERSION = "v4.5.0";
 var APP_VERSION_DATE = "2026.09.03";
 var CHANGELOG_KEY = "seawhy-lex-changelog";
 
 var DEFAULT_CHANGELOG = [
+  { ver: "v4.5.0", date: "2026.09.03", notes: "按项目书扩充角色功能：新增事前防范清单（S4 事前防范场景：入职/租房/借贷/网购/事故/婚姻六类可勾选防坑清单，进度存本机）；新增高频问答库（FAQ 34 条按角色优先浏览，点击展开结论与法条）；维权路径热线一键拨打；题库科目为非法律角色标注民法推荐" },
   { ver: "v4.4.0", date: "2026.09.03", notes: "彻底移除内置键盘与 fcitx5 输入法引擎（约 23K 代码与 50MB 资源），全部输入框仅使用系统键盘，修复输入法不可用的问题" },
   { ver: "v4.3.0", date: "2026.09.03", notes: "维权路径改为可展开小卡片（点击展开找谁/流程/材料）；法律文书按所选角色优先排序并标注推荐；AI咨询底部新增角色化快捷输入栏；案例库按角色优先排序；案例库整体重建为最高人民法院官方发布的指导案例与典型案例（指导案例18/23/24号、涉欠薪/消费者权益/彩礼/虚假诉讼逃废债典型案例等13件，均附官方来源与原文链接）；法条库标注国家法律法规数据库来源；修复大字模式（zoom）下容器高度未补偿导致页面溢出、底部导航不可见的问题" },
   { ver: "v4.2.0", date: "2026.09.03", notes: "底部导航按角色定制：劳动从业者显示计算器、消费者/租客/市民显示维权、长辈显示一键援助热线、法学生与大学生保留学习；主页移除打卡与待办卡片，打卡移入学习中心；普法服务新增法律计算器与学习工具入口；计算器新增加班费计算；文书生成新增劳动仲裁申请书与投诉书模板" },
@@ -3239,7 +3293,7 @@ function showAbout() {
 // SCREEN MANAGEMENT
 // ============================================================
 function hideAllViews() {
-  ["homeScreen","chatView","dbView","aboutView","settingsView","quizView","docView","caseView","caseDetail","learnCenterView","materialsView","notebookView","plazaView","noteDetailView","profileView","clockView","calcView","flashView","rightsView"].forEach(function(id) {
+  ["homeScreen","chatView","dbView","aboutView","settingsView","quizView","docView","caseView","caseDetail","learnCenterView","materialsView","notebookView","plazaView","noteDetailView","profileView","clockView","calcView","flashView","rightsView","preventView","faqView"].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.classList.remove("show");
   });
@@ -3887,6 +3941,196 @@ function pickRole(k) {
   if (bd) { bd.classList.remove("show"); setTimeout(function() { bd.remove(); }, 300); }
   showToast(ROLES[k].ico + " 已切换为「" + ROLES[k].name + "」——" + ROLES[k].tag);
 }
+// ============================================================
+// 事前防范清单（项目书 S4 场景：签约/租房前查询注意事项，预防纠纷）
+// ============================================================
+var PREVENT_KEY = "seawhy-lex-prevent";
+var PREVENT_DATA = {
+  labor: { name: "入职 · 在职", icon: "👷", items: [
+    "入职 30 天内必须签书面劳动合同——不签可主张二倍工资（《劳动合同法》第82条）",
+    "核对合同必备条款：岗位、工作地点、劳动报酬、工时制度、社会保险",
+    "试用期有上限：合同 3 年以上最多 6 个月；试用期工资不低于正式工资的 80%",
+    "社保入职即应缴纳——\"自愿放弃社保\"的协议无效",
+    "保留工牌、排班表、工资流水、工作群聊天记录（维权证据）",
+    "用人单位不得扣押身份证等证件、不得收取押金",
+    "加班有时限与对价：一般每日不超 3 小时、每月不超 36 小时，加班应付加班费",
+    "离职时工资应一次付清，并要求出具离职证明"
+  ]},
+  rent: { name: "租房 · 签约", icon: "🏠", items: [
+    "核实房东身份与房产证（或转租的书面授权）",
+    "押金条款写进合同：金额、退还条件与时间",
+    "入住前拍照/录像留证：家具、家电、墙面状态",
+    "关注室内空气质量（甲醛），必要时要求检测报告",
+    "写清维修责任与水电物业费由谁承担",
+    "警惕\"租金贷\"——按月付款可能实为分期贷款",
+    "转租需房东书面同意，否则房东可解除合同",
+    "优先选押金纳入监管账户的正规平台与企业"
+  ]},
+  loan: { name: "借钱 · 出借", icon: "💰", items: [
+    "写借条：金额大小写、利息、还款期限、双方身份信息",
+    "通过银行/微信/支付宝转账并备注\"借款\"，避免现金交付",
+    "利息约定不超过合同成立时一年期 LPR 的四倍",
+    "警惕\"砍头息\"——本金按实际到手金额认定",
+    "核对对方身份证原件，借条上的名字与身份证一致",
+    "大额借款要求提供担保，必要时办理公证",
+    "定期催款并留痕（可中断 3 年诉讼时效）",
+    "遇\"套路贷\"、暴力催收立即报警"
+  ]},
+  consumer: { name: "网购 · 办卡", icon: "🛒", items: [
+    "选正规平台，查看商家资质与历史评价",
+    "保存订单、付款凭证、宣传页面、聊天记录截图",
+    "贵重商品开箱全程录像",
+    "健身卡、教培预付卡谨慎大额充值，签订书面退费条款",
+    "看清\"自动续费\"条款——续费前经营者须以显著方式提醒",
+    "食品问题可主张价款十倍赔偿（《食品安全法》第148条）",
+    "七天无理由退货保持商品完好，运费一般自理",
+    "维权顺序：平台投诉 → 12315 → 消协 → 起诉"
+  ]},
+  traffic: { name: "交通事故", icon: "🚗", items: [
+    "立即停车、开双闪、按规定放置警示牌",
+    "有人受伤先拨打 120，再报 122 交通事故报警",
+    "全方位拍照：碰撞部位、车牌、路面标线、周边环境",
+    "交换驾驶证、行驶证、保险单信息",
+    "及时向保险公司报案（一般 48 小时内）",
+    "索取并保管好《道路交通事故认定书》",
+    "就医保留全部病历、票据、诊断证明",
+    "不轻信口头\"私了\"承诺，和解也要签书面协议"
+  ]},
+  marriage: { name: "婚前 · 婚内", icon: "💍", items: [
+    "房、车等大额财产婚前归属明确，可书面约定并公证",
+    "彩礼、嫁妆等给付保留转账凭证（涉彩礼纠纷的关键证据）",
+    "非共同签字的债务未必是夫妻共同债务——不随意共签",
+    "婚前大额转账注意性质（彩礼/赠与/借款）",
+    "遭遇家暴：报警 + 验伤 + 申请人身安全保护令",
+    "重要财产凭证（房产证、存款账户）双方各留底"
+  ]}
+};
+var _preventCur = null;
+var PREVENT_ROLE_ORDER = {
+  worker: ["labor", "traffic", "rent", "consumer", "loan", "marriage"],
+  lawschool: ["labor", "rent", "consumer", "loan", "traffic", "marriage"],
+  student: ["labor", "rent", "consumer", "loan", "traffic", "marriage"],
+  consumer: ["consumer", "loan", "rent", "labor", "traffic", "marriage"],
+  renter: ["rent", "consumer", "loan", "labor", "traffic", "marriage"],
+  citizen: ["loan", "marriage", "traffic", "consumer", "rent", "labor"],
+  senior: ["loan", "consumer", "marriage", "traffic", "rent", "labor"]
+};
+function showPrevent() {
+  hideAllViews();
+  document.getElementById("preventView").classList.add("show");
+  var r = roleOf(curRole);
+  var pref = r && PREVENT_ROLE_ORDER[curRole];
+  _preventCur = (pref && pref[0]) || Object.keys(PREVENT_DATA)[0];
+  renderPrevent();
+}
+function renderPrevent() {
+  var box = document.getElementById("preventBody");
+  if (!box) return;
+  var r = roleOf(curRole);
+  var pref = (r && PREVENT_ROLE_ORDER[curRole]) || Object.keys(PREVENT_DATA);
+  var keys = Object.keys(PREVENT_DATA).slice().sort(function(a, b) {
+    var ia = pref.indexOf(a), ib = pref.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  });
+  var h = '<div style="max-width:640px;margin:0 auto;padding:6px 4px 30px">';
+  h += '<div class="rt-chips">';
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i], d = PREVENT_DATA[k];
+    h += '<button class="rt-chip' + (k === _preventCur ? ' on' : '') + '" onclick="switchPrevent(\'' + k + '\')">' + d.icon + ' ' + d.name + '</button>';
+  }
+  h += '</div>';
+  var p = PREVENT_DATA[_preventCur];
+  var done = loadPrevent(_preventCur);
+  var dn = done.length;
+  h += '<div class="pv-card">';
+  h += '<div class="pv-head"><b>' + p.icon + ' ' + p.name + '防坑清单</b><span class="pv-progress">' + dn + '/' + p.items.length + ' 已核对</span></div>';
+  h += '<div class="pv-bar"><div class="pv-fill" style="width:' + Math.round(dn / p.items.length * 100) + '%"></div></div>';
+  for (var i = 0; i < p.items.length; i++) {
+    var on = done.indexOf(i) >= 0;
+    h += '<label class="pv-item' + (on ? ' on' : '') + '"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="togglePreventItem(' + i + ')" /><span>' + escHtml(p.items[i]) + '</span></label>';
+  }
+  h += '<button class="pv-reset" onclick="resetPrevent(\'' + _preventCur + '\')">重置本清单</button>';
+  h += '<p class="pv-note">勾选进度保存在本机浏览器。清单为一般性防范建议，具体纠纷请咨询 12348 或执业律师。</p>';
+  h += '</div></div>';
+  box.innerHTML = h;
+}
+function switchPrevent(k) { _preventCur = k; renderPrevent(); }
+function loadPrevent(k) {
+  try { var o = JSON.parse(localStorage.getItem(PREVENT_KEY) || "{}"); return o[k] || []; } catch(e) { return []; }
+}
+function savePrevent(k, arr) {
+  try { var o = JSON.parse(localStorage.getItem(PREVENT_KEY) || "{}"); o[k] = arr; localStorage.setItem(PREVENT_KEY, JSON.stringify(o)); } catch(e) {}
+}
+function togglePreventItem(idx) {
+  var arr = loadPrevent(_preventCur);
+  var i = arr.indexOf(idx);
+  if (i >= 0) arr.splice(i, 1); else arr.push(idx);
+  savePrevent(_preventCur, arr);
+  renderPrevent();
+}
+function resetPrevent(k) { savePrevent(k, []); renderPrevent(); }
+
+// ============================================================
+// 高频问答（FAQ 库按角色浏览，可展开）
+// ============================================================
+var _faqCur = null;
+var FAQ_ROLE_ORDER = {
+  worker: ["labor", "traffic", "consumer", "loan", "rent", "marriage"],
+  lawschool: ["labor", "consumer", "rent", "loan", "traffic", "marriage"],
+  student: ["labor", "rent", "consumer", "loan", "traffic", "marriage"],
+  consumer: ["consumer", "loan", "rent", "labor", "traffic", "marriage"],
+  renter: ["rent", "consumer", "loan", "labor", "traffic", "marriage"],
+  citizen: ["loan", "marriage", "traffic", "consumer", "rent", "labor"],
+  senior: ["loan", "consumer", "marriage", "traffic", "rent", "labor"]
+};
+function showFaq() {
+  hideAllViews();
+  document.getElementById("faqView").classList.add("show");
+  var r = roleOf(curRole);
+  var pref = r && FAQ_ROLE_ORDER[curRole];
+  _faqCur = (pref && pref[0]) || "labor";
+  renderFaq();
+}
+function renderFaq() {
+  var box = document.getElementById("faqBody");
+  if (!box) return;
+  var r = roleOf(curRole);
+  var pref = (r && FAQ_ROLE_ORDER[curRole]) || Object.keys(DOMAIN_RULES);
+  var keys = Object.keys(DOMAIN_RULES).slice().sort(function(a, b) {
+    var ia = pref.indexOf(a), ib = pref.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  });
+  var h = '<div style="max-width:640px;margin:0 auto;padding:6px 4px 30px">';
+  h += '<p style="font-size:12px;color:var(--text2);line-height:1.7;margin:4px 2px 12px">点击问题展开大白话结论与法条依据。以下为普法信息，不构成法律意见。</p>';
+  h += '<div class="rt-chips">';
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    h += '<button class="rt-chip' + (k === _faqCur ? ' on' : '') + '" onclick="switchFaq(\'' + k + '\')">' + DOMAIN_RULES[k].name + '</button>';
+  }
+  h += '</div>';
+  var list = FAQ_DATA.filter(function(f) { return f.d === _faqCur; });
+  h += '<div class="faq-list">';
+  for (var i = 0; i < list.length; i++) {
+    var f = list[i];
+    var fid = "faq-i-" + i;
+    h += '<div class="faq-card" id="' + fid + '" onclick="toggleFaq(\'' + fid + '\')">';
+    h += '<div class="faq-q">❓ ' + escHtml(f.q) + '<span class="faq-arrow">▾</span></div>';
+    h += '<div class="faq-a"><div class="faq-ans">' + escHtml(f.a) + '</div><div class="faq-law">📌 ' + escHtml(f.law) + '</div></div>';
+    h += '</div>';
+  }
+  h += '</div></div>';
+  box.innerHTML = h;
+}
+function switchFaq(k) { _faqCur = k; renderFaq(); }
+function toggleFaq(fid) {
+  var card = document.getElementById(fid);
+  var a = card.querySelector(".faq-a");
+  var open = a.style.display === "block";
+  a.style.display = open ? "none" : "block";
+  card.querySelector(".faq-arrow").textContent = open ? "▾" : "▴";
+  card.classList.toggle("open", !open);
+}
+
 // ===== 角色化底部导航 =====
 var NAV_ICONS = {
   chat: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
@@ -4077,7 +4321,7 @@ function renderRights() {
     h += '<div class="rt-head" onclick="toggleRightsCard(\'' + r.key + '\')">';
     h += '<span class="rt-ico">' + r.icon + '</span>';
     h += '<div class="rt-main"><b>' + escHtml(r.name) + '</b><span class="rt-sub">' + escHtml(r.paths[0].t) + '</span></div>';
-    h += '<span class="rt-hotline">热线 ' + r.hotline + '</span><span class="rt-arrow" id="rt-arrow-' + r.key + '">▾</span>';
+    h += '<a class="rt-hotline" href="tel:' + r.hotline + '" onclick="event.stopPropagation()">📞 ' + r.hotline + '</a><span class="rt-arrow" id="rt-arrow-' + r.key + '">▾</span>';
     h += '</div>';
     h += '<div class="rt-body" id="rt-body-' + r.key + '">';
     h += '<div class="rt-sec"><div class="rt-lab">① 找谁</div>';
@@ -5772,6 +6016,7 @@ function selectDiff(v) {
   else showQuizSubjects();
 }
 
+var QUIZ_ROLE_SUBJECTS = ["民法·总则", "民法·分则"]; // 非法律角色：生活场景多与民事法律相关
 function showQuizSubjects() {
   setQuizScreen("subjects");
   renderDiffFilter("quizDiffFilter");
@@ -5791,9 +6036,10 @@ function showQuizSubjects() {
     var s = subjects[i];
     var cnt = countQuizQuestions(QUIZ_DATA[s]);
     var tag = subjectHasChapters(s) ? ' <span class="qsc-tag">' + getQuizChapters(s).length + '章</span>' : '';
+    var rec = curRole && curRole !== "lawschool" && QUIZ_ROLE_SUBJECTS.indexOf(s) >= 0;
     h += '<div class="quiz-subject-card" onclick="selectQuizSubject(\'' + escAttr(s) + '\')">' +
       '<div class="qsc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + getQuizIcon(s) + '</svg></div>' +
-      '<div class="qsc-name">' + escHtml(s) + '</div>' +
+      '<div class="qsc-name">' + escHtml(s) + (rec ? ' <span class="dt-badge">与你相关</span>' : '') + '</div>' +
       '<div class="qsc-count">' + cnt + ' 题' + tag + '</div></div>';
   }
   document.getElementById("quizSubjectGrid").innerHTML = h;
