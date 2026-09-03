@@ -342,7 +342,10 @@
     .db-header{text-align:center;padding:8px 0 16px}
     .db-header h2{font-size:18px;font-weight:700;margin-bottom:4px}
     .db-header p{font-size:12px;color:var(--text2)}
-    .db-search{display:flex;gap:8px;margin-bottom:12px}
+    .db-tabs{display:flex;gap:8px;margin-bottom:12px}
+.db-tab{flex:1;border:1.5px solid var(--card-border);background:var(--card-bg);color:var(--text2);border-radius:12px;padding:9px 0;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s}
+.db-tab.on{background:linear-gradient(135deg,var(--accent),#3d7bd9);border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(63,120,224,.25)}
+.db-search{display:flex;gap:8px;margin-bottom:12px}
     .db-search input{flex:1;background:var(--input-bg);border:2px solid var(--input-border);border-radius:14px;padding:10px 14px;font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border-color .2s}
     .db-search input:focus{border-color:var(--accent)}
     .db-category{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;padding-top:12px;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
@@ -853,6 +856,14 @@ body.dark .wr-bar{background:linear-gradient(180deg,#3d7fb8,#2565a0)}
 .exam-cd .ecd-lab{font-size:10px;color:var(--text2);margin-top:2px}
 .calc-types{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px}
 .calc-type{flex:0 0 auto;border:1.5px solid var(--card-border);background:var(--card-bg);color:var(--text2);border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.calc-type2{flex:0 0 auto;display:flex;align-items:center;gap:6px;border:1.5px solid var(--card-border);background:var(--card-bg);color:var(--text2);border-radius:14px;padding:9px 13px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .18s}
+.calc-type2 svg{opacity:.6}
+.calc-type2.on{background:linear-gradient(135deg,var(--accent),#3d7bd9);border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(63,120,224,.28)}
+.calc-type2.on svg{opacity:1}
+.calc-card-head{display:flex;align-items:center;gap:9px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--card-border)}
+.calc-card-head .cch-ic{width:34px;height:34px;border-radius:10px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.calc-card-head .cch-name{font-size:14.5px;font-weight:800;color:var(--text)}
+.calc-card-head .cch-desc{font-size:10.5px;color:var(--text2);margin-top:1px}
 .calc-type.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .calc-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:14px;margin-bottom:12px}
 .calc-card .cr-row{margin-bottom:10px}
@@ -860,10 +871,11 @@ body.dark .wr-bar{background:linear-gradient(180deg,#3d7fb8,#2565a0)}
 .calc-card input[type=text],.calc-card input[type=number],.calc-card input[type=date]{width:100%;padding:10px 12px;border:1.5px solid var(--card-border);border-radius:10px;background:var(--input-bg);color:var(--text);font-size:14px;outline:none;font-family:inherit;box-sizing:border-box}
 .calc-card input:focus{border-color:var(--accent)}
 .calc-res{background:var(--card-bg);border:1px solid var(--accent);border-radius:14px;padding:14px;animation:fadeIn .3s ease}
+.calc-res::before{content:"";display:block;height:3px;border-radius:14px 14px 0 0;margin:-14px -14px 12px;background:linear-gradient(90deg,var(--accent),#7fb2f0)}
 .calc-res .cres-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--card-border);font-size:13px;color:var(--text2)}
 .calc-res .cres-row:last-of-type{border:none}
 .calc-res .cres-row b{color:var(--text);font-variant-numeric:tabular-nums}
-.calc-res .cres-main{font-size:20px;font-weight:800;color:var(--accent)}
+.calc-res .cres-main{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--accent),#3d7bd9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .calc-note{font-size:10px;color:var(--text2);margin-top:10px;line-height:1.7}
 .flash-stats{display:flex;gap:8px;margin-bottom:12px}
 .flash-stats .fs-box{flex:1;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:10px;text-align:center}
@@ -1299,8 +1311,12 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
       <h2>核心法律法规</h2>
       <p>来源：国家法律法规数据库（flk.npc.gov.cn）· 全文可下载 · 仅供学习参考</p>
     </div>
+    <div class="db-tabs">
+      <button class="db-tab on" id="dbTabKey" onclick="switchDbTab('key')">重点法条</button>
+      <button class="db-tab" id="dbTabAll" onclick="switchDbTab('all')">法典大全</button>
+    </div>
     <div class="db-search">
-      <input type="text" id="dbSearch" placeholder="搜索法律名称…" oninput="filterLaws()" />
+      <input type="text" id="dbSearch" placeholder="搜索法条 / 法律名称…" oninput="filterLaws()" />
     </div>
     <div id="dbContent"></div>
   </div>
@@ -1401,6 +1417,12 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
         <span>欢迎语显示昵称</span>
         <span class="pm-toggle on" id="settingsNicknameState" aria-label="欢迎语显示昵称开关"></span>
       </div>
+      <div class="pm-item" onclick="toggleNavLabel()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        <span>底部导航显示文字</span>
+        <span class="pm-toggle" id="navLabelState" aria-label="底部导航文字开关"></span>
+      </div>
+
       <div class="pm-item" onclick="openHomeBgPicker()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="10" rx="2"/><path d="M3 17h18"/><path d="M6 21h12"/><path d="M7 6h2"/><path d="M7 9h6"/></svg>
         <span>主页背景</span>
@@ -1435,11 +1457,6 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <div class="settings-section">
       <div class="settings-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>通知提醒</div>
     <div class="profile-menu">
-      <div class="pm-item" onclick="toggleNavLabel()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-        <span>底部导航显示文字</span>
-        <span class="pm-toggle" id="navLabelState" aria-label="底部导航文字开关"></span>
-      </div>
       <div class="pm-item" onclick="toggleRemind('checkin')">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
         <span>每日打卡提醒</span>
@@ -3216,6 +3233,14 @@ function showDatabase() {
   renderDatabase();
 }
 
+var _dbTab = "key";
+function switchDbTab(t) {
+  _dbTab = t;
+  var k = document.getElementById("dbTabKey"), a = document.getElementById("dbTabAll");
+  if (k) k.classList.toggle("on", t === "key");
+  if (a) a.classList.toggle("on", t === "all");
+  renderDatabase(document.getElementById("dbSearch").value);
+}
 function renderDatabase(filter) {
   var q = (filter || "").toLowerCase();
   var filtered = LAWS.filter(function(l) {
@@ -3238,12 +3263,19 @@ function renderDatabase(filter) {
     var br = b.roles && b.roles.indexOf(curRole) >= 0 ? 0 : 1;
     return ar - br;
   });
-  if (important.length) {
-    h += '<div class="db-category">重要法条 · 先看这些</div><div class="important-law-list">';
-    important.forEach(function(article) {
-      h += '<div class="important-law-card"><div class="il-head"><span class="il-tag">' + escHtml(article.article) + '</span><div><div class="il-title">' + escHtml(article.title) + '</div><div class="il-law">' + escHtml(article.law) + '</div></div></div><div class="il-original"><b>法条原文：</b>' + escHtml(article.original) + '</div><div class="il-plain"><b>大白话：</b>' + escHtml(article.plain) + '</div></div>';
-    });
-    h += '</div>';
+  if (_dbTab === "key") {
+    var kl = important.filter(function(a) { return !q || a.title.indexOf(q) !== -1 || a.law.indexOf(q) !== -1 || a.plain.indexOf(q) !== -1 || a.article.indexOf(q) !== -1; });
+    if (kl.length) {
+      h += '<div class="db-category">重点法条 · 先看这些</div><div class="important-law-list">';
+      kl.forEach(function(article) {
+        h += '<div class="important-law-card"><div class="il-head"><span class="il-tag">' + escHtml(article.article) + '</span><div><div class="il-title">' + escHtml(article.title) + '</div><div class="il-law">' + escHtml(article.law) + '</div></div></div><div class="il-original"><b>法条原文：</b>' + escHtml(article.original) + '</div><div class="il-plain"><b>大白话：</b>' + escHtml(article.plain) + '</div></div>';
+      });
+      h += '</div>';
+    } else {
+      h = '<div style="text-align:center;padding:40px;color:var(--text2)">未找到匹配的重点法条</div>';
+    }
+    document.getElementById("dbContent").innerHTML = h;
+    return;
   }
   var catNames = { "民事":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:3px"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg>民事法律', "刑事":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><path d="M12 2 L12 22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>刑事法律', "程序":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>程序法律', "社会":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>社会法律', "行政":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>行政法律' };
   Object.keys(cats).forEach(function(cat) {
@@ -5055,12 +5087,12 @@ function loadScript(url, cb) { var s = document.createElement("script"); s.src =
 
 // ============================================================
 var CALC_TYPES = [
-  { key: "overtime", name: "加班费" },
-  { key: "loan", name: "借贷利息" },
-  { key: "labor", name: "劳动补偿" },
-  { key: "fee", name: "诉讼费" },
-  { key: "sentence", name: "刑期折抵" },
-  { key: "limit", name: "诉讼时效" }
+  { key: "overtime", name: "加班费", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' },
+  { key: "loan", name: "借贷利息", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>' },
+  { key: "labor", name: "劳动补偿", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>' },
+  { key: "fee", name: "诉讼费", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18"/><path d="M8 21h8"/><path d="M3 7h18"/><path d="M6 7l-3 6a3 3 0 0 0 6 0z"/><path d="M18 7l-3 6a3 3 0 0 0 6 0z"/></svg>' },
+  { key: "sentence", name: "刑期折抵", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
+  { key: "limit", name: "诉讼时效", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.17a2 2 0 0 0-.59-1.41L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22"/><path d="M7 2v4.17a2 2 0 0 0 .59 1.41L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2"/></svg>' }
 ];
 var _calcCur = "loan";
 function showCalc() {
@@ -5073,17 +5105,22 @@ function showCalc() {
 function renderCalc() {
   var h = '<div class="calc-types">';
   for (var i = 0; i < CALC_TYPES.length; i++) {
-    h += '<button class="calc-type' + (_calcCur === CALC_TYPES[i].key ? " on" : "") + '" onclick="_calcCur=\'' + CALC_TYPES[i].key + '\';renderCalc()">' + CALC_TYPES[i].name + '</button>';
+    h += '<button class="calc-type2' + (_calcCur === CALC_TYPES[i].key ? " on" : "") + '" onclick="_calcCur=\'' + CALC_TYPES[i].key + '\';renderCalc()">' + (CALC_TYPES[i].icon || '') + '<span>' + CALC_TYPES[i].name + '</span></button>';
   }
   h += '</div><div id="calcForm"></div><div id="calcResult"></div>';
   document.querySelector("#calcView .tool-body").innerHTML = h;
+  var fh = function(key, name, desc, body) {
+    var t = null;
+    for (var fi = 0; fi < CALC_TYPES.length; fi++) if (CALC_TYPES[fi].key === key) { t = CALC_TYPES[fi]; break; }
+    return '<div class="calc-card"><div class="calc-card-head"><div class="cch-ic">' + (t ? t.icon : '') + '</div><div><div class="cch-name">' + name + '</div><div class="cch-desc">' + desc + '</div></div></div>' + body + '</div>';
+  };
   var forms = {
-    loan: '<div class="calc-card"><div class="cr-row"><div class="cr-label">借款本金（元）</div><input type="number" id="cLoanP" placeholder="如 100000" /></div><div class="cr-row"><div class="cr-label">年利率（%）</div><input type="number" id="cLoanR" placeholder="如 6" /></div><div class="cr-row"><div class="cr-label">借款天数</div><input type="number" id="cLoanD" placeholder="如 365" /></div><button class="st-btn" onclick="calcLoan()">计算利息</button></div>',
-    labor: '<div class="calc-card"><div class="cr-row"><div class="cr-label">离职前 12 个月平均应发工资（元/月）</div><input type="number" id="cLabW" placeholder="如 8000" /></div><div class="cr-row"><div class="cr-label">工作年限</div><input type="number" id="cLabY" placeholder="年，如 3" /></div><div class="cr-row"><div class="cr-label">不足一年部分（月）</div><input type="number" id="cLabM" placeholder="月，如 7（没有填 0）" /></div><button class="st-btn" onclick="calcLabor()">计算经济补偿</button></div>',
-    fee: '<div class="calc-card"><div class="cr-row"><div class="cr-label">诉讼标的额（元）</div><input type="number" id="cFeeV" placeholder="如 200000" /></div><div class="cr-row" style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="cFeeS" style="width:16px;height:16px;accent-color:var(--accent)" /><span style="font-size:12px;color:var(--text2)">适用简易程序 / 调解结案（减半收取）</span></div><button class="st-btn" onclick="calcFee()">计算受理费</button></div>',
-    sentence: '<div class="calc-card"><div class="cr-row"><div class="cr-label">判决前先行羁押天数</div><input type="number" id="cSenD" placeholder="如 120" /></div><button class="st-btn" onclick="calcSentence()">计算折抵</button></div>',
-    limit: '<div class="calc-card"><div class="cr-row"><div class="cr-label">权利受到损害之日（起算日）</div><input type="date" id="cLimD" /></div><div class="cr-row"><div class="cr-label">诉讼时效期间（年）</div><input type="number" id="cLimY" value="3" /></div><button class="st-btn" onclick="calcLimit()">计算到期日</button></div>',
-    overtime: '<div class="calc-card"><div class="cr-row"><div class="cr-label">月工资（元）</div><input type="number" id="cOvtW" placeholder="如 8000" /></div><div class="cr-row"><div class="cr-label">工作日延时加班（小时）</div><input type="number" id="cOvtH1" placeholder="本月累计，如 20" /></div><div class="cr-row"><div class="cr-label">休息日加班（小时，不能补休）</div><input type="number" id="cOvtH2" placeholder="如 8" /></div><div class="cr-row"><div class="cr-label">法定节假日加班（小时）</div><input type="number" id="cOvtH3" placeholder="如 8" /></div><button class="st-btn" onclick="calcOvertime()">计算加班费</button></div>'
+    loan: fh("loan", "借贷利息", "单利速算 · 司法保护上限 LPR 四倍", '<div class="cr-row"><div class="cr-label">借款本金（元）</div><input type="number" id="cLoanP" placeholder="如 100000" /></div><div class="cr-row"><div class="cr-label">年利率（%）</div><input type="number" id="cLoanR" placeholder="如 6" /></div><div class="cr-row"><div class="cr-label">借款天数</div><input type="number" id="cLoanD" placeholder="如 365" /></div><button class="st-btn" onclick="calcLoan()">计算利息</button>'),
+    labor: fh("labor", "劳动补偿", "经济补偿 N · 每满一年一个月工资", '<div class="cr-row"><div class="cr-label">离职前 12 个月平均应发工资（元/月）</div><input type="number" id="cLabW" placeholder="如 8000" /></div><div class="cr-row"><div class="cr-label">工作年限</div><input type="number" id="cLabY" placeholder="年，如 3" /></div><div class="cr-row"><div class="cr-label">不足一年部分（月）</div><input type="number" id="cLabM" placeholder="月，如 7（没有填 0）" /></div><button class="st-btn" onclick="calcLabor()">计算经济补偿</button>'),
+    fee: fh("fee", "诉讼费", "按标的额分段累计 · 简易程序减半", '<div class="cr-row"><div class="cr-label">诉讼标的额（元）</div><input type="number" id="cFeeV" placeholder="如 200000" /></div><div class="cr-row" style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="cFeeS" style="width:16px;height:16px;accent-color:var(--accent)" /><span style="font-size:12px;color:var(--text2)">适用简易程序 / 调解结案（减半收取）</span></div><button class="st-btn" onclick="calcFee()">计算受理费</button>'),
+    sentence: fh("sentence", "刑期折抵", "判决前羁押一日折抵刑期一日", '<div class="cr-row"><div class="cr-label">判决前先行羁押天数</div><input type="number" id="cSenD" placeholder="如 120" /></div><button class="st-btn" onclick="calcSentence()">计算折抵</button>'),
+    limit: fh("limit", "诉讼时效", "一般三年 · 到期日速查", '<div class="cr-row"><div class="cr-label">权利受到损害之日（起算日）</div><input type="date" id="cLimD" /></div><div class="cr-row"><div class="cr-label">诉讼时效期间（年）</div><input type="number" id="cLimY" value="3" /></div><button class="st-btn" onclick="calcLimit()">计算到期日</button>'),
+    overtime: fh("overtime", "加班费", "平日 1.5 倍 · 休日 2 倍 · 节假日 3 倍", '<div class="cr-row"><div class="cr-label">月工资（元）</div><input type="number" id="cOvtW" placeholder="如 8000" /></div><div class="cr-row"><div class="cr-label">工作日延时加班（小时）</div><input type="number" id="cOvtH1" placeholder="本月累计，如 20" /></div><div class="cr-row"><div class="cr-label">休息日加班（小时，不能补休）</div><input type="number" id="cOvtH2" placeholder="如 8" /></div><div class="cr-row"><div class="cr-label">法定节假日加班（小时）</div><input type="number" id="cOvtH3" placeholder="如 8" /></div><button class="st-btn" onclick="calcOvertime()">计算加班费</button>')
   };
   document.getElementById("calcForm").innerHTML = forms[_calcCur] || "";
   document.getElementById("calcResult").innerHTML = "";
