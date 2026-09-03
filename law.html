@@ -1425,7 +1425,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 
 <div id="aboutView">
   <div class="wx-nav">
-    <button class="back" onclick="showSettings()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">关于我们</span>
   </div>
   <div class="about-body">
@@ -1647,7 +1647,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== MATERIALS VIEW (我的资料 · 上传查看) ===== -->
 <div id="materialsView" style="display:none">
   <div class="wx-nav">
-    <button class="back" onclick="closeMaterials()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">我的资料</span>
     <button class="right-btn" onclick="uploadMaterial()" title="上传文档" style="font-size:20px">＋</button>
   </div>
@@ -1660,7 +1660,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== NOTEBOOK VIEW ===== -->
 <div id="notebookView" style="display:none">
   <div class="wx-nav">
-    <button class="back" onclick="showLearningCenter()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">笔记本</span>
   </div>
   <div class="notebook-body">
@@ -1715,7 +1715,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== CLOCK VIEW ===== -->
 <div id="clockView">
   <div class="wx-nav">
-    <button class="back" onclick="showLearningCenter()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">学习时钟</span>
   </div>
   <div class="clock-body">
@@ -1739,7 +1739,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== CALC VIEW 法律计算器 ===== -->
 <div id="calcView">
   <div class="wx-nav">
-    <button class="back" onclick="showLearningCenter()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">法律计算器</span>
   </div>
   <div class="tool-body">
@@ -1752,7 +1752,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== FLASH VIEW 法条闪卡 ===== -->
 <div id="flashView">
   <div class="wx-nav">
-    <button class="back" onclick="showLearningCenter()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">法条闪卡</span>
   </div>
   <div class="tool-body" id="flashBody"></div>
@@ -1761,7 +1761,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== PREVENT VIEW 事前防范清单 ===== -->
 <div id="preventView" style="display:none">
   <div class="wx-nav">
-    <button class="back" onclick="showPlaza()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">事前防范清单</span>
   </div>
   <div class="tool-body" id="preventBody"></div>
@@ -1770,7 +1770,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== FAQ VIEW 高频问答 ===== -->
 <div id="faqView" style="display:none">
   <div class="wx-nav">
-    <button class="back" onclick="showPlaza()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">高频问答</span>
   </div>
   <div class="tool-body" id="faqBody"></div>
@@ -1779,7 +1779,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 <!-- ===== RIGHTS VIEW 维权路径速查 ===== -->
 <div id="rightsView" style="display:none">
   <div class="wx-nav">
-    <button class="back" onclick="showPlaza()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back" onclick="goBack()" aria-label="返回"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="title">维权路径速查</span>
   </div>
   <div class="tool-body" id="rightsBody"></div>
@@ -3270,7 +3270,7 @@ function openLawReader(file, name, keyword) {
   document.getElementById("lrInfo").textContent = "";
   document.getElementById("lrNav").innerHTML = "";
   document.getElementById("lrSearch").value = keyword || "";
-  hideAllViews();
+  hideAllViews("lawReaderView", true);
   document.getElementById("lawReaderView").classList.add("show");
 
   function doLoad() {
@@ -3366,9 +3366,10 @@ function showAbout() {
 // ============================================================
 // SCREEN MANAGEMENT
 // ============================================================
-function hideAllViews(nextView) {
+function hideAllViews(nextView, keepReturn) {
   var shown = document.querySelector(".show[id]");
-  if (nextView && shown && shown.id !== "homeScreen" && shown.id !== "roleSheetBd" && shown.id !== nextView && !_isGoingBack) _returnView = shown.id;
+  // keepReturn：打开笔记详情/法条阅读器等子视图时不动返回栈
+  if (!keepReturn && shown && shown.id !== "homeScreen" && shown.id !== "roleSheetBd" && shown.id !== nextView && !_isGoingBack) _returnView = shown.id;
   else if (nextView === "homeScreen") _returnView = null;
   ["homeScreen","chatView","dbView","aboutView","settingsView","quizView","docView","caseView","caseDetail","learnCenterView","materialsView","notebookView","plazaView","noteDetailView","profileView","clockView","calcView","flashView","rightsView","preventView","faqView"].forEach(function(id) {
     var el = document.getElementById(id);
@@ -5118,7 +5119,7 @@ function startAiQuizSetup() {
   };
 }
 function playAiQuiz(qs) {
-  hideAllViews();
+  hideAllViews("quizView");
   document.getElementById("quizView").classList.add("show");
   stopExamTimer();
   QUIZ_STATE.mode = "practice";
@@ -5624,7 +5625,7 @@ function updateLearnDashboard() {
 }
 
 function showQuizModule() {
-  hideAllViews();
+  hideAllViews("quizView");
   document.getElementById("quizView").classList.add("show");
   recordLastStudy("quizView");
   stopExamTimer();
@@ -5722,7 +5723,7 @@ function showMaterials() {
   recordLastStudy("materialsView");
   renderMaterials();
 }
-function closeMaterials() { showLearningCenter(); }
+function closeMaterials() { goBack(); }
 function renderMaterials() {
   var list = loadMaterialsMeta();
   var el = document.getElementById("matList");
@@ -5937,7 +5938,7 @@ function editNote(index) {
   if (index < 0 || index >= notes.length) return;
   var n = notes[index];
   currentEditIndex = index;
-  hideAllViews();
+  hideAllViews("noteDetailView", true);
   var el = document.getElementById("noteDetailView");
   el.style.display = "";
   el.classList.add("show");
@@ -6250,9 +6251,9 @@ function quizBack() {
   } else if (QUIZ_STATE.screen === "subjects") {
     showQuizModule();
   } else if (QUIZ_STATE.screen === "menu") {
-    showLearningCenter();
+    goBack();
   } else {
-    showLearningCenter();
+    goBack();
   }
 }
 
