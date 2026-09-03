@@ -348,6 +348,15 @@
     .law-meta{font-size:11px;color:var(--text2);display:flex;gap:10px;flex-wrap:wrap}
     .law-meta span{white-space:nowrap}
     .law-note{font-size:12px;line-height:1.5;color:var(--accent);margin-top:5px;word-break:break-word}
+    .important-law-list{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+    .important-law-card{background:var(--card-bg);border:1.5px solid var(--accent);border-radius:14px;padding:14px 16px;cursor:pointer}
+    .important-law-card .il-head{display:flex;align-items:flex-start;gap:8px}
+    .important-law-card .il-tag{flex-shrink:0;background:var(--accent-light);color:var(--accent);border-radius:8px;padding:3px 7px;font-size:11px;font-weight:700}
+    .important-law-card .il-title{font-size:14px;font-weight:700;line-height:1.45;color:var(--text)}
+    .important-law-card .il-law{font-size:11px;color:var(--text2);margin-top:4px}
+    .important-law-card .il-plain{margin-top:9px;padding-top:9px;border-top:1px dashed var(--card-border);font-size:13px;line-height:1.7;color:var(--text);display:none}
+    .important-law-card.open .il-plain{display:block}
+    .important-law-card .il-plain b{color:var(--accent)}
     .law-dl{flex-shrink:0;padding:6px 12px;border-radius:14px;border:1px solid var(--accent);color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;background:transparent;transition:all .15s;text-decoration:none;margin-left:4px}
     .law-dl:active{background:var(--accent);color:#fff}
     .law-view-btn{flex-shrink:0;padding:6px 12px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;margin-left:4px}
@@ -3055,6 +3064,17 @@ var LAWS = [
   { name:"中华人民共和国治安管理处罚法", file:"public-security-law-2025.docx", date:"2026-01-01", cat:"行政", icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>', desc:"119条 — 2025修订版" },
   { name:"中华人民共和国危险化学品安全法", file:"hazardous-chemicals-safety-law-2025.docx", date:"2026-01-01", cat:"行政", icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>', desc:"新法 — 2025年通过" }
 ];
+var IMPORTANT_ARTICLES = [
+  { law:"《劳动合同法》", article:"第30条", title:"工资应当按时足额支付", plain:"公司不能无故拖欠或克扣工资。先留好劳动合同、工资流水和催款记录。", roles:["worker","student","lawschool"] },
+  { law:"《劳动合同法》", article:"第82条", title:"不签书面劳动合同可能要付双倍工资", plain:"入职超过一个月还没签书面合同，通常可以主张未签合同期间的双倍工资差额。", roles:["worker","student","lawschool"] },
+  { law:"《消费者权益保护法》", article:"第25条", title:"网购多数商品可以七天无理由退货", plain:"收到商品后七天内通常可以退货，但定作、鲜活易腐等商品有例外。", roles:["consumer","senior","student","citizen"] },
+  { law:"《消费者权益保护法》", article:"第55条", title:"商家欺诈可以要求退一赔三", plain:"商家存在欺诈时，可以要求退还价款并增加赔偿，金额和证据要具体核对。", roles:["consumer","senior","citizen"] },
+  { law:"《民法典》", article:"第188条", title:"普通民事请求的诉讼时效一般是三年", plain:"发现权利受损后不要一直拖，催款、协商等行为可能影响时效计算。", roles:["senior","citizen","renter","consumer","worker","student","lawschool"] },
+  { law:"《民法典》", article:"第509条", title:"合同双方都要按约定履行并互相配合", plain:"房东和租客、买方和卖方都应按合同办事，遇到问题要及时通知并留证。", roles:["renter","citizen","consumer","worker","student","lawschool"] },
+  { law:"《民法典》", article:"第667条", title:"借款人应当返还本金并按约定支付利息", plain:"借钱最好写借条并通过转账留下记录，不要只靠口头承诺。", roles:["senior","citizen","student","lawschool"] },
+  { law:"《民法典》", article:"第725条", title:"房屋转手一般不影响原租赁合同", plain:"租期内房子卖给别人，通常不能仅因为换了房东就要求租客搬走。", roles:["renter","citizen","lawschool"] },
+  { law:"《刑法》", article:"第266条", title:"骗取财物可能构成诈骗罪", plain:"遇到冒充客服、亲友或工作人员要求转账的情况，先挂断并和家人核实，必要时拨打110。", roles:["senior","citizen","lawschool"] }
+];
 var LAW_ROLE_NOTES = {
   "civil-code-2020.docx": {
     worker:"处理工资、借贷、租房、婚姻等日常纠纷时，很多基本规则都在这里。",
@@ -3101,6 +3121,14 @@ function renderDatabase(filter) {
   });
 
   var h = "";
+  var important = IMPORTANT_ARTICLES.filter(function(article) { return !article.roles || article.roles.indexOf(curRole) >= 0; });
+  if (important.length) {
+    h += '<div class="db-category">重要法条 · 先看这些</div><div class="important-law-list">';
+    important.forEach(function(article) {
+      h += '<div class="important-law-card" onclick="this.classList.toggle(\'open\')"><div class="il-head"><span class="il-tag">' + escHtml(article.article) + '</span><div><div class="il-title">' + escHtml(article.title) + '</div><div class="il-law">' + escHtml(article.law) + '</div></div></div><div class="il-plain"><b>大白话：</b>' + escHtml(article.plain) + '</div></div>';
+    });
+    h += '</div>';
+  }
   var catNames = { "民事":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:3px"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg>民事法律', "刑事":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><path d="M12 2 L12 22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>刑事法律', "程序":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>程序法律', "社会":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>社会法律', "行政":'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-3px;margin-right:3px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>行政法律' };
   Object.keys(cats).forEach(function(cat) {
     h += '<div class="db-category">' + (catNames[cat] || cat) + '</div>';
@@ -4250,6 +4278,7 @@ function detectDomain(text) {
 
 // FAQ 库：30 条高频生活场景速答（结论 + 法条），用于对话知识库注入与检索命中
 var FAQ_DATA = [
+  { d: "criminal", k: "养老金 养老 交钱 领养老金 冒充社保", q: "有人说交钱就能领养老金，可信吗？", a: "不要相信，也不要转账。这类说法常见于冒充社保、民政或银行工作人员的诈骗，真正的养老待遇不会要求你向陌生账户缴费或提供验证码。", law: "《刑法》第266条（诈骗罪）" },
   { d: "labor", k: "拖欠工资 欠薪 讨薪", q: "公司拖欠工资怎么办？", a: "先书面催讨并留证，再向劳动监察投诉（12333）或申请劳动仲裁；在职期间欠薪争议不受一年仲裁时效限制。", law: "《劳动合同法》第30条、《劳动争议调解仲裁法》第27条第4款" },
   { d: "labor", k: "辞退 开除 解除", q: "被公司无故辞退有赔偿吗？", a: "违法解除可主张二倍经济补偿的赔偿金（2N）；协商解除一般为 N 或 N+1。", law: "《劳动合同法》第46、47、87条" },
   { d: "labor", k: "实习 实习协议", q: "实习协议被扣押/实习不给钱怎么办？", a: "协议文本应双方各执一份，可书面索要并留证；实习报酬可按劳务关系依法主张。", law: "《民法典》第509条" },
@@ -4519,13 +4548,55 @@ function showError(msg) {
   dom.messages.appendChild(d); scrollBottom();
 }
 
+function buildLocalAnswer(text) {
+  var rc = roleOf(curRole);
+  var hits = kbHits(text || "");
+  var domain = detectDomain(text || "");
+  var answer = "**结论**：\n";
+  if (hits.length) {
+    var first = hits[0];
+    var match = FAQ_DATA.filter(function(item) { return first.indexOf(item.q) >= 0; })[0];
+    if (match) {
+      answer += match.a + "\n\n**依据**：" + match.law + "\n\n**行动**：先保存合同、付款记录、聊天记录等相关材料，再按情况联系对应机构或拨打 12348。";
+    } else {
+      answer += first.replace(/^-\s*/, "") + "\n\n**行动**：先保存相关证据，再根据提示联系对应机构或拨打 12348。";
+    }
+  } else if (domain) {
+    answer += DOMAIN_RULES[domain].brief + "\n\n**行动**：请补充事情发生的时间、金额、是否有合同或凭证，我可以继续帮你梳理。";
+  } else {
+    answer += "暂时没有在本地知识库中找到完全匹配的答案。请补充事情经过、时间、金额和已有材料，或拨打 12348 咨询法律援助。";
+  }
+  if (rc && rc.name === "银发长辈") answer += "\n\n**给您的提醒**：先停一停，不转账，不透露验证码，重要事情先和家人商量。";
+  else if (rc && rc.prompt) answer += "\n\n**按你的身份提醒**：" + rc.prompt.split("。")[0] + "。";
+  return _boundary(answer, text);
+}
+
+function sendLocalMsg(text) {
+  var sessionId = ++chatSessionId;
+  streaming = true; dom.btnSend.disabled = true; dom.btnSend.classList.add("loading"); dom.typing.style.display = "flex"; scrollBottom();
+  messages.push({ role: "user", content: text, _time: Date.now() });
+  renderMsg("user", text); persist();
+  var answer = buildLocalAnswer(text);
+  var msgDiv = document.createElement("div"); msgDiv.className = "msg ai no-avatar";
+  msgDiv.innerHTML = '<div class="msg-avatar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></div><div class="msg-body"><div class="msg-content"></div></div>';
+  dom.messages.appendChild(msgDiv);
+  var contentDiv = msgDiv.querySelector(".msg-content");
+  setTimeout(function() {
+    if (chatSessionId !== sessionId) return;
+    contentDiv.innerHTML = renderMD(answer);
+    msgDiv.querySelector(".msg-body").insertAdjacentHTML("beforeend", '<div class="msg-time">' + getTimeStr() + '</div><div class="msg-actions"><button class="btn-copy" onclick="copyMsg(this)">复制</button></div>');
+    messages.push({ role: "assistant", content: answer, _time: Date.now() }); persist();
+    streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); dom.typing.style.display = "none"; hlAll(); scrollBottom();
+  }, 180);
+}
+
 // ============================================================
 // API
 // ============================================================
 function sendMsg(text) {
   if (streaming) return;
   text = text.trim(); if (!text) return;
-  if (!SETTINGS.apiKey) { showError('API配置错误，请先前往关于我们中完成配置'); return; }
+  if (!SETTINGS.apiKey) { sendLocalMsg(text); return; }
 
   var sessionId = ++chatSessionId;
   streaming = true; dom.btnSend.disabled = true; dom.btnSend.classList.add("loading"); dom.typing.style.display = "flex"; scrollBottom();
