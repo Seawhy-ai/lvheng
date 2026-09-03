@@ -127,6 +127,7 @@
     /* ===== WELCOME SCREEN ===== */
     .welcome-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:calc(50px + var(--safe-top))}
     .whale-icon{font-size:52px;margin-bottom:28px;animation:whaleFloat 3s ease-in-out infinite;content:"●"}
+    .whale-icon .esvg{width:56px;height:56px}
     @keyframes whaleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
     .typewriter{font-family:"SimSun","STSong","Songti SC","Noto Serif CJK SC",serif;font-size:clamp(30px,7vw,44px);font-weight:400;color:var(--text);min-height:60px;letter-spacing:6px;transition:opacity .3s}
     .typewriter .cursor{display:inline-block;width:3px;height:1em;background:var(--accent);margin-left:4px;animation:blink 1s step-end infinite;vertical-align:text-bottom}
@@ -427,6 +428,7 @@
 
     /* ===== SVG ICONS ===== */
     .ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+    .esvg{width:1em;height:1em;vertical-align:-0.12em;flex-shrink:0}
     .ico svg{display:block}
 
     /* ===== HELP MODAL ===== */
@@ -1032,6 +1034,10 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     .role-card:active{transform:scale(.96)}
     .role-card.on{border-color:var(--accent);background:var(--accent-light)}
     .role-card .ri{font-size:30px;line-height:1.2}
+    .role-card .ri svg{width:30px;height:30px;display:block;margin:0 auto}
+    .role-chip svg{width:16px;height:16px;vertical-align:-2px}
+    #profileRoleChip svg{width:16px;height:16px;vertical-align:-2px}
+    .dt-badge svg{width:11px;height:11px;vertical-align:-1.5px}
     .role-card .rn{font-size:13.5px;font-weight:800;margin-top:6px;color:var(--text)}
     .role-card .rd{font-size:10.5px;color:var(--text2);margin-top:3px;line-height:1.4}
     .role-card .rt{font-size:9.5px;color:var(--accent);margin-top:4px}
@@ -1158,7 +1164,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
   <div class="home-bg" id="homeBg"></div>
   <div class="profile-btn" id="homeProfileBtn" onclick="goToProfile()" title="个人中心"></div>
 <div class="welcome-hero">
-    <div class="whale-icon">🐋</div>
+    <div class="whale-icon"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M3.5 13C3.5 9.7 6.6 7 10.5 7c2.5 0 4.7 1 6.3 2.6L20.5 6.5 18.3 10.5 21 13.5c-1.2 1.8-3.1 3-5.4 3H7.8C5.2 16.5 3.5 14.9 3.5 13z"/><circle fill="none" stroke="currentColor" cx="6.5" cy="10.8" r=".8"/><path fill="none" stroke="currentColor" d="M5.4 14c.8.5 1.7.8 2.6.8"/><path fill="none" stroke="currentColor" d="M10.8 6.8c-.6-1-1.3-1.7-2.2-2.2"/></svg></div>
     <h1 class="typewriter" id="typewriter"></h1>
     <div class="role-chip" id="homeRoleChip" onclick="openRolePicker()" title="选择身份，定制你的界面"></div>
     <div class="role-quicks" id="roleQuicks"></div>
@@ -1437,7 +1443,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 
     <div class="about-section">
       <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-4px;margin-right:4px"><path d="M12 21c-4-3.5-8-6.8-8-11a8 8 0 1 1 16 0c0 4.2-4 7.5-8 11z"/><circle cx="12" cy="10" r="3"/></svg>五维使命</h3>
-      <p>🆓 <b>普惠可用</b>：免费、零安装、一键进入；🗣️ <b>通俗易懂</b>：大白话解释法律问题；⚖️ <b>严谨可靠</b>：回答引用法条编号、重大事项引导专业援助；🔄 <b>公益闭环</b>：对接 12348/12315 等公共维权资源；📦 <b>开源可复制</b>：知识库与源码开源共享，任何高校/社区可快速复刻。</p>
+      <p><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line fill="none" stroke="currentColor" x1="7" y1="7" x2="7.01" y2="7"/></svg> <b>普惠可用</b>：免费、零安装、一键进入；<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path fill="none" stroke="currentColor" d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> <b>通俗易懂</b>：大白话解释法律问题；<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="sc_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa0e0"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="sc_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient></defs><rect x="10.6" y="4.5" width="2.8" height="13.5" rx="1" fill="url(#sc_a)"/><rect x="2.5" y="7.5" width="19" height="2.4" rx="1.2" fill="url(#sc_a)"/><circle cx="3" cy="8.7" r="1.3" fill="url(#sc_a)"/><circle cx="21" cy="8.7" r="1.3" fill="url(#sc_a)"/><path d="M3 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><path d="M21 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><rect x="1" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="19" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="11.2" y="5.2" width=".7" height="11" rx=".35" fill="#fff" opacity=".35"/><rect x="10.6" y="15.5" width="2.8" height=".9" rx=".45" fill="#1a5276"/><rect x="3" y="19" width="18" height="2" rx="1" fill="url(#sc_a)"/><circle cx="12" cy="4.5" r="1.6" fill="url(#sc_b)"/><circle cx="11.6" cy="4.1" r=".4" fill="#fff" opacity=".6"/></svg> <b>严谨可靠</b>：回答引用法条编号、重大事项引导专业援助；<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polyline fill="none" stroke="currentColor" points="23 4 23 10 17 10"/><polyline fill="none" stroke="currentColor" points="1 20 1 14 7 14"/><path fill="none" stroke="currentColor" d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> <b>公益闭环</b>：对接 12348/12315 等公共维权资源；<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline fill="none" stroke="currentColor" points="3.27 6.96 12 12.01 20.73 6.96"/><line fill="none" stroke="currentColor" x1="12" y1="22.08" x2="12" y2="12"/></svg> <b>开源可复制</b>：知识库与源码开源共享，任何高校/社区可快速复刻。</p>
     </div>
 
     <div class="about-section">
@@ -1488,7 +1494,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
   <div class="learn-body">
     <!-- 法律文书生成：AI 刚需功能，大卡引导 -->
     <div class="doc-hero-card" onclick="showDocGen()">
-      <div class="dhc-badge">⚡ AI 智能生成 · 一键导出</div>
+      <div class="dhc-badge"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> AI 智能生成 · 一键导出</div>
       <div class="dhc-row">
         <div class="dhc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
         <div class="dhc-main">
@@ -1555,7 +1561,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
           <span class="lr-date" id="learnTodayDate">今日</span>
         </div>
         <div class="learn-smart">
-          <span class="ls-emoji" id="learnSmartEmoji">📖</span>
+          <span class="ls-emoji" id="learnSmartEmoji"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path fill="none" stroke="currentColor" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
           <span id="learnSmart">从题库开始，积累学习时长吧</span>
         </div>
       </div>
@@ -1954,7 +1960,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <div class="law-preview-text" id="lawModalText">加载中…</div>
     <div class="btn-row">
       <button class="btn-secondary" onclick="closeLawModal()">关闭</button>
-      <button class="btn-primary" id="lawModalDownload">⬇ 下载全文</button>
+      <button class="btn-primary" id="lawModalDownload"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline fill="none" stroke="currentColor" points="7 10 12 15 17 10"/><line fill="none" stroke="currentColor" x1="12" y1="15" x2="12" y2="3"/></svg> 下载全文</button>
     </div>
   </div>
 </div>
@@ -2885,19 +2891,19 @@ function pickProfileAvatar() {
     var isCurrent = AVATARS[i] === current && !customSelected;
     h += '<button class="avatar-pick-btn' + (isCurrent ? ' selected' : '') + '" data-emoji="' + AVATARS[i] + '" style="width:44px;height:44px;border-radius:50%;border:2px solid ' + (isCurrent ? 'var(--accent)' : 'var(--card-border)') + ';background:var(--card-bg);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center' + (isCurrent ? ';transform:scale(1.15);box-shadow:0 0 0 3px rgba(74,144,217,0.25)' : '') + '">' + AVATARS[i] + '</button>';
   }
-  h += '</div><div style="display:flex;justify-content:center;margin-bottom:12px"><button id="avatarUploadBtn" type="button" style="width:100%;max-width:220px;height:44px;border-radius:12px;border:2px solid ' + (customSelected ? 'var(--accent)' : 'var(--card-border)') + ';background:var(--card-bg);font-size:14px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px' + (customSelected ? ';transform:scale(1.01);box-shadow:0 0 0 3px rgba(74,144,217,0.18)' : '') + '"><span>📷</span><span>上传头像</span></button></div>';
+  h += '</div><div style="display:flex;justify-content:center;margin-bottom:12px"><button id="avatarUploadBtn" type="button" style="width:100%;max-width:220px;height:44px;border-radius:12px;border:2px solid ' + (customSelected ? 'var(--accent)' : 'var(--card-border)') + ';background:var(--card-bg);font-size:14px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px' + (customSelected ? ';transform:scale(1.01);box-shadow:0 0 0 3px rgba(74,144,217,0.18)' : '') + '"><span><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle fill="none" stroke="currentColor" cx="12" cy="13" r="4"/></svg></span><span>上传头像</span></button></div>';
   h += '<input id="avatarUploadInput" type="file" accept="image/*" style="display:none" />';
   var ownedF = getOwnedAvatarFrames();
   h += '<div class="af-section"><div class="af-label">头像框</div><div class="af-row">';
-  h += '<button type="button" class="af-opt' + ((p.avatarFrame || "") === "" ? ' selected' : '') + '" data-frame="" title="无头像框"><span class="af-circle" style="border:2px solid var(--card-border)">🚫</span></button>';
+  h += '<button type="button" class="af-opt' + ((p.avatarFrame || "") === "" ? ' selected' : '') + '" data-frame="" title="无头像框"><span class="af-circle" style="border:2px solid var(--card-border)"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><line fill="none" stroke="currentColor" x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></span></button>';
   for (var fi = 0; fi < AVATAR_FRAMES.length; fi++) {
     var f = AVATAR_FRAMES[fi];
     var fOwned = ownedF.indexOf(f.key) >= 0;
     var fSel = (p.avatarFrame || "") === f.key;
     if (!fOwned) {
-      h += '<button type="button" class="af-opt locked" title="未拥有" disabled><span class="af-circle" style="border:1px solid var(--card-border)">🔒</span></button>';
+      h += '<button type="button" class="af-opt locked" title="未拥有" disabled><span class="af-circle" style="border:1px solid var(--card-border)"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="3" y="11" width="18" height="11" rx="2" ry="2"/><path fill="none" stroke="currentColor" d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>';
     } else {
-      h += '<button type="button" class="af-opt' + (fSel ? ' selected' : '') + '" data-frame="' + f.key + '" title="' + f.name + '"><span class="af-circle" style="border:2px solid ' + f.borderColor + ';box-shadow:' + f.boxShadow + '">👤</span></button>';
+      h += '<button type="button" class="af-opt' + (fSel ? ' selected' : '') + '" data-frame="' + f.key + '" title="' + f.name + '"><span class="af-circle" style="border:2px solid ' + f.borderColor + ';box-shadow:' + f.boxShadow + '"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle fill="none" stroke="currentColor" cx="12" cy="7" r="4"/></svg></span></button>';
     }
   }
   h += '</div></div>';
@@ -2992,7 +2998,7 @@ function handleAvatarUpload(input) {
   var reader = new FileReader();
   reader.onload = function(e) {
     var p = loadProfile();
-    p.avatar = "📷";
+    p.avatar = "👤";
     p.avatarType = "image";
     p.avatarDataUrl = e.target.result;
     saveProfile(p);
@@ -3217,7 +3223,7 @@ function filterLaws() {
 function previewLaw(file, name) {
   document.getElementById("lawModalTitle").textContent = name;
   document.getElementById("lawModalMeta").textContent = "正在加载预览引擎…";
-  document.getElementById("lawModalText").textContent = "⏳ 正在加载文档预览…";
+  document.getElementById("lawModalText").textContent = "⬇️ 正在加载文档预览…";
   document.getElementById("lawModalDownload").onclick = function() {
     var a = document.createElement("a");
     a.href = "laws/" + encodeURI(file);
@@ -3475,7 +3481,7 @@ function renderChatQuickBar() {
   if (!bar) return;
   var r = roleOf(curRole);
   var list = r ? r.chats : ["公司拖欠工资几个月了怎么办？", "买到假货能退一赔三吗？", "房东不退押金能起诉吗？"];
-  var icons = r && r.cico ? r.cico : ["💼", "🛒", "🏠", "💰"];
+  var icons = r && r.cico ? r.cico : ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="2" y="7" width="20" height="14" rx="2" ry="2"/><path fill="none" stroke="currentColor" d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ca_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="ca_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fc3f0"/><stop offset="1" stop-color="#5aa0e0"/></linearGradient><linearGradient id="ca_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ca_d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient></defs><rect x="1" y="1.5" width="4.5" height="1.8" rx="0.9" fill="url(#ca_a)"/><path d="M5.3 2.4l2.2 4.6-1.1.5-2.2-4.6z" fill="url(#ca_a)"/><path d="M6.5 7.2l16.3.3-2.1 8a2.3 2.3 0 0 1-2.2 1.7H10.3a2.3 2.3 0 0 1-2.2-1.6z" fill="url(#ca_a)"/><path d="M7.2 8.2l14.8.3" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".5" fill="none"/><rect x="11" y="9.5" width="4.5" height="3.5" rx="0.6" fill="url(#ca_b)"/><circle cx="9.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="19.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="9.5" cy="21" r=".5" fill="url(#ca_d)"/><circle cx="19.5" cy="21" r=".5" fill="url(#ca_d)"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ho_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="ho_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ho_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient></defs><path d="M3 11L12 3l9 8z" fill="url(#ho_a)"/><path d="M5 10l5-5" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/><path d="M6.2 9.6L12 4.6l5.8 5" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><path d="M8.4 7.6L12 4.8l3.6 2.8" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><rect x="15.2" y="3.8" width="2.6" height="3.8" rx="0.6" fill="url(#ho_b)"/><rect x="5" y="10.5" width="14" height="10.5" rx="1" fill="url(#ho_c)"/><rect x="9.5" y="15" width="5" height="6" rx="0.8" fill="#1a5276"/><circle cx="13.6" cy="18" r=".45" fill="#ffd94d"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="9"/><line fill="none" stroke="currentColor" x1="12" y1="7" x2="12" y2="17"/><line fill="none" stroke="currentColor" x1="8.5" y1="10" x2="15.5" y2="10"/><line fill="none" stroke="currentColor" x1="8.5" y1="14" x2="15.5" y2="14"/></svg>'];
   bar.innerHTML = list.map(function(q, i) {
     var short = q.length > 15 ? q.slice(0, 15) + "…" : q;
     return '<button class="cqb" data-q="' + q.replace(/"/g, "&quot;") + '" onclick="quickBarAsk(this)">' + icons[i % icons.length] + " " + escHtml(short) + '</button>';
@@ -3699,7 +3705,7 @@ function runGlobalSearch() {
   var q = input.value.trim();
   box.innerHTML = "";
   if (q.length < 2) return;
-  box.innerHTML = '<div class="gs-results"><div class="gs-empty">🔍 正在检索法条与案例…</div></div>';
+  box.innerHTML = '<div class="gs-results"><div class="gs-empty"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="11" cy="11" r="8"/><line fill="none" stroke="currentColor" x1="21" y1="21" x2="16.65" y2="16.65"/></svg> 正在检索法条与案例…</div></div>';
   var isCaseNo = /20\d{2}/.test(q) && /号/.test(q);
   Promise.all([searchLawsByText(q), searchCasesByText(q)]).then(function(res) {
     // 输入已变化则丢弃过期结果
@@ -3755,7 +3761,7 @@ function renderGlobalResults(q, lawHits, caseHits, isCaseNo) {
       + (isCaseNo ? '<br><span style="font-size:10px">案号检索暂未收录裁判文书全文，可尝试当事人 / 案由关键词</span>' : '') + '</div>';
   } else {
     if (lawHits.length) {
-      html += '<div class="gs-group">⚖️ 法条 · ' + lawHits.length + ' 条</div>';
+      html += '<div class="gs-group"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="sc_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa0e0"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="sc_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient></defs><rect x="10.6" y="4.5" width="2.8" height="13.5" rx="1" fill="url(#sc_a)"/><rect x="2.5" y="7.5" width="19" height="2.4" rx="1.2" fill="url(#sc_a)"/><circle cx="3" cy="8.7" r="1.3" fill="url(#sc_a)"/><circle cx="21" cy="8.7" r="1.3" fill="url(#sc_a)"/><path d="M3 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><path d="M21 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><rect x="1" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="19" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="11.2" y="5.2" width=".7" height="11" rx=".35" fill="#fff" opacity=".35"/><rect x="10.6" y="15.5" width="2.8" height=".9" rx=".45" fill="#1a5276"/><rect x="3" y="19" width="18" height="2" rx="1" fill="url(#sc_a)"/><circle cx="12" cy="4.5" r="1.6" fill="url(#sc_b)"/><circle cx="11.6" cy="4.1" r=".4" fill="#fff" opacity=".6"/></svg> 法条 · ' + lawHits.length + ' 条</div>';
       for (var i = 0; i < lawHits.length; i++) {
         var h = lawHits[i];
         var snip = h.snippet.replace(/\s+/g, " ");
@@ -3768,7 +3774,7 @@ function renderGlobalResults(q, lawHits, caseHits, isCaseNo) {
       }
     }
     if (caseHits.length) {
-      html += '<div class="gs-group">📚 案例 · ' + caseHits.length + ' 个</div>';
+      html += '<div class="gs-group"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="5" y="3" width="14" height="3.5" rx="1.5"/><rect fill="none" stroke="currentColor" x="4" y="8.5" width="16" height="3.5" rx="1.5"/><rect fill="none" stroke="currentColor" x="6" y="14" width="12" height="3.5" rx="1.5"/></svg> 案例 · ' + caseHits.length + ' 个</div>';
       for (var k = 0; k < caseHits.length; k++) {
         var ch = caseHits[k];
         var title = (ch.title || "").replace(/^案例[一二三四五六七八九十\d]+[\s:：]*/, "").replace(/[:：]\s*$/, "");
@@ -3900,88 +3906,88 @@ var curRole = null;
 var ROLES = {
   worker: {
     nav: ["chat","plaza","calc","settings"], calcDefault: "labor",
-    name: "劳动从业者", ico: "👷", dom: "欠薪 · 辞退 · 工伤 · 加班", tag: "每一分辛苦，都值得被法律保护", scale: 1,
+    name: "劳动从业者", ico: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="wh_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="wh_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="wh_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdfc2"/><stop offset="1" stop-color="#f0c9a0"/></linearGradient></defs><path d="M7 6.5a5 5 0 0 1 10 0v1.2H7z" fill="url(#wh_a)"/><path d="M4.5 7.7h15v1.4h-15z" fill="url(#wh_b)"/><path d="M7.6 9.3h8.8" stroke="#e0b48c" stroke-width=".9" fill="none"/><circle cx="12" cy="13" r="4.8" fill="url(#wh_c)"/><circle cx="6.5" cy="14.2" r="1.1" fill="url(#wh_c)"/><circle cx="17.5" cy="14.2" r="1.1" fill="url(#wh_c)"/><circle cx="6.5" cy="14.2" r=".35" fill="#d9a37a"/><circle cx="17.5" cy="14.2" r=".35" fill="#d9a37a"/><circle cx="9.9" cy="12.2" r=".9" fill="#5a3a22"/><circle cx="14.1" cy="12.2" r=".9" fill="#5a3a22"/><circle cx="10.15" cy="11.95" r=".3" fill="#fff"/><circle cx="14.35" cy="11.95" r=".3" fill="#fff"/><path d="M8.9 10.7c.6-.5 1.4-.5 2 .1" stroke="#c9946b" stroke-width=".8" fill="none"/><path d="M13.1 10.8c.6-.6 1.4-.6 2-.1" stroke="#c9946b" stroke-width=".8" fill="none"/><circle cx="12" cy="14" r=".55" fill="#d9a37a"/><ellipse cx="8.5" cy="14.5" rx=".8" ry=".55" fill="#f8bfae" opacity=".9"/><ellipse cx="15.5" cy="14.5" rx=".8" ry=".55" fill="#f8bfae" opacity=".9"/><path d="M10.2 15.6a2.6 2.6 0 0 0 3.6 0" stroke="#5a3a22" stroke-width="1.1" fill="none"/><path d="M6.5 18.2h11L12 21.2z" fill="#1a5276"/></svg>', emo: "👷", dom: "欠薪 · 辞退 · 工伤 · 加班", tag: "每一分辛苦，都值得被法律保护", scale: 1,
     prompt: "用户是劳动从业者（打工人），关注欠薪、辞退赔偿、加班费、工伤、社保。语言朴实直接，优先给出维权步骤、材料清单和时限。",
     quicks: [
-      { ico: "💬", t: "拖欠工资怎么讨回", act: "chat", arg: "公司拖欠我工资几个月了，该怎么办？请给我具体步骤。" },
-      { ico: "🧮", t: "辞退赔偿算一算", act: "calc", arg: "labor" },
-      { ico: "🗺️", t: "劳动维权路径", act: "rights", arg: "labor" },
-      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "拖欠工资怎么讨回", act: "chat", arg: "公司拖欠我工资几个月了，该怎么办？请给我具体步骤。" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="4" y="2" width="16" height="20" rx="2"/><line fill="none" stroke="currentColor" x1="8" y1="6" x2="16" y2="6"/><path fill="none" stroke="currentColor" d="M8 12h.01"/><path fill="none" stroke="currentColor" d="M12 12h.01"/><path fill="none" stroke="currentColor" d="M16 12h.01"/><path fill="none" stroke="currentColor" d="M8 16h.01"/><path fill="none" stroke="currentColor" d="M12 16h.01"/><path fill="none" stroke="currentColor" d="M16 16h.01"/><path fill="none" stroke="currentColor" d="M8 20h.01"/><path fill="none" stroke="currentColor" d="M12 20h.01"/><path fill="none" stroke="currentColor" d="M16 20h.01"/></svg>', t: "辞退赔偿算一算", act: "calc", arg: "labor" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line fill="none" stroke="currentColor" x1="8" y1="2" x2="8" y2="18"/><line fill="none" stroke="currentColor" x1="16" y1="6" x2="16" y2="22"/></svg>', t: "劳动维权路径", act: "rights", arg: "labor" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><path fill="none" stroke="currentColor" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line fill="none" stroke="currentColor" x1="12" y1="17" x2="12.01" y2="17"/></svg>', t: "法律知识题库", act: "quiz", arg: "" }
     ],
-    cico: ["💼","🧾","⏰","📋"], chats: ["公司拖欠工资几个月了怎么办？", "被公司无故辞退，能要求赔偿吗？", "加班费应该怎么算？", "没有签劳动合同被欠薪怎么办？"]
+    cico: ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="2" y="7" width="20" height="14" rx="2" ry="2"/><path fill="none" stroke="currentColor" d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M4 4h16v13l-2 2-2-2-2 2-2-2-2 2-2-2-2 2V4z"/><line fill="none" stroke="currentColor" x1="8" y1="8.5" x2="16" y2="8.5"/><line fill="none" stroke="currentColor" x1="8" y1="12" x2="13" y2="12"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><polyline fill="none" stroke="currentColor" points="12 6 12 12 16 14"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect fill="none" stroke="currentColor" x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>'], chats: ["公司拖欠工资几个月了怎么办？", "被公司无故辞退，能要求赔偿吗？", "加班费应该怎么算？", "没有签劳动合同被欠薪怎么办？"]
   },
   lawschool: {
     nav: ["chat","plaza","learn","settings"], calcDefault: "loan",
-    name: "法学生", ico: "⚖️", dom: "题库 · 法条 · 案例 · 深度分析", tag: "像鲸鱼一样，深潜到法律问题的底层", scale: 1,
+    name: "法学生", ico: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="sc_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa0e0"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="sc_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient></defs><rect x="10.6" y="4.5" width="2.8" height="13.5" rx="1" fill="url(#sc_a)"/><rect x="2.5" y="7.5" width="19" height="2.4" rx="1.2" fill="url(#sc_a)"/><circle cx="3" cy="8.7" r="1.3" fill="url(#sc_a)"/><circle cx="21" cy="8.7" r="1.3" fill="url(#sc_a)"/><path d="M3 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><path d="M21 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><rect x="1" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="19" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="11.2" y="5.2" width=".7" height="11" rx=".35" fill="#fff" opacity=".35"/><rect x="10.6" y="15.5" width="2.8" height=".9" rx=".45" fill="#1a5276"/><rect x="3" y="19" width="18" height="2" rx="1" fill="url(#sc_a)"/><circle cx="12" cy="4.5" r="1.6" fill="url(#sc_b)"/><circle cx="11.6" cy="4.1" r=".4" fill="#fff" opacity=".6"/></svg>', emo: "⚖️", dom: "题库 · 法条 · 案例 · 深度分析", tag: "像鲸鱼一样，深潜到法律问题的底层", scale: 1,
     prompt: "用户是法学生/法律学习者，有法学基础。回答可在保持结构清晰的前提下适当深入学理（构成要件、学说、经典案例），并推荐延伸检索的法条与文献方向。",
     quicks: [
-      { ico: "❓", t: "题库 · 章节练习", act: "quiz", arg: "" },
-      { ico: "📖", t: "法条全文库", act: "db", arg: "" },
-      { ico: "📚", t: "案例数据库", act: "case", arg: "" },
-      { ico: "🃏", t: "法条闪卡", act: "flash", arg: "" },
-      { ico: "📄", t: "法律文书生成", act: "doc", arg: "" }
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><path fill="none" stroke="currentColor" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line fill="none" stroke="currentColor" x1="12" y1="17" x2="12.01" y2="17"/></svg>', t: "题库 · 章节练习", act: "quiz", arg: "" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path fill="none" stroke="currentColor" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>', t: "法条全文库", act: "db", arg: "" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="5" y="3" width="14" height="3.5" rx="1.5"/><rect fill="none" stroke="currentColor" x="4" y="8.5" width="16" height="3.5" rx="1.5"/><rect fill="none" stroke="currentColor" x="6" y="14" width="12" height="3.5" rx="1.5"/></svg>', t: "案例数据库", act: "case", arg: "" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="12 2 2 7 12 12 22 7 12 2"/><polyline fill="none" stroke="currentColor" points="2 17 12 22 22 17"/><polyline fill="none" stroke="currentColor" points="2 12 12 17 22 12"/></svg>', t: "法条闪卡", act: "flash", arg: "" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline fill="none" stroke="currentColor" points="14 2 14 8 20 8"/><line fill="none" stroke="currentColor" x1="16" y1="13" x2="8" y2="13"/><line fill="none" stroke="currentColor" x1="16" y1="17" x2="8" y2="17"/><polyline fill="none" stroke="currentColor" points="10 9 9 9 8 9"/></svg>', t: "法律文书生成", act: "doc", arg: "" }
     ],
-    cico: ["⚖️","📖","✍️","🧠"], chats: ["正当防卫的认定要件有哪些（刑法第20条）？", "合同无效与可撤销的区别是什么？", "借条和欠条在法律上有什么区别？", "表见代理的构成要件是什么？"]
+    cico: ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="sc_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa0e0"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="sc_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient></defs><rect x="10.6" y="4.5" width="2.8" height="13.5" rx="1" fill="url(#sc_a)"/><rect x="2.5" y="7.5" width="19" height="2.4" rx="1.2" fill="url(#sc_a)"/><circle cx="3" cy="8.7" r="1.3" fill="url(#sc_a)"/><circle cx="21" cy="8.7" r="1.3" fill="url(#sc_a)"/><path d="M3 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><path d="M21 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><rect x="1" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="19" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="11.2" y="5.2" width=".7" height="11" rx=".35" fill="#fff" opacity=".35"/><rect x="10.6" y="15.5" width="2.8" height=".9" rx=".45" fill="#1a5276"/><rect x="3" y="19" width="18" height="2" rx="1" fill="url(#sc_a)"/><circle cx="12" cy="4.5" r="1.6" fill="url(#sc_b)"/><circle cx="11.6" cy="4.1" r=".4" fill="#fff" opacity=".6"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path fill="none" stroke="currentColor" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M12 20h9"/><path fill="none" stroke="currentColor" d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path fill="none" stroke="currentColor" d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>'], chats: ["正当防卫的认定要件有哪些（刑法第20条）？", "合同无效与可撤销的区别是什么？", "借条和欠条在法律上有什么区别？", "表见代理的构成要件是什么？"]
   },
   student: {
     nav: ["chat","plaza","learn","settings"], calcDefault: "labor",
-    name: "在校大学生", ico: "🎓", dom: "兼职 · 实习 · 校园贷 · 租房", tag: "年轻不是维权的障碍，懂法才是底气", scale: 1,
+    name: "在校大学生", ico: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="gc_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="gc_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient><linearGradient id="gc_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient></defs><path d="M12 2.8l9.5 5.5L12 13.8 2.5 8.3 12 2.8z" fill="url(#gc_a)"/><path d="M12 3.2v10.2" stroke="#2b6cb0" stroke-width=".9" fill="none"/><path d="M6.4 8.3h11.2" stroke="#2b6cb0" stroke-width=".9" fill="none"/><path d="M5 7.6l4-2.3" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".5" fill="none"/><rect x="6" y="13" width="12" height="3" rx="1.4" fill="url(#gc_b)"/><path d="M6.6 14.5h10.8" stroke="#1a5276" stroke-width=".8" fill="none"/><path d="M21.5 8.3v3.6" stroke="#e6a92e" stroke-width="1.6" fill="none"/><circle cx="21.5" cy="12.8" r="1.4" fill="url(#gc_c)"/><circle cx="21.2" cy="12.4" r=".35" fill="#fff" opacity=".6"/><path d="M20.4 14.4h2.2" stroke="#e6a92e" stroke-width="1.1" fill="none"/></svg>', emo: "🎓", dom: "兼职 · 实习 · 校园贷 · 租房", tag: "年轻不是维权的障碍，懂法才是底气", scale: 1,
     prompt: "用户是在校大学生，关注兼职报酬、实习协议、校园贷、校内租房。语气亲切平等，步骤具体可执行，提醒保留聊天记录等证据。",
     quicks: [
-      { ico: "💬", t: "兼职工资被拖欠", act: "chat", arg: "公司拖欠兼职工资，可以要得回来吗？" },
-      { ico: "💬", t: "实习协议被扣押", act: "chat", arg: "实习协议被用人单位扣押，怎么拿回来？" },
-      { ico: "🗺️", t: "劳动维权路径", act: "rights", arg: "labor" },
-      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "兼职工资被拖欠", act: "chat", arg: "公司拖欠兼职工资，可以要得回来吗？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "实习协议被扣押", act: "chat", arg: "实习协议被用人单位扣押，怎么拿回来？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line fill="none" stroke="currentColor" x1="8" y1="2" x2="8" y2="18"/><line fill="none" stroke="currentColor" x1="16" y1="6" x2="16" y2="22"/></svg>', t: "劳动维权路径", act: "rights", arg: "labor" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><path fill="none" stroke="currentColor" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line fill="none" stroke="currentColor" x1="12" y1="17" x2="12.01" y2="17"/></svg>', t: "法律知识题库", act: "quiz", arg: "" }
     ],
-    cico: ["🎓","💼","🏦","🏠"], chats: ["公司拖欠兼职工资怎么办？", "实习协议被公司扣押怎么办？", "校园贷利息太高了怎么办？", "毕业租房押金被扣押怎么办？"]
+    cico: ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="gc_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="gc_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient><linearGradient id="gc_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient></defs><path d="M12 2.8l9.5 5.5L12 13.8 2.5 8.3 12 2.8z" fill="url(#gc_a)"/><path d="M12 3.2v10.2" stroke="#2b6cb0" stroke-width=".9" fill="none"/><path d="M6.4 8.3h11.2" stroke="#2b6cb0" stroke-width=".9" fill="none"/><path d="M5 7.6l4-2.3" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".5" fill="none"/><rect x="6" y="13" width="12" height="3" rx="1.4" fill="url(#gc_b)"/><path d="M6.6 14.5h10.8" stroke="#1a5276" stroke-width=".8" fill="none"/><path d="M21.5 8.3v3.6" stroke="#e6a92e" stroke-width="1.6" fill="none"/><circle cx="21.5" cy="12.8" r="1.4" fill="url(#gc_c)"/><circle cx="21.2" cy="12.4" r=".35" fill="#fff" opacity=".6"/><path d="M20.4 14.4h2.2" stroke="#e6a92e" stroke-width="1.1" fill="none"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="2" y="7" width="20" height="14" rx="2" ry="2"/><path fill="none" stroke="currentColor" d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M12 2L3 7.5h18L12 2z"/><line fill="none" stroke="currentColor" x1="6" y1="7.5" x2="6" y2="17"/><line fill="none" stroke="currentColor" x1="12" y1="7.5" x2="12" y2="17"/><line fill="none" stroke="currentColor" x1="18" y1="7.5" x2="18" y2="17"/><line fill="none" stroke="currentColor" x1="4" y1="17" x2="20" y2="17"/><line fill="none" stroke="currentColor" x1="3" y1="21" x2="21" y2="21"/><circle fill="none" stroke="currentColor" cx="12" cy="5" r="1.2"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ho_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="ho_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ho_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient></defs><path d="M3 11L12 3l9 8z" fill="url(#ho_a)"/><path d="M5 10l5-5" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/><path d="M6.2 9.6L12 4.6l5.8 5" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><path d="M8.4 7.6L12 4.8l3.6 2.8" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><rect x="15.2" y="3.8" width="2.6" height="3.8" rx="0.6" fill="url(#ho_b)"/><rect x="5" y="10.5" width="14" height="10.5" rx="1" fill="url(#ho_c)"/><rect x="9.5" y="15" width="5" height="6" rx="0.8" fill="#1a5276"/><circle cx="13.6" cy="18" r=".45" fill="#ffd94d"/></svg>'], chats: ["公司拖欠兼职工资怎么办？", "实习协议被公司扣押怎么办？", "校园贷利息太高了怎么办？", "毕业租房押金被扣押怎么办？"]
   },
   consumer: {
     nav: ["chat","plaza","rights","settings"], calcDefault: "fee",
-    name: "消费者", ico: "🛒", dom: "网购 · 退赔 · 三包 · 外卖", tag: "你的每一次较真，都在推动更公平的市场", scale: 1,
+    name: "消费者", ico: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ca_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="ca_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fc3f0"/><stop offset="1" stop-color="#5aa0e0"/></linearGradient><linearGradient id="ca_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ca_d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient></defs><rect x="1" y="1.5" width="4.5" height="1.8" rx="0.9" fill="url(#ca_a)"/><path d="M5.3 2.4l2.2 4.6-1.1.5-2.2-4.6z" fill="url(#ca_a)"/><path d="M6.5 7.2l16.3.3-2.1 8a2.3 2.3 0 0 1-2.2 1.7H10.3a2.3 2.3 0 0 1-2.2-1.6z" fill="url(#ca_a)"/><path d="M7.2 8.2l14.8.3" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".5" fill="none"/><rect x="11" y="9.5" width="4.5" height="3.5" rx="0.6" fill="url(#ca_b)"/><circle cx="9.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="19.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="9.5" cy="21" r=".5" fill="url(#ca_d)"/><circle cx="19.5" cy="21" r=".5" fill="url(#ca_d)"/></svg>', emo: "🛒", dom: "网购 · 退赔 · 三包 · 外卖", tag: "你的每一次较真，都在推动更公平的市场", scale: 1,
     prompt: "用户是普通消费者，关注退赔、三包、网购与外卖纠纷。多引用消费者权益保护法与食品安全法，给出投诉渠道（平台/12315）与证据要点。",
     quicks: [
-      { ico: "💬", t: "假货退一赔三", act: "chat", arg: "在网购平台买到假货，能退一赔三吗？" },
-      { ico: "🗺️", t: "消费维权路径", act: "rights", arg: "consumer" },
-      { ico: "🧮", t: "诉讼费算一算", act: "calc", arg: "fee" },
-      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "假货退一赔三", act: "chat", arg: "在网购平台买到假货，能退一赔三吗？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line fill="none" stroke="currentColor" x1="8" y1="2" x2="8" y2="18"/><line fill="none" stroke="currentColor" x1="16" y1="6" x2="16" y2="22"/></svg>', t: "消费维权路径", act: "rights", arg: "consumer" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="4" y="2" width="16" height="20" rx="2"/><line fill="none" stroke="currentColor" x1="8" y1="6" x2="16" y2="6"/><path fill="none" stroke="currentColor" d="M8 12h.01"/><path fill="none" stroke="currentColor" d="M12 12h.01"/><path fill="none" stroke="currentColor" d="M16 12h.01"/><path fill="none" stroke="currentColor" d="M8 16h.01"/><path fill="none" stroke="currentColor" d="M12 16h.01"/><path fill="none" stroke="currentColor" d="M16 16h.01"/><path fill="none" stroke="currentColor" d="M8 20h.01"/><path fill="none" stroke="currentColor" d="M12 20h.01"/><path fill="none" stroke="currentColor" d="M16 20h.01"/></svg>', t: "诉讼费算一算", act: "calc", arg: "fee" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><path fill="none" stroke="currentColor" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line fill="none" stroke="currentColor" x1="12" y1="17" x2="12.01" y2="17"/></svg>', t: "法律知识题库", act: "quiz", arg: "" }
     ],
-    cico: ["🛒","📦","🍜","🧾"], chats: ["网购买到假货能退一赔三吗？", "七天无理由退货需要满足什么条件？", "外卖吃出异物怎么赔偿？", "商家拒绝三包怎么办？"]
+    cico: ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ca_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="ca_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fc3f0"/><stop offset="1" stop-color="#5aa0e0"/></linearGradient><linearGradient id="ca_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ca_d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient></defs><rect x="1" y="1.5" width="4.5" height="1.8" rx="0.9" fill="url(#ca_a)"/><path d="M5.3 2.4l2.2 4.6-1.1.5-2.2-4.6z" fill="url(#ca_a)"/><path d="M6.5 7.2l16.3.3-2.1 8a2.3 2.3 0 0 1-2.2 1.7H10.3a2.3 2.3 0 0 1-2.2-1.6z" fill="url(#ca_a)"/><path d="M7.2 8.2l14.8.3" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".5" fill="none"/><rect x="11" y="9.5" width="4.5" height="3.5" rx="0.6" fill="url(#ca_b)"/><circle cx="9.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="19.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="9.5" cy="21" r=".5" fill="url(#ca_d)"/><circle cx="19.5" cy="21" r=".5" fill="url(#ca_d)"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline fill="none" stroke="currentColor" points="3.27 6.96 12 12.01 20.73 6.96"/><line fill="none" stroke="currentColor" x1="12" y1="22.08" x2="12" y2="12"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M4 9h16a8 8 0 0 1-16 0"/><path fill="none" stroke="currentColor" d="M8 12c1.2-1 2.4 1 3.6 0s2.4 1 3.6 0"/><path fill="none" stroke="currentColor" d="M16 3c-.8 1 .8 1.6 0 2.6"/><path fill="none" stroke="currentColor" d="M19 3c-.8 1 .8 1.6 0 2.6"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M4 4h16v13l-2 2-2-2-2 2-2-2-2 2-2-2-2 2V4z"/><line fill="none" stroke="currentColor" x1="8" y1="8.5" x2="16" y2="8.5"/><line fill="none" stroke="currentColor" x1="8" y1="12" x2="13" y2="12"/></svg>'], chats: ["网购买到假货能退一赔三吗？", "七天无理由退货需要满足什么条件？", "外卖吃出异物怎么赔偿？", "商家拒绝三包怎么办？"]
   },
   renter: {
     nav: ["chat","plaza","rights","settings"], calcDefault: "limit",
-    name: "租客与房东", ico: "🏠", dom: "押金 · 退租 · 维修 · 转租", tag: "一笔押金，把规矩讲在前面", scale: 1,
+    name: "租客与房东", ico: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ho_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="ho_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ho_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient></defs><path d="M3 11L12 3l9 8z" fill="url(#ho_a)"/><path d="M5 10l5-5" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/><path d="M6.2 9.6L12 4.6l5.8 5" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><path d="M8.4 7.6L12 4.8l3.6 2.8" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><rect x="15.2" y="3.8" width="2.6" height="3.8" rx="0.6" fill="url(#ho_b)"/><rect x="5" y="10.5" width="14" height="10.5" rx="1" fill="url(#ho_c)"/><rect x="9.5" y="15" width="5" height="6" rx="0.8" fill="#1a5276"/><circle cx="13.6" cy="18" r=".45" fill="#ffd94d"/></svg>', emo: "🏠", dom: "押金 · 退租 · 维修 · 转租", tag: "一笔押金，把规矩讲在前面", scale: 1,
     prompt: "用户是租客或房东，关注押金、提前退租、维修责任、转租。平衡双方视角，突出合同依据与留证要点。",
     quicks: [
-      { ico: "💬", t: "押金不退怎么办", act: "chat", arg: "房东无理由不退押金，我能起诉吗？" },
-      { ico: "🗺️", t: "租房维权路径", act: "rights", arg: "rent" },
-      { ico: "📄", t: "房屋租赁文书", act: "doc", arg: "" },
-      { ico: "❓", t: "法律知识题库", act: "quiz", arg: "" }
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "押金不退怎么办", act: "chat", arg: "房东无理由不退押金，我能起诉吗？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line fill="none" stroke="currentColor" x1="8" y1="2" x2="8" y2="18"/><line fill="none" stroke="currentColor" x1="16" y1="6" x2="16" y2="22"/></svg>', t: "租房维权路径", act: "rights", arg: "rent" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline fill="none" stroke="currentColor" points="14 2 14 8 20 8"/><line fill="none" stroke="currentColor" x1="16" y1="13" x2="8" y2="13"/><line fill="none" stroke="currentColor" x1="16" y1="17" x2="8" y2="17"/><polyline fill="none" stroke="currentColor" points="10 9 9 9 8 9"/></svg>', t: "房屋租赁文书", act: "doc", arg: "" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><path fill="none" stroke="currentColor" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line fill="none" stroke="currentColor" x1="12" y1="17" x2="12.01" y2="17"/></svg>', t: "法律知识题库", act: "quiz", arg: "" }
     ],
-    cico: ["🏠","🔑","🌬️","📈"], chats: ["房东不退押金能起诉吗？", "提前退租押金会被全扣吗？", "房子甲醛超标能解除合同吗？", "租期内房东要涨租金怎么办？"]
+    cico: ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ho_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="ho_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ho_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient></defs><path d="M3 11L12 3l9 8z" fill="url(#ho_a)"/><path d="M5 10l5-5" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/><path d="M6.2 9.6L12 4.6l5.8 5" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><path d="M8.4 7.6L12 4.8l3.6 2.8" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><rect x="15.2" y="3.8" width="2.6" height="3.8" rx="0.6" fill="url(#ho_b)"/><rect x="5" y="10.5" width="14" height="10.5" rx="1" fill="url(#ho_c)"/><rect x="9.5" y="15" width="5" height="6" rx="0.8" fill="#1a5276"/><circle cx="13.6" cy="18" r=".45" fill="#ffd94d"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polyline fill="none" stroke="currentColor" points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline fill="none" stroke="currentColor" points="17 6 23 6 23 12"/></svg>'], chats: ["房东不退押金能起诉吗？", "提前退租押金会被全扣吗？", "房子甲醛超标能解除合同吗？", "租期内房东要涨租金怎么办？"]
   },
   citizen: {
     nav: ["chat","plaza","rights","settings"], calcDefault: "loan",
-    name: "普通市民", ico: "🧑‍🤝‍🧑", dom: "婚姻 · 借贷 · 交通事故", tag: "婚、债、行，普通人绕不开的三类事", scale: 1,
+    name: "普通市民", ico: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="pe_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="pe_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="pe_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient><linearGradient id="pe_d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="pe_e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient></defs><circle cx="8.5" cy="10" r="4.2" fill="url(#pe_a)"/><circle cx="15.5" cy="10" r="4.2" fill="url(#pe_b)"/><circle cx="4" cy="11.4" r=".95" fill="url(#pe_a)"/><circle cx="17" cy="11.4" r=".95" fill="url(#pe_b)"/><path d="M4.3 9.8a4.2 4.2 0 0 1 8.4 0v1.2h-8.4z" fill="url(#pe_c)"/><path d="M11.3 9.8a4.2 4.2 0 0 1 8.4 0v1.2h-8.4z" fill="url(#pe_d)"/><circle cx="7.2" cy="9.2" r=".75" fill="#5a3a22"/><circle cx="9.8" cy="9.2" r=".75" fill="#5a3a22"/><circle cx="14.2" cy="9.2" r=".75" fill="#5a3a22"/><circle cx="16.8" cy="9.2" r=".75" fill="#5a3a22"/><circle cx="7.4" cy="9.05" r=".25" fill="#fff"/><circle cx="10" cy="9.05" r=".25" fill="#fff"/><circle cx="14.4" cy="9.05" r=".25" fill="#fff"/><circle cx="17" cy="9.05" r=".25" fill="#fff"/><circle cx="8.5" cy="10.7" r=".5" fill="#5a3a22"/><circle cx="15.5" cy="10.7" r=".5" fill="#5a3a22"/><path d="M6.8 11.6a2.1 2.1 0 0 0 3.4 0" stroke="#5a3a22" stroke-width="1.1" fill="none"/><path d="M13.8 11.6a2.1 2.1 0 0 0 3.4 0" stroke="#5a3a22" stroke-width="1.1" fill="none"/><rect x="9" y="16.5" width="6" height="1.8" rx="0.9" fill="url(#pe_e)"/></svg>', emo: "🧑‍🤝‍🧑", dom: "婚姻 · 借贷 · 交通事故", tag: "婚、债、行，普通人绕不开的三类事", scale: 1,
     prompt: "用户是普通市民，场景分散（婚姻家庭、民间借贷、交通事故、邻里纠纷）。先聚焦核心问题给结论，再给通用指引。",
     quicks: [
-      { ico: "💬", t: "借钱没写借条", act: "chat", arg: "借钱给别人没写借条，还能要回来吗？" },
-      { ico: "💬", t: "交通事故全责理赔", act: "chat", arg: "发生交通事故对方全责，我该走什么流程？" },
-      { ico: "🗺️", t: "维权路径速查", act: "rights", arg: "loan" },
-      { ico: "🧮", t: "借贷利息算一算", act: "calc", arg: "loan" }
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "借钱没写借条", act: "chat", arg: "借钱给别人没写借条，还能要回来吗？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "交通事故全责理赔", act: "chat", arg: "发生交通事故对方全责，我该走什么流程？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line fill="none" stroke="currentColor" x1="8" y1="2" x2="8" y2="18"/><line fill="none" stroke="currentColor" x1="16" y1="6" x2="16" y2="22"/></svg>', t: "维权路径速查", act: "rights", arg: "loan" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="4" y="2" width="16" height="20" rx="2"/><line fill="none" stroke="currentColor" x1="8" y1="6" x2="16" y2="6"/><path fill="none" stroke="currentColor" d="M8 12h.01"/><path fill="none" stroke="currentColor" d="M12 12h.01"/><path fill="none" stroke="currentColor" d="M16 12h.01"/><path fill="none" stroke="currentColor" d="M8 16h.01"/><path fill="none" stroke="currentColor" d="M12 16h.01"/><path fill="none" stroke="currentColor" d="M16 16h.01"/><path fill="none" stroke="currentColor" d="M8 20h.01"/><path fill="none" stroke="currentColor" d="M12 20h.01"/><path fill="none" stroke="currentColor" d="M16 20h.01"/></svg>', t: "借贷利息算一算", act: "calc", arg: "loan" }
     ],
-    cico: ["💰","🚗","💍","⏳"], chats: ["借钱给别人没写借条，还能要回来吗？", "交通事故对方全责怎么赔？", "离婚时财产怎么分割？", "诉讼时效是多久，怎么计算？"]
+    cico: ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="9"/><line fill="none" stroke="currentColor" x1="12" y1="7" x2="12" y2="17"/><line fill="none" stroke="currentColor" x1="8.5" y1="10" x2="15.5" y2="10"/><line fill="none" stroke="currentColor" x1="8.5" y1="14" x2="15.5" y2="14"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M4 16v-3.5l2.2-4.4A2 2 0 0 1 8 7h8a2 2 0 0 1 1.8 1.1L20 12.5V16"/><line fill="none" stroke="currentColor" x1="3" y1="16" x2="21" y2="16"/><circle fill="none" stroke="currentColor" cx="7" cy="16" r="1.5"/><circle fill="none" stroke="currentColor" cx="17" cy="16" r="1.5"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="15" r="6.5"/><path fill="none" stroke="currentColor" d="M12 3.5l3.2 5.5H8.8z"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M5 22h14"/><path fill="none" stroke="currentColor" d="M5 2h14"/><path fill="none" stroke="currentColor" d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path fill="none" stroke="currentColor" d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>'], chats: ["借钱给别人没写借条，还能要回来吗？", "交通事故对方全责怎么赔？", "离婚时财产怎么分割？", "诉讼时效是多久，怎么计算？"]
   },
   senior: {
     nav: ["chat","plaza","tel","settings"], calcDefault: "loan",
-    name: "银发长辈", ico: "👵", dom: "大字模式 · 防骗 · 养老 · 借贷", tag: "字大一点，说得慢一点，防骗第一", scale: 1.18,
+    name: "银发长辈", ico: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="el_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdfc2"/><stop offset="1" stop-color="#e6a875"/></linearGradient><linearGradient id="el_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3d0de"/><stop offset="1" stop-color="#93a7bc"/></linearGradient><linearGradient id="el_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#aebfcf"/><stop offset="1" stop-color="#8298ae"/></linearGradient></defs><circle cx="12" cy="13" r="4.8" fill="url(#el_a)"/><circle cx="6.5" cy="14.2" r="1.1" fill="url(#el_a)"/><circle cx="17.5" cy="14.2" r="1.1" fill="url(#el_a)"/><circle cx="6.5" cy="14.2" r=".35" fill="#cf9a68"/><circle cx="17.5" cy="14.2" r=".35" fill="#cf9a68"/><path d="M7.2 9.6a4.8 4.8 0 0 1 9.6 0v1.6h-9.6z" fill="url(#el_b)"/><circle cx="12" cy="4.6" r="1.8" fill="url(#el_c)"/><circle cx="9.9" cy="12.2" r=".9" fill="#5a3a22"/><circle cx="14.1" cy="12.2" r=".9" fill="#5a3a22"/><circle cx="10.15" cy="11.95" r=".3" fill="#fff"/><circle cx="14.35" cy="11.95" r=".3" fill="#fff"/><path d="M15.9 12.4c.4.1.7.3.8.7" stroke="#c98a58" stroke-width=".7" fill="none"/><path d="M8.1 12.4c-.4.1-.7.3-.8.7" stroke="#c98a58" stroke-width=".7" fill="none"/><path d="M8.9 10.7c.6-.5 1.4-.5 2 .1" stroke="#d0a485" stroke-width=".8" fill="none"/><path d="M13.1 10.8c.6-.6 1.4-.6 2-.1" stroke="#d0a485" stroke-width=".8" fill="none"/><circle cx="12" cy="14" r=".55" fill="#cf9a68"/><ellipse cx="8.5" cy="14.5" rx=".8" ry=".55" fill="#f0bfa8" opacity=".9"/><ellipse cx="15.5" cy="14.5" rx=".8" ry=".55" fill="#f0bfa8" opacity=".9"/><path d="M10.2 15.8a2.6 2.6 0 0 0 3.6 0" stroke="#5a3a22" stroke-width="1.1" fill="none"/><path d="M6.5 18.2h11L12 21.2z" fill="#2b6cb0"/></svg>', emo: "👵", dom: "大字模式 · 防骗 · 养老 · 借贷", tag: "字大一点，说得慢一点，防骗第一", scale: 1.18,
     prompt: "用户是中老年人。请用更短的句子、更慢的节奏解释，避免专业术语，重点提示防诈骗与和家人商量，并醒目给出 12348 等求助电话。",
     quicks: [
-      { ico: "📞", t: "一键拨打 12348", act: "tel", arg: "12348" },
-      { ico: "💬", t: "亲戚借钱不还", act: "chat", arg: "我把钱借给亲戚没有打借条，现在他不承认了，怎么办？" },
-      { ico: "💬", t: "疑似被骗了", act: "chat", arg: "我买了保健品感觉被骗了，钱还能要回来吗？" },
-      { ico: "🗺️", t: "维权路径（大字版）", act: "rights", arg: "consumer" }
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>', t: "一键拨打 12348", act: "tel", arg: "12348" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "亲戚借钱不还", act: "chat", arg: "我把钱借给亲戚没有打借条，现在他不承认了，怎么办？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', t: "疑似被骗了", act: "chat", arg: "我买了保健品感觉被骗了，钱还能要回来吗？" },
+      { ico: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon fill="none" stroke="currentColor" points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line fill="none" stroke="currentColor" x1="8" y1="2" x2="8" y2="18"/><line fill="none" stroke="currentColor" x1="16" y1="6" x2="16" y2="22"/></svg>', t: "维权路径（大字版）", act: "rights", arg: "consumer" }
     ],
-    cico: ["📞","⚠️","🧧","👨‍👩‍👧"], chats: ["我把钱借给亲戚没打借条，他不承认怎么办？", "买了保健品感觉被骗了怎么办？", "有人打电话说交钱能领养老金，可信吗？", "子女不赡养老人怎么办？"]
+    cico: ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>','<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line fill="none" stroke="currentColor" x1="12" y1="9" x2="12" y2="13"/><line fill="none" stroke="currentColor" x1="12" y1="17" x2="12.01" y2="17"/></svg>',"🧧",'<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle fill="none" stroke="currentColor" cx="9" cy="7" r="4"/><circle fill="none" stroke="currentColor" cx="18" cy="13" r="2.2"/><path fill="none" stroke="currentColor" d="M22.5 21v-1a3 3 0 0 0-3-3h-1"/></svg>'], chats: ["我把钱借给亲戚没打借条，他不承认怎么办？", "买了保健品感觉被骗了怎么办？", "有人打电话说交钱能领养老金，可信吗？", "子女不赡养老人怎么办？"]
   }
 };
 function loadRole() { try { return localStorage.getItem(ROLE_KEY) || ""; } catch(e) { return ""; } }
@@ -4009,7 +4015,7 @@ function renderRoleUI() {
   var chip = document.getElementById("homeRoleChip");
   if (chip) chip.innerHTML = r
     ? '<span class="sw"></span>' + r.ico + " " + r.name + " · 点击切换 ▾"
-    : '👤 选择身份 · 定制你的律衡 ▾';
+    : '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle fill="none" stroke="currentColor" cx="12" cy="7" r="4"/></svg> 选择身份 · 定制你的律衡 ▾';
   var box = document.getElementById("roleQuicks");
   if (box) {
     box.innerHTML = r ? r.quicks.map(function(q, i) {
@@ -4088,14 +4094,14 @@ function pickRole(k) {
   applyRole(); renderRoleUI(); updateProfileUI();
   var bd = document.getElementById("roleSheetBd");
   if (bd) { bd.classList.remove("show"); setTimeout(function() { bd.remove(); }, 300); }
-  showToast(ROLES[k].ico + " 已切换为「" + ROLES[k].name + "」——" + ROLES[k].tag);
+  showToast(ROLES[k].emo + " 已切换为「" + ROLES[k].name + "」——" + ROLES[k].tag);
 }
 // ============================================================
 // 事前防范清单（项目书 S4 场景：签约/租房前查询注意事项，预防纠纷）
 // ============================================================
 var PREVENT_KEY = "seawhy-lex-prevent";
 var PREVENT_DATA = {
-  labor: { name: "入职 · 在职", icon: "👷", items: [
+  labor: { name: "入职 · 在职", icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="wh_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="wh_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="wh_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdfc2"/><stop offset="1" stop-color="#f0c9a0"/></linearGradient></defs><path d="M7 6.5a5 5 0 0 1 10 0v1.2H7z" fill="url(#wh_a)"/><path d="M4.5 7.7h15v1.4h-15z" fill="url(#wh_b)"/><path d="M7.6 9.3h8.8" stroke="#e0b48c" stroke-width=".9" fill="none"/><circle cx="12" cy="13" r="4.8" fill="url(#wh_c)"/><circle cx="6.5" cy="14.2" r="1.1" fill="url(#wh_c)"/><circle cx="17.5" cy="14.2" r="1.1" fill="url(#wh_c)"/><circle cx="6.5" cy="14.2" r=".35" fill="#d9a37a"/><circle cx="17.5" cy="14.2" r=".35" fill="#d9a37a"/><circle cx="9.9" cy="12.2" r=".9" fill="#5a3a22"/><circle cx="14.1" cy="12.2" r=".9" fill="#5a3a22"/><circle cx="10.15" cy="11.95" r=".3" fill="#fff"/><circle cx="14.35" cy="11.95" r=".3" fill="#fff"/><path d="M8.9 10.7c.6-.5 1.4-.5 2 .1" stroke="#c9946b" stroke-width=".8" fill="none"/><path d="M13.1 10.8c.6-.6 1.4-.6 2-.1" stroke="#c9946b" stroke-width=".8" fill="none"/><circle cx="12" cy="14" r=".55" fill="#d9a37a"/><ellipse cx="8.5" cy="14.5" rx=".8" ry=".55" fill="#f8bfae" opacity=".9"/><ellipse cx="15.5" cy="14.5" rx=".8" ry=".55" fill="#f8bfae" opacity=".9"/><path d="M10.2 15.6a2.6 2.6 0 0 0 3.6 0" stroke="#5a3a22" stroke-width="1.1" fill="none"/><path d="M6.5 18.2h11L12 21.2z" fill="#1a5276"/></svg>', items: [
     "入职 30 天内必须签书面劳动合同——不签可主张二倍工资（《劳动合同法》第82条）",
     "核对合同必备条款：岗位、工作地点、劳动报酬、工时制度、社会保险",
     "试用期有上限：合同 3 年以上最多 6 个月；试用期工资不低于正式工资的 80%",
@@ -4105,7 +4111,7 @@ var PREVENT_DATA = {
     "加班有时限与对价：一般每日不超 3 小时、每月不超 36 小时，加班应付加班费",
     "离职时工资应一次付清，并要求出具离职证明"
   ]},
-  rent: { name: "租房 · 签约", icon: "🏠", items: [
+  rent: { name: "租房 · 签约", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ho_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="ho_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ho_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient></defs><path d="M3 11L12 3l9 8z" fill="url(#ho_a)"/><path d="M5 10l5-5" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/><path d="M6.2 9.6L12 4.6l5.8 5" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><path d="M8.4 7.6L12 4.8l3.6 2.8" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><rect x="15.2" y="3.8" width="2.6" height="3.8" rx="0.6" fill="url(#ho_b)"/><rect x="5" y="10.5" width="14" height="10.5" rx="1" fill="url(#ho_c)"/><rect x="9.5" y="15" width="5" height="6" rx="0.8" fill="#1a5276"/><circle cx="13.6" cy="18" r=".45" fill="#ffd94d"/></svg>', items: [
     "核实房东身份与房产证（或转租的书面授权）",
     "押金条款写进合同：金额、退还条件与时间",
     "入住前拍照/录像留证：家具、家电、墙面状态",
@@ -4115,7 +4121,7 @@ var PREVENT_DATA = {
     "转租需房东书面同意，否则房东可解除合同",
     "优先选押金纳入监管账户的正规平台与企业"
   ]},
-  loan: { name: "借钱 · 出借", icon: "💰", items: [
+  loan: { name: "借钱 · 出借", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="9"/><line fill="none" stroke="currentColor" x1="12" y1="7" x2="12" y2="17"/><line fill="none" stroke="currentColor" x1="8.5" y1="10" x2="15.5" y2="10"/><line fill="none" stroke="currentColor" x1="8.5" y1="14" x2="15.5" y2="14"/></svg>', items: [
     "写借条：金额大小写、利息、还款期限、双方身份信息",
     "通过银行/微信/支付宝转账并备注\"借款\"，避免现金交付",
     "利息约定不超过合同成立时一年期 LPR 的四倍",
@@ -4125,7 +4131,7 @@ var PREVENT_DATA = {
     "定期催款并留痕（可中断 3 年诉讼时效）",
     "遇\"套路贷\"、暴力催收立即报警"
   ]},
-  consumer: { name: "网购 · 办卡", icon: "🛒", items: [
+  consumer: { name: "网购 · 办卡", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ca_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="ca_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fc3f0"/><stop offset="1" stop-color="#5aa0e0"/></linearGradient><linearGradient id="ca_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ca_d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient></defs><rect x="1" y="1.5" width="4.5" height="1.8" rx="0.9" fill="url(#ca_a)"/><path d="M5.3 2.4l2.2 4.6-1.1.5-2.2-4.6z" fill="url(#ca_a)"/><path d="M6.5 7.2l16.3.3-2.1 8a2.3 2.3 0 0 1-2.2 1.7H10.3a2.3 2.3 0 0 1-2.2-1.6z" fill="url(#ca_a)"/><path d="M7.2 8.2l14.8.3" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".5" fill="none"/><rect x="11" y="9.5" width="4.5" height="3.5" rx="0.6" fill="url(#ca_b)"/><circle cx="9.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="19.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="9.5" cy="21" r=".5" fill="url(#ca_d)"/><circle cx="19.5" cy="21" r=".5" fill="url(#ca_d)"/></svg>', items: [
     "选正规平台，查看商家资质与历史评价",
     "保存订单、付款凭证、宣传页面、聊天记录截图",
     "贵重商品开箱全程录像",
@@ -4135,7 +4141,7 @@ var PREVENT_DATA = {
     "七天无理由退货保持商品完好，运费一般自理",
     "维权顺序：平台投诉 → 12315 → 消协 → 起诉"
   ]},
-  traffic: { name: "交通事故", icon: "🚗", items: [
+  traffic: { name: "交通事故", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M4 16v-3.5l2.2-4.4A2 2 0 0 1 8 7h8a2 2 0 0 1 1.8 1.1L20 12.5V16"/><line fill="none" stroke="currentColor" x1="3" y1="16" x2="21" y2="16"/><circle fill="none" stroke="currentColor" cx="7" cy="16" r="1.5"/><circle fill="none" stroke="currentColor" cx="17" cy="16" r="1.5"/></svg>', items: [
     "立即停车、开双闪、按规定放置警示牌",
     "有人受伤先拨打 120，再报 122 交通事故报警",
     "全方位拍照：碰撞部位、车牌、路面标线、周边环境",
@@ -4145,7 +4151,7 @@ var PREVENT_DATA = {
     "就医保留全部病历、票据、诊断证明",
     "不轻信口头\"私了\"承诺，和解也要签书面协议"
   ]},
-  marriage: { name: "婚前 · 婚内", icon: "💍", items: [
+  marriage: { name: "婚前 · 婚内", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="15" r="6.5"/><path fill="none" stroke="currentColor" d="M12 3.5l3.2 5.5H8.8z"/></svg>', items: [
     "房、车等大额财产婚前归属明确，可书面约定并公证",
     "彩礼、嫁妆等给付保留转账凭证（涉彩礼纠纷的关键证据）",
     "非共同签字的债务未必是夫妻共同债务——不随意共签",
@@ -4263,8 +4269,8 @@ function renderFaq() {
     var f = list[i];
     var fid = "faq-i-" + i;
     h += '<div class="faq-card" id="' + fid + '" onclick="toggleFaq(\'' + fid + '\')">';
-    h += '<div class="faq-q">❓ ' + escHtml(f.q) + '<span class="faq-arrow">▾</span></div>';
-    h += '<div class="faq-a"><div class="faq-ans">' + escHtml(f.a) + '</div><div class="faq-law">📌 ' + escHtml(f.law) + '</div></div>';
+    h += '<div class="faq-q"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="10"/><path fill="none" stroke="currentColor" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line fill="none" stroke="currentColor" x1="12" y1="17" x2="12.01" y2="17"/></svg> ' + escHtml(f.q) + '<span class="faq-arrow">▾</span></div>';
+    h += '<div class="faq-a"><div class="faq-ans">' + escHtml(f.a) + '</div><div class="faq-law"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle fill="none" stroke="currentColor" cx="12" cy="10" r="3"/></svg> ' + escHtml(f.law) + '</div></div>';
     h += '</div>';
   }
   h += '</div></div>';
@@ -4320,7 +4326,7 @@ function openRoleCalc() {
 function chatQuickButtons() {
   var r = roleOf(curRole);
   var list = r ? r.chats : ["公司拖欠工资几个月了怎么办？", "买到假货能退一赔三吗？", "房东不退押金能起诉吗？", "借钱没写借条能要回来吗？"];
-  var icons = r && r.cico ? r.cico : ["💼", "🛒", "🏠", "💰"];
+  var icons = r && r.cico ? r.cico : ['<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="2" y="7" width="20" height="14" rx="2" ry="2"/><path fill="none" stroke="currentColor" d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ca_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="ca_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fc3f0"/><stop offset="1" stop-color="#5aa0e0"/></linearGradient><linearGradient id="ca_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ca_d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient></defs><rect x="1" y="1.5" width="4.5" height="1.8" rx="0.9" fill="url(#ca_a)"/><path d="M5.3 2.4l2.2 4.6-1.1.5-2.2-4.6z" fill="url(#ca_a)"/><path d="M6.5 7.2l16.3.3-2.1 8a2.3 2.3 0 0 1-2.2 1.7H10.3a2.3 2.3 0 0 1-2.2-1.6z" fill="url(#ca_a)"/><path d="M7.2 8.2l14.8.3" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".5" fill="none"/><rect x="11" y="9.5" width="4.5" height="3.5" rx="0.6" fill="url(#ca_b)"/><circle cx="9.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="19.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="9.5" cy="21" r=".5" fill="url(#ca_d)"/><circle cx="19.5" cy="21" r=".5" fill="url(#ca_d)"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ho_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="ho_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ho_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient></defs><path d="M3 11L12 3l9 8z" fill="url(#ho_a)"/><path d="M5 10l5-5" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/><path d="M6.2 9.6L12 4.6l5.8 5" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><path d="M8.4 7.6L12 4.8l3.6 2.8" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><rect x="15.2" y="3.8" width="2.6" height="3.8" rx="0.6" fill="url(#ho_b)"/><rect x="5" y="10.5" width="14" height="10.5" rx="1" fill="url(#ho_c)"/><rect x="9.5" y="15" width="5" height="6" rx="0.8" fill="#1a5276"/><circle cx="13.6" cy="18" r=".45" fill="#ffd94d"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="9"/><line fill="none" stroke="currentColor" x1="12" y1="7" x2="12" y2="17"/><line fill="none" stroke="currentColor" x1="8.5" y1="10" x2="15.5" y2="10"/><line fill="none" stroke="currentColor" x1="8.5" y1="14" x2="15.5" y2="14"/></svg>'];
   return list.map(function(q, i) {
     return '<button class="quick-btn" onclick="sendMsg(\'' + q.replace(/'/g, "\\'") + '\')">' + (icons[i % icons.length]) + " " + escHtml(q) + '</button>';
   }).join("");
@@ -4406,7 +4412,7 @@ function kbHits(text) {
 
 // 渠道库：分领域维权路径速查（FR-04）
 var RIGHTS_DATA = [
-  { key: "labor", name: "劳动维权", icon: "💼", hotline: "12333",
+  { key: "labor", name: "劳动维权", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="2" y="7" width="20" height="14" rx="2" ry="2"/><path fill="none" stroke="currentColor" d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>', hotline: "12333",
     paths: [
       { t: "劳动保障监察大队（12333）", d: "欠薪、不签合同等违法用工行为，投诉快速、免费，适合在职或离职后短期内的案件" },
       { t: "劳动人事争议仲裁委员会", d: "确认劳动关系、追索工资/赔偿金/工伤待遇等，时效一般1年；仲裁免费，是诉讼前置程序" },
@@ -4414,7 +4420,7 @@ var RIGHTS_DATA = [
     ],
     steps: ["固定证据：劳动合同、工牌、考勤、工资流水、聊天记录", "书面催讨并留痕（微信/邮件/EMS）", "向劳动监察投诉或申请劳动仲裁", "对仲裁结果不服可向法院起诉"],
     mats: ["劳动合同或用工证明", "工资流水 / 欠条 / 工资条", "考勤记录、排班表", "辞退通知或聊天记录", "身份证复印件 + 仲裁申请书"] },
-  { key: "consumer", name: "消费维权", icon: "🛒", hotline: "12315",
+  { key: "consumer", name: "消费维权", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ca_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="ca_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fc3f0"/><stop offset="1" stop-color="#5aa0e0"/></linearGradient><linearGradient id="ca_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ca_d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a5276"/></linearGradient></defs><rect x="1" y="1.5" width="4.5" height="1.8" rx="0.9" fill="url(#ca_a)"/><path d="M5.3 2.4l2.2 4.6-1.1.5-2.2-4.6z" fill="url(#ca_a)"/><path d="M6.5 7.2l16.3.3-2.1 8a2.3 2.3 0 0 1-2.2 1.7H10.3a2.3 2.3 0 0 1-2.2-1.6z" fill="url(#ca_a)"/><path d="M7.2 8.2l14.8.3" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".5" fill="none"/><rect x="11" y="9.5" width="4.5" height="3.5" rx="0.6" fill="url(#ca_b)"/><circle cx="9.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="19.5" cy="21" r="1.5" fill="url(#ca_c)"/><circle cx="9.5" cy="21" r=".5" fill="url(#ca_d)"/><circle cx="19.5" cy="21" r=".5" fill="url(#ca_d)"/></svg>', hotline: "12315",
     paths: [
       { t: "平台客服介入", d: "网购纠纷优先申请平台介入，平台有先行赔付与保证金机制" },
       { t: "12315 / 市场监管部门", d: "投诉商家违法行为，可线上（全国12315平台）提交，需明确被诉方与诉求" },
@@ -4422,7 +4428,7 @@ var RIGHTS_DATA = [
     ],
     steps: ["保存订单、付款、宣传页、聊天与实物照片", "向商家/平台书面提出诉求（退赔金额与期限）", "12315 平台投诉或举报", "涉食品药品安全问题同步向市场监管举报"],
     mats: ["订单与支付凭证", "商品照片 / 问题实物", "宣传与承诺截图", "与商家的沟通记录", "投诉书（写明诉求与事实）"] },
-  { key: "rent", name: "租房维权", icon: "🏠", hotline: "12345",
+  { key: "rent", name: "租房维权", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ho_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient><linearGradient id="ho_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a92e"/><stop offset="1" stop-color="#c77f00"/></linearGradient><linearGradient id="ho_c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a90d9"/><stop offset="1" stop-color="#2e6da4"/></linearGradient></defs><path d="M3 11L12 3l9 8z" fill="url(#ho_a)"/><path d="M5 10l5-5" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/><path d="M6.2 9.6L12 4.6l5.8 5" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><path d="M8.4 7.6L12 4.8l3.6 2.8" stroke="#d9a41f" stroke-width=".9" opacity=".8" fill="none"/><rect x="15.2" y="3.8" width="2.6" height="3.8" rx="0.6" fill="url(#ho_b)"/><rect x="5" y="10.5" width="14" height="10.5" rx="1" fill="url(#ho_c)"/><rect x="9.5" y="15" width="5" height="6" rx="0.8" fill="#1a5276"/><circle cx="13.6" cy="18" r=".45" fill="#ffd94d"/></svg>', hotline: "12345",
     paths: [
       { t: "社区人民调解委员会", d: "押金、维修等小额纠纷首选，免费、快、可申请司法确认" },
       { t: "住建部门 / 12345", d: "中介违规、群租、安全隐患等行政投诉渠道" },
@@ -4430,7 +4436,7 @@ var RIGHTS_DATA = [
     ],
     steps: ["核对合同条款与押金收据", "书面催告对方履行（微信/EMS 留痕）", "申请调解或行政投诉", "起诉前整理交接记录与房屋照片"],
     mats: ["租赁合同", "押金收据 / 转账记录", "入住与退房交接记录", "房屋状况照片 / 维修沟通记录", "催告函件与送达凭证"] },
-  { key: "loan", name: "民间借贷", icon: "💰", hotline: "12348",
+  { key: "loan", name: "民间借贷", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="12" cy="12" r="9"/><line fill="none" stroke="currentColor" x1="12" y1="7" x2="12" y2="17"/><line fill="none" stroke="currentColor" x1="8.5" y1="10" x2="15.5" y2="10"/><line fill="none" stroke="currentColor" x1="8.5" y1="14" x2="15.5" y2="14"/></svg>', hotline: "12348",
     paths: [
       { t: "自行催告 + 补强证据", d: "让借款人补写借条/还款计划，微信确认借款事实可作证据" },
       { t: "申请支付令", d: "债权债务关系明确的，可向法院申请支付令，比诉讼更快" },
@@ -4438,7 +4444,7 @@ var RIGHTS_DATA = [
     ],
     steps: ["整理转账凭证、聊天记录、通话录音", "书面催讨（中断诉讼时效并留证）", "申请支付令或起诉", "胜诉后申请强制执行"],
     mats: ["借条 / 欠条（如有）", "银行或微信/支付宝转账凭证", "催款聊天记录 / 通话录音", "对方身份信息", "起诉状 + 证据清单"] },
-  { key: "traffic", name: "交通事故", icon: "🚗", hotline: "122",
+  { key: "traffic", name: "交通事故", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M4 16v-3.5l2.2-4.4A2 2 0 0 1 8 7h8a2 2 0 0 1 1.8 1.1L20 12.5V16"/><line fill="none" stroke="currentColor" x1="3" y1="16" x2="21" y2="16"/><circle fill="none" stroke="currentColor" cx="7" cy="16" r="1.5"/><circle fill="none" stroke="currentColor" cx="17" cy="16" r="1.5"/></svg>', hotline: "122",
     paths: [
       { t: "报警 + 事故认定书（122）", d: "责任认定的核心凭证，人伤或责任争议必须报警" },
       { t: "保险公司理赔", d: "交强险 + 商业险定损理赔；对方不赔可代位求偿" },
@@ -4446,7 +4452,7 @@ var RIGHTS_DATA = [
     ],
     steps: ["现场报警、拍照、记录对方信息", "就医并保存全部票据（有人伤先救治）", "取得事故认定书后定损理赔", "赔偿争议调解不成的提起诉讼"],
     mats: ["交通事故认定书", "医疗病历与发票", "修车发票 / 定损单", "误工与收入证明", "保险单与驾驶证行驶证"] },
-  { key: "marriage", name: "婚姻家庭", icon: "👨‍👩‍👧", hotline: "12338",
+  { key: "marriage", name: "婚姻家庭", icon: '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle fill="none" stroke="currentColor" cx="9" cy="7" r="4"/><circle fill="none" stroke="currentColor" cx="18" cy="13" r="2.2"/><path fill="none" stroke="currentColor" d="M22.5 21v-1a3 3 0 0 0-3-3h-1"/></svg>', hotline: "12338",
     paths: [
       { t: "协议离婚（民政局）", d: "双方协商一致：30天冷静期后共同申领离婚证，成本最低" },
       { t: "诉讼离婚（法院）", d: "一方不同意或财产/抚养争议大的，向被告住所地法院起诉" },
@@ -4471,7 +4477,7 @@ function renderRights() {
     h += '<div class="rt-head" onclick="toggleRightsCard(\'' + r.key + '\')">';
     h += '<span class="rt-ico">' + r.icon + '</span>';
     h += '<div class="rt-main"><b>' + escHtml(r.name) + '</b><span class="rt-sub">' + escHtml(r.paths[0].t) + '</span></div>';
-    h += '<a class="rt-hotline" href="tel:' + r.hotline + '" onclick="event.stopPropagation()">📞 ' + r.hotline + '</a><span class="rt-arrow" id="rt-arrow-' + r.key + '">▾</span>';
+    h += '<a class="rt-hotline" href="tel:' + r.hotline + '" onclick="event.stopPropagation()"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> ' + r.hotline + '</a><span class="rt-arrow" id="rt-arrow-' + r.key + '">▾</span>';
     h += '</div>';
     h += '<div class="rt-body" id="rt-body-' + r.key + '">';
     h += '<div class="rt-sec"><div class="rt-lab">① 找谁</div>';
@@ -4815,7 +4821,7 @@ function renderCaseCategories(){var h='';for(var i=0;i<CASE_DATA.length;i++){h+=
 function switchCaseCat(idx){currentCaseCat=idx;renderCaseCategories();renderCaseList();document.getElementById("caseList").scrollTop=0;}
 function renderCaseList(){var cat=CASE_DATA[currentCaseCat];var h='';for(var i=0;i<cat.cases.length;i++){var c=cat.cases[i];var t=c.t.replace(/^案例[一二三四五六七八九十\d]+[\s:：]*/,'').replace(/[:：]\s*$/,'');var ex=(c.f||'').replace(/\s+/g,' ').slice(0,50);if((c.f||'').replace(/\s+/g,' ').length>50)ex+='…';h+='<div class="case-card" onclick="openCaseDetail('+i+')"><div class="case-num">'+(i+1)+'</div><div class="case-info"><div class="case-title">'+escHtml(t)+'</div><div class="case-sub">'+escHtml(ex)+'</div></div><div class="case-arrow">›</div></div>';}document.getElementById("caseList").innerHTML=h;}
 function caseParas(s){var parts=s.split(/\n+/).map(function(x){return x.trim();}).filter(Boolean);return parts.map(function(p){return '<p>'+escHtml(p)+'</p>';}).join('');}
-function openCaseDetail(idx){var c=CASE_DATA[currentCaseCat].cases[idx];var t=c.t.replace(/^案例[一二三四五六七八九十\d]+[\s:：]*/,'').replace(/[:：]\s*$/,'');document.getElementById("cdTitle").textContent=t;var h='';h+='<div class="cd-head"><span class="cd-cat">'+escHtml(CASE_DATA[currentCaseCat].name)+'</span><div class="cd-t">'+escHtml(t)+'</div></div>';if(c.f)h+='<div class="cd-section card"><h5><span>📋</span> 基本案情</h5>'+caseParas(c.f)+'</div>';if(c.p)h+='<div class="cd-section card"><h5><span>⚖️</span> 裁判 / 处理</h5>'+caseParas(c.p)+'</div>';if(c.s)h+='<div class="cd-section card"><h5><span>💡</span> 典型意义</h5>'+caseParas(c.s)+'</div>';if(c.sn)h+='<div class="cd-section card"><h5><span>🔎</span> 官方来源</h5><div class="cd-src">'+escHtml(c.sn)+(c.u?' · <a href="'+c.u+'" target="_blank" rel="noopener">查看官方原文 ↗</a>':'')+'</div></div>';document.getElementById("cdContent").innerHTML=h;document.getElementById("caseDetail").classList.add("show");document.getElementById("caseDetail").scrollTop=0;}
+function openCaseDetail(idx){var c=CASE_DATA[currentCaseCat].cases[idx];var t=c.t.replace(/^案例[一二三四五六七八九十\d]+[\s:：]*/,'').replace(/[:：]\s*$/,'');document.getElementById("cdTitle").textContent=t;var h='';h+='<div class="cd-head"><span class="cd-cat">'+escHtml(CASE_DATA[currentCaseCat].name)+'</span><div class="cd-t">'+escHtml(t)+'</div></div>';if(c.f)h+='<div class="cd-section card"><h5><span><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect fill="none" stroke="currentColor" x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></span> 基本案情</h5>'+caseParas(c.f)+'</div>';if(c.p)h+='<div class="cd-section card"><h5><span><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="sc_a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa0e0"/><stop offset="1" stop-color="#2e6da4"/></linearGradient><linearGradient id="sc_b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd94d"/><stop offset="1" stop-color="#f0a92e"/></linearGradient></defs><rect x="10.6" y="4.5" width="2.8" height="13.5" rx="1" fill="url(#sc_a)"/><rect x="2.5" y="7.5" width="19" height="2.4" rx="1.2" fill="url(#sc_a)"/><circle cx="3" cy="8.7" r="1.3" fill="url(#sc_a)"/><circle cx="21" cy="8.7" r="1.3" fill="url(#sc_a)"/><path d="M3 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><path d="M21 10v1.5" stroke="#1a5276" stroke-width="1.3" fill="none"/><rect x="1" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="19" y="11.5" width="4" height="3.2" rx="0.6" fill="url(#sc_b)"/><rect x="11.2" y="5.2" width=".7" height="11" rx=".35" fill="#fff" opacity=".35"/><rect x="10.6" y="15.5" width="2.8" height=".9" rx=".45" fill="#1a5276"/><rect x="3" y="19" width="18" height="2" rx="1" fill="url(#sc_a)"/><circle cx="12" cy="4.5" r="1.6" fill="url(#sc_b)"/><circle cx="11.6" cy="4.1" r=".4" fill="#fff" opacity=".6"/></svg></span> 裁判 / 处理</h5>'+caseParas(c.p)+'</div>';if(c.s)h+='<div class="cd-section card"><h5><span><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M9 18h6"/><path fill="none" stroke="currentColor" d="M10 22h4"/><path fill="none" stroke="currentColor" d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg></span> 典型意义</h5>'+caseParas(c.s)+'</div>';if(c.sn)h+='<div class="cd-section card"><h5><span><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle fill="none" stroke="currentColor" cx="11" cy="11" r="8"/><line fill="none" stroke="currentColor" x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span> 官方来源</h5><div class="cd-src">'+escHtml(c.sn)+(c.u?' · <a href="'+c.u+'" target="_blank" rel="noopener">查看官方原文 ↗</a>':'')+'</div></div>';document.getElementById("cdContent").innerHTML=h;document.getElementById("caseDetail").classList.add("show");document.getElementById("caseDetail").scrollTop=0;}
 function closeCaseDetail(){document.getElementById("caseDetail").classList.remove("show");}
 
 
@@ -5311,7 +5317,7 @@ function shareWeekPoster() {
     var banner = document.createElement("div");
     banner.id = "installBanner";
     banner.style.cssText = "position:fixed;top:0;left:0;right:0;background:var(--accent);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;z-index:500;font-size:13px;font-weight:600;gap:8px;padding-top:calc(12px + env(safe-area-inset-top,0px))";
-    banner.innerHTML = '<span>📲 安装 律衡 到桌面</span><span style="display:flex;gap:6px;flex-shrink:0"><button onclick="installApp()" style="background:#fff;color:var(--accent);border:none;padding:6px 14px;border-radius:14px;font-weight:700;cursor:pointer;font-size:12px;font-family:inherit">安装</button><button onclick="this.parentElement.parentElement.remove()" style="background:transparent;border:none;color:#fff;cursor:pointer;font-size:16px;padding:2px 6px;font-family:inherit">×</button></span>';
+    banner.innerHTML = '<span><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect fill="none" stroke="currentColor" x="6" y="2" width="12" height="20" rx="2"/><line fill="none" stroke="currentColor" x1="12" y1="8" x2="12" y2="13"/><polyline fill="none" stroke="currentColor" points="9 11 12 14 15 11"/></svg> 安装 律衡 到桌面</span><span style="display:flex;gap:6px;flex-shrink:0"><button onclick="installApp()" style="background:#fff;color:var(--accent);border:none;padding:6px 14px;border-radius:14px;font-weight:700;cursor:pointer;font-size:12px;font-family:inherit">安装</button><button onclick="this.parentElement.parentElement.remove()" style="background:transparent;border:none;color:#fff;cursor:pointer;font-size:16px;padding:2px 6px;font-family:inherit">×</button></span>';
     document.body.prepend(banner);
   });
 })();
@@ -5638,19 +5644,19 @@ function updateLearnDashboard() {
   var smartTxt, emoji;
   if (min >= goal) {
     smartTxt = "今日学习 " + min + " 分钟，已完成目标 🎉" + (streak > 1 ? " · 连续 " + streak + " 天" : "");
-    emoji = "🏆";
+    emoji = '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path fill="none" stroke="currentColor" d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path fill="none" stroke="currentColor" d="M4 22h16"/><path fill="none" stroke="currentColor" d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path fill="none" stroke="currentColor" d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path fill="none" stroke="currentColor" d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>';
   } else if (min > 0) {
     smartTxt = "已学习 " + min + " 分钟，再学 " + (goal - min) + " 分钟达标";
-    emoji = "🔥";
+    emoji = '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
   } else if (q > 0) {
     smartTxt = "今日做了 " + q + " 道题，加油";
-    emoji = "📝";
+    emoji = '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path fill="none" stroke="currentColor" d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
   } else {
     smartTxt = "从题库开始，积累学习时长吧";
-    emoji = "📖";
+    emoji = '<svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path fill="none" stroke="currentColor" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
   }
   if (smartEl) smartEl.textContent = smartTxt;
-  if (emojiEl) emojiEl.textContent = emoji;
+  if (emojiEl) emojiEl.innerHTML = emoji;
   var gFill = document.getElementById("learnGoalFill");
   var gTxt = document.getElementById("learnGoalTxt");
   var gPct = Math.max(0, Math.min(100, Math.round(sec / (goal * 60) * 100)));
@@ -5781,7 +5787,7 @@ function renderMaterials() {
   var el = document.getElementById("matList");
   if (!el) return;
   if (!list.length) {
-    el.innerHTML = '<div class="mat-empty"><div class="me-icon">📂</div>还没有上传任何资料<br><button class="me-btn" onclick="uploadMaterial()">上传文档</button></div>';
+    el.innerHTML = '<div class="mat-empty"><div class="me-icon"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>还没有上传任何资料<br><button class="me-btn" onclick="uploadMaterial()">上传文档</button></div>';
     return;
   }
   var h = "";
@@ -7335,7 +7341,7 @@ function renderDocForm() {
     }
     h += '</div>';
   }
-  h += '<div class="doc-btn-row"><button class="doc-btn primary" onclick="generateDoc()">🤖 AI 生成文书</button>';
+  h += '<div class="doc-btn-row"><button class="doc-btn primary" onclick="generateDoc()"><svg xmlns="http://www.w3.org/2000/svg" class="esvg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill="none" stroke="currentColor" d="M12 8V4H8"/><rect fill="none" stroke="currentColor" width="16" height="12" x="4" y="8" rx="2"/><path fill="none" stroke="currentColor" d="M2 14h2"/><path fill="none" stroke="currentColor" d="M20 14h2"/><path fill="none" stroke="currentColor" d="M15 13v2"/><path fill="none" stroke="currentColor" d="M9 13v2"/></svg> AI 生成文书</button>';
   h += '<button class="doc-btn secondary" onclick="clearDocForm()">清空</button></div>';
   h += '</div>';
   document.getElementById("docFormArea").innerHTML = h;
