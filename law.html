@@ -747,6 +747,7 @@
 .lc-desc{font-size:12px;color:var(--text2);line-height:1.4}
 /* 学习中心三列快捷入口 */
 .learn-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+    .learn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
 .lt-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:12px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .15s}
 .lt-card:active{transform:scale(.95);background:var(--input-bg)}
 .lt-ic{color:var(--accent);display:flex}
@@ -1642,19 +1643,8 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
       <div class="learn-week" id="learnWeekBar"></div>
     </div>
 
-    <div class="dash-card" id="checkinCard" onclick="checkinToday()" style="margin:0 auto 14px;max-width:420px;width:calc(100% - 32px)" title="每日打卡">
-      <div class="dash-head">
-        <div class="dash-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></div>
-        <span class="dash-name">今日打卡</span>
-      </div>
-      <div class="dash-body">
-        <div class="dash-main" id="checkinStatus">点我打卡</div>
-        <div class="todo-preview" id="checkinPreview"></div>
-      </div>
-    </div>
-    <!-- 功能卡片 -->
-    <!-- 快捷入口: 时钟 / 闪卡 / 计算器 / 笔记本 -->
-    <div class="learn-trio">
+    <!-- 学习工具 2x2 并排（宽度与下方题库卡片一致） -->
+    <div class="learn-grid">
       <div class="lt-card" onclick="showClockView()">
         <div class="lt-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <span class="lt-name">学习时钟</span>
@@ -1663,15 +1653,13 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
         <div class="lt-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
         <span class="lt-name">笔记本</span>
       </div>
-    </div>
-    <div class="learn-trio">
       <div class="lt-card" onclick="showFlash()">
         <div class="lt-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M20 3H8a2 2 0 0 0-2 2"/><path d="M6 9h7M6 13h5"/></svg></div>
         <span class="lt-name">法条闪卡</span>
       </div>
-      <div class="lt-card" onclick="showCalc()">
-        <div class="lt-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8" y2="12"/><line x1="12" y1="11" x2="12" y2="12"/><line x1="16" y1="11" x2="16" y2="12"/><line x1="8" y1="15" x2="8" y2="16"/><line x1="12" y1="15" x2="12" y2="16"/><line x1="16" y1="15" x2="16" y2="20"/><line x1="12" y1="15" x2="12" y2="20"/></svg></div>
-        <span class="lt-name">法律计算器</span>
+      <div class="lt-card" onclick="showMaterials()">
+        <div class="lt-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        <span class="lt-name">我的资料</span>
       </div>
     </div>
     <div class="learn-cards">
@@ -1679,11 +1667,6 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
         <div class="lc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
         <div class="lc-name">题库</div>
         <div class="lc-desc">法律知识 · 章节练习 · 错题回顾</div>
-      </div>
-      <div class="learn-card" onclick="showMaterials()">
-        <div class="lc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-        <div class="lc-name">我的资料</div>
-        <div class="lc-desc">上传 PDF / Word 文档，随时查看</div>
       </div>
     </div>
 
