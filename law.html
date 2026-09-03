@@ -772,6 +772,15 @@ body.dark .ph-id-opt{color:#f7b733}
 .gs-box input{flex:1;min-width:0;border:none;background:transparent;outline:none;font-size:14px;color:var(--text);font-family:inherit}
 .gs-box input::placeholder{color:var(--text2)}
 .gs-btn{flex-shrink:0;border:none;border-radius:11px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;padding:6px 14px;cursor:pointer;font-family:inherit}
+    .gs-law-plan{background:var(--card-bg);border:1px solid var(--card-border);border-left:3px solid var(--accent);border-radius:16px;padding:14px 14px 12px;margin-bottom:10px;box-shadow:0 4px 18px rgba(0,0,0,.05)}
+    .glp-head{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:800;color:var(--accent);margin-bottom:10px}
+    .glp-sec{margin-bottom:9px}
+    .glp-t{display:inline-block;font-size:10.5px;font-weight:700;color:var(--accent);background:var(--accent-light);border-radius:6px;padding:2px 7px;margin-bottom:4px}
+    .glp-sec p{font-size:12px;line-height:1.65;color:var(--text);margin:0}
+    .glp-sec ol{margin:2px 0 0;padding-left:18px}
+    .glp-sec li{font-size:12px;line-height:1.7;color:var(--text);margin-bottom:2px}
+    .glp-btn{display:block;width:100%;margin-top:8px;border:none;border-radius:11px;background:var(--accent);color:#fff;font-size:13.5px;font-weight:700;padding:11px;cursor:pointer;font-family:inherit;transition:all .15s}
+    .glp-btn:active{transform:scale(.98)}
 .gs-btn:active{opacity:.8}
 .gs-results{margin-top:8px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,.12)}
 .gs-group{font-size:11px;font-weight:700;color:var(--accent);padding:9px 14px 4px;letter-spacing:.5px}
@@ -3802,10 +3811,100 @@ function _gsHighlight(s, q) {
   if (i === -1) return escHtml(s);
   return escHtml(s.slice(0, i)) + "<mark>" + escHtml(q) + "</mark>" + escHtml(s.slice(i + q.length));
 }
+// ===== 主界面搜索框 · 法律方案闭环（本地场景引擎）=====
+var LEGAL_SCENARIOS = [
+  { key:"wage", match:["欠薪","工资","不发","拖欠","讨薪","劳动报酬","要工资","老板不给","不给钱","扣工资"],
+    judge:"按你的描述，属于用人单位拖欠劳动报酬，已违反《劳动法》《劳动合同法》关于工资支付的规定。",
+    relation:"你与用人单位之间成立劳动关系，工资支付受《劳动法》与《劳动合同法》保护；若未签合同，可凭工牌、打卡、工资流水等认定事实劳动关系。",
+    path:["第一步·协商：向用人单位书面/口头索要工资，保留聊天、录音等催讨记录","第二步·投诉：向当地劳动保障监察大队投诉（电话 12333），监察部门可责令限期支付","第三步·仲裁：协商、投诉无效，向劳动人事争议仲裁委员会申请仲裁（免费，一般 45 日内结案）","第四步·诉讼：对仲裁结果不服，15 日内向人民法院起诉"],
+    mats:["劳动合同或劳动关系证明（工牌/考勤/工资流水）","工资条与银行转账流水","催讨工资的聊天记录、录音","投诉或仲裁受理材料"],
+    basis:["《劳动法》第五十条：工资应当以货币形式按月支付给劳动者本人，不得克扣或者无故拖欠","《劳动合同法》第八十五条：拖欠劳动报酬的，责令限期支付；逾期不付按应付金额百分之五十以上百分之一百以下加付赔偿金"],
+    doc:{ name:"生成劳动仲裁申请书", key:"laborarb" } },
+  { key:"fire", match:["辞退","开除","裁员","解雇","劝退","经济补偿","赔偿金","n+1","N+1","被离职","突然被"],
+    judge:"单位单方辞退/裁员，应审查解除是否合法；违法解除的，可主张二倍经济补偿标准的赔偿金。",
+    relation:"劳动关系解除争议，受《劳动合同法》调整；需区分协商一致解除、过失性辞退、无过失性辞退与违法解除。",
+    path:["第一步·核解除理由：要求单位出具书面解除通知，写明理由与依据","第二步·算补偿：经济补偿按工作年限每满一年一个月工资；违法解除主张二倍赔偿金（2N）","第三步·仲裁：向劳动仲裁委申请仲裁，主张经济补偿或赔偿金","第四步·诉讼：对仲裁结果不服，15 日内起诉"],
+    mats:["解除劳动合同通知书（书面证据）","劳动合同、工资流水（算补偿基数）","考勤记录与工龄证明","与单位沟通的聊天/录音记录"],
+    basis:["《劳动合同法》第四十七条：经济补偿按劳动者在本单位工作的年限，每满一年支付一个月工资","《劳动合同法》第八十七条：违法解除或终止的，按第四十七条标准的二倍支付赔偿金"],
+    doc:{ name:"生成劳动仲裁申请书", key:"laborarb" } },
+  { key:"injury", match:["工伤","受伤","职业病","工作中受伤","工亡","上下班受伤","单位不报工伤"],
+    judge:"工作中受伤属于工伤的，可依法享受工伤保险待遇；用人单位未缴社保的，由其按工伤保险待遇项目和标准支付费用。",
+    relation:"你与单位存在劳动关系，受伤情形受《工伤保险条例》调整，需经工伤认定程序。",
+    path:["第一步·保留证据：病历、诊断证明、事发时证人证言与现场记录","第二步·工伤认定：单位应在 30 日内申请；单位不申请的，本人或近亲属可在 1 年内申请","第三步·劳动能力鉴定：伤情稳定后申请鉴定，确定伤残等级","第四步·待遇主张：协商不成申请劳动仲裁，主张医疗费、停工留薪期工资、伤残补助金等"],
+    mats:["劳动合同/劳动关系证明","医院病历与诊断证明","事发经过说明与证人证言","工伤认定申请表"],
+    basis:["《工伤保险条例》第十四条：工作时间、工作场所内因工作原因受到事故伤害的，应当认定为工伤","《工伤保险条例》第十七条：用人单位未按规定申请的，工伤职工或其近亲属可在事故伤害发生之日起 1 年内申请"],
+    doc:{ name:"生成劳动仲裁申请书", key:"laborarb" } },
+  { key:"fake", match:["假货","假冒","退一赔三","欺诈","三倍","退款","退货","七天无理由","买到假","不退款","以次充好"],
+    judge:"经营者提供商品有欺诈行为的，可要求退一赔三（增加赔偿金额不足五百元的按五百元计）；食品安全问题可主张价款十倍赔偿。",
+    relation:"你与经营者之间成立买卖合同/网络购物合同关系，受《消费者权益保护法》《食品安全法》保护。",
+    path:["第一步·协商：与商家协商退款、退货、赔偿","第二步·平台介入：网购可申请平台客服介入","第三步·投诉：向 12315 平台投诉举报（电话 12315）","第四步·诉讼：协商投诉无效，向法院起诉主张退一赔三"],
+    mats:["订单截图、支付凭证","商品实物照片/视频","与商家沟通记录","发票或购物小票"],
+    basis:["《消费者权益保护法》第五十五条：经营者有欺诈行为的，按价款三倍增加赔偿；不足五百元的为五百元","《食品安全法》第一百四十八条：不符合食品安全标准的食品，可主张价款十倍赔偿"],
+    doc:{ name:"生成消费维权投诉书", key:"consumercomplaint" } },
+  { key:"deposit", match:["押金","不退押金","退租","房东","租金","二房东","乱收费","涨房租","扣押金"],
+    judge:"租期届满或合同解除后，房东无正当理由扣押押金的，属于违约；押金退还应按合同约定办理，扣款须有事实依据。",
+    relation:"你与出租人（房东或二房东）之间成立房屋租赁合同关系，受《民法典》合同编调整。",
+    path:["第一步·核对：对照合同核对押金数额、退还条件与扣款事由","第二步·留证：入住/退租拍照留档，交房清单逐项核对","第三步·调解：向街道办/社区人民调解委员会申请调解","第四步·起诉：调解不成，向法院起诉要求返还押金（小额诉讼程序更快）"],
+    mats:["房屋租赁合同","押金支付凭证（转账记录/收据）","退租交房照片与清单","与房东沟通记录"],
+    basis:["《民法典》第七百零三条：租赁合同是出租人将租赁物交付承租人使用收益，承租人支付租金的合同","《民法典》第五百七十七条：当事人一方不履行合同义务的，应当承担继续履行、赔偿损失等违约责任"],
+    doc:{ name:"生成民事起诉状", key:"civilcomplaint" } },
+  { key:"loan", match:["借钱","借款","欠钱","不还","借条","民间借贷","催收","高利贷","利息太高","老赖"],
+    judge:"民间借贷纠纷中，借款人逾期不还的，出借人可要求返还本金并支付约定利息；利息约定过高的，超过法定上限部分不受保护。",
+    relation:"双方成立民间借贷合同关系，受《民法典》合同编调整；出借人需对款项交付承担举证责任。",
+    path:["第一步·催告：书面催告还款并固定证据（催收函/微信/短信）","第二步·协商：与借款人协商分期或担保方案","第三步·起诉：向法院起诉，主张返还本金、利息及逾期利息（注意诉讼时效三年）","第四步·执行：判决后对方仍不履行，申请强制执行"],
+    mats:["借条/借款合同","转账凭证（银行流水、微信/支付宝记录）","催收沟通记录","对方身份信息（姓名、身份证号）"],
+    basis:["《民法典》第六百七十五条：借款人应当按照约定的期限返还借款","《民法典》第六百八十条：禁止高利放贷，借款利率不得违反国家有关规定"],
+    doc:{ name:"生成民事起诉状", key:"civilcomplaint" } },
+  { key:"traffic", match:["交通事故","车祸","被撞","撞人","肇事","伤残赔偿","误工费","责任认定"],
+    judge:"发生交通事故应先报警定责；因侵权造成人身损害的，责任方应赔偿医疗费、误工费、护理费、残疾赔偿金等。",
+    relation:"交通事故责任纠纷，属侵权责任法律关系，受《民法典》侵权责任编与《道路交通安全法》调整。",
+    path:["第一步·报警定责：拨打 122，取得交通事故责任认定书","第二步·治疗留证：保留病历、发票、误工证明","第三步·协商调解：与保险公司及责任方协商赔偿","第四步·诉讼：协商不成，向法院起诉主张赔偿"],
+    mats:["交通事故责任认定书","病历、诊断证明、医疗费发票","收入证明（计算误工费）","伤残鉴定报告（如涉评残）"],
+    basis:["《民法典》第一千一百七十九条：侵害他人造成人身损害的，应当赔偿医疗费、护理费、交通费等合理费用","《道路交通安全法》第七十六条：机动车发生交通事故造成人身伤亡的，由保险公司在交强险限额内赔偿"],
+    doc:{ name:"生成民事起诉状", key:"civilcomplaint" } },
+  { key:"scam", match:["诈骗","骗钱","转账","刷单","中奖","保健品","电信诈骗","冒充客服","网贷骗局","杀猪盘"],
+    judge:"若已向陌生账户转账或泄露验证码，请立即止损报警；此类情况高度疑似电信网络诈骗。",
+    relation:"电信网络诈骗属刑事犯罪（诈骗罪），同时涉及资金追回与反诈保护，需通过公安机关处理。",
+    path:["第一步·止损：立即停止一切转账，联系银行冻结/挂失账户","第二步·报警：拨打 110 或 96110 反诈专线报案，提供转账记录","第三步·留证：保存聊天记录、转账凭证、对方账号","第四步·防扩散：修改相关平台密码，提醒亲友防范"],
+    mats:["转账记录（银行/微信/支付宝）","对方账号信息","聊天记录截图","报案回执"],
+    basis:["《刑法》第二百六十六条：诈骗公私财物数额较大的，处三年以下有期徒刑、拘役或管制，并处或单处罚金","96110 为全国反诈预警劝阻专线，请第一时间拨打"],
+    doc:null }
+];
+function matchScenario(q) {
+  if (!q) return null;
+  var hit = null, best = 0;
+  for (var i = 0; i < LEGAL_SCENARIOS.length; i++) {
+    var sc = LEGAL_SCENARIOS[i];
+    for (var j = 0; j < sc.match.length; j++) {
+      if (q.indexOf(sc.match[j]) !== -1 && sc.match[j].length > best) { best = sc.match[j].length; hit = sc; }
+    }
+  }
+  return hit;
+}
+function renderLawPlan(sc) {
+  var h = '<div class="gs-law-plan">';
+  h += '<div class="glp-head"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18"/><path d="M8 21h8"/><path d="M3 7h18"/><path d="M6 7l-3 6a3 3 0 0 0 6 0z"/><path d="M18 7l-3 6a3 3 0 0 0 6 0z"/></svg>律衡 · 法律方案</div>';
+  h += '<div class="glp-sec"><span class="glp-t">问题判断</span><p>' + sc.judge + '</p></div>';
+  h += '<div class="glp-sec"><span class="glp-t">可能涉及的法律关系</span><p>' + sc.relation + '</p></div>';
+  h += '<div class="glp-sec"><span class="glp-t">维权路径</span><ol>';
+  for (var i = 0; i < sc.path.length; i++) h += '<li>' + sc.path[i] + '</li>';
+  h += '</ol></div>';
+  h += '<div class="glp-sec"><span class="glp-t">所需材料</span><p>' + sc.mats.join(" · ") + '</p></div>';
+  h += '<div class="glp-sec"><span class="glp-t">法律依据</span><p>' + sc.basis.join("<br>") + '</p></div>';
+  if (sc.doc) h += '<button class="glp-btn" onclick="goDocGen(\'' + sc.doc.key + '\')">' + sc.doc.name + ' →</button>';
+  h += '</div>';
+  return h;
+}
+function goDocGen(id) {
+  showDocGen();
+  if (id) selectDocType(id);
+}
+
 function renderGlobalResults(q, lawHits, caseHits, isCaseNo) {
   var box = document.getElementById("globalSearchResults");
   if (!box) return;
-  var html = '<div class="gs-results">';
+  var sc = matchScenario(q);
+  var html = (sc ? renderLawPlan(sc) : "") + '<div class="gs-results">';
   if (!lawHits.length && !caseHits.length) {
     html += '<div class="gs-empty">未找到与「' + escHtml(q) + '」匹配的法条或案例'
       + (isCaseNo ? '<br><span style="font-size:10px">案号检索暂未收录裁判文书全文，可尝试当事人 / 案由关键词</span>' : '') + '</div>';
