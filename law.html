@@ -3366,9 +3366,10 @@ function showAbout() {
 // ============================================================
 // SCREEN MANAGEMENT
 // ============================================================
-function hideAllViews() {
+function hideAllViews(nextView) {
   var shown = document.querySelector(".show[id]");
-  if (shown && shown.id !== "homeScreen" && shown.id !== "roleSheetBd" && !_isGoingBack) _returnView = shown.id;
+  if (nextView && shown && shown.id !== "homeScreen" && shown.id !== "roleSheetBd" && shown.id !== nextView && !_isGoingBack) _returnView = shown.id;
+  else if (nextView === "homeScreen") _returnView = null;
   ["homeScreen","chatView","dbView","aboutView","settingsView","quizView","docView","caseView","caseDetail","learnCenterView","materialsView","notebookView","plazaView","noteDetailView","profileView","clockView","calcView","flashView","rightsView","preventView","faqView"].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.classList.remove("show");
@@ -4836,7 +4837,7 @@ var CALC_TYPES = [
 ];
 var _calcCur = "loan";
 function showCalc() {
-  hideAllViews();
+  hideAllViews("calcView");
   document.getElementById("calcView").classList.add("show");
   renderCalc();
 }
@@ -5533,7 +5534,7 @@ function getStreak(stats) {
 }
 
 function showLearningCenter() {
-  hideAllViews();
+  hideAllViews("learnCenterView");
   var el = document.getElementById("learnCenterView");
   el.style.display = "";
   el.classList.add("show");
