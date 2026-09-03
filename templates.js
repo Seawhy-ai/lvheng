@@ -17,7 +17,8 @@ function buildDocTemplate(t, f) {
     h+="2.2 单价："+v("price")+"\n";
     h+="2.3 总价款（含税）："+v("total")+"\n\n";
     h+="第三条 交货\n";
-    h+="3.1 交货地点与日期："+v("delivery")+"\n";
+    h+="3.1 交货地点："+v("delivery")+"\n";
+    h+="3.2 交货日期："+v("deliveryDate")+"\n";
     h+="3.2 运输方式及费用承担：________________________\n\n";
     h+="第四条 付款方式\n"+v("payment")+"\n\n";
     h+="第五条 验收\n";
@@ -43,7 +44,7 @@ function buildDocTemplate(t, f) {
     h+="双方就借款事宜达成如下协议：\n\n";
     h+="第一条 借款金额\n"+v("amount")+"\n\n";
     h+="第二条 借款利率\n年利率："+v("rate")+"，利息自放款之日起计算。\n\n";
-    h+="第三条 借款期限\n"+v("term")+"\n\n";
+    h+="第三条 借款期限\n自"+v("startDate")+"至"+v("endDate")+"\n\n";
     h+="第四条 还款方式\n"+v("method")+"\n\n";
     h+="第五条 担保方式\n";
     if(f.guarantee)h+=f.guarantee+"\n";else h+="（无担保）\n";
@@ -63,7 +64,8 @@ function buildDocTemplate(t, f) {
     h+="乙方（劳动者）："+v("employee")+"\n";
     h+="身份证号：________________\n\n";
     h+="根据《劳动法》《劳动合同法》，双方签订本合同。\n\n";
-    h+="第一条 合同期限\n"+v("term")+"\n\n";
+    h+="第一条 合同期限\n自"+v("startDate")+"至"+v("endDate")+"\n";
+    h+="是否约定试用期："+v("probation")+"\n\n";
     h+="第二条 工作岗位\n"+v("position")+"\n\n";
     h+="第三条 工作地点\n"+v("location")+"\n\n";
     h+="第四条 工作时间\n"+v("hours","标准工时制，每日不超过8小时，每周不超过40小时")+"\n";
@@ -91,8 +93,8 @@ function buildDocTemplate(t, f) {
     h+="身份证号/统一社会信用代码：________\n\n";
     h+="根据《民法典》合同编，双方就租赁事宜达成如下协议：\n\n";
     h+="第一条 租赁物\n"+v("property")+"\n\n";
-    h+="第二条 租赁期限\n"+v("term")+"\n\n";
-    h+="第三条 租金及支付方式\n"+v("rent")+"\n\n";
+    h+="第二条 租赁期限\n自"+v("startDate")+"至"+v("endDate")+"\n\n";
+    h+="第三条 租金及支付方式\n"+v("rent")+"\n支付周期："+v("rentPeriod")+"\n\n";
     if(f.deposit)h+="第四条 押金\n"+f.deposit+"\n\n";
     h+="第五条 租赁用途\n"+v("purpose")+"\n\n";
     h+="第六条 甲方权利义务\n";
@@ -131,7 +133,7 @@ function buildDocTemplate(t, f) {
     h+="仲裁请求：\n"+v("claims")+"\n\n";
     h+="事实与理由：\n申请人于"+v("entry")+"。"+v("separation")+"。\n";
     h+=v("facts")+"\n\n";
-    h+="本案争议金额合计人民币"+v("amount")+"元。依据《中华人民共和国劳动争议调解仲裁法》第二条、第二十七条之规定，特向贵委申请劳动仲裁，请求依法裁决。\n\n";
+    h+="本案争议金额合计人民币"+v("amount")+"元。是否签订劳动合同："+v("hasContract")+"。依据《中华人民共和国劳动争议调解仲裁法》第二条、第二十七条之规定，特向贵委申请劳动仲裁，请求依法裁决。\n\n";
     h+="此致\n________劳动人事争议仲裁委员会\n\n";
     h+="申请人（签名）：____________\n"+ds+"\n\n";
     h+="【律师提示】劳动仲裁时效一般为一年（劳动报酬争议在职期间不受此限）。请附劳动合同、工资流水、考勤、聊天记录等证据材料复印件。";
@@ -140,8 +142,8 @@ function buildDocTemplate(t, f) {
     h+="                    投诉书\n\n";
     h+="投诉人："+v("cperson")+"\n";
     h+="被投诉方："+v("ctarget")+"\n\n";
-    h+="投诉事项：\n投诉人购买/接受"+v("cgoods")+"，涉及金额人民币"+v("camount")+"元。\n\n";
-    h+="经过与问题：\n"+v("cprocess")+"\n\n";
+    h+="投诉事项：\n投诉人于"+v("buyDate")+"购买/接受"+v("cgoods")+"，涉及金额人民币"+v("camount")+"元。\n\n";
+    h+="经过与问题：\n"+v("cprocess")+"\n是否与商家协商过："+v("hasNegotiated")+"\n\n";
     h+="投诉诉求：\n"+v("cdemand")+"\n\n";
     h+="以上情况属实，请贵局（平台）依法受理并处理。\n\n";
     h+="投诉人（签名）：____________\n"+ds+"\n\n";
