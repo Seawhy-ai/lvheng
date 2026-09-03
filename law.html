@@ -171,7 +171,8 @@
     /* frosted bottom nav card */
     #bottomNav{display:flex;justify-content:space-around;align-items:center;margin:0 auto;margin-bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 12px;background:rgba(255,255,255,0.42);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:24px;box-shadow:0 4px 24px rgba(0,0,0,0.06),0 1px 4px rgba(0,0,0,0.04);flex-shrink:0;max-width:380px;width:calc(100% - 48px)}
     body.dark #bottomNav{background:rgba(40,40,40,0.8);box-shadow:0 4px 24px rgba(0,0,0,0.3)}
-    #bottomNav .nav-item{display:flex;align-items:center;justify-content:center;cursor:pointer;padding:12px;border:none;background:none;color:#111;font-family:inherit;transition:all .15s;border-radius:16px;flex:1}
+    #bottomNav .nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:7px 4px;border:none;background:none;color:#111;font-family:inherit;transition:all .15s;border-radius:16px;flex:1;min-width:0}
+    #bottomNav .nav-label{font-size:10px;line-height:1.2;font-weight:600;letter-spacing:.2px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
     #bottomNav .nav-item:active{color:var(--accent);background:var(--icon-bg)}
     #bottomNav .nav-item svg{width:24px;height:24px}
     .cta-btn{display:flex;align-items:center;justify-content:center;gap:4px;width:100%;max-width:320px;margin:0 auto 20px;padding:15px 24px;border:none;border-radius:16px;font-size:clamp(15px,3.5vw,17px);font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(135deg,#1a5276,#2980b9);box-shadow:0 4px 20px rgba(26,82,118,0.3);transition:all .15s;font-family:inherit;letter-spacing:.5px;min-height:50px}
@@ -1424,6 +1425,11 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     <div class="settings-section">
       <div class="settings-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>通知提醒</div>
     <div class="profile-menu">
+      <div class="pm-item" onclick="toggleNavLabel()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        <span>底部导航显示文字</span>
+        <span class="pm-toggle" id="navLabelState" aria-label="底部导航文字开关"></span>
+      </div>
       <div class="pm-item" onclick="toggleRemind('checkin')">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
         <span>每日打卡提醒</span>
@@ -3459,6 +3465,7 @@ function showSettings() {
   setBtnGroup("themePrefGroup", themePref);
   applyFontPrefs();
   renderRemindStates();
+  renderNavLabelState();
 }
 
 // ============================================================
@@ -3666,6 +3673,17 @@ function loadRemind() {
   return { checkin: false, plan: false, time: "20:00", fired: {} };
 }
 function saveRemind(r) { try { localStorage.setItem(REMIND_KEY, JSON.stringify(r)); } catch(e) {} }
+function loadNavLabelPref() { try { return localStorage.getItem("lvheng_nav_label") !== "0"; } catch(e) { return true; } }
+function toggleNavLabel() {
+  var v = loadNavLabelPref();
+  try { localStorage.setItem("lvheng_nav_label", v ? "0" : "1"); } catch(e) {}
+  renderNavLabelState(); renderBottomNav();
+  showToast(v ? "导航文字已隐藏" : "导航文字已显示");
+}
+function renderNavLabelState() {
+  var el = document.getElementById("navLabelState");
+  if (el) el.classList.toggle("on", loadNavLabelPref());
+}
 function renderRemindStates() {
   var r = loadRemind();
   var ci = document.getElementById("remindCheckinState");
@@ -4370,8 +4388,9 @@ function renderBottomNav() {
   if (!nav) return;
   var r = roleOf(curRole);
   var items = (r && r.nav) || DEFAULT_NAV;
+  var showLabel = true; try { showLabel = localStorage.getItem("lvheng_nav_label") !== "0"; } catch(e) {}
   nav.innerHTML = items.map(function(k) {
-    return '<button class="nav-item" onclick="NAV_ACTIONS.' + k + '()" title="' + NAV_TITLES[k] + '" aria-label="' + NAV_TITLES[k] + '">' + NAV_ICONS[k] + '</button>';
+    return '<button class="nav-item" onclick="NAV_ACTIONS.' + k + '()" title="' + NAV_TITLES[k] + '" aria-label="' + NAV_TITLES[k] + '">' + NAV_ICONS[k] + (showLabel ? '<span class="nav-label">' + NAV_TITLES[k] + '</span>' : '') + '</button>';
   }).join("");
 }
 function openRoleCalc() {
