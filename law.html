@@ -7798,6 +7798,56 @@ function regenerateDoc() {
 
 
 // ===== 律政人生（剧情刷题）· 自 LexPilot 移植 =====
+// ===== 律政人生补全依赖（vipRate / maybeDropJurist / playWinChime / JURISTS） =====
+var JURISTS = [
+  { key: "wangzejian", name: "王泽鉴", field: "民法学", era: "当代", desc: "民法教义学与判例研究的集大成者，著《民法学说与判例研究》，深刻影响两岸民法教义学。" },
+  { key: "zhangmingkai", name: "张明楷", field: "刑法学", era: "当代", desc: "以\"刑法解释学\"著称，主张实质解释论，著《刑法学》影响一代法考生。" },
+  { key: "jiangping", name: "江平", field: "民商法学", era: "1930-2023", desc: "中国民商法的主要奠基人之一，参与《合同法》《物权法》《民法典》多部立法。" },
+  { key: "gaomingxuan", name: "高铭暄", field: "刑法学", era: "1928-", desc: "新中国刑法学的主要奠基者，唯一全程参与 1979/1997 刑法制定的学者。" },
+  { key: "shangkuan", name: "史尚宽", field: "民法学", era: "1898-1970", desc: "完成《民法全书》六册的民法学泰斗，中国第一部民法全书作者。" },
+  { key: "zhou_nan", name: "周枏", field: "罗马法学", era: "1908-2004", desc: "《罗马法原论》作者，把罗马法研究带回中国的传奇学者。" },
+  { key: "lianghuixing", name: "梁慧星", field: "民法学", era: "当代", desc: "《民法总论》作者，民法典编纂的重要建言者。" },
+  { key: "yingsonnian", name: "应松年", field: "行政法学", era: "当代", desc: "中国行政法学的开拓者之一，参与《行政处罚法》《行政诉讼法》立法。" },
+  { key: "suishengxian", name: "沈宗灵", field: "法理学", era: "1923-2013", desc: "法理学与比较法学的代表性学者，著《现代西方法理学》。" },
+  { key: "chaoxinmin", name: "陈光中", field: "刑事诉讼法学", era: "当代", desc: "刑诉法学泰斗，主张\"程序公正与实体公正并重\"。" }
+];
+
+function vipRate(base) { return base; } // 律衡无 VIP 体系，加成恒为 1 倍
+
+function maybeDropJurist(q) {
+  try {
+    if (!q || q.diff !== 3) return;
+    if (Math.random() > 0.06) return;
+    var p = ensureProfileId(loadProfile());
+    if (!p.juristsOwned) p.juristsOwned = [];
+    var un = [];
+    for (var i = 0; i < JURISTS.length; i++) if (p.juristsOwned.indexOf(JURISTS[i].key) < 0) un.push(JURISTS[i]);
+    if (!un.length) return;
+    var jd = un[Math.floor(Math.random() * un.length)];
+    p.juristsOwned.push(jd.key);
+    saveProfile(p);
+    showToast("收集法学家卡：「" + jd.name + "」");
+  } catch(e) {}
+}
+
+function playWinChime() {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var notes = [523.25, 659.25, 783.99, 1046.5];
+    for (var i = 0; i < notes.length; i++) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = "sine"; o.frequency.value = notes[i];
+      var t0 = ctx.currentTime + i * 0.09;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.22, t0 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.35);
+      o.start(t0); o.stop(t0 + 0.4);
+    }
+  } catch(e) {}
+}
+
+
 function addPoints(amount, label) {
   var p = loadProfile();
   p.points = (p.points || 0) + amount;
