@@ -5978,8 +5978,10 @@ function getStreak(stats) {
 
 function showLearningCenter() {
   var shown = document.querySelector(".show[id]");
-  _returnView = (shown && shown.id !== "learnCenterView" && shown.id !== "roleSheetBd") ? shown.id : "homeScreen";
-  hideAllViews("learnCenterView");
+  if (!(shown && shown.id === "storyView")) {
+    _returnView = (shown && shown.id !== "learnCenterView" && shown.id !== "roleSheetBd") ? shown.id : "homeScreen";
+  }
+  hideAllViews("learnCenterView", true); // 不再覆盖 _returnView
   var el = document.getElementById("learnCenterView");
   el.style.display = "";
   el.classList.add("show");
@@ -8373,7 +8375,7 @@ var STORY_MAP_NODES = [
   { x: 78, y: 9 }, { x: 50, y: 9 }, { x: 22, y: 9 }
 ];
 function showStory() {
-  hideAllViews();
+  hideAllViews("storyView", true); // 保留进入学习中心前的返回目标
   document.getElementById("storyView").classList.add("show");
   renderStoryMap();
 }
