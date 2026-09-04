@@ -1,0 +1,49 @@
+name: sync-laws
+
+# 律衡法律资源库自动同步：每月 1 日 03:30（UTC+8 为 11:30）从
+# 国家法律法规数据库（flk.npc.gov.cn）同步角色化法律法规与司法解释。
+# flk 对海外 IP 可能限流；若 GitHub runner 拉取失败，脚本会保留本地文本并在报告标注，
+# 也可在有公网条件的机器上手动运行 scripts/sync_laws.py 后推送。
+
+on:
+  schedule:
+    - cron: "30 3 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-laws
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Sync laws from flk.npc.gov.cn
+        id: sync
+        continue-on-error: true
+        run: python scripts/sync_laws.py --fetch
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "lvheng-sync-bot"
+          git config user.email "sync-bot@users.noreply.github.com"
+          git add laws laws-index.json docs/laws-sync-report.md
+          if git diff --cached --quiet; then
+            echo "No changes — laws up to date."
+          else
+            git commit -m "chore(laws): 自动同步国家法律法规数据库（月度）"
+            git pull --rebase origin main
+            git push origin main
+          fi

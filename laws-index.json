@@ -1,0 +1,463 @@
+{
+  "name": "律衡法律资源库",
+  "source": "国家法律法规数据库 https://flk.npc.gov.cn/",
+  "updated_at": "2026-09-05 02:52",
+  "total": 24,
+  "full_text": 1,
+  "entries": [
+    {
+      "file": "labor-law",
+      "title": "中华人民共和国劳动法",
+      "flxz": "法律",
+      "roles": [
+        "劳动从业者",
+        "在校大学生"
+      ],
+      "note": "兼职、实习用工的基本劳动权利义务；工时、工资、加班与劳动保护",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8080816f135f46016f20f16ee11737",
+        "gbrq": "2018-12-29",
+        "sxrq": "2018-12-29",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8080816f135f46016f20f16ee11737"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "labor-contract-law-2012",
+      "title": "中华人民共和国劳动合同法",
+      "flxz": "法律",
+      "roles": [
+        "劳动从业者",
+        "在校大学生"
+      ],
+      "note": "合同订立、欠薪、违法辞退赔偿、经济补偿（已有全文）",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "2c909fdd678bf17901678bf74d7106b3",
+        "gbrq": "2012-12-28",
+        "sxrq": "2013-07-01",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf74d7106b3"
+      },
+      "text_status": "full"
+    },
+    {
+      "file": "labor-dispute-arbitration-law",
+      "title": "中华人民共和国劳动争议调解仲裁法",
+      "flxz": "法律",
+      "roles": [
+        "劳动从业者",
+        "在校大学生"
+      ],
+      "note": "劳动仲裁流程、时效与费用，维权路径速查的核心依据",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "2c909fdd678bf17901678bf64f28039d",
+        "gbrq": "2007-12-29",
+        "sxrq": "2008-05-01",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf64f28039d"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "social-insurance-law",
+      "title": "中华人民共和国社会保险法",
+      "flxz": "法律",
+      "roles": [
+        "劳动从业者"
+      ],
+      "note": "五险缴纳、工伤与医疗待遇，欠缴社保纠纷依据",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8080816f135f46016f210989b9179a",
+        "gbrq": "2018-12-29",
+        "sxrq": "2018-12-29",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8080816f135f46016f210989b9179a"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "work-injury-insurance-regulations",
+      "title": "工伤保险条例",
+      "flxz": "行政法规",
+      "roles": [
+        "劳动从业者"
+      ],
+      "note": "工伤认定、劳动能力鉴定与待遇标准",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8080816f3cbb3c016f40d5bc0f0659",
+        "gbrq": "2010-12-20",
+        "sxrq": "2011-01-01",
+        "zdjg": "国务院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8080816f3cbb3c016f40d5bc0f0659"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "migrant-worker-wages-regulations",
+      "title": "保障农民工工资支付条例",
+      "flxz": "行政法规",
+      "roles": [
+        "劳动从业者"
+      ],
+      "note": "欠薪清偿责任与投诉渠道，农民工讨薪专门保障",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff808081774c7a3d01776c41674315b2",
+        "gbrq": "2019-12-30",
+        "sxrq": "2020-05-01",
+        "zdjg": "国务院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff808081774c7a3d01776c41674315b2"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "labor-dispute-interpretation-1",
+      "title": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+      "flxz": "司法解释",
+      "roles": [
+        "劳动从业者",
+        "在校大学生"
+      ],
+      "note": "劳动争议受理范围、举证责任与未签合同二倍工资等裁判规则",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff80808177e75f88017800739d621b12",
+        "gbrq": "2020-12-29",
+        "sxrq": "2021-01-01",
+        "zdjg": "最高人民法院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff80808177e75f88017800739d621b12"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "consumer-protection-law",
+      "title": "中华人民共和国消费者权益保护法",
+      "flxz": "法律",
+      "roles": [
+        "消费者"
+      ],
+      "note": "七日无理由退货、退一赔三、经营者义务",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "2c909fdd678bf17901678bf7670606ef",
+        "gbrq": "2013-10-25",
+        "sxrq": "2014-03-15",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf7670606ef"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "consumer-protection-regulations",
+      "title": "中华人民共和国消费者权益保护法实施条例",
+      "flxz": "行政法规",
+      "roles": [
+        "消费者"
+      ],
+      "note": "2024 年施行的新实施条例，细化网络消费与预付式消费规则",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff808181927f09310192c2f4cd777281",
+        "gbrq": "2024-03-15",
+        "sxrq": "2024-07-01",
+        "zdjg": "国务院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff808181927f09310192c2f4cd777281"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "e-commerce-law",
+      "title": "中华人民共和国电子商务法",
+      "flxz": "法律",
+      "roles": [
+        "消费者"
+      ],
+      "note": "平台责任、直播带货、押金退还与评价权",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "2c909fdd678bf17901678bf8af050b81",
+        "gbrq": "2018-08-31",
+        "sxrq": "2019-01-01",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8af050b81"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "food-safety-law",
+      "title": "中华人民共和国食品安全法",
+      "flxz": "法律",
+      "roles": [
+        "消费者"
+      ],
+      "note": "十倍赔偿、标签与网络食品经营责任",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "7b5a76d0461745a08d3f964916b87ef3",
+        "gbrq": "2025-09-12",
+        "sxrq": "2025-12-01",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=7b5a76d0461745a08d3f964916b87ef3"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "product-quality-law",
+      "title": "中华人民共和国产品质量法",
+      "flxz": "法律",
+      "roles": [
+        "消费者"
+      ],
+      "note": "三包、缺陷产品责任与销售者先行赔付",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8080816f135f46016f1d6dfd7614d3",
+        "gbrq": "2018-12-29",
+        "sxrq": "2018-12-29",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8080816f135f46016f1d6dfd7614d3"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "network-consumption-interpretation-1",
+      "title": "最高人民法院关于审理网络消费纠纷案件适用法律若干问题的规定（一）",
+      "flxz": "司法解释",
+      "roles": [
+        "消费者"
+      ],
+      "note": "网购格式条款、七日退货与直播带货平台责任裁判规则",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff80818181cdd7a70181d65a7e48303f",
+        "gbrq": "2022-03-01",
+        "sxrq": "2022-03-15",
+        "zdjg": "最高人民法院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff80818181cdd7a70181d65a7e48303f"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "urban-housing-leasing-measures",
+      "title": "商品房屋租赁管理办法",
+      "flxz": "部门规章",
+      "roles": [
+        "租客与房东"
+      ],
+      "note": "租赁备案、押金约定与转租规则",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {},
+      "text_status": "pending"
+    },
+    {
+      "file": "housing-lease-interpretation",
+      "title": "最高人民法院关于审理城镇房屋租赁合同纠纷案件适用法律问题的解释",
+      "flxz": "司法解释",
+      "roles": [
+        "租客与房东"
+      ],
+      "note": "无效租赁、装修损失、优先承租权与押金纠纷裁判规则",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {},
+      "text_status": "pending"
+    },
+    {
+      "file": "road-traffic-safety-law",
+      "title": "中华人民共和国道路交通安全法",
+      "flxz": "法律",
+      "roles": [
+        "普通市民"
+      ],
+      "note": "交通事故责任认定、强制保险与赔偿顺序",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8081817ab231eb017abd617ef70519",
+        "gbrq": "2021-04-29",
+        "sxrq": "2021-04-29",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8081817ab231eb017abd617ef70519"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "private-lending-interpretation",
+      "title": "最高人民法院关于审理民间借贷案件适用法律若干问题的规定",
+      "flxz": "司法解释",
+      "roles": [
+        "普通市民"
+      ],
+      "note": "借条效力、利率上限（LPR 四倍）与电子证据认定",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff808181799df4000179b0988b7717e5",
+        "gbrq": "2020-12-29",
+        "sxrq": "2021-01-01",
+        "zdjg": "最高人民法院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff808181799df4000179b0988b7717e5"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "marriage-family-interpretation-1",
+      "title": "最高人民法院关于适用《中华人民共和国民法典》婚姻家庭编的解释（一）",
+      "flxz": "司法解释",
+      "roles": [
+        "普通市民"
+      ],
+      "note": "彩礼返还、共同财产认定与离婚抚养裁判规则",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff80808177e75f880178006736f21aaf",
+        "gbrq": "2020-12-29",
+        "sxrq": "2021-01-01",
+        "zdjg": "最高人民法院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff80808177e75f880178006736f21aaf"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "personal-injury-interpretation",
+      "title": "最高人民法院关于审理人身损害赔偿案件适用法律若干问题的解释",
+      "flxz": "司法解释",
+      "roles": [
+        "普通市民"
+      ],
+      "note": "医疗费、误工费、残疾赔偿金计算标准",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff80818181d823c50181ffd1b39b5e54",
+        "gbrq": "2022-04-24",
+        "sxrq": "2022-05-01",
+        "zdjg": "最高人民法院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff80818181d823c50181ffd1b39b5e54"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "anti-telecom-fraud-law",
+      "title": "中华人民共和国反电信网络诈骗法",
+      "flxz": "法律",
+      "roles": [
+        "在校大学生",
+        "银发长辈",
+        "普通市民"
+      ],
+      "note": "校园贷与养老诈骗高发，被骗后的报警止付与救济路径",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff80818182cf5c220182fd54401023d6",
+        "gbrq": "2022-09-02",
+        "sxrq": "2022-12-01",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=ff80818182cf5c220182fd54401023d6"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "elderly-rights-law",
+      "title": "中华人民共和国老年人权益保障法",
+      "flxz": "法律",
+      "roles": [
+        "银发长辈"
+      ],
+      "note": "赡养义务、涉老财产权益与养老服务监管",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8080816f135f46016f20f4bf851746",
+        "gbrq": "2018-12-29",
+        "sxrq": "2018-12-29",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8080816f135f46016f20f4bf851746"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "legal-aid-law",
+      "title": "中华人民共和国法律援助法",
+      "flxz": "法律",
+      "roles": [
+        "普通市民",
+        "劳动从业者",
+        "银发长辈"
+      ],
+      "note": "12348 法律援助的申请条件与流程，转介规则的制度依据",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8081817b6472a3017b6577820f0061",
+        "gbrq": "2021-08-20",
+        "sxrq": "2022-01-01",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8081817b6472a3017b6577820f0061"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "people-mediation-law",
+      "title": "中华人民共和国人民调解法",
+      "flxz": "法律",
+      "roles": [
+        "普通市民"
+      ],
+      "note": "社区调解流程与调解协议效力，低成本的纠纷解决路径",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "2c909fdd678bf17901678bf7105c05af",
+        "gbrq": "2010-08-28",
+        "sxrq": "2011-01-01",
+        "zdjg": "全国人民代表大会常务委员会",
+        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf7105c05af"
+      },
+      "text_status": "pending"
+    },
+    {
+      "file": "contract-part-interpretation",
+      "title": "最高人民法院关于适用《中华人民共和国民法典》合同编通则若干问题的解释",
+      "flxz": "司法解释",
+      "roles": [
+        "租客与房东",
+        "消费者",
+        "普通市民"
+      ],
+      "note": "合同效力、违约责任与格式条款通用裁判规则",
+      "synced_at": "2026-09-05 02:52",
+      "source": "flk.npc.gov.cn",
+      "flk": {
+        "bbbs": "ff8081818c24e05b018c814e6de45ab5",
+        "gbrq": "2023-12-04",
+        "sxrq": "2023-12-05",
+        "zdjg": "最高人民法院",
+        "url": "https://flk.npc.gov.cn/detail?id=ff8081818c24e05b018c814e6de45ab5"
+      },
+      "text_status": "pending"
+    }
+  ]
+}

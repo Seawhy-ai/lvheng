@@ -29,7 +29,10 @@ lvheng/
 ├── templates.js        # 文书模板
 ├── law-manifest.json   # PWA 清单
 ├── sw.js               # Service Worker（离线缓存，预缓存 vendor/ 本地库）
-├── laws/               # 法条库（7 部常用法律全文，来源：国家法律法规数据库）
+├── laws/               # 法条库（法律法规 + 司法解释全文，来源：国家法律法规数据库）
+├── laws-catalog.json   # 角色化法规目录（24 部：法律/行政法规/司法解释 → 六类身份）
+├── laws-index.json     # 资源库索引（flk 版本标识、公布/施行日期、同步状态）
+├── scripts/sync_laws.py # 自动同步脚本（检索/版本比对/尽力抓取全文）
 ├── tests/              # 自动化测试套件（36 项纯函数断言）
 ├── vendor/             # 本地化第三方库（marked / highlight / mammoth，零 CDN 依赖）
 ├── images/             # 图标
@@ -139,3 +142,17 @@ npx serve .
 ---
 
 © 2026 西南民族大学 法学院 · 舞猴
+
+
+## 法律资源库与自动同步
+
+`laws/` 按六类身份（在校大学生 / 劳动从业者 / 消费者 / 租客与房东 / 普通市民 / 银发长辈）组织法律法规与司法解释，目录见 `laws-catalog.json`（24 部，含《劳动法》《劳动争议调解仲裁法》《消费者权益保护法实施条例》《反电信网络诈骗法》《老年人权益保障法》《法律援助法》及劳动争议、网络消费、房屋租赁、民间借贷、婚姻家庭、人身损害、合同编通则等最高人民法院司法解释）。
+
+自动同步机制（数据来源：[国家法律法规数据库 flk.npc.gov.cn](https://flk.npc.gov.cn/)）：
+
+- `scripts/sync_laws.py --check`：按目录精确检索国家库，比对新版本（bbbs 变更即视为修订），供 CI 判断；
+- `scripts/sync_laws.py --fetch`：同步元数据并尽力抓取全文（docx 解析为 txt），抓取失败时保留本地文本、状态写入 `laws-index.json`；
+- `.github/workflows/sync-laws.yml`：每月 1 日自动同步，有变更即提交推送，报告见 `docs/laws-sync-report.md`；
+- 国家库对海外 IP 可能限流，如 runner 拉取失败，可在具备公网条件的机器本地运行后推送。
+
+> 提示：以最新法律法规为准；文本仅供公益普法学习。

@@ -1,0 +1,175 @@
+{
+  "_comment": "律衡法律资源库目录：按角色组织的法律法规与司法解释清单。sync_laws.py 依据本目录从国家法律法规数据库（flk.npc.gov.cn）同步元数据与全文。roles 取值：在校大学生/劳动从业者/消费者/租客与房东/普通市民/银发长辈。",
+  "version": 1,
+  "source": "国家法律法规数据库 https://flk.npc.gov.cn/",
+  "entries": [
+    {
+      "file": "labor-law",
+      "title": "中华人民共和国劳动法",
+      "flxz": "法律",
+      "roles": ["劳动从业者", "在校大学生"],
+      "note": "兼职、实习用工的基本劳动权利义务；工时、工资、加班与劳动保护"
+    },
+    {
+      "file": "labor-contract-law-2012",
+      "title": "中华人民共和国劳动合同法",
+      "flxz": "法律",
+      "roles": ["劳动从业者", "在校大学生"],
+      "note": "合同订立、欠薪、违法辞退赔偿、经济补偿（已有全文）"
+    },
+    {
+      "file": "labor-dispute-arbitration-law",
+      "title": "中华人民共和国劳动争议调解仲裁法",
+      "flxz": "法律",
+      "roles": ["劳动从业者", "在校大学生"],
+      "note": "劳动仲裁流程、时效与费用，维权路径速查的核心依据"
+    },
+    {
+      "file": "social-insurance-law",
+      "title": "中华人民共和国社会保险法",
+      "flxz": "法律",
+      "roles": ["劳动从业者"],
+      "note": "五险缴纳、工伤与医疗待遇，欠缴社保纠纷依据"
+    },
+    {
+      "file": "work-injury-insurance-regulations",
+      "title": "工伤保险条例",
+      "flxz": "行政法规",
+      "roles": ["劳动从业者"],
+      "note": "工伤认定、劳动能力鉴定与待遇标准"
+    },
+    {
+      "file": "migrant-worker-wages-regulations",
+      "title": "保障农民工工资支付条例",
+      "flxz": "行政法规",
+      "roles": ["劳动从业者"],
+      "note": "欠薪清偿责任与投诉渠道，农民工讨薪专门保障"
+    },
+    {
+      "file": "labor-dispute-interpretation-1",
+      "title": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+      "flxz": "司法解释",
+      "roles": ["劳动从业者", "在校大学生"],
+      "note": "劳动争议受理范围、举证责任与未签合同二倍工资等裁判规则"
+    },
+    {
+      "file": "consumer-protection-law",
+      "title": "中华人民共和国消费者权益保护法",
+      "flxz": "法律",
+      "roles": ["消费者"],
+      "note": "七日无理由退货、退一赔三、经营者义务"
+    },
+    {
+      "file": "consumer-protection-regulations",
+      "title": "中华人民共和国消费者权益保护法实施条例",
+      "flxz": "行政法规",
+      "roles": ["消费者"],
+      "note": "2024 年施行的新实施条例，细化网络消费与预付式消费规则"
+    },
+    {
+      "file": "e-commerce-law",
+      "title": "中华人民共和国电子商务法",
+      "flxz": "法律",
+      "roles": ["消费者"],
+      "note": "平台责任、直播带货、押金退还与评价权"
+    },
+    {
+      "file": "food-safety-law",
+      "title": "中华人民共和国食品安全法",
+      "flxz": "法律",
+      "roles": ["消费者"],
+      "note": "十倍赔偿、标签与网络食品经营责任"
+    },
+    {
+      "file": "product-quality-law",
+      "title": "中华人民共和国产品质量法",
+      "flxz": "法律",
+      "roles": ["消费者"],
+      "note": "三包、缺陷产品责任与销售者先行赔付"
+    },
+    {
+      "file": "network-consumption-interpretation-1",
+      "title": "最高人民法院关于审理网络消费纠纷案件适用法律若干问题的规定（一）",
+      "flxz": "司法解释",
+      "roles": ["消费者"],
+      "note": "网购格式条款、七日退货与直播带货平台责任裁判规则"
+    },
+    {
+      "file": "urban-housing-leasing-measures",
+      "title": "商品房屋租赁管理办法",
+      "flxz": "部门规章",
+      "roles": ["租客与房东"],
+      "note": "租赁备案、押金约定与转租规则"
+    },
+    {
+      "file": "housing-lease-interpretation",
+      "title": "最高人民法院关于审理城镇房屋租赁合同纠纷案件适用法律问题的解释",
+      "flxz": "司法解释",
+      "roles": ["租客与房东"],
+      "note": "无效租赁、装修损失、优先承租权与押金纠纷裁判规则"
+    },
+    {
+      "file": "road-traffic-safety-law",
+      "title": "中华人民共和国道路交通安全法",
+      "flxz": "法律",
+      "roles": ["普通市民"],
+      "note": "交通事故责任认定、强制保险与赔偿顺序"
+    },
+    {
+      "file": "private-lending-interpretation",
+      "title": "最高人民法院关于审理民间借贷案件适用法律若干问题的规定",
+      "flxz": "司法解释",
+      "roles": ["普通市民"],
+      "note": "借条效力、利率上限（LPR 四倍）与电子证据认定"
+    },
+    {
+      "file": "marriage-family-interpretation-1",
+      "title": "最高人民法院关于适用《中华人民共和国民法典》婚姻家庭编的解释（一）",
+      "flxz": "司法解释",
+      "roles": ["普通市民"],
+      "note": "彩礼返还、共同财产认定与离婚抚养裁判规则"
+    },
+    {
+      "file": "personal-injury-interpretation",
+      "title": "最高人民法院关于审理人身损害赔偿案件适用法律若干问题的解释",
+      "flxz": "司法解释",
+      "roles": ["普通市民"],
+      "note": "医疗费、误工费、残疾赔偿金计算标准"
+    },
+    {
+      "file": "anti-telecom-fraud-law",
+      "title": "中华人民共和国反电信网络诈骗法",
+      "flxz": "法律",
+      "roles": ["在校大学生", "银发长辈", "普通市民"],
+      "note": "校园贷与养老诈骗高发，被骗后的报警止付与救济路径"
+    },
+    {
+      "file": "elderly-rights-law",
+      "title": "中华人民共和国老年人权益保障法",
+      "flxz": "法律",
+      "roles": ["银发长辈"],
+      "note": "赡养义务、涉老财产权益与养老服务监管"
+    },
+    {
+      "file": "legal-aid-law",
+      "title": "中华人民共和国法律援助法",
+      "flxz": "法律",
+      "roles": ["普通市民", "劳动从业者", "银发长辈"],
+      "note": "12348 法律援助的申请条件与流程，转介规则的制度依据"
+    },
+    {
+      "file": "people-mediation-law",
+      "title": "中华人民共和国人民调解法",
+      "flxz": "法律",
+      "roles": ["普通市民"],
+      "note": "社区调解流程与调解协议效力，低成本的纠纷解决路径"
+    },
+    {
+      "file": "contract-part-interpretation",
+      "title": "最高人民法院关于适用《中华人民共和国民法典》合同编通则若干问题的解释",
+      "flxz": "司法解释",
+      "roles": ["租客与房东", "消费者", "普通市民"],
+      "note": "合同效力、违约责任与格式条款通用裁判规则"
+    }
+  ]
+}
