@@ -295,6 +295,8 @@
     .typing-dots span{width:7px;height:7px;border-radius:50%;background:var(--text2);opacity:.6;animation:typingBounce .8s infinite}
     .typing-dots span:nth-child(2){animation-delay:.15s}.typing-dots span:nth-child(3){animation-delay:.3s}
     @keyframes typingBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+    .type-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;vertical-align:-0.14em;animation:cursorBlink .85s steps(1) infinite}
+    @keyframes cursorBlink{0%,55%{opacity:1}56%,100%{opacity:0}}
     .error{background:rgba(231,76,60,0.08);color:#e74c3c;padding:10px 14px;border-radius:14px;font-size:12px;margin:6px 0}
 
     .input-tools{display:flex;gap:4px;flex-wrap:nowrap;margin-bottom:6px;align-items:center;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
@@ -442,6 +444,10 @@
     .modal-box .btn-primary{background:var(--accent);color:#fff}
     .modal-box .btn-secondary{background:var(--input-bg);color:var(--text);border:1px solid var(--card-border)}
     .law-preview-text{background:var(--input-bg);border:1px solid var(--card-border);border-radius:12px;padding:14px;max-height:50vh;overflow-y:auto;font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-word;margin:8px 0}
+    .load-bar{height:3px;border-radius:2px;background:var(--input-bg);overflow:hidden;margin:8px 0 2px}
+    .load-bar i{display:block;height:100%;width:0;border-radius:2px;background:var(--accent);transition:width .18s}
+    .load-bar.ind i{width:34%;animation:loadSlide 1.1s ease-in-out infinite}
+    @keyframes loadSlide{0%{transform:translateX(-110%)}100%{transform:translateX(340%)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes zoomIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 
@@ -2228,6 +2234,7 @@ body.kbd-system #globalBg{pointer-events:none}
       <input type="text" id="lrSearch" placeholder="输入关键词搜索法条…" oninput="searchInLaw()" />
       <button onclick="searchInLaw()">搜索</button>
     </div>
+    <div class="load-bar ind" id="lrBar" style="display:none"><i></i></div>
     <div class="lr-search-info" id="lrInfo"></div>
     <div class="lr-result-nav" id="lrNav"></div>
     <div class="lr-content" id="lrContent">加载中…</div>
@@ -3514,14 +3521,47 @@ function renderDatabase(filter) {
   document.getElementById("dbContent").innerHTML = h;
 }
 
+var lawFileTextCache = {};
+// 流式抓取法条文本：onProg(loadedBytes, totalBytes)，优先走 .txt，命中内存缓存则秒开
+function fetchLawTextProgress(file, onProg) {
+  return new Promise(function(resolve, reject) {
+    if (lawFileTextCache[file]) { resolve(lawFileTextCache[file]); return; }
+    fetch("laws/" + encodeURI(file)).then(function(r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      var len = parseInt(r.headers.get("Content-Length") || "0", 10);
+      if (!r.body || !r.body.getReader) {
+        return r.text().then(function(tx) { lawFileTextCache[file] = tx; if (onProg) onProg(tx.length, tx.length, true); resolve(tx); });
+      }
+      var reader = r.body.getReader(), dec = new TextDecoder(), loaded = 0, parts = [];
+      function pump() {
+        reader.read().then(function(res) {
+          if (res.done) {
+            var text = parts.join("").replace(/^\uFEFF/, "").trim();
+            lawFileTextCache[file] = text; resolve(text); return;
+          }
+          loaded += res.value.byteLength;
+          parts.push(dec.decode(res.value, { stream: true }));
+          if (onProg) onProg(loaded, len);
+          pump();
+        }).catch(reject);
+      }
+      pump();
+    }).catch(reject);
+  });
+}
+
 function filterLaws() {
   renderDatabase(document.getElementById("dbSearch").value);
 }
 
+var previewSeq = 0;
 function previewLaw(file, name) {
+  var seq = ++previewSeq;
+  var metaEl = document.getElementById("lawModalMeta");
+  var textEl = document.getElementById("lawModalText");
   document.getElementById("lawModalTitle").textContent = name;
-  document.getElementById("lawModalMeta").textContent = "正在加载预览引擎…";
-  document.getElementById("lawModalText").textContent = "⬇️ 正在加载文档预览…";
+  metaEl.textContent = "正在加载…";
+  textEl.innerHTML = "";
   document.getElementById("lawModalDownload").onclick = function() {
     var a = document.createElement("a");
     a.href = "laws/" + encodeURI(file);
@@ -3530,37 +3570,85 @@ function previewLaw(file, name) {
   };
   document.getElementById("lawModal").classList.remove("hide");
 
-  function doPreview() {
-    fetch("laws/" + encodeURI(file)).then(function(r) {
-      document.getElementById("lawModalMeta").textContent = "正在下载文档…";
-      return r.arrayBuffer();
-    }).then(function(buf) {
-      document.getElementById("lawModalMeta").textContent = "正在解析文本…";
-      return mammoth.extractRawText({ arrayBuffer: buf });
-    }).then(function(result) {
-      var text = (result.value || "").trim();
-      if (!text) throw new Error("empty");
-      var maxLen = 30000;
-      var truncated = text.length > maxLen;
-      document.getElementById("lawModalText").textContent = text.substring(0, maxLen);
-      document.getElementById("lawModalMeta").textContent = "全文预览" + (truncated ? "（前30000字，共约" + Math.round(text.length/1000) + "千字）" : "") + " · 点击下方按钮下载完整文档";
-    }).catch(function() {
-      document.getElementById("lawModalText").textContent = "无法在线预览此 .docx 文件。请点击下方「下载全文」按钮，下载后用 Word 或 WPS 打开查阅。";
-      document.getElementById("lawModalMeta").textContent = file;
+  var bar = document.createElement("div");
+  bar.className = "load-bar ind"; bar.innerHTML = "<i></i>";
+  textEl.parentNode.insertBefore(bar, textEl);
+  function removeBar() { if (bar.parentNode) bar.parentNode.removeChild(bar); }
+  function setBar(loaded, len) {
+    bar.classList.remove("ind");
+    if (len > 0) {
+      var pct = Math.min(100, Math.round(loaded / len * 100));
+      bar.querySelector("i").style.width = pct + "%";
+      metaEl.textContent = "正在加载 " + pct + "%";
+    } else {
+      metaEl.textContent = "已加载 " + Math.round(loaded / 1024) + " KB";
+    }
+  }
+  // 正文分段上屏：先出前 900 字，再每帧补 3600 字，避免整篇一次性卡顿
+  function paintProgressive(text) {
+    if (seq !== previewSeq) return;
+    removeBar();
+    var maxLen = 30000;
+    var cut = text.substring(0, maxLen);
+    var truncated = text.length > maxLen;
+    var pos = Math.min(900, cut.length);
+    textEl.textContent = cut.slice(0, pos);
+    metaEl.textContent = "正在渲染…";
+    setTimeout(function step() {
+      if (seq !== previewSeq) return;
+      if (pos >= cut.length) {
+        metaEl.textContent = "全文预览" + (truncated ? "（前30000字，共约" + Math.round(text.length / 1000) + "千字）" : "") + " · 点击下方按钮下载完整文档";
+        return;
+      }
+      pos = Math.min(cut.length, pos + 3600);
+      textEl.textContent = cut.slice(0, pos);
+      setTimeout(step, 16);
+    }, 16);
+  }
+  // 兜底：.txt 不存在时回到 docx + mammoth 原路径
+  function docxFallback() {
+    if (seq !== previewSeq) return;
+    removeBar();
+    function doPreview() {
+      fetch("laws/" + encodeURI(file)).then(function(r) {
+        metaEl.textContent = "正在下载文档…";
+        return r.arrayBuffer();
+      }).then(function(buf) {
+        metaEl.textContent = "正在解析文本…";
+        return mammoth.extractRawText({ arrayBuffer: buf });
+      }).then(function(result) {
+        if (seq !== previewSeq) return;
+        var text = (result.value || "").trim();
+        if (!text) throw new Error("empty");
+        var maxLen = 30000;
+        var truncated = text.length > maxLen;
+        textEl.textContent = text.substring(0, maxLen);
+        metaEl.textContent = "全文预览" + (truncated ? "（前30000字，共约" + Math.round(text.length / 1000) + "千字）" : "") + " · 点击下方按钮下载完整文档";
+      }).catch(function() {
+        if (seq !== previewSeq) return;
+        textEl.textContent = "无法在线预览此 .docx 文件。请点击下方「下载全文」按钮，下载后用 Word 或 WPS 打开查阅。";
+        metaEl.textContent = file;
+      });
+    }
+    if (typeof mammoth !== "undefined") doPreview();
+    else loadScript("vendor/mammoth.browser.min.js", function(err) {
+      if (err) { textEl.textContent = "预览引擎加载失败。请点击下方「下载全文」按钮下载后查阅。"; metaEl.textContent = file; return; }
+      doPreview();
     });
   }
 
-  if (typeof mammoth !== "undefined") {
-    doPreview();
+  var txtFile = /\.docx$/i.test(file) ? file.replace(/\.docx$/i, ".txt") : file;
+  if (txtFile !== file) {
+    fetchLawTextProgress(txtFile, function(loaded, len) {
+      if (seq !== previewSeq) return;
+      setBar(loaded, len);
+    }).then(function(text) {
+      if (seq !== previewSeq) return;
+      if (!text || text.length < 200) { docxFallback(); return; }
+      paintProgressive(text);
+    }).catch(function() { if (seq !== previewSeq) return; docxFallback(); });
   } else {
-    loadScript("vendor/mammoth.browser.min.js", function(err) {
-      if (err) {
-        document.getElementById("lawModalText").textContent = "预览引擎加载失败。请点击下方「下载全文」按钮下载后查阅。";
-        document.getElementById("lawModalMeta").textContent = file;
-        return;
-      }
-      doPreview();
-    });
+    docxFallback();
   }
 }
 
@@ -3579,78 +3667,135 @@ var lawReaderText = "";
 var lawReaderName = "";
 var lawMatchNodes = [];
 
-// 法条阅读器可视化：按「第X章」分节、「第X条」分卡渲染，替代纯文本
-function renderLawVisual() {
+// 法条阅读器可视化：按「第X章」分节、「第X条」分卡渲染；分帧上屏，每帧 12ms 预算
+function renderLawVisual(done) {
   var text = lawReaderText;
+  var container = document.getElementById("lrContent");
   if (!text) return;
   var lines = text.split("\n").map(function(s) { return s.trim(); }).filter(Boolean);
+  container.innerHTML = "";
   var CH = /^第[一二三四五六七八九十百千零\d]+章/;
   var ART = /^(第[一二三四五六七八九十百千零\d]+条)[\s:：]*(.*)/;
-  var h = "", plainBuf = [], i, j, artIdx = 0;
-  function flushPlain() {
+  var i = 0, artIdx = 0, plainBuf = [];
+  lawReaderBusy = true;
+  function nowMs() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+  function flushPlain(h) {
     if (plainBuf.length) {
       h += '<div class="lr-para">' + escHtml(plainBuf.join("\n")).replace(/\n/g, "<br>") + '</div>';
       plainBuf = [];
     }
+    return h;
   }
-  for (i = 0; i < lines.length; i++) {
-    var ln = lines[i];
-    if (CH.test(ln)) {
-      flushPlain();
-      h += '<div class="lr-chapter">' + escHtml(ln) + '</div>';
-    } else {
-      var m = ART.exec(ln);
-      if (m) {
-        flushPlain();
-        var body = m[2];
-        for (j = i + 1; j < lines.length; j++) {
-          if (CH.test(lines[j]) || ART.test(lines[j])) break;
-          body += lines[j];
-        }
-        i = j - 1;
-        h += '<div class="lr-article" id="lrArt' + artIdx + '"><span class="lr-art-num">' + escHtml(m[1]) + '</span><span class="lr-art-text">' + escHtml(body) + '</span></div>';
-        artIdx++;
+  function step() {
+    var t0 = nowMs(), h = "";
+    while (i < lines.length && nowMs() - t0 < 12) {
+      var ln = lines[i];
+      if (CH.test(ln)) {
+        h = flushPlain(h);
+        h += '<div class="lr-chapter">' + escHtml(ln) + '</div>';
+        i++;
       } else {
-        plainBuf.push(ln);
+        var m = ART.exec(ln);
+        if (m) {
+          h = flushPlain(h);
+          var body = m[2];
+          var j = i + 1;
+          for (; j < lines.length; j++) {
+            if (CH.test(lines[j]) || ART.test(lines[j])) break;
+            body += lines[j];
+          }
+          i = j;
+          h += '<div class="lr-article" id="lrArt' + artIdx + '"><span class="lr-art-num">' + escHtml(m[1]) + '</span><span class="lr-art-text">' + escHtml(body) + '</span></div>';
+          artIdx++;
+        } else {
+          plainBuf.push(ln);
+          i++;
+        }
       }
     }
+    if (h) container.insertAdjacentHTML("beforeend", h);
+    if (i < lines.length) {
+      var infoEl = document.getElementById("lrInfo");
+      if (infoEl && !document.getElementById("lrSearch").value.trim()) {
+        infoEl.textContent = "正在渲染全文… " + Math.round(i / lines.length * 100) + "%";
+      }
+      setTimeout(step, 0);
+    } else {
+      lawReaderBusy = false;
+      if (done) done();
+    }
   }
-  flushPlain();
-  document.getElementById("lrContent").innerHTML = h;
+  step();
 }
 
+var lawReaderBusy = false;
+var readerSeq = 0;
 function openLawReader(file, name, keyword) {
+  var seq = ++readerSeq;
   lawReaderName = name; lawReaderText = "";
   document.getElementById("lrTitle").textContent = name;
-  document.getElementById("lrContent").textContent = "正在加载全文…";
-  document.getElementById("lrInfo").textContent = "";
+  var infoEl = document.getElementById("lrInfo");
+  var bar = document.getElementById("lrBar");
+  document.getElementById("lrContent").innerHTML = "正在加载全文…";
+  infoEl.textContent = "";
+  bar.style.display = "block"; bar.className = "load-bar ind"; bar.innerHTML = "<i></i>";
   document.getElementById("lrNav").innerHTML = "";
   document.getElementById("lrSearch").value = keyword || "";
   hideAllViews("lawReaderView", true);
   document.getElementById("lawReaderView").classList.add("show");
-
-  function doLoad() {
-    fetch("laws/" + encodeURI(file)).then(function(r) { return r.arrayBuffer(); }).then(function(buf) {
-      return mammoth.extractRawText({ arrayBuffer: buf });
-    }).then(function(result) {
-      lawReaderText = (result.value || "").trim();
-      if (!lawReaderText) throw new Error("empty");
-      renderLawVisual();
-      document.getElementById("lrInfo").textContent = "全文共约 " + Math.round(lawReaderText.length/1000) + " 千字";
-      // 从首页搜索进入时，自动定位到关键词命中的条文
-      if (keyword) { try { searchInLaw(); } catch(e2) {} }
-    }).catch(function() {
-      document.getElementById("lrContent").textContent = "无法加载文本。请下载 .docx 文件后用 Word 查阅。";
-      document.getElementById("lrInfo").textContent = "";
+  function renderWith(text) {
+    if (seq !== readerSeq) return;
+    bar.style.display = "none";
+    lawReaderText = text;
+    // 从首页搜索进入时，渲染完成后自动定位到关键词命中的条文
+    renderLawVisual(function() {
+      if (seq !== readerSeq) return;
+      infoEl.textContent = "全文共约 " + Math.round(lawReaderText.length / 1000) + " 千字";
+      if (keyword) { try { searchInLaw(); } catch (e2) {} }
     });
   }
-
-  if (typeof mammoth !== "undefined") { doLoad(); }
-  else {
-    loadScript("vendor/mammoth.browser.min.js", function(err) {
-      if (err) { document.getElementById("lrContent").textContent = "预览引擎加载失败，请下载后查阅。"; return; }
-      doLoad();
-    });
+  // 兜底：.txt 不存在时回到 docx + mammoth 原路径
+  function loadDocx() {
+    if (seq !== readerSeq) return;
+    bar.style.display = "none";
+    function doLoad() {
+      fetch("laws/" + encodeURI(file)).then(function(r) { return r.arrayBuffer(); }).then(function(buf) {
+        return mammoth.extractRawText({ arrayBuffer: buf });
+      }).then(function(result) {
+        if (seq !== readerSeq) return;
+        lawReaderText = (result.value || "").trim();
+        if (!lawReaderText) throw new Error("empty");
+        renderWith(lawReaderText);
+      }).catch(function() {
+        if (seq !== readerSeq) return;
+        document.getElementById("lrContent").textContent = "无法加载文本。请下载 .docx 文件后用 Word 查阅。";
+        infoEl.textContent = "";
+      });
+    }
+    if (typeof mammoth !== "undefined") { doLoad(); }
+    else {
+      loadScript("vendor/mammoth.browser.min.js", function(err) {
+        if (err) { document.getElementById("lrContent").textContent = "预览引擎加载失败，请下载后查阅。"; return; }
+        doLoad();
+      });
+    }
+  }
+  var txtFile = /\.docx$/i.test(file) ? file.replace(/\.docx$/i, ".txt") : file;
+  if (txtFile !== file) {
+    fetchLawTextProgress(txtFile, function(loaded, len) {
+      if (seq !== readerSeq) return;
+      bar.classList.remove("ind");
+      if (len > 0) {
+        var pct = Math.min(100, Math.round(loaded / len * 100));
+        bar.querySelector("i").style.width = pct + "%";
+      }
+    }).then(function(text) {
+      if (seq !== readerSeq) return;
+      if (!text || text.length < 200) { loadDocx(); return; }
+      renderWith(text);
+    }).catch(function() { if (seq !== readerSeq) return; loadDocx(); });
+  } else {
+    loadDocx();
   }
 }
 
@@ -3660,6 +3805,7 @@ function closeLawReader() {
 }
 
 function searchInLaw() {
+  if (lawReaderBusy) { document.getElementById("lrInfo").textContent = "全文渲染中，请稍候…"; return; }
   var q = document.getElementById("lrSearch").value.trim();
   if (!q || !lawReaderText) { renderLawVisual(); document.getElementById("lrInfo").textContent = ""; document.getElementById("lrNav").innerHTML = ""; return; }
   lawMatchNodes = [];
@@ -5077,6 +5223,7 @@ function buildLocalAnswer(text) {
 }
 
 function sendLocalMsg(text) {
+  stopTypewriter();
   var sessionId = ++chatSessionId;
   streaming = true; dom.btnSend.disabled = true; dom.btnSend.classList.add("loading"); dom.typing.style.display = "flex"; scrollBottom();
   messages.push({ role: "user", content: text, _time: Date.now() });
@@ -5089,11 +5236,55 @@ function sendLocalMsg(text) {
   var contentDiv = msgDiv.querySelector(".msg-content");
   setTimeout(function() {
     if (chatSessionId !== sessionId) return;
-    contentDiv.innerHTML = renderMD(answer);
-    msgDiv.querySelector(".msg-body").insertAdjacentHTML("beforeend", '<div class="msg-time">' + getTimeStr() + '</div><div class="msg-actions"><button class="btn-copy" onclick="copyMsg(this)">复制</button></div>');
-    messages.push({ role: "assistant", content: answer, _time: Date.now() }); persist();
-    streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); dom.typing.style.display = "none"; hlAll(); scrollBottom();
-  }, 180);
+    startTypewriter(contentDiv); typerFeed(answer);
+    typerFinish(function() {
+      msgDiv.querySelector(".msg-body").insertAdjacentHTML("beforeend", '<div class="msg-time">' + getTimeStr() + '</div><div class="msg-actions"><button class="btn-copy" onclick="copyMsg(this)">复制</button></div>');
+      messages.push({ role: "assistant", content: answer, _time: Date.now() }); persist();
+      streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); dom.typing.style.display = "none"; hlAll(); scrollBottom();
+    });
+  }, 120);
+}
+
+// ============================================================
+// 打字机渐显：网络流先入缓冲，按自适应速度逐字上屏，点击气泡可跳过
+// ============================================================
+var typer = null;
+function startTypewriter(el) {
+  stopTypewriter();
+  typer = { el: el, buf: "", shown: "", raf: 0, finishing: false, onDone: null };
+  el.addEventListener("click", typerSkipAll);
+  typer.raf = requestAnimationFrame(typerTick);
+}
+function stopTypewriter() {
+  if (typer && typer.raf) cancelAnimationFrame(typer.raf);
+  if (typer && typer.el) typer.el.removeEventListener("click", typerSkipAll);
+  typer = null;
+}
+function typerFeed(s) { if (typer && s) typer.buf += s; }
+function typerSkipAll() { if (typer) typer.shown = typer.buf; }
+function typerTick() {
+  if (!typer) return;
+  var t = typer;
+  if (t.buf.length > t.shown.length) {
+    var remain = t.buf.length - t.shown.length;
+    // 自适应：平时慢速逐字，积压越多追得越快，保证不被网络流甩开
+    var step = t.finishing ? Math.max(12, Math.ceil(remain / 6)) : Math.max(2, Math.ceil(remain / 40));
+    t.shown = t.buf.slice(0, t.shown.length + step);
+    t.el.innerHTML = renderMD(t.shown) + '<span class="type-cursor"></span>';
+    scrollBottom();
+  }
+  if (t.finishing && t.shown.length >= t.buf.length) {
+    var cb = t.onDone, el = t.el, finalText = t.buf;
+    stopTypewriter();
+    el.innerHTML = renderMD(finalText);
+    if (cb) cb();
+    return;
+  }
+  t.raf = requestAnimationFrame(typerTick);
+}
+function typerFinish(onDone) {
+  if (!typer) { if (onDone) onDone(); return; }
+  typer.finishing = true; typer.onDone = onDone;
 }
 
 // ============================================================
@@ -5104,6 +5295,7 @@ function sendMsg(text) {
   text = text.trim(); if (!text) return;
   if (!SETTINGS.apiKey) { sendLocalMsg(text); return; }
 
+  stopTypewriter();
   var sessionId = ++chatSessionId;
   streaming = true; dom.btnSend.disabled = true; dom.btnSend.classList.add("loading"); dom.typing.style.display = "flex"; scrollBottom();
 
@@ -5120,7 +5312,8 @@ function sendMsg(text) {
   var contentDiv = document.createElement("div"); contentDiv.className = "msg-content"; contentDiv.textContent = " ";
   msgDiv.innerHTML = '<div class="msg-avatar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div><div class="msg-body"></div>';
   msgDiv.querySelector(".msg-body").appendChild(contentDiv);
-  dom.messages.appendChild(msgDiv); scrollBottom(); dom.typing.style.display = "none";
+  dom.messages.appendChild(msgDiv); scrollBottom();
+  var firstToken = false;
   msgDiv.classList.add("show");
   requestAnimationFrame(function() { requestAnimationFrame(function() { msgDiv.classList.add("show"); }); });
 
@@ -5142,23 +5335,28 @@ function sendMsg(text) {
         if (result.done) {
           resolved = true; abortController = null;
           messages.push({ role: "assistant", content: fullContent || "（空响应）", _time: Date.now() }); persist();
-          contentDiv.innerHTML = renderMD(fullContent || "（空响应）"); hlAll();
-          var mt = document.createElement("div"); mt.className = "msg-time"; mt.textContent = getTimeStr();
-          var act = document.createElement("div"); act.className = "msg-actions"; act.innerHTML = '<button class="btn-copy" onclick="copyMsg(this)">复制</button>';
-          msgDiv.querySelector(".msg-body").appendChild(mt); msgDiv.querySelector(".msg-body").appendChild(act);
-          streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); return;
+          var finishRender = function() {
+            hlAll();
+            var mt = document.createElement("div"); mt.className = "msg-time"; mt.textContent = getTimeStr();
+            var act = document.createElement("div"); act.className = "msg-actions"; act.innerHTML = '<button class="btn-copy" onclick="copyMsg(this)">复制</button>';
+            msgDiv.querySelector(".msg-body").appendChild(mt); msgDiv.querySelector(".msg-body").appendChild(act);
+            streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); scrollBottom();
+          };
+          if (typer && typer.buf) typerFinish(finishRender);
+          else { stopTypewriter(); contentDiv.innerHTML = renderMD(fullContent || "（空响应）"); finishRender(); }
+          return;
         }
         buf += decoder.decode(result.value, { stream: true });
         var lines = buf.split("\n"); buf = lines.pop() || "";
         for (var i = 0; i < lines.length; i++) {
           var s = lines[i].trim(); if (!s.startsWith("data:")) continue;
           var data = s.slice(5).trim(); if (data === "[DONE]") continue;
-          try { var p = JSON.parse(data), d = (p.choices || [{}])[0].delta; if (!d) continue; var t = d.content || ""; if (t) { fullContent += t; contentDiv.textContent = fullContent; scrollBottom(); } } catch(e) {}
+          try { var p = JSON.parse(data), d = (p.choices || [{}])[0].delta; if (!d) continue; var t = d.content || ""; if (t) { fullContent += t; if (!firstToken) { firstToken = true; dom.typing.style.display = "none"; startTypewriter(contentDiv); } typerFeed(t); } } catch(e) {}
         }
         pump();
       }).catch(function(e) {
         if (resolved || chatSessionId !== sessionId) return; resolved = true; abortController = null;
-        if (fullContent) { var _fc = _boundary(fullContent, text); messages.push({ role: "assistant", content: _fc, _time: Date.now() }); persist(); contentDiv.innerHTML = renderMD(_fc); hlAll(); }
+        if (fullContent) { var _fc = _boundary(fullContent, text); messages.push({ role: "assistant", content: _fc, _time: Date.now() }); persist(); stopTypewriter(); contentDiv.innerHTML = renderMD(_fc); hlAll(); }
         else if (!(e && e.name === "AbortError")) { showError(e.message); msgDiv.remove(); }
         streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); dom.typing.style.display = "none";
       });
@@ -5166,7 +5364,7 @@ function sendMsg(text) {
     pump();
   }).catch(function(e) {
     if (resolved || chatSessionId !== sessionId) return; resolved = true; abortController = null;
-    if (fullContent) { var _fc = _boundary(fullContent, text); messages.push({ role: "assistant", content: _fc, _time: Date.now() }); persist(); contentDiv.innerHTML = renderMD(_fc); hlAll(); }
+    if (fullContent) { var _fc = _boundary(fullContent, text); messages.push({ role: "assistant", content: _fc, _time: Date.now() }); persist(); stopTypewriter(); contentDiv.innerHTML = renderMD(_fc); hlAll(); }
     else if (!(e && e.name === "AbortError")) { showError(e.message); msgDiv.remove(); }
     streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); dom.typing.style.display = "none";
   });
@@ -5208,6 +5406,7 @@ function updateOptUI() {
 function clearHistory() {
   if (!messages.length) return;
   if (!confirm("确定清空当前对话记录吗？")) return;
+  stopTypewriter();
   messages.length = 0; persist(); renderAllMessages();
   document.getElementById("settingsDrop").classList.remove("show");
 }
