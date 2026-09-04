@@ -7,18 +7,25 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="律衡" />
-  <meta name="description" content="律衡 · 法学生AI学习助手 — 基于法学实证研究的智能辅助工具" />
+  <meta name="description" content="律衡——面向普通公众的免费法律知识智能体：听得懂的法律解释＋有依据的法条引用＋可执行的维权指引。劳动欠薪、消费维权、租房押金、民间借贷、交通事故、婚姻家庭等高频场景即时问答，对接 12348/12315/12333 公共维权资源，数据存本机、离线可用、开源可复刻。西南民族大学法学院 · 舞猴。" />
+  <meta name="keywords" content="律衡,法律咨询,普法,法律援助,12348,免费法律咨询,劳动纠纷,消费维权,租房纠纷,民间借贷,交通事故" />
   <link rel="icon" href="icon-192.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152.png" />
   <link rel="manifest" href="law-manifest.json" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="律衡 · 全民法律知识普惠智能体" />
+  <meta property="og:description" content="免费法律知识智能体：听得懂的解释 · 有依据的法条 · 可执行的维权指引。劳动/消费/租房/借贷/交通/婚姻高频场景即时问答，数据存本机，离线可用。" />
+  <meta property="og:image" content="icon-512.png" />
+  <meta property="og:url" content="https://seawhy-ai.github.io/lvheng/" />
+  <meta name="twitter:card" content="summary" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>律衡 · 全民法律知识普惠智能体</title>
-  <script defer src="https://cdn.bootcdn.net/ajax/libs/marked/11.1.1/marked.min.js"></script>
-  <link id="hlTheme" rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css" />
-  <script defer src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script defer src="vendor/marked.min.js"></script>
+  <link id="hlTheme" rel="stylesheet" href="vendor/atom-one-light.min.css" />
+  <script defer src="vendor/highlight.min.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100dvh;height:-webkit-fill-available;overflow:hidden;touch-action:manipulation;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Noto Serif SC",serif;background:var(--bg);color:var(--text);-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;-webkit-user-select:none;user-select:none}
@@ -1660,7 +1667,7 @@ body.kbd-system #globalBg{pointer-events:none}
 
     <div class="about-logo"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div>
     <div class="about-name">律衡</div>
-    <div class="about-ver">v4.0.0 · 全民法律知识普惠智能体 · 2026.09.03</div>
+    <div class="about-ver">v4.6.0 · 全民法律知识普惠智能体 · 2026.09.04</div>
     <div class="about-desc">面向普通公众的免费普法智能体：听得懂的解释 · 有依据的法条 · 可执行的指引<br>基于团队自研 LexPilot 引擎，数据存本机、对话不落服务器，源码开源</div>
 
     <div class="about-section">
@@ -1674,8 +1681,41 @@ body.kbd-system #globalBg{pointer-events:none}
     </div>
 
     <div class="about-section">
-      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-4px;margin-right:4px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>数据来源</h3>
-      <p>法律数据库收录的法律文本来自公开渠道，仅供学习参考。如发现文本有误，请以全国人大官网公布的最新版本为准。</p>
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-4px;margin-right:4px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>知识库来源（五库）</h3>
+      <p>知识库按「法条 / 案例 / FAQ / 渠道 / 模板」五个分库组织，全部采用公开法律文本并标注来源，检索命中后回答自动引用法条编号。</p>
+      <div style="border:1px solid var(--card-border);border-radius:12px;overflow:hidden;margin-top:8px;font-size:11.5px;line-height:1.6">
+        <div style="display:grid;grid-template-columns:56px 1fr 1fr;background:var(--input-bg);font-weight:700;color:var(--text)">
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border)">分库</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">来源</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">更新频率</div>
+        </div>
+        <div style="display:grid;grid-template-columns:56px 1fr 1fr">
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border)">法条库</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">国家法律法规数据库等公开渠道</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">法律修订时</div>
+        </div>
+        <div style="display:grid;grid-template-columns:56px 1fr 1fr">
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border)">案例库</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">最高人民法院指导案例 / 典型案例（脱敏节选）</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">季度</div>
+        </div>
+        <div style="display:grid;grid-template-columns:56px 1fr 1fr">
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border)">FAQ 库</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">自建整理（基于公开普法资料，30+ 条）</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">持续</div>
+        </div>
+        <div style="display:grid;grid-template-columns:56px 1fr 1fr">
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border)">渠道库</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">12348 / 12315 / 12333 及各仲裁机构官方信息</div>
+          <div style="padding:7px 8px;border-bottom:1px solid var(--card-border);border-left:1px solid var(--card-border)">半年核验</div>
+        </div>
+        <div style="display:grid;grid-template-columns:56px 1fr 1fr">
+          <div style="padding:7px 8px">模板库</div>
+          <div style="padding:7px 8px;border-left:1px solid var(--card-border)">借条、合同要点、起诉状等文书模板（自建）</div>
+          <div style="padding:7px 8px;border-left:1px solid var(--card-border)">按需</div>
+        </div>
+      </div>
+      <p style="margin-top:8px">法律数据库收录的法律文本来自公开渠道，仅供学习参考。如发现文本有误，请以全国人大官网公布的最新版本为准。</p>
     </div>
 
         <div class="about-section">
@@ -3007,11 +3047,12 @@ try { applyBubbleStyle(); } catch(e) {}
 // ============================================================
 // AUTO CHANGELOG — 自动更新日志系统
 // ============================================================
-var APP_VERSION = "v4.5.0";
-var APP_VERSION_DATE = "2026.09.03";
+var APP_VERSION = "v4.6.0";
+var APP_VERSION_DATE = "2026.09.04";
 var CHANGELOG_KEY = "seawhy-lex-changelog";
 
 var DEFAULT_CHANGELOG = [
+  { ver: "v4.6.0", date: "2026.09.04", notes: "对齐项目书验收项：全部前端库本地化（marked/highlight/mammoth 存入 vendor/，不再依赖任何 CDN，离线可用）；Service Worker v9 预缓存 vendor 及核心资源（真离线渲染）；更新 Meta/OG 为普惠定位并接入分享卡片；关于页新增知识库「五库」来源与更新机制展示；新增 tests/ 自动化测试套件（35 项断言：领域识别/FAQ/免责转介/题库判分/案例模板/一致性/Meta），对位项目书 100+ 测试集与 ≥90% 通过率要求" },
   { ver: "v4.5.0", date: "2026.09.03", notes: "按项目书扩充角色功能：新增事前防范清单（S4 事前防范场景：入职/租房/借贷/网购/事故/婚姻六类可勾选防坑清单，进度存本机）；新增高频问答库（FAQ 34 条按角色优先浏览，点击展开结论与法条）；维权路径热线一键拨打；题库科目为非法律角色标注民法推荐" },
   { ver: "v4.4.0", date: "2026.09.03", notes: "彻底移除内置键盘与 fcitx5 输入法引擎（约 23K 代码与 50MB 资源），全部输入框仅使用系统键盘，修复输入法不可用的问题" },
   { ver: "v4.3.0", date: "2026.09.03", notes: "维权路径改为可展开小卡片（点击展开找谁/流程/材料）；法律文书按所选角色优先排序并标注推荐；AI咨询底部新增角色化快捷输入栏；案例库按角色优先排序；案例库整体重建为最高人民法院官方发布的指导案例与典型案例（指导案例18/23/24号、涉欠薪/消费者权益/彩礼/虚假诉讼逃废债典型案例等13件，均附官方来源与原文链接）；法条库标注国家法律法规数据库来源；修复大字模式（zoom）下容器高度未补偿导致页面溢出、底部导航不可见的问题" },
@@ -3512,7 +3553,7 @@ function previewLaw(file, name) {
   if (typeof mammoth !== "undefined") {
     doPreview();
   } else {
-    loadScript("https://cdn.bootcdn.net/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js", function(err) {
+    loadScript("vendor/mammoth.browser.min.js", function(err) {
       if (err) {
         document.getElementById("lawModalText").textContent = "预览引擎加载失败。请点击下方「下载全文」按钮下载后查阅。";
         document.getElementById("lawModalMeta").textContent = file;
@@ -3606,7 +3647,7 @@ function openLawReader(file, name, keyword) {
 
   if (typeof mammoth !== "undefined") { doLoad(); }
   else {
-    loadScript("https://cdn.bootcdn.net/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js", function(err) {
+    loadScript("vendor/mammoth.browser.min.js", function(err) {
       if (err) { document.getElementById("lrContent").textContent = "预览引擎加载失败，请下载后查阅。"; return; }
       doLoad();
     });
@@ -3774,8 +3815,8 @@ function applyTheme() {
   document.body.classList.toggle("dark", userTheme === "dark");
   var hl = document.getElementById("hlTheme");
   if (hl) hl.href = userTheme === "dark"
-    ? "https://cdn.bootcdn.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
-    : "https://cdn.bootcdn.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css";
+    ? "vendor/atom-one-dark.min.css"
+    : "vendor/atom-one-light.min.css";
   setBtnGroup("themePrefGroup", themePref);
 }
 // app-btn 按钮组高亮同步
@@ -6251,7 +6292,7 @@ function openMaterial(id) {
       }
       if (typeof mammoth !== "undefined") { doParse(); }
       else {
-        loadScript("https://cdn.bootcdn.net/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js", function(err) {
+        loadScript("vendor/mammoth.browser.min.js", function(err) {
           if (err) { setMaterialViewerContent('<div class="mv-loading">解析引擎加载失败，请下载后用 Word 查阅</div>'); return; }
           doParse();
         });

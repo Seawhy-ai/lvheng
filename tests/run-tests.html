@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>律衡 · 自动化测试套件</title>
+<style>
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f4f6f9;color:#22304a;padding-bottom:60px}
+  .top{background:#1a5276;color:#fff;padding:26px 22px 18px}
+  .top h1{margin:0;font-size:20px;letter-spacing:1px}
+  .top .sub{margin-top:6px;font-size:12px;opacity:.85}
+  .summary{background:#fff;border-bottom:1px solid #e3e9f1;padding:12px 22px;display:flex;gap:26px;flex-wrap:wrap;align-items:center}
+  .summary .big{font-size:26px;font-weight:800}
+  .summary .ok{color:#1a7f37}.summary .bad{color:#c62828}
+  .summary .tag{font-size:12px;color:#5b7288}
+  .bar{height:6px;border-radius:3px;background:#e0e7ef;flex:1;min-width:140px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--c,#1a7f37);width:var(--w);border-radius:3px}
+  .list{max-width:760px;margin:18px auto;padding:0 14px}
+  .row{background:#fff;border:1px solid #e3e9f1;border-radius:12px;padding:11px 14px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;font-size:13.5px}
+  .row .st{width:8px;height:8px;border-radius:50%;margin-top:5px;flex:none}
+  .row.pass .st{background:#1a7f37}.row.fail .st{background:#c62828}.row.skip .st{background:#b0b7c3}
+  .row .no{flex:none;font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:#5b7288;background:#f0f3f8;border-radius:6px;padding:2px 7px}
+  .row.pass .name{color:#33415c}
+  .row.fail .name{color:#c62828;font-weight:700}
+  .row .name{line-height:1.5}
+  .row .err{font-size:11.5px;color:#c62828;background:#fdeeee;border-radius:6px;padding:4px 8px;margin-top:4px;white-space:pre-wrap}
+  .foot{max-width:760px;margin:22px auto 0;padding:0 14px;font-size:11.5px;color:#8a93a6;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>⚖️ 律衡 · 自动化测试套件</h1>
+  <div class="sub">对齐《律衡项目书》§4 · 领域识别 / FAQ 知识库 / 免责转介 / 题库判分 / 案例与模板 / 一致性 / Meta</div>
+</div>
+<div class="summary" id="summary"></div>
+<div class="list" id="list"></div>
+<div class="foot">
+  运行方式：<code>npx serve .</code> 或 <code>python -m http.server 8000</code> 后访问 <code>/tests/run-tests.html</code>。
+  断言全部为纯函数自检（领域分类、FAQ 命中、判分、免责转介），不依赖大模型与网络，可在 CI 或任意静态环境复现。<br>
+  若某项 FAIL，点开对应条目查看期望与实际。知识库/题库数据文件更新后重跑本页即可回归。
+</div>
+
+<script src="load-engine.js"></script>
+<script src="test-core.js"></script>
+<script>
+(function() {
+  var passes = [], fails = [];
+  var names = Object.getOwnPropertyNames(window).filter(function(n) { return n.indexOf("TC_") === 0; });
+  names.sort();
+  for (var i = 0; i < names.length; i++) {
+    var fn = window[names[i]];
+    if (typeof fn !== "function") continue;
+    try { if (fn()) passes.push(names[i]); else fails.push({ n: names[i], e: "" }); }
+    catch (ex) { fails.push({ n: names[i], e: (ex && ex.message) || String(ex) }); }
+  }
+  var total = passes.length + fails.length;
+  var pct = total ? Math.round(passes.length / total * 100) : 0;
+  document.getElementById("summary").innerHTML =
+    '<div><span class="big ' + (pct >= 90 ? "ok" : "bad") + '">' + pct + '%</span> <span class="tag">通过率（目标 ≥90%）</span></div>' +
+    '<div><span class="big ' + (pct >= 90 ? "ok" : "bad") + '">' + passes.length + '</span>/' + total + ' 通过</div>' +
+    '<div class="bar" style="--w:' + pct + '%' + ';--c:' + (pct >= 90 ? "#1a7f37" : "#c62828") + '"></div>' +
+    (fails.length ? '<div class="bad" style="font-size:13px;font-weight:700">' + fails.length + ' 项失败</div>' : '<div class="ok" style="font-size:13px;font-weight:700">全部通过 ✓</div>');
+  var list = document.getElementById("list");
+  appendGroup(list, "通过 (" + passes.length + ")", passes, "pass");
+  appendGroup(list, "失败 (" + fails.length + ")", fails, "fail");
+  function appendGroup(el, title, rows, cls) {
+    if (!rows.length) return;
+    var h = document.createElement("div");
+    h.style.cssText = "font-size:12px;font-weight:700;color:#5b7288;margin:14px 2px 8px;letter-spacing:1px";
+    h.textContent = title;
+    el.appendChild(h);
+    rows.forEach(function(name, ix) {
+      var row = document.createElement("div");
+      row.className = "row " + cls;
+      var isFail = cls === "fail";
+      var label = isFail ? name.n : name;
+      var err = isFail ? name.e : "";
+      row.innerHTML = '<span class="st"></span><span class="no">' + (cls === "fail" ? "✗" : "✓") + '</span><span class="name">' +
+        esc(label).replace(/^TC_[A-Z]+_/, "") + "</span>" +
+        (err ? '<div class="err">' + esc(err) + "</div>" : "");
+      el.appendChild(row);
+    });
+  }
+  function esc(s) { return String(s).replace(/[&<>]/g, function(c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+})();
+</script>
+</body>
+</html>
