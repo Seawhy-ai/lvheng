@@ -5135,7 +5135,7 @@ function buildSystemPrompt(userText) {
   if (dk) {
     base += "\n\n【识别领域】" + DOMAIN_RULES[dk].name + "。请围绕该领域回答，并参考以下维权路径信息：\n" + DOMAIN_RULES[dk].brief;
     var hits = kbHits(userText || "");
-    if (hits.length) base += "\n\n【知识库检索命中（可直接引用，注意核实）】\n" + hits.join("\n");
+    if (hits.length) base += "\n\n【知识库检索命中（可直接引用，注意核实）】\n" + hits.slice(0, 2).join("\n");
   }
 
   return base;
@@ -5325,8 +5325,9 @@ function sendMsg(text) {
 
   var sysP = buildSystemPrompt(text);
   var apiMsgs = [{ role: "system", content: sysP }];
-  for (var i = 0; i < messages.length; i++) {
-    apiMsgs.push({ role: messages[i].role === "assistant" ? "assistant" : "user", content: messages[i].content });
+  var recentMsgs = messages.slice(-8);
+  for (var i = 0; i < recentMsgs.length; i++) {
+    apiMsgs.push({ role: recentMsgs[i].role === "assistant" ? "assistant" : "user", content: recentMsgs[i].content });
   }
 
   var msgDiv = document.createElement("div"); msgDiv.className = "msg ai no-avatar";
