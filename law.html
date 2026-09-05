@@ -185,6 +185,13 @@
     #bottomNav .nav-label{font-size:10px;line-height:1.2;font-weight:600;letter-spacing:.2px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
     #bottomNav .nav-item:active{color:var(--accent);background:var(--icon-bg)}
     #bottomNav .nav-item svg{width:24px;height:24px}
+    /* ===== 老年版（银发长辈）专属布局 ===== */
+    body[data-role="senior"] #bottomNav{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + var(--safe-bottom));background:var(--nav-bg);border-top:1px solid var(--card-border)}
+    body[data-role="senior"] #bottomNav .nav-item{flex:none;padding:14px 8px;border-radius:16px;background:var(--card-bg);border:1px solid var(--card-border)}
+    body[data-role="senior"] #bottomNav .nav-item svg{width:28px;height:28px}
+    body[data-role="senior"] #bottomNav .nav-label{font-size:13px;font-weight:700}
+    body[data-role="senior"] .whale-icon{display:none}
+    body[data-role="senior"] .typewriter{display:none}
     .cta-btn{display:flex;align-items:center;justify-content:center;gap:4px;width:100%;max-width:320px;margin:0 auto 20px;padding:15px 24px;border:none;border-radius:16px;font-size:clamp(15px,3.5vw,17px);font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(135deg,#1a5276,#2980b9);box-shadow:0 4px 20px rgba(26,82,118,0.3);transition:all .15s;font-family:inherit;letter-spacing:.5px;min-height:50px}
     .cta-btn:active{transform:scale(.97);opacity:.9}
 
