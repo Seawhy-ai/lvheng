@@ -7,5 +7,13 @@ FASTGPT_BASE_URL = "https://fastgpt.sangfor.com.cn:19443"
 FASTGPT_APP_ID = "6a8260f5f70be1cf2fe82255"
 ALLOWED_ORIGINS = "https://seawhy-ai.github.io"
 
+# 创建 D1 后取消注释并填写 database_id：
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "lvheng-classroom"
+# database_id = "由 Cloudflare 生成"
+# migrations_dir = "migrations"
+
 # 密钥不能写在这里。部署后在 Cloudflare 控制台添加 Secret：
 # FASTGPT_API_KEY = 组委会提供的临时应用密钥
+# TEACHER_SETUP_CODE = 首位教师注册使用的一次性注册码

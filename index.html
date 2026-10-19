@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>律衡 · 全民法律知识普惠智能体</title>
-<meta name="description" content="律衡——面向普通公众的免费法律知识智能体。打开即进入主页，先选择你的身份，主题、字号与快捷入口随之定制。西南民族大学法学院 · 舞猴。">
+<title>律衡 · 法律素养教学管理平台</title>
+<meta name="description" content="教师发布法律情境任务，学生完成训练，系统形成真实学情与五维能力报告。">
 <meta name="theme-color" content="#1a5276">
 <script>
 /* 根地址直接进入引擎主页（选角色在主页完成）；保留查询参数与 hash */
-location.replace("law.html" + location.search + location.hash);
+location.replace("classroom.html" + location.search + location.hash);
 </script>
 <style>
 body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f2f7fc,#e8f0f8);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;color:#1a5276}
@@ -24,18 +24,18 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
 <body>
 <div class="box">
   <span class="whale">🐋</span>
-  <p>正在进入律衡主页…</p>
+  <p>正在进入律衡教学空间…</p>
   <noscript>
-    <a class="go" href="law.html">进入律衡</a>
-    <a class="gate" href="gate.html">身份门展示页</a>
+    <a class="go" href="classroom.html">进入教学空间</a>
+    <a class="gate" href="law.html">公众学习工具</a>
   </noscript>
   <div style="margin-top:18px">
-    <a class="gate" href="law.html" style="font-size:12px;opacity:.85">若未自动跳转，点此进入</a>
+    <a class="gate" href="classroom.html" style="font-size:12px;opacity:.85">若未自动跳转，点此进入</a>
   </div>
 </div>
 <script>
 /* JS 可用时上面的跳转已生效；这里兜底 800ms 后强跳 */
-setTimeout(function(){ if (location.pathname.indexOf("law.html") < 0) location.replace("law.html"); }, 800);
+setTimeout(function(){ if (location.pathname.indexOf("classroom.html") < 0) location.replace("classroom.html"); }, 800);
 </script>
 </body>
 </html>

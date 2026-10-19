@@ -1,61 +1,44 @@
-/* 律衡 FastGPT 安全代理（Cloudflare Worker）
- * FASTGPT_API_KEY 必须使用 Worker Secret 配置，严禁写入本文件。
- */
-const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" };
-
-function cors(origin, env) {
-  const allowed = (env.ALLOWED_ORIGINS || "https://seawhy-ai.github.io").split(",").map(x => x.trim());
-  const value = allowed.includes(origin) ? origin : allowed[0];
-  return {
-    "access-control-allow-origin": value,
-    "access-control-allow-methods": "POST,OPTIONS,GET",
-    "access-control-allow-headers": "content-type",
-    "vary": "Origin"
-  };
-}
-
-function reply(data, status, origin, env) {
-  return new Response(JSON.stringify(data), { status, headers: { ...JSON_HEADERS, ...cors(origin, env) } });
-}
-
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const origin = request.headers.get("origin") || "";
-    if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin, env) });
-    if (url.pathname === "/health") return reply({ ok: true, service: "lvheng-fastgpt-proxy", configured: !!env.FASTGPT_API_KEY }, 200, origin, env);
-    if (url.pathname !== "/api/chat" || request.method !== "POST") return reply({ error: "Not found" }, 404, origin, env);
-    if (!env.FASTGPT_API_KEY) return reply({ error: "FASTGPT_API_KEY is not configured" }, 503, origin, env);
-
-    const length = Number(request.headers.get("content-length") || 0);
-    if (length > 128 * 1024) return reply({ error: "Request too large" }, 413, origin, env);
-    let input;
-    try { input = await request.json(); } catch (_) { return reply({ error: "Body must be a JSON object" }, 400, origin, env); }
-    if (!input || typeof input !== "object" || Array.isArray(input)) return reply({ error: "Body must be a JSON object" }, 400, origin, env);
-    if (!Array.isArray(input.messages) || !input.messages.length) return reply({ error: "messages must be a non-empty array" }, 400, origin, env);
-
-    const base = (env.FASTGPT_BASE_URL || "https://fastgpt.sangfor.com.cn:19443").replace(/\/$/, "");
-    const payload = {
-      appId: env.FASTGPT_APP_ID || "6a8260f5f70be1cf2fe82255",
-      chatId: typeof input.chatId === "string" ? input.chatId.slice(0, 80) : crypto.randomUUID(),
-      stream: input.stream !== false,
-      detail: input.detail !== false,
-      messages: input.messages.slice(-10).map(m => ({ role: m.role === "assistant" ? "assistant" : m.role === "system" ? "system" : "user", content: String(m.content || "").slice(0, 12000) }))
-    };
-    let upstream;
-    try {
-      upstream = await fetch(base + "/api/v1/chat/completions", {
-        method: "POST",
-        headers: { "content-type": "application/json", "authorization": "Bearer " + env.FASTGPT_API_KEY },
-        body: JSON.stringify(payload)
-      });
-    } catch (_) {
-      return reply({ error: "FastGPT is temporarily unreachable" }, 502, origin, env);
-    }
-    const headers = new Headers(upstream.headers);
-    Object.entries(cors(origin, env)).forEach(([k, v]) => headers.set(k, v));
-    headers.set("cache-control", "no-store");
-    headers.delete("set-cookie");
-    return new Response(upstream.body, { status: upstream.status, headers });
-  }
-};
+/* 律衡教学管理后端：D1 业务数据 + FastGPT AI 服务。密钥仅使用 Worker Secret。 */
+const JSON_HEADERS={"content-type":"application/json; charset=utf-8"};
+const ABILITIES=["issue","fact","evidence","law","path"];
+function cors(origin,env){const list=(env.ALLOWED_ORIGINS||"https://seawhy-ai.github.io").split(",").map(x=>x.trim()).filter(Boolean);return{"access-control-allow-origin":list.includes(origin)?origin:list[0],"access-control-allow-methods":"GET,POST,PATCH,OPTIONS","access-control-allow-headers":"content-type,authorization","access-control-max-age":"86400",vary:"Origin"}}
+function reply(data,status,origin,env){return new Response(JSON.stringify(data),{status,headers:{...JSON_HEADERS,...cors(origin,env),"cache-control":"no-store"}})}
+function fail(message,status=400){const e=new Error(message);e.status=status;throw e}
+async function json(request){const n=Number(request.headers.get("content-length")||0);if(n>128*1024)fail("Request too large",413);let v;try{v=await request.json()}catch(_){fail("Body must be a JSON object")};if(!v||typeof v!=="object"||Array.isArray(v))fail("Body must be a JSON object");return v}
+function text(v,name,min=1,max=200){v=String(v||"").trim();if(v.length<min||v.length>max)fail(`${name}长度应为${min}-${max}个字符`);return v}
+function id(){return crypto.randomUUID()}function now(){return new Date().toISOString()}
+function code(){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",bytes=crypto.getRandomValues(new Uint8Array(6));return[...bytes].map(b=>chars[b%chars.length]).join("")}
+function b64(bytes){return btoa(String.fromCharCode(...new Uint8Array(bytes)))}
+async function sha(value){return b64(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(value)))}
+async function passwordHash(password,salt){const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(password),"PBKDF2",false,["deriveBits"]);return b64(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:new TextEncoder().encode(salt),iterations:120000},key,256))}
+async function newSession(db,userId){const token=b64(crypto.getRandomValues(new Uint8Array(32))).replace(/[+/=]/g,""),expires=new Date(Date.now()+7*864e5).toISOString();await db.prepare("INSERT INTO sessions (token_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)").bind(await sha(token),userId,expires,now()).run();return{token,expiresAt:expires}}
+async function auth(request,env,role){const raw=(request.headers.get("authorization")||"").replace(/^Bearer\s+/i,"");if(!raw)fail("请先登录",401);const row=await env.DB.prepare("SELECT u.id,u.role,u.display_name,u.username FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?").bind(await sha(raw),now()).first();if(!row)fail("登录已过期，请重新登录",401);if(role&&row.role!==role)fail("没有操作权限",403);return row}
+async function ownClass(db,classId,teacherId){const row=await db.prepare("SELECT * FROM classes WHERE id=? AND teacher_id=?").bind(classId,teacherId).first();if(!row)fail("班级不存在或无权访问",404);return row}
+async function taskAccess(db,taskId,user){const task=await db.prepare("SELECT t.*,c.teacher_id FROM tasks t JOIN classes c ON c.id=t.class_id WHERE t.id=?").bind(taskId).first();if(!task)fail("任务不存在",404);if(user.role==="teacher"&&task.teacher_id!==user.id)fail("没有操作权限",403);if(user.role==="student"){const m=await db.prepare("SELECT 1 ok FROM class_members WHERE class_id=? AND student_id=?").bind(task.class_id,user.id).first();if(!m||task.status!=="published")fail("任务尚未发布或无权访问",403)}return task}
+function publicUser(user,session){return{user:{id:user.id,role:user.role,name:user.display_name,username:user.username},token:session.token,expiresAt:session.expiresAt}}
+function safeParse(v,fallback){try{return JSON.parse(v)}catch(_){return fallback}}
+function validateContent(content){if(!content||typeof content!=="object"||!Array.isArray(content.questions)||content.questions.length!==5)fail("任务必须包含5个能力环节");const seen=new Set();content.questions.forEach((q,i)=>{q.prompt=text(q.prompt,`第${i+1}题`,5,500);if(!Array.isArray(q.options)||q.options.length<2||q.options.length>6)fail(`第${i+1}题选项数量无效`);q.options=q.options.map((x,j)=>text(x,`第${i+1}题选项${j+1}`,1,200));q.answer=Number(q.answer);if(!Number.isInteger(q.answer)||q.answer<0||q.answer>=q.options.length)fail(`第${i+1}题答案无效`);q.ability=ABILITIES.includes(q.ability)?q.ability:ABILITIES[i];q.explain=text(q.explain||"请结合事实和规则重新判断。",`第${i+1}题解析`,2,500);seen.add(q.ability)});if(seen.size!==5)fail("五个题目必须分别对应五项能力");return content}
+function evaluate(content,answers){if(!Array.isArray(answers)||answers.length!==5)fail("请完成全部5个环节");const scores={},details=[];content.questions.forEach((q,i)=>{const selected=Number(answers[i]),ok=selected===q.answer,score=ok?20:8;scores[q.ability]=score;details.push({ability:q.ability,correct:ok,score,selected,answer:q.answer,explain:q.explain})});return{scores,total:Object.values(scores).reduce((a,b)=>a+b,0),details}}
+async function fastgpt(env,messages,chatId){if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await fetch(base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:chatId||id(),stream:false,detail:true,messages:messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"").slice(0,12000)}))})})}catch(_){fail("FastGPT暂时不可用",502)}if(!upstream.ok)fail("FastGPT调用失败",502);return upstream.json()}
+async function chatProxy(env,input,origin){if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await fetch(base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:typeof input.chatId==="string"?input.chatId.slice(0,80):id(),stream:input.stream!==false,detail:input.detail!==false,messages:input.messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"").slice(0,12000)}))})})}catch(_){fail("FastGPT暂时不可用",502)}const headers=new Headers(upstream.headers);Object.entries(cors(origin,env)).forEach(([k,v])=>headers.set(k,v));headers.set("cache-control","no-store");headers.delete("set-cookie");return new Response(upstream.body,{status:upstream.status,headers})}
+async function route(request,env,url,origin){const p=url.pathname;
+if(p==="/health")return reply({ok:true,service:"lvheng-classroom-api",database:!!env.DB,fastgpt:!!env.FASTGPT_API_KEY,configured:!!env.FASTGPT_API_KEY},200,origin,env);
+if(p==="/api/chat"&&request.method==="POST"){const v=await json(request);if(!Array.isArray(v.messages)||!v.messages.length)fail("messages must be a non-empty array");return chatProxy(env,v,origin)}
+if(!env.DB)fail("数据库尚未绑定",503);
+if(p==="/api/auth/teacher/register"&&request.method==="POST"){const v=await json(request);if(!env.TEACHER_SETUP_CODE||v.setupCode!==env.TEACHER_SETUP_CODE)fail("教师注册码无效",403);const username=text(v.username,"账号",3,40).toLowerCase(),name=text(v.name,"姓名",2,30),password=text(v.password,"密码",8,80);if(await env.DB.prepare("SELECT 1 ok FROM users WHERE username=?").bind(username).first())fail("账号已存在",409);const userId=id(),salt=id(),hash=await passwordHash(password,salt);await env.DB.prepare("INSERT INTO users (id,role,username,display_name,password_hash,password_salt,created_at) VALUES (?,'teacher',?,?,?,?,?)").bind(userId,username,name,hash,salt,now()).run();return reply(publicUser({id:userId,role:"teacher",display_name:name,username},await newSession(env.DB,userId)),201,origin,env)}
+if(p==="/api/auth/login"&&request.method==="POST"){const v=await json(request),username=text(v.username,"账号",3,80).toLowerCase(),password=text(v.password,"密码",4,80),user=await env.DB.prepare("SELECT * FROM users WHERE username=?").bind(username).first();if(!user||await passwordHash(password,user.password_salt)!==user.password_hash)fail("账号或密码错误",401);return reply(publicUser(user,await newSession(env.DB,user.id)),200,origin,env)}
+if(p==="/api/auth/student/join"&&request.method==="POST"){const v=await json(request),classCode=text(v.classCode,"班级码",6,6).toUpperCase(),name=text(v.name,"姓名",2,30),pin=text(v.pin,"学习密码",4,20),cls=await env.DB.prepare("SELECT * FROM classes WHERE join_code=? AND archived=0").bind(classCode).first();if(!cls)fail("班级码无效",404);const username=(classCode+"-"+name).toLowerCase();let user=await env.DB.prepare("SELECT * FROM users WHERE username=?").bind(username).first();if(user){if(await passwordHash(pin,user.password_salt)!==user.password_hash)fail("姓名已使用，请输入原学习密码",409)}else{const userId=id(),salt=id(),hash=await passwordHash(pin,salt);await env.DB.prepare("INSERT INTO users (id,role,username,display_name,password_hash,password_salt,created_at) VALUES (?,'student',?,?,?,?,?)").bind(userId,username,name,hash,salt,now()).run();user={id:userId,role:"student",username,display_name:name};await env.DB.prepare("INSERT OR IGNORE INTO class_members (class_id,student_id,joined_at) VALUES (?,?,?)").bind(cls.id,userId,now()).run()}return reply({...publicUser(user,await newSession(env.DB,user.id)),classroom:{id:cls.id,name:cls.name,code:cls.join_code}},200,origin,env)}
+const user=await auth(request,env);
+if(p==="/api/me"&&request.method==="GET")return reply({user:{id:user.id,role:user.role,name:user.display_name,username:user.username}},200,origin,env);
+if(p==="/api/classes"&&request.method==="POST"){if(user.role!=="teacher")fail("仅教师可创建班级",403);const v=await json(request),name=text(v.name,"班级名称",2,50);let joinCode=code();while(await env.DB.prepare("SELECT 1 ok FROM classes WHERE join_code=?").bind(joinCode).first())joinCode=code();const classId=id();await env.DB.prepare("INSERT INTO classes (id,teacher_id,name,join_code,archived,created_at) VALUES (?,?,?,?,0,?)").bind(classId,user.id,name,joinCode,now()).run();return reply({classroom:{id:classId,name,code:joinCode,studentCount:0}},201,origin,env)}
+if(p==="/api/classes"&&request.method==="GET"){if(user.role==="teacher"){const out=await env.DB.prepare("SELECT c.id,c.name,c.join_code code,c.created_at,COUNT(m.student_id) studentCount FROM classes c LEFT JOIN class_members m ON m.class_id=c.id WHERE c.teacher_id=? AND c.archived=0 GROUP BY c.id ORDER BY c.created_at DESC").bind(user.id).all();return reply({classes:out.results||[]},200,origin,env)}const out=await env.DB.prepare("SELECT c.id,c.name,c.join_code code FROM classes c JOIN class_members m ON m.class_id=c.id WHERE m.student_id=? AND c.archived=0").bind(user.id).all();return reply({classes:out.results||[]},200,origin,env)}
+if(p==="/api/tasks"&&request.method==="POST"){if(user.role!=="teacher")fail("仅教师可创建任务",403);const v=await json(request);await ownClass(env.DB,text(v.classId,"班级ID",5,80),user.id);const taskId=id(),title=text(v.title,"任务标题",2,80),scenario=text(v.scenario,"情境描述",10,1500),content=validateContent(v.content);await env.DB.prepare("INSERT INTO tasks (id,class_id,title,scenario,content_json,status,created_at,updated_at) VALUES (?,?,?,?,?,'draft',?,?)").bind(taskId,v.classId,title,scenario,JSON.stringify(content),now(),now()).run();return reply({task:{id:taskId,title,status:"draft"}},201,origin,env)}
+let match=p.match(/^\/api\/tasks\/([^/]+)\/publish$/);if(match&&request.method==="PATCH"){if(user.role!=="teacher")fail("仅教师可发布任务",403);const task=await taskAccess(env.DB,match[1],user);await env.DB.prepare("UPDATE tasks SET status='published',published_at=?,updated_at=? WHERE id=?").bind(now(),now(),task.id).run();return reply({ok:true,status:"published"},200,origin,env)}
+if(p==="/api/tasks"&&request.method==="GET"){if(user.role==="teacher"){const classId=text(url.searchParams.get("classId"),"班级ID",5,80);await ownClass(env.DB,classId,user.id);const out=await env.DB.prepare("SELECT t.id,t.title,t.scenario,t.status,t.created_at,t.published_at,COUNT(s.id) submissionCount FROM tasks t LEFT JOIN submissions s ON s.task_id=t.id WHERE t.class_id=? GROUP BY t.id ORDER BY t.created_at DESC").bind(classId).all();return reply({tasks:out.results||[]},200,origin,env)}const out=await env.DB.prepare("SELECT t.id,t.title,t.scenario,t.published_at,c.name className,s.id submissionId,s.total_score totalScore FROM tasks t JOIN classes c ON c.id=t.class_id JOIN class_members m ON m.class_id=c.id LEFT JOIN submissions s ON s.task_id=t.id AND s.student_id=? WHERE m.student_id=? AND t.status='published' ORDER BY t.published_at DESC").bind(user.id,user.id).all();return reply({tasks:out.results||[]},200,origin,env)}
+match=p.match(/^\/api\/tasks\/([^/]+)$/);if(match&&request.method==="GET"){const task=await taskAccess(env.DB,match[1],user),content=safeParse(task.content_json,{questions:[]});if(user.role==="student")content.questions.forEach(q=>{delete q.answer});return reply({task:{id:task.id,title:task.title,scenario:task.scenario,status:task.status,content}},200,origin,env)}
+match=p.match(/^\/api\/tasks\/([^/]+)\/submit$/);if(match&&request.method==="POST"){if(user.role!=="student")fail("仅学生可提交",403);const task=await taskAccess(env.DB,match[1],user),v=await json(request),result=evaluate(safeParse(task.content_json,{questions:[]}),v.answers);if(await env.DB.prepare("SELECT 1 ok FROM submissions WHERE task_id=? AND student_id=?").bind(task.id,user.id).first())fail("任务已经提交",409);const sid=id();await env.DB.prepare("INSERT INTO submissions (id,task_id,student_id,answers_json,scores_json,total_score,feedback_json,submitted_at) VALUES (?,?,?,?,?,?,?,?)").bind(sid,task.id,user.id,JSON.stringify(v.answers),JSON.stringify(result.scores),result.total,JSON.stringify(result.details),now()).run();return reply({submission:{id:sid,total:result.total,scores:result.scores,details:result.details}},201,origin,env)}
+match=p.match(/^\/api\/classes\/([^/]+)\/dashboard$/);if(match&&request.method==="GET"){if(user.role!=="teacher")fail("仅教师可查看学情",403);const cls=await ownClass(env.DB,match[1],user.id),students=await env.DB.prepare("SELECT COUNT(*) count FROM class_members WHERE class_id=?").bind(cls.id).first(),rows=await env.DB.prepare("SELECT s.id,s.total_score,s.scores_json,s.submitted_at,u.display_name studentName,t.title taskTitle FROM submissions s JOIN users u ON u.id=s.student_id JOIN tasks t ON t.id=s.task_id WHERE t.class_id=? ORDER BY s.submitted_at DESC").bind(cls.id).all(),tasksRow=await env.DB.prepare("SELECT COUNT(*) count FROM tasks WHERE class_id=? AND status='published'").bind(cls.id).first(),dims={issue:[],fact:[],evidence:[],law:[],path:[]};(rows.results||[]).forEach(r=>{const s=safeParse(r.scores_json,{});ABILITIES.forEach(k=>{if(Number.isFinite(s[k]))dims[k].push(s[k])})});const averages={};ABILITIES.forEach(k=>averages[k]=dims[k].length?Math.round(dims[k].reduce((a,b)=>a+b,0)/dims[k].length*5):null);const list=(rows.results||[]).map(r=>({id:r.id,studentName:r.studentName,taskTitle:r.taskTitle,total:r.total_score,submittedAt:r.submitted_at}));return reply({classroom:{id:cls.id,name:cls.name,code:cls.join_code},stats:{students:students.count||0,publishedTasks:tasksRow.count||0,submissions:list.length,average:list.length?Math.round(list.reduce((a,b)=>a+b.total,0)/list.length):null,abilities:averages},recent:list.slice(0,20)},200,origin,env)}
+if(p==="/api/ai/task-draft"&&request.method==="POST"){if(user.role!=="teacher")fail("仅教师可生成任务",403);const v=await json(request),goal=text(v.goal,"教学目标",5,500),data=await fastgpt(env,[{role:"system",content:"你是法律素养教学设计助手。根据目标生成五步情境任务，依次考查issue、fact、evidence、law、path。内容必须准确、适合课堂。"},{role:"user",content:goal}],"task-"+id());return reply({result:data},200,origin,env)}
+return reply({error:"Not found"},404,origin,env)}
+export default{async fetch(request,env){const url=new URL(request.url),origin=request.headers.get("origin")||"";if(request.method==="OPTIONS")return new Response(null,{status:204,headers:cors(origin,env)});try{return await route(request,env,url,origin)}catch(e){return reply({error:e.message||"Internal error"},e.status||500,origin,env)}}};
+export{evaluate,validateContent,passwordHash};

@@ -1,8 +1,8 @@
 {
-  "name": "律衡 · 全民法律知识普惠",
+  "name": "律衡 · 法律素养教学管理平台",
   "short_name": "律衡",
-  "description": "全民法律知识普惠智能体 · 法律咨询 · 维权指引 · 题库练习",
-  "start_url": "/lvheng/law.html",
+  "description": "教师发布任务 · 学生情境训练 · 班级学情分析",
+  "start_url": "/lvheng/classroom.html",
   "scope": "/lvheng/",
   "display": "standalone",
   "orientation": "portrait",
