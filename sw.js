@@ -1,4 +1,5 @@
-/* 律衡 · Service Worker — 离线缓存 (v17)
+/* 律衡 · Service Worker — 离线缓存 (v18)
+   v18: 学生端恢复原有问题卡、情境卡与底部导航设计语言
    v17: 律衡教学智能体的教学设计、学习陪练与学情诊断
    v16: 自主学习并入学生空间，区分私人练习与班级学情
    v15: 教师端、学生端与共享教学管理后端
@@ -9,13 +10,14 @@
    v10: law.html 体验升级（AI 回复打字机渐显 / 法条预览 txt 优先 + 进度条 + 分帧渲染）
    v8: 增加 install 预缓存核心资源，主文档 network-first 且断网时回退缓存，真正离线可用
    v9: 预缓存 vendor/ 本地库（marked / highlight / mammoth / 主题 CSS），离线时渲染与文档导入可用 */
-var CACHE = "lvheng-v17";
+var CACHE = "lvheng-v18";
 
 var PRECACHE = [
   "law.html",
   "classroom.html",
   "classroom.css",
   "agent.css",
+  "student.css",
   "classroom.js",
   "gate.html",
   "index.html",
