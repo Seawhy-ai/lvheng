@@ -1393,31 +1393,37 @@ body.kbd-system #globalBg{pointer-events:none}
 <!-- ===== HOME SCREEN ===== -->
 <div class="screen" id="homeScreen" style="display:none">
   <div class="home-bg" id="homeBg"></div>
-  <div class="home-top">
-    <div class="profile-btn" id="homeProfileBtn" onclick="goToProfile()" title="个人中心"></div>
-    <div class="global-search">
-      <div class="gs-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="text" id="globalSearchInput" placeholder="说说你的问题，律衡帮你找解决方案" maxlength="50" enterkeyhint="search" oninput="onGlobalSearchInput()" onkeydown="if(event.key==='Enter'){event.preventDefault();runGlobalSearch();this.blur()}" />
+  <main class="journey-home">
+    <header class="journey-brand">
+      <div class="journey-mark"><img src="whale-mascot.png" alt="" width="48" height="48"></div>
+      <div><p>律衡</p><h1>把法律问题理清楚</h1></div>
+      <button class="journey-profile" id="homeProfileBtn" onclick="goToProfile()" aria-label="个人中心"></button>
+    </header>
+    <section class="journey-ask" aria-labelledby="journeyAskTitle">
+      <div class="journey-eyebrow">从真实问题出发</div>
+      <h2 id="journeyAskTitle">发生了什么？</h2>
+      <p>用自己的话描述经过。律衡会先梳理事实，再给出依据、证据清单和行动步骤。</p>
+      <textarea id="journeyQuestionInput" rows="4" maxlength="500" placeholder="例如：兼职结束一个月了，对方还欠我两千元工资，微信一直不回复……"></textarea>
+      <div class="journey-ask-foot"><span>请勿填写身份证号、住址等敏感信息</span><button onclick="startGuidedIssue()">开始梳理 <b>→</b></button></div>
+    </section>
+    <section class="journey-section">
+      <div class="journey-section-head"><div><small>常见问题</small><h2>选一个相似情境</h2></div><button onclick="openLearningJourney()">去学习</button></div>
+      <div class="journey-scenarios">
+        <button onclick="startGuidedScenario('labor')"><span>工作</span><b>兼职工资被拖欠</b><small>欠薪 · 证据 · 仲裁</small></button>
+        <button onclick="startGuidedScenario('consumer')"><span>消费</span><b>网购与宣传不符</b><small>退货 · 欺诈 · 12315</small></button>
+        <button onclick="startGuidedScenario('rent')"><span>租房</span><b>退租后押金不退</b><small>合同 · 交接 · 诉讼</small></button>
       </div>
-      <div id="globalSearchResults"></div>
-    </div>
-  </div>
-  <div class="role-quicks" id="roleQuicks"></div>
-  <div class="welcome-hero">
-    <div class="whale-icon"><img src="whale-mascot.png" alt="律衡鲸鱼" width="112" height="112"></div>
-    <h1 class="typewriter" id="typewriter"></h1>
-    <div class="role-chip" id="homeRoleChip" onclick="openRolePicker()" title="选择身份，定制你的界面"></div>
-  </div>
-  <button class="finals-home-entry" onclick="openFinalsCenter()">
-    <span class="fhe-badge">全国决赛版</span>
-    <span class="fhe-icon">🎓</span>
-    <span class="fhe-copy"><b>法律素养情境学习</b><small>真实任务 · 五维能力报告 · 教师看板</small></span>
-    <span class="fhe-arrow">›</span>
-  </button>
-  <div class="quote-card" id="quoteCard">
-    <div class="quote-text" id="quoteText"></div>
-    <div class="quote-author" id="quoteAuthor"></div>
+    </section>
+    <section id="journeyContinue" class="journey-continue" hidden></section>
+    <section class="journey-learn-card">
+      <div><small>情境学习</small><h2>不只得到答案，也学会解决下一次问题</h2><p>在完整案例中练习识别争议、补全事实、固定证据、核验法条和选择路径。</p></div>
+      <button onclick="openLearningJourney()">开始学习</button>
+    </section>
+  </main>
+  <div class="journey-legacy" aria-hidden="true">
+    <div class="global-search"><input id="globalSearchInput" maxlength="50"><div id="globalSearchResults"></div></div>
+    <div id="roleQuicks"></div><div id="homeRoleChip"></div><div id="typewriter"></div>
+    <div id="quoteCard"><div id="quoteText"></div><div id="quoteAuthor"></div></div>
   </div>
   <div class="bottom-nav" id="bottomNav"></div>
 </div>
@@ -1862,8 +1868,8 @@ body.kbd-system #globalBg{pointer-events:none}
     <span class="title">学习中心</span>
   </div>
   <div class="learn-body">
-    <button class="finals-learn-entry" onclick="openFinalsCenter()">
-      <span><b>决赛创新模块</b><small>情境任务 → 可信依据 → 形成性评价 → 能力画像</small></span><strong>立即体验 ›</strong>
+    <button class="finals-learn-entry" onclick="openLearningJourney()">
+      <span><b>法律情境训练</b><small>从事实、证据到法条与行动路径，完整练习解决一个问题</small></span><strong>开始训练 ›</strong>
     </button>
     <!-- 今日学习报告 -->
     <div class="learn-report">
@@ -2282,8 +2288,8 @@ body.kbd-system #globalBg{pointer-events:none}
 <script src="quiz_data.js?v=1.5.0"></script>
 <script src="case_data.js?v=2.0.0"></script>
 <script src="quiz_extra.js?v=1.0.0"></script>
-<link rel="stylesheet" href="finals.css?v=1.1.0">
-<script defer src="finals.js?v=1.1.0"></script>
+<link rel="stylesheet" href="finals.css?v=2.0.0">
+<script defer src="finals.js?v=2.0.0"></script>
 <script>
 // ============================================================
 // TYPWRITER + LEGAL QUOTES
@@ -4596,11 +4602,6 @@ function initRole() {
   curRole = loadRole();
   applyRole();
   renderRoleUI();
-  if (!ROLES[curRole]) {
-    var skipped = false;
-    try { skipped = localStorage.getItem(ROLE_SKIP_KEY) === "1"; } catch(e) {}
-    if (!skipped) setTimeout(function() { openRolePicker(true); }, 600);
-  }
 }
 function applyRole() {
   var r = roleOf(curRole);
@@ -4906,6 +4907,10 @@ var NAV_ICONS = {
   tel: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>'
 };
 var NAV_TITLES = { chat: "AI咨询", plaza: "普法服务", learn: "学习", settings: "设置", rights: "维权", calc: "计算器", tel: "援助热线" };
+NAV_ICONS.home = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/></svg>';
+NAV_ICONS.resources = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></svg>';
+NAV_ICONS.profile = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>';
+NAV_TITLES.home = "首页"; NAV_TITLES.resources = "资源"; NAV_TITLES.profile = "我的";
 var NAV_ACTIONS = {
   chat: function() { enterChat(); },
   plaza: function() { showPlaza(); },
@@ -4915,12 +4920,15 @@ var NAV_ACTIONS = {
   calc: function() { openRoleCalc(); },
   tel: function() { location.href = "tel:12348"; }
 };
-var DEFAULT_NAV = ["chat", "plaza", "learn", "settings"];
+NAV_ACTIONS.home = function() { goHome(); };
+NAV_ACTIONS.learn = function() { if (typeof openLearningJourney === "function") openLearningJourney(); else showLearningCenter(); };
+NAV_ACTIONS.resources = function() { if (typeof openLearningJourney === "function") { openLearningJourney(); setTimeout(function(){ var b=document.querySelector('[data-view="resources"]'); if(b)b.click(); },0); } else showPlaza(); };
+NAV_ACTIONS.profile = function() { goToProfile(); };
+var DEFAULT_NAV = ["home", "learn", "resources", "profile"];
 function renderBottomNav() {
   var nav = document.getElementById("bottomNav");
   if (!nav) return;
-  var r = roleOf(curRole);
-  var items = (r && r.nav) || DEFAULT_NAV;
+  var items = DEFAULT_NAV;
   var showLabel = true; try { showLabel = localStorage.getItem("lvheng_nav_label") !== "0"; } catch(e) {}
   nav.innerHTML = items.map(function(k) {
     return '<button class="nav-item" onclick="NAV_ACTIONS.' + k + '()" title="' + NAV_TITLES[k] + '" aria-label="' + NAV_TITLES[k] + '">' + NAV_ICONS[k] + (showLabel ? '<span class="nav-label">' + NAV_TITLES[k] + '</span>' : '') + '</button>';
