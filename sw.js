@@ -1,10 +1,11 @@
-/* 律衡 · Service Worker — 离线缓存 (v12)
+/* 律衡 · Service Worker — 离线缓存 (v13)
+   v13: 决赛功能改为主页与学习中心固定入口
    v12: FastGPT 安全代理配置与在线失败自动降级
    v11: 决赛版情境学习、能力报告与教师看板
    v10: law.html 体验升级（AI 回复打字机渐显 / 法条预览 txt 优先 + 进度条 + 分帧渲染）
    v8: 增加 install 预缓存核心资源，主文档 network-first 且断网时回退缓存，真正离线可用
    v9: 预缓存 vendor/ 本地库（marked / highlight / mammoth / 主题 CSS），离线时渲染与文档导入可用 */
-var CACHE = "lvheng-v12";
+var CACHE = "lvheng-v13";
 
 var PRECACHE = [
   "law.html",

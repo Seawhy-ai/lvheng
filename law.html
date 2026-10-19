@@ -1409,6 +1409,12 @@ body.kbd-system #globalBg{pointer-events:none}
     <h1 class="typewriter" id="typewriter"></h1>
     <div class="role-chip" id="homeRoleChip" onclick="openRolePicker()" title="选择身份，定制你的界面"></div>
   </div>
+  <button class="finals-home-entry" onclick="openFinalsCenter()">
+    <span class="fhe-badge">全国决赛版</span>
+    <span class="fhe-icon">🎓</span>
+    <span class="fhe-copy"><b>法律素养情境学习</b><small>真实任务 · 五维能力报告 · 教师看板</small></span>
+    <span class="fhe-arrow">›</span>
+  </button>
   <div class="quote-card" id="quoteCard">
     <div class="quote-text" id="quoteText"></div>
     <div class="quote-author" id="quoteAuthor"></div>
@@ -1856,6 +1862,9 @@ body.kbd-system #globalBg{pointer-events:none}
     <span class="title">学习中心</span>
   </div>
   <div class="learn-body">
+    <button class="finals-learn-entry" onclick="openFinalsCenter()">
+      <span><b>决赛创新模块</b><small>情境任务 → 可信依据 → 形成性评价 → 能力画像</small></span><strong>立即体验 ›</strong>
+    </button>
     <!-- 今日学习报告 -->
     <div class="learn-report">
       <div class="learn-report-top">
@@ -2273,8 +2282,8 @@ body.kbd-system #globalBg{pointer-events:none}
 <script src="quiz_data.js?v=1.5.0"></script>
 <script src="case_data.js?v=2.0.0"></script>
 <script src="quiz_extra.js?v=1.0.0"></script>
-<link rel="stylesheet" href="finals.css?v=1.0.0">
-<script defer src="finals.js?v=1.0.0"></script>
+<link rel="stylesheet" href="finals.css?v=1.1.0">
+<script defer src="finals.js?v=1.1.0"></script>
 <script>
 // ============================================================
 // TYPWRITER + LEGAL QUOTES
