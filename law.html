@@ -1665,7 +1665,7 @@ body.kbd-system #globalBg{pointer-events:none}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
         <span style="color:#e74c3c">清除本机全部数据</span>
       </div>
-      <p class="pm-note">律衡不采集姓名、手机号等敏感信息：对话、笔记、打卡等数据仅保存在本机浏览器（localStorage），不上传服务器。清除后不可恢复，请先导出备份。</p>
+      <p class="pm-note">律衡不采集姓名、手机号等敏感信息。笔记、打卡与学习记录保存在本机浏览器；仅当你主动配置并使用大模型时，当前问题及必要的最近对话会发送至所选模型服务商。清除后不可恢复，请先导出备份。</p>
     </div>
     </div>
   </div>
@@ -1681,7 +1681,7 @@ body.kbd-system #globalBg{pointer-events:none}
     <div class="about-logo"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div>
     <div class="about-name">律衡</div>
     <div class="about-ver">v4.6.0 · 全民法律知识普惠智能体 · 2026.09.04</div>
-    <div class="about-desc">面向普通公众的免费普法智能体：听得懂的解释 · 有依据的法条 · 可执行的指引<br>基于团队自研 LexPilot 引擎，数据存本机、对话不落服务器，源码开源</div>
+    <div class="about-desc">面向普通公众的法律素养教育智能体：听得懂的解释 · 有依据的法条 · 可执行的训练<br>学习记录存本机；启用AI时必要对话将发送给模型服务商；源码开源</div>
 
     <div class="about-section">
       <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="vertical-align:-4px;margin-right:4px"><path d="M12 21c-4-3.5-8-6.8-8-11a8 8 0 1 1 16 0c0 4.2-4 7.5-8 11z"/><circle cx="12" cy="10" r="3"/></svg>五维使命</h3>
@@ -1739,12 +1739,17 @@ body.kbd-system #globalBg{pointer-events:none}
 
     <div class="api-config">
       <h5><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>API 配置</h5>
-      <p style="font-size:11px;color:var(--text2);margin-bottom:8px">配置DeepSeek API密钥以启用AI法律咨询功能。密钥仅存储在你的浏览器中。</p>
-      <input type="password" id="apiKeyInput" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx" />
+      <p style="font-size:11px;color:var(--text2);margin-bottom:8px">推荐使用组委会 FastGPT 安全代理；密钥只保存在代理服务器，不进入网页。</p>
+      <select id="apiProviderSelect" onchange="updateApiProviderUI()" style="width:100%;margin-bottom:7px">
+        <option value="fastgpt">组委会 FastGPT（推荐）</option>
+        <option value="deepseek">个人 DeepSeek</option>
+      </select>
+      <input id="fastgptProxyInput" placeholder="FastGPT 安全代理地址（部署后填写）" />
+      <input type="password" id="apiKeyInput" placeholder="DeepSeek sk-...（仅个人模式需要）" style="display:none" />
       <div class="api-row">
         <select id="apiModelSelect">
-          <option value="deepseek-chat">DeepSeek Pro</option>
-          <option value="deepseek-v4-flash" selected>DeepSeek V4 Flash（推荐）</option>
+          <option value="deepseek-chat" selected>DeepSeek Chat（推荐）</option>
+          <option value="deepseek-reasoner">DeepSeek Reasoner</option>
         </select>
         <button onclick="saveApiConfig()">保存</button>
         <button onclick="clearApiConfig()" style="background:var(--input-bg);color:var(--text);border:1px solid var(--card-border)">清空</button>
@@ -2268,6 +2273,8 @@ body.kbd-system #globalBg{pointer-events:none}
 <script src="quiz_data.js?v=1.5.0"></script>
 <script src="case_data.js?v=2.0.0"></script>
 <script src="quiz_extra.js?v=1.0.0"></script>
+<link rel="stylesheet" href="finals.css?v=1.0.0">
+<script defer src="finals.js?v=1.0.0"></script>
 <script>
 // ============================================================
 // TYPWRITER + LEGAL QUOTES
@@ -2862,7 +2869,11 @@ function getAllUserData() {
     points: 0,
     theme: userTheme
   };
-  try { data.settings = JSON.parse(localStorage.getItem("seawhy-lex-config") || "{}"); } catch(e) {}
+  /* API 密钥属于凭据，任何导出文件都不得包含。 */
+  try {
+    var exportedSettings = JSON.parse(localStorage.getItem("seawhy-lex-config") || "{}");
+    data.settings = { model: exportedSettings.model || "deepseek-chat", provider: exportedSettings.provider || "fastgpt", proxyUrl: exportedSettings.proxyUrl || "" };
+  } catch(e) {}
   try {
     var stats = loadLearnStats();
     data.learnStats = stats;
@@ -2879,10 +2890,7 @@ function restoreAllUserData(data) {
   if (!data || !data.username) return false;
   try {
     if (data.profile) saveProfile(data.profile);
-    if (data.settings && data.settings.apiKey) {
-      // Only restore API key if it looks valid
-      localStorage.setItem("seawhy-lex-config", JSON.stringify(data.settings));
-    }
+    /* 出于安全考虑，不从备份导入 API 密钥。 */
     if (data.notes) saveNotes(data.notes);
     if (data.learnStats) {
       localStorage.setItem("seawhy-lex-learn-stats", JSON.stringify(data.learnStats));
@@ -3045,7 +3053,7 @@ function clearLocalData() {
 // ============================================================
 
 // ----- CONFIG -----
-var DEFAULTS = { apiKey: "", model: "deepseek-v4-flash" }; // 出于安全考虑不内置密钥，请在「关于我们-API 配置」填入自己的 Key
+var DEFAULTS = { apiKey: "", model: "deepseek-chat", provider: "fastgpt", proxyUrl: "" }; // FastGPT 密钥仅保存在安全代理
 var SETTINGS = {};
 try { var s = JSON.parse(localStorage.getItem("seawhy-lex-config") || "{}"); SETTINGS = Object.assign({}, DEFAULTS, s); } catch(e) { SETTINGS = Object.assign({}, DEFAULTS); }
 
@@ -4929,19 +4937,19 @@ function chatQuickButtons() {
 // 知识库：领域规则（FR-02 分流）+ FAQ 库（30+ 高频场景）+ 检索注入
 // ============================================================
 var DOMAIN_RULES = {
-  labor: { name: "劳动纠纷", keys: "拖欠工资 欠薪 讨薪 工资 兼职工资 辞退 开除 裁员 劳动合同 实习 工伤 社保 加班 五险一金 劳动仲裁 劳动监察 灵活就业 外卖骑手",
+  labor: { name: "劳动纠纷", keys: "拖欠工资 欠薪 讨薪 工资 兼职工资 辞退 开除 裁员 解除 不用来上班 劳动合同 实习 工伤 社保 加班 五险一金 劳动仲裁 劳动监察 灵活就业 外卖骑手",
     brief: "维权路径：与单位协商 → 向劳动监察大队投诉（12333）→ 劳动仲裁（时效1年，在职期间欠薪争议不受此限）→ 法院诉讼。常用法条：《劳动合同法》第30、39、46、47、82、87条，《保障农民工工资支付条例》。关键要素：是否签劳动合同、是否在职、欠薪/赔偿金额与时长、工资流水、考勤与聊天记录。" },
   consumer: { name: "消费维权", keys: "假货 退款 退货 退一赔三 七天无理由 网购 淘宝 拼多多 京东 外卖 商家 欺诈 保修 三包 12315 预付卡 跑路 定金",
     brief: "维权路径：与商家协商 → 平台投诉介入 → 12315/市场监管投诉 → 消协调解 → 诉讼。常用法条：《消费者权益保护法》第24、25、55条，《食品安全法》第148条（十倍赔偿）。关键要素：订单与付款凭证、宣传页面截图、实物照片、聊天记录、是否涉食品药品。" },
   rent: { name: "租房纠纷", keys: "租房 房东 租客 押金 退租 转租 中介 房租 腾房 租赁合同 甲醛 维修 涨租 二房东",
     brief: "维权路径：协商 → 社区/人民调解 → 住建部门投诉 → 诉讼（小额诉讼程序便捷、一审终审）。常用法条：《民法典》第509、563、577、585、712、716、731条。关键要素：租赁合同约定、押金收据、转账记录、房屋交接单、房屋状况照片。" },
-  loan: { name: "民间借贷", keys: "借钱 借款 借条 欠条 民间借贷 利息 LPR 还钱 讨债 高利贷 转账 担保 保证人 支付令",
+  loan: { name: "民间借贷", keys: "借钱 借给 借款 借条 欠条 民间借贷 利息 LPR 还钱 不还 讨债 高利贷 转账 担保 保证人 支付令",
     brief: "维权路径：协商 → 书面催告（中断时效）→ 申请支付令 → 起诉 → 申请强制执行。常用法条：《民法典》第188、195、667、675、679、680、686-688条；利息司法保护上限为合同成立时一年期LPR的四倍。关键要素：有无借条/欠条、转账凭证、聊天记录、约定利息、借款时间（3年诉讼时效）。" },
   traffic: { name: "交通事故", keys: "交通事故 车祸 全责 碰撞 追尾 保险 理赔 交强险 定损 误工费 私了 碰瓷 电动车",
     brief: "维权路径：报警（122）→ 取得交通事故认定书 → 保险报案定损理赔 → 调解 → 诉讼。常用法条：《道路交通安全法》第76条，《民法典》第1165、1179、1213条。关键要素：事故认定书、医疗票据、修车发票、误工与收入证明、是否人员受伤。" },
   marriage: { name: "婚姻家庭", keys: "离婚 抚养 抚养费 彩礼 婚内财产 家暴 出轨 共同财产 探望 冷静期",
     brief: "维权路径：协议离婚（30天冷静期）→ 诉讼离婚；家暴可报警 + 申请人身安全保护令。常用法条：《民法典》第1062、1076-1092条，《反家庭暴力法》第23条。关键要素：婚姻状况、财产取得时间与出资、子女年龄、家暴证据（报警记录、验伤报告）。" },
-  criminal: { name: "刑事", keys: "诈骗 抢劫 盗窃 故意伤害 敲诈 勒索 刑事 犯罪 报警 110 被骗",
+  criminal: { name: "刑事", keys: "诈骗 抢劫 抢走 持刀 盗窃 故意伤害 敲诈 勒索 刑事 犯罪 报警 110 被骗",
     brief: "立即拨打110报警并保留证据（转账记录、聊天记录、对方信息）；可拨打12348申请法律援助；被害人有权在刑事案件中提起附带民事诉讼。" }
 };
 function detectDomain(text) {
@@ -5321,7 +5329,9 @@ function typerFinish(onDone) {
 function sendMsg(text) {
   if (streaming) return;
   text = text.trim(); if (!text) return;
-  if (!SETTINGS.apiKey) { sendLocalMsg(text); return; }
+  var useFastGPT = SETTINGS.provider === "fastgpt" && !!SETTINGS.proxyUrl;
+  var useDeepSeek = SETTINGS.provider === "deepseek" && !!SETTINGS.apiKey;
+  if (!useFastGPT && !useDeepSeek) { sendLocalMsg(text); return; }
 
   stopTypewriter();
   var sessionId = ++chatSessionId;
@@ -5349,10 +5359,25 @@ function sendMsg(text) {
   var fullContent = "", resolved = false;
   abortController = new AbortController(); var signal = abortController.signal;
 
-  fetch("https://api.deepseek.com/v1/chat/completions", {
+  var apiUrl = useFastGPT ? SETTINGS.proxyUrl.replace(/\/$/, "") + "/api/chat" : "https://api.deepseek.com/v1/chat/completions";
+  var apiHeaders = { "Content-Type": "application/json" };
+  if (useDeepSeek) apiHeaders.Authorization = "Bearer " + SETTINGS.apiKey;
+  var requestBody = useFastGPT
+    ? { messages: apiMsgs, stream: true, detail: true, chatId: "lvheng-" + chatSessionId }
+    : { model: SETTINGS.model, messages: apiMsgs, stream: true, temperature: 0.2, max_tokens: 4096 };
+  function renderApiFallback(err) {
+    if (err && err.name === "AbortError") return;
+    var local = buildLocalAnswer(text);
+    local = "> 在线智能服务暂时不可用，已自动切换到本地可信知识库。\n\n" + local;
+    messages.push({ role: "assistant", content: local, _time: Date.now() }); persist();
+    stopTypewriter(); contentDiv.innerHTML = renderMD(local); hlAll();
+    var note = document.createElement("div"); note.className = "msg-time"; note.textContent = "本地降级 · " + getTimeStr();
+    msgDiv.querySelector(".msg-body").appendChild(note);
+  }
+  fetch(apiUrl, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: "Bearer " + SETTINGS.apiKey },
-    body: JSON.stringify({ model: SETTINGS.model, messages: apiMsgs, stream: true, temperature: 0.2, max_tokens: 4096 }),
+    headers: apiHeaders,
+    body: JSON.stringify(requestBody),
     signal: signal
   }).then(function(resp) {
     if (!resp.ok) return resp.text().then(function(t) { throw new Error("API " + resp.status + ": " + t.slice(0, 300)); });
@@ -5363,7 +5388,11 @@ function sendMsg(text) {
         if (resolved || chatSessionId !== sessionId) return;
         if (result.done) {
           resolved = true; abortController = null;
-          messages.push({ role: "assistant", content: fullContent || "（空响应）", _time: Date.now() }); persist();
+          var rawContent = fullContent || "（空响应）";
+          var safeContent = _boundary(rawContent, text);
+          if (safeContent.length > rawContent.length) typerFeed(safeContent.slice(rawContent.length));
+          fullContent = safeContent;
+          messages.push({ role: "assistant", content: fullContent, _time: Date.now() }); persist();
           var finishRender = function() {
             hlAll();
             var mt = document.createElement("div"); mt.className = "msg-time"; mt.textContent = getTimeStr();
@@ -5386,7 +5415,7 @@ function sendMsg(text) {
       }).catch(function(e) {
         if (resolved || chatSessionId !== sessionId) return; resolved = true; abortController = null;
         if (fullContent) { var _fc = _boundary(fullContent, text); messages.push({ role: "assistant", content: _fc, _time: Date.now() }); persist(); stopTypewriter(); contentDiv.innerHTML = renderMD(_fc); hlAll(); }
-        else if (!(e && e.name === "AbortError")) { showError(e.message); msgDiv.remove(); }
+        else renderApiFallback(e);
         streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); dom.typing.style.display = "none";
       });
     }
@@ -5394,7 +5423,7 @@ function sendMsg(text) {
   }).catch(function(e) {
     if (resolved || chatSessionId !== sessionId) return; resolved = true; abortController = null;
     if (fullContent) { var _fc = _boundary(fullContent, text); messages.push({ role: "assistant", content: _fc, _time: Date.now() }); persist(); stopTypewriter(); contentDiv.innerHTML = renderMD(_fc); hlAll(); }
-    else if (!(e && e.name === "AbortError")) { showError(e.message); msgDiv.remove(); }
+    else renderApiFallback(e);
     streaming = false; dom.btnSend.disabled = false; dom.btnSend.classList.remove("loading"); dom.typing.style.display = "none";
   });
 }
@@ -5475,32 +5504,40 @@ function closeCaseDetail(){document.getElementById("caseDetail").classList.remov
 function saveApiConfig() {
   var key = document.getElementById("apiKeyInput").value.trim();
   var model = document.getElementById("apiModelSelect").value;
-  if (!key) { showToast("请输入API Key"); return; }
-  if (!key.startsWith("sk-")) { showToast("API Key格式不正确，应以sk-开头"); return; }
-  var config = { apiKey: key, model: model };
+  var provider = document.getElementById("apiProviderSelect").value;
+  var proxyUrl = document.getElementById("fastgptProxyInput").value.trim();
+  if (provider === "fastgpt" && !/^https:\/\//.test(proxyUrl)) { showToast("请填写 https:// 开头的安全代理地址"); return; }
+  if (provider === "deepseek" && !key.startsWith("sk-")) { showToast("DeepSeek Key应以sk-开头"); return; }
+  var config = { apiKey: provider === "deepseek" ? key : "", model: model, provider: provider, proxyUrl: proxyUrl };
   try { localStorage.setItem("seawhy-lex-config", JSON.stringify(config)); } catch(e) {}
-  SETTINGS.apiKey = key;
+  SETTINGS.apiKey = config.apiKey;
   SETTINGS.model = model;
+  SETTINGS.provider = provider;
+  SETTINGS.proxyUrl = proxyUrl;
   showApiStatus();
   showToast("API配置已保存");
 }
 function loadApiConfig() {
   try {
     var s = JSON.parse(localStorage.getItem("seawhy-lex-config") || "{}");
-    if (s.apiKey) {
-      document.getElementById("apiKeyInput").value = s.apiKey;
-      document.getElementById("apiModelSelect").value = s.model || "deepseek-v4-flash";
-    }
+    document.getElementById("apiProviderSelect").value = s.provider || (s.apiKey ? "deepseek" : "fastgpt");
+    document.getElementById("apiKeyInput").value = s.apiKey || "";
+    document.getElementById("fastgptProxyInput").value = s.proxyUrl || "";
+    document.getElementById("apiModelSelect").value = s.model || "deepseek-chat";
   } catch(e) {}
+  updateApiProviderUI();
   showApiStatus();
 }
-function clearApiConfig(){document.getElementById("apiKeyInput").value="";try{localStorage.removeItem("seawhy-lex-config")}catch(e){}SETTINGS.apiKey="";SETTINGS.model="deepseek-v4-flash";showApiStatus();showToast("API配置已清空");}
+function updateApiProviderUI(){var p=document.getElementById("apiProviderSelect").value;document.getElementById("fastgptProxyInput").style.display=p==="fastgpt"?"":"none";document.getElementById("apiKeyInput").style.display=p==="deepseek"?"":"none";document.getElementById("apiModelSelect").style.display=p==="deepseek"?"":"none";}
+function clearApiConfig(){document.getElementById("apiKeyInput").value="";document.getElementById("fastgptProxyInput").value="";try{localStorage.removeItem("seawhy-lex-config")}catch(e){}SETTINGS=Object.assign({},DEFAULTS);updateApiProviderUI();showApiStatus();showToast("API配置已清空");}
 function showApiStatus() {
   var el = document.getElementById("apiStatus");
-  if (SETTINGS.apiKey) {
+  if (SETTINGS.provider === "fastgpt" && SETTINGS.proxyUrl) {
+    el.innerHTML = '<span class="api-status set">已配置</span> 组委会 FastGPT 安全代理';
+  } else if (SETTINGS.provider === "deepseek" && SETTINGS.apiKey) {
     el.innerHTML = '<span class="api-status set">已配置</span> ' + SETTINGS.model;
   } else {
-    el.innerHTML = '<span class="api-status unset">未配置</span> 请设置API Key以启用AI问答';
+    el.innerHTML = '<span class="api-status unset">本地模式</span> 未配置在线服务，FAQ与学习功能仍可用';
   }
 }
 

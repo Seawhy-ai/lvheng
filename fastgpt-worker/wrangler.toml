@@ -1,0 +1,11 @@
+name = "lvheng-fastgpt-proxy"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+FASTGPT_BASE_URL = "https://fastgpt.sangfor.com.cn:19443"
+FASTGPT_APP_ID = "6a8260f5f70be1cf2fe82255"
+ALLOWED_ORIGINS = "https://seawhy-ai.github.io"
+
+# 密钥不能写在这里。部署后在 Cloudflare 控制台添加 Secret：
+# FASTGPT_API_KEY = 组委会提供的临时应用密钥

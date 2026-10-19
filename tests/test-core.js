@@ -220,3 +220,15 @@ function TC_META_含OG标签() {
   return LAW_HTML_RAW.indexOf("property=\"og:title\"") >= 0 &&
          LAW_HTML_RAW.indexOf("property=\"og:image\"") >= 0;
 }
+
+/* ============ 9. 决赛版安全与教育闭环 ============ */
+function TC_FINALS_在线回答经过边界后处理() {
+  return LAW_HTML_RAW.indexOf("var safeContent = _boundary(rawContent, text)") >= 0;
+}
+function TC_FINALS_备份不导出API密钥() {
+  return LAW_HTML_RAW.indexOf('data.settings = { model: exportedSettings.model || "deepseek-chat", provider:') >= 0 &&
+    LAW_HTML_RAW.indexOf("data.settings = JSON.parse(localStorage.getItem") < 0;
+}
+function TC_FINALS_新模块纳入离线缓存() {
+  return SW_RAW.indexOf('"finals.css"') >= 0 && SW_RAW.indexOf('"finals.js"') >= 0;
+}
