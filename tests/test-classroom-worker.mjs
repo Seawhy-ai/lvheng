@@ -28,9 +28,18 @@ const h3=await mod.passwordHash("safe-password","salt-b");
 assert.equal(h1,h2);
 assert.notEqual(h1,h3);
 
+const parsed=mod.modelJson({choices:[{message:{content:'```json\n{"summary":"基于真实数据"}\n```'}}]});
+assert.equal(parsed.summary,"基于真实数据");
+assert.throws(()=>mod.modelJson({choices:[{message:{content:"不是结构化结果"}}]}),/结构化/);
+const coach=mod.cleanCoach({diagnosis:"需要补充事实",nextQuestion:"工资如何约定？",missingFacts:["工资约定"],laws:["劳动合同法"],evidence:["聊天记录"],actions:["固定证据"]});
+assert.equal(coach.source,"fastgpt");
+assert.equal(coach.nextQuestion,"工资如何约定？");
+const insight=mod.cleanInsight({summary:"证据意识偏弱",findings:["证据维度最低"],groups:["基础组"],interventions:["补充微课"]});
+assert.deepEqual(insight.interventions,["补充微课"]);
+
 const migration=fs.readFileSync(new URL("../fastgpt-worker/migrations/0001_classroom.sql",import.meta.url),"utf8");
 for(const table of ["users","sessions","classes","class_members","tasks","submissions"]){
   assert.match(migration,new RegExp(`CREATE TABLE ${table}\\b`));
 }
 
-console.log("Classroom Worker: 8/8 tests passed");
+console.log("Classroom Worker: 13/13 tests passed");

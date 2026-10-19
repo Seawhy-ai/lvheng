@@ -3,7 +3,7 @@
 一个 Cloudflare Worker 同时承担两类服务：
 
 - D1 业务后端：教师、学生、班级、任务、提交、五维评价和学情统计。
-- FastGPT 安全服务：密钥只保存在 Worker Secret 中，浏览器永远接触不到。
+- FastGPT 智能体服务：密钥只保存在 Worker Secret 中，负责教学设计、学生陪练和匿名班级诊断，浏览器永远接触不到密钥。
 
 ## 数据与权限
 
@@ -12,6 +12,7 @@
 - 一个学生对同一任务只能提交一次。
 - 密码使用 PBKDF2-SHA256 加盐哈希；会话令牌在数据库中只保存 SHA-256 摘要。
 - 班级统计只来自 D1 中的真实提交，不预置学生、成绩或完成率。
+- 学生自主问题不写入班级学情；班级诊断只向模型发送匿名化分数与五维结果。
 
 数据库迁移位于 `migrations/0001_classroom.sql`。
 
@@ -50,7 +51,9 @@ npx wrangler deploy
 - `PATCH /api/tasks/:id/publish`
 - `POST /api/tasks/:id/submit`
 - `GET /api/classes/:id/dashboard`
-- `POST /api/ai/task-draft`
+- `POST /api/agent/task-draft`
+- `POST /api/agent/coach`
+- `POST /api/agent/class-insight`
 - `POST /api/chat`
 
 决赛后即使 FastGPT Key 到期，账号、班级、任务、提交和规则评分仍能继续工作；受影响的只有 AI 生成与对话能力。
