@@ -17,6 +17,19 @@ async function ownClass(db,classId,teacherId){const row=await db.prepare("SELECT
 async function taskAccess(db,taskId,user){const task=await db.prepare("SELECT t.*,c.teacher_id FROM tasks t JOIN classes c ON c.id=t.class_id WHERE t.id=?").bind(taskId).first();if(!task)fail("任务不存在",404);if(user.role==="teacher"&&task.teacher_id!==user.id)fail("没有操作权限",403);if(user.role==="student"){const m=await db.prepare("SELECT 1 ok FROM class_members WHERE class_id=? AND student_id=?").bind(task.class_id,user.id).first();if(!m||task.status!=="published")fail("任务尚未发布或无权访问",403)}return task}
 function publicUser(user,session){return{user:{id:user.id,role:user.role,name:user.display_name,username:user.username},token:session.token,expiresAt:session.expiresAt}}
 function safeParse(v,fallback){try{return JSON.parse(v)}catch(_){return fallback}}
+function verifyTeacherSetup(env,value){
+  const expected=env.TEACHER_SETUP_CODE;
+  if(typeof expected!=="string"||!expected.length)
+    fail("[TEACHER_SETUP_MISSING] 当前运行版本未读取到教师注册码，请检查生产环境密钥并部署",503);
+  if(expected!==expected.trim())
+    fail("[TEACHER_SETUP_WHITESPACE] 后端注册码含首尾空白，请在Cloudflare重新保存并部署",503);
+  if(typeof value!=="string"||!value.length)
+    fail("[TEACHER_SETUP_REQUIRED] 请填写教师注册码",400);
+  if(value!==value.trim())
+    fail("[TEACHER_INPUT_WHITESPACE] 输入的注册码含首尾空白，请去除后重试",400);
+  if(value!==expected)
+    fail("[TEACHER_SETUP_MISMATCH] 已读取后端注册码，但与本次输入不一致，请核对大小写及字符",403);
+}
 function aiProvider(env){return env.AI_PROVIDER|| (env.DEEPSEEK_API_KEY?"deepseek":"fastgpt")}
 async function deepseek(env,messages,{stream=false,structured=false}={}){
   if(!env.DEEPSEEK_API_KEY)fail("[DEEPSEEK_KEY_MISSING] 尚未配置DEEPSEEK_API_KEY",503);
@@ -112,7 +125,7 @@ async function route(request,env,url,origin){const p=url.pathname;
 if(p==="/health")return reply({ok:true,service:"lvheng-classroom-api",database:!!env.DB,fastgpt:!!env.FASTGPT_API_KEY,deepseek:!!env.DEEPSEEK_API_KEY,provider:aiProvider(env),configured:aiProvider(env)==="deepseek"?!!env.DEEPSEEK_API_KEY:!!env.FASTGPT_API_KEY},200,origin,env);
 if(p==="/api/chat"&&request.method==="POST"){const v=await json(request);if(!Array.isArray(v.messages)||!v.messages.length)fail("messages must be a non-empty array");return chatProxy(env,v,origin)}
 if(!env.DB)fail("数据库尚未绑定",503);
-if(p==="/api/auth/teacher/register"&&request.method==="POST"){const v=await json(request);if(!env.TEACHER_SETUP_CODE||v.setupCode!==env.TEACHER_SETUP_CODE)fail("教师注册码无效",403);const username=text(v.username,"账号",3,40).toLowerCase(),name=text(v.name,"姓名",2,30),password=text(v.password,"密码",8,80);if(await env.DB.prepare("SELECT 1 ok FROM users WHERE username=?").bind(username).first())fail("账号已存在",409);const userId=id(),salt=id(),hash=await passwordHash(password,salt);await env.DB.prepare("INSERT INTO users (id,role,username,display_name,password_hash,password_salt,created_at) VALUES (?,'teacher',?,?,?,?,?)").bind(userId,username,name,hash,salt,now()).run();return reply(publicUser({id:userId,role:"teacher",display_name:name,username},await newSession(env.DB,userId)),201,origin,env)}
+if(p==="/api/auth/teacher/register"&&request.method==="POST"){const v=await json(request);verifyTeacherSetup(env,v.setupCode);const username=text(v.username,"账号",3,40).toLowerCase(),name=text(v.name,"姓名",2,30),password=text(v.password,"密码",8,80);if(await env.DB.prepare("SELECT 1 ok FROM users WHERE username=?").bind(username).first())fail("账号已存在",409);const userId=id(),salt=id(),hash=await passwordHash(password,salt);await env.DB.prepare("INSERT INTO users (id,role,username,display_name,password_hash,password_salt,created_at) VALUES (?,'teacher',?,?,?,?,?)").bind(userId,username,name,hash,salt,now()).run();return reply(publicUser({id:userId,role:"teacher",display_name:name,username},await newSession(env.DB,userId)),201,origin,env)}
 if(p==="/api/auth/login"&&request.method==="POST"){const v=await json(request),username=text(v.username,"账号",3,80).toLowerCase(),password=text(v.password,"密码",4,80),user=await env.DB.prepare("SELECT * FROM users WHERE username=?").bind(username).first();if(!user||await passwordHash(password,user.password_salt)!==user.password_hash)fail("账号或密码错误",401);return reply(publicUser(user,await newSession(env.DB,user.id)),200,origin,env)}
 if(p==="/api/auth/student/join"&&request.method==="POST"){const v=await json(request),classCode=text(v.classCode,"班级码",6,6).toUpperCase(),name=text(v.name,"姓名",2,30),pin=text(v.pin,"学习密码",4,20),cls=await env.DB.prepare("SELECT * FROM classes WHERE join_code=? AND archived=0").bind(classCode).first();if(!cls)fail("班级码无效",404);const username=(classCode+"-"+name).toLowerCase();let user=await env.DB.prepare("SELECT * FROM users WHERE username=?").bind(username).first();if(user){if(await passwordHash(pin,user.password_salt)!==user.password_hash)fail("姓名已使用，请输入原学习密码",409)}else{const userId=id(),salt=id(),hash=await passwordHash(pin,salt);await env.DB.prepare("INSERT INTO users (id,role,username,display_name,password_hash,password_salt,created_at) VALUES (?,'student',?,?,?,?,?)").bind(userId,username,name,hash,salt,now()).run();user={id:userId,role:"student",username,display_name:name};await env.DB.prepare("INSERT OR IGNORE INTO class_members (class_id,student_id,joined_at) VALUES (?,?,?)").bind(cls.id,userId,now()).run()}return reply({...publicUser(user,await newSession(env.DB,user.id)),classroom:{id:cls.id,name:cls.name,code:cls.join_code}},200,origin,env)}
 const user=await auth(request,env);
