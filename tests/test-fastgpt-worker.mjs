@@ -51,3 +51,38 @@ assert.equal(captured.init.headers["x-relay-token"],relayEnv.FASTGPT_RELAY_TOKEN
 assert.equal(captured.init.redirect,"error");
 assert.equal(captured.init.headers.authorization,"Bearer test-only-not-a-real-key");
 console.log("Worker authenticated relay forwarding passed");
+
+function chatRequest(){
+  return new Request("https://proxy.example/api/chat",{
+    method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({stream:false,messages:[{role:"user",content:"test"}]})
+  });
+}
+for(const [patch,code] of [
+  [{FASTGPT_RELAY_URL:"not a URL"},"RELAY_URL_INVALID"],
+  [{FASTGPT_RELAY_URL:"https://relay.example/api"},"RELAY_URL_INVALID"],
+  [{FASTGPT_RELAY_TOKEN:""},"RELAY_TOKEN_MISSING"],
+  [{FASTGPT_RELAY_TOKEN:relayEnv.FASTGPT_RELAY_TOKEN+"\n"},"RELAY_TOKEN_FORMAT"],
+  [{FASTGPT_API_KEY:"key\nprivate-value"},"API_KEY_FORMAT"]
+]){
+  globalThis.fetch=async()=>{throw new Error("Validation must run before fetch")};
+  res=await worker.fetch(chatRequest(),{...relayEnv,...patch});
+  assert.equal(res.status,503);
+  const body=await res.text();
+  assert.ok(body.includes(code),body);
+  assert.ok(!body.includes("private-value"));
+  assert.ok(!body.includes(relayEnv.FASTGPT_RELAY_TOKEN));
+}
+globalThis.fetch=async()=>{throw new Error("secret-upstream-message")};
+res=await worker.fetch(chatRequest(),relayEnv);
+assert.equal(res.status,502);
+let body=await res.text();
+assert.ok(body.includes("RELAY_FETCH_FAILED"));
+assert.ok(!body.includes("secret-upstream-message"));
+res=await worker.fetch(chatRequest(),env);
+assert.match(await res.text(),/DIRECT_FETCH_FAILED/);
+globalThis.fetch=async()=>{throw new DOMException("secret-timeout","TimeoutError")};
+res=await worker.fetch(chatRequest(),relayEnv);
+assert.equal(res.status,504);
+assert.match(await res.text(),/UPSTREAM_TIMEOUT/);
+console.log("Safe configuration and network diagnostics passed");

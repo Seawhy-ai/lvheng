@@ -18,14 +18,39 @@ async function taskAccess(db,taskId,user){const task=await db.prepare("SELECT t.
 function publicUser(user,session){return{user:{id:user.id,role:user.role,name:user.display_name,username:user.username},token:session.token,expiresAt:session.expiresAt}}
 function safeParse(v,fallback){try{return JSON.parse(v)}catch(_){return fallback}}
 async function upstreamFetch(env,url,options){
+  const diagnostic=(code,message,status=503)=>fail(`[${code}] ${message}`,status);
+  if(!/^[\x21-\x7e]+$/.test(env.FASTGPT_API_KEY||""))
+    diagnostic("API_KEY_FORMAT","FastGPT密钥含空白或非法字符，请重新复制");
   if(env.FASTGPT_RELAY_URL){
-    const relay=new URL(env.FASTGPT_RELAY_URL);
-    if(relay.protocol!=="https:"||relay.username||relay.password||relay.search||relay.hash||relay.pathname!=="/")fail("中转地址必须是HTTPS根地址",503);
-    if(!env.FASTGPT_RELAY_TOKEN||env.FASTGPT_RELAY_TOKEN.length<32)fail("中转认证密钥尚未配置",503);
+    let relay;
+    try{relay=new URL(env.FASTGPT_RELAY_URL)}catch{
+      diagnostic("RELAY_URL_INVALID","中转地址格式错误");
+    }
+    if(relay.protocol!=="https:"||relay.username||relay.password||relay.search||relay.hash||relay.pathname!=="/")
+      diagnostic("RELAY_URL_INVALID","中转地址必须是HTTPS根地址，不要添加/api");
+    if(!env.FASTGPT_RELAY_TOKEN||env.FASTGPT_RELAY_TOKEN.length<32)
+      diagnostic("RELAY_TOKEN_MISSING","中转认证密钥缺失或不足32个字符");
+    if(!/^[\x21-\x7e]+$/.test(env.FASTGPT_RELAY_TOKEN))
+      diagnostic("RELAY_TOKEN_FORMAT","中转认证密钥含空白或非法字符，请重新复制");
     url=relay.origin+"/api/v1/chat/completions";
     options={...options,headers:{...options.headers,"x-relay-token":env.FASTGPT_RELAY_TOKEN}};
+  }else{
+    let direct;
+    try{direct=new URL(url)}catch{diagnostic("API_URL_INVALID","FastGPT地址格式错误")}
+    if(direct.protocol!=="https:"||direct.username||direct.password||direct.search||direct.hash)
+      diagnostic("API_URL_INVALID","FastGPT地址必须是无认证信息的HTTPS地址");
   }
-  return fetch(url,{...options,redirect:"error",signal:AbortSignal.timeout(95000)});
+  // Use AbortController for runtime compatibility; never expose raw exception messages.
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),95000);
+  try{
+    return await fetch(url,{...options,redirect:"error",signal:controller.signal});
+  }catch(error){
+    if(controller.signal.aborted||error?.name==="TimeoutError"||error?.name==="AbortError")
+      diagnostic("UPSTREAM_TIMEOUT","上游连接超时，请稍后重试",504);
+    diagnostic(env.FASTGPT_RELAY_URL?"RELAY_FETCH_FAILED":"DIRECT_FETCH_FAILED",
+      env.FASTGPT_RELAY_URL?"Worker无法连接中转服务":"Worker无法直连FastGPT，请检查中转配置",502);
+  }finally{clearTimeout(timer)}
 }
 function modelJson(data){let value=data&&data.choices&&data.choices[0]&&data.choices[0].message?data.choices[0].message.content:null;if(value&&typeof value==="object")return value;if(typeof value!=="string")fail("智能体返回格式异常",502);value=value.trim().replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/,"");const a=value.indexOf("{"),b=value.lastIndexOf("}");if(a<0||b<a)fail("智能体未返回结构化结果",502);const out=safeParse(value.slice(a,b+1),null);if(!out||typeof out!=="object"||Array.isArray(out))fail("智能体返回格式异常",502);return out}
 function strings(value,fallback=[]){if(!Array.isArray(value))return fallback;return value.slice(0,8).map(x=>String(x||"").trim().slice(0,300)).filter(Boolean)}
@@ -33,8 +58,8 @@ function cleanCoach(value){return{stage:String(value.stage||"形成性反馈").s
 function cleanInsight(value){return{summary:String(value.summary||"已根据有效提交形成班级诊断。 ").trim().slice(0,800),findings:strings(value.findings),groups:strings(value.groups),interventions:strings(value.interventions),source:"fastgpt"}}
 function validateContent(content){if(!content||typeof content!=="object"||!Array.isArray(content.questions)||content.questions.length!==5)fail("任务必须包含5个能力环节");const seen=new Set();content.questions.forEach((q,i)=>{q.prompt=text(q.prompt,`第${i+1}题`,5,500);if(!Array.isArray(q.options)||q.options.length<2||q.options.length>6)fail(`第${i+1}题选项数量无效`);q.options=q.options.map((x,j)=>text(x,`第${i+1}题选项${j+1}`,1,200));q.answer=Number(q.answer);if(!Number.isInteger(q.answer)||q.answer<0||q.answer>=q.options.length)fail(`第${i+1}题答案无效`);q.ability=ABILITIES.includes(q.ability)?q.ability:ABILITIES[i];q.explain=text(q.explain||"请结合事实和规则重新判断。",`第${i+1}题解析`,2,500);seen.add(q.ability)});if(seen.size!==5)fail("五个题目必须分别对应五项能力");return content}
 function evaluate(content,answers){if(!Array.isArray(answers)||answers.length!==5)fail("请完成全部5个环节");const scores={},details=[];content.questions.forEach((q,i)=>{const selected=Number(answers[i]),ok=selected===q.answer,score=ok?20:8;scores[q.ability]=score;details.push({ability:q.ability,correct:ok,score,selected,answer:q.answer,explain:q.explain})});return{scores,total:Object.values(scores).reduce((a,b)=>a+b,0),details}}
-async function fastgpt(env,messages,chatId){if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await upstreamFetch(env,base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:chatId||id(),stream:false,detail:true,messages:messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"").slice(0,12000)}))})})}catch(_){fail("FastGPT暂时不可用",502)}if(!upstream.ok)fail("FastGPT调用失败",502);return upstream.json()}
-async function chatProxy(env,input,origin){if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await upstreamFetch(env,base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:typeof input.chatId==="string"?input.chatId.slice(0,80):id(),stream:input.stream!==false,detail:input.detail!==false,messages:input.messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"").slice(0,12000)}))})})}catch(_){fail("FastGPT暂时不可用",502)}const headers=new Headers(upstream.headers);Object.entries(cors(origin,env)).forEach(([k,v])=>headers.set(k,v));headers.set("cache-control","no-store");headers.delete("set-cookie");return new Response(upstream.body,{status:upstream.status,headers})}
+async function fastgpt(env,messages,chatId){if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await upstreamFetch(env,base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:chatId||id(),stream:false,detail:true,messages:messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"").slice(0,12000)}))})})}catch(e){if(e.status)throw e;fail("[UPSTREAM_SETUP_FAILED] 上游请求初始化失败",502)}if(!upstream.ok)fail("FastGPT调用失败",502);return upstream.json()}
+async function chatProxy(env,input,origin){if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await upstreamFetch(env,base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:typeof input.chatId==="string"?input.chatId.slice(0,80):id(),stream:input.stream!==false,detail:input.detail!==false,messages:input.messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"").slice(0,12000)}))})})}catch(e){if(e.status)throw e;fail("[UPSTREAM_SETUP_FAILED] 上游请求初始化失败",502)}const headers=new Headers(upstream.headers);Object.entries(cors(origin,env)).forEach(([k,v])=>headers.set(k,v));headers.set("cache-control","no-store");headers.delete("set-cookie");return new Response(upstream.body,{status:upstream.status,headers})}
 async function route(request,env,url,origin){const p=url.pathname;
 if(p==="/health")return reply({ok:true,service:"lvheng-classroom-api",database:!!env.DB,fastgpt:!!env.FASTGPT_API_KEY,configured:!!env.FASTGPT_API_KEY},200,origin,env);
 if(p==="/api/chat"&&request.method==="POST"){const v=await json(request);if(!Array.isArray(v.messages)||!v.messages.length)fail("messages must be a non-empty array");return chatProxy(env,v,origin)}
