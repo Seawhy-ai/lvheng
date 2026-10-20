@@ -16,5 +16,6 @@
     link.style.cssText='position:fixed;right:16px;bottom:max(18px,env(safe-area-inset-bottom));z-index:9999;padding:12px 18px;border-radius:14px;background:#214f49;color:white;font-size:13px;text-decoration:none;box-shadow:0 4px 20px #173c5030';
     document.body.appendChild(link);
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enterResource);else enterResource();
+  // Defer scripts run in the interactive state, before the legacy initApp listener.
+  if(document.readyState!=='complete')document.addEventListener('DOMContentLoaded',enterResource);else enterResource();
 })();
