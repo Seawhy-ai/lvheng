@@ -1,0 +1,163 @@
+/* Desktop workspace layouts. Mobile rules remain in the original stylesheets. */
+@media (min-width:1024px) {
+  :root { --workspace-width:1440px; }
+  .cm-header { height:80px; padding-inline:max(32px,calc((100% - var(--workspace-width))/2)); }
+  #view,.site-footer { width:min(calc(100% - 80px),var(--workspace-width)); }
+  #view { padding-top:32px; }
+  .welcome-layout { grid-template-columns:minmax(0,1.35fr) minmax(360px,.85fr); gap:clamp(48px,6vw,112px); min-height:calc(100vh - 200px); }
+  .welcome-story { min-height:620px; }
+  .welcome-entry { max-width:510px; width:100%; justify-self:end; padding:42px; }
+  .welcome-story h1 { font-size:clamp(48px,4vw,68px); }
+  .welcome-art { width:350px; right:4%; }
+  .welcome-story>p { font-size:16px; }
+  .dash-grid>* { min-width:0; }
+  .dash-head h1 { font-size:34px; }
+  .dash-actions button,.row-btn,.primary,.secondary { font-size:14px; }
+  .panel-head small,.class-row small,.recent-row small,.studio-task-row small { font-size:12px; }
+  .panel-head h2 { font-size:19px; }
+  .class-row b,.recent-row b,.studio-task-row b { font-size:15px; overflow-wrap:anywhere; }
+  .class-code { font-size:13px; }
+  .agent-console { padding:28px 32px; }
+  .agent-console h2 { font-size:26px; }
+  .agent-console p,.agent-actions button { font-size:14px; }
+  .kpi small { font-size:13px; }
+  .kpi b { font-size:40px; }
+  .task-list { gap:4px; }
+  .studio-task-row { padding:20px 0; }
+  .studio-task-row button { font-size:13px; }
+  .class-list { max-height:55vh; overflow:auto; scrollbar-gutter:stable; }
+  .recent-list { max-height:480px; overflow:auto; }
+
+  /* Persistent student navigation replaces the mobile bottom dock. */
+  body.student-mode .cm-header { display:flex; height:80px; }
+  body.student-mode #view {
+    width:min(calc(100% - 280px),1232px);
+    margin-left:max(232px,calc((100vw - 1440px)/2 + 208px));
+    margin-right:40px; padding:32px 0 48px;
+  }
+  .student-v2 { min-height:calc(100vh - 240px); }
+  .student-bottom {
+    left:max(24px,calc((100vw - 1440px)/2)); top:112px; bottom:auto;
+    transform:none; width:176px; max-width:none; display:flex; flex-direction:column;
+    padding:12px; gap:8px; box-shadow:none; background:#fffefb; border-radius:14px;
+  }
+  .student-bottom button { display:flex; gap:14px; padding:17px 14px; font-size:14px; border-radius:9px; }
+  .student-bottom button i { display:flex; align-items:center; }
+  .student-bottom button.on { background:#e8efe4; color:#245747; }
+  .student-mode .site-footer {
+    width:min(calc(100% - 280px),1232px); max-width:none;
+    margin-left:max(232px,calc((100vw - 1440px)/2 + 208px)); padding:24px 0 30px;
+  }
+  .atlas-greeting { margin-bottom:28px; }
+  .atlas-greeting h1 { font-size:28px; }
+  .atlas-copy { padding:36px; }
+  .atlas-copy h2 { font-size:clamp(36px,3vw,52px); }
+  .atlas-copy p,.atlas-copy button { font-size:14px; }
+  .atlas-progress { padding:28px 8px; }
+  .atlas-progress h3 { font-size:19px; }
+  .atlas-progress p,.atlas-progress small { font-size:13px; }
+  .atlas-scenarios { gap:24px; }
+  .atlas-scenarios>button { padding:24px; }
+  .scene-index,.atlas-scenarios footer { font-size:13px; }
+  .student-page-head { padding:32px; margin-bottom:24px; }
+  .student-page-head h1 { font-size:32px; }
+  .student-page-head p,.student-page-head small { font-size:13px; }
+  .student-class-list { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+  .student-class-list>.empty { grid-column:1/-1; }
+  .student-class-task { display:flex; flex-direction:column; padding:26px; }
+  .student-class-task h2 { font-size:21px; line-height:1.5; overflow-wrap:anywhere; }
+  .student-class-task p { font-size:14px; line-height:1.9; flex:1; }
+  .student-class-task>span { font-size:12px; }
+  .student-class-task button { margin-top:16px; }
+  .student-report { display:grid; grid-template-columns:minmax(240px,.8fr) minmax(0,1.2fr); gap:24px; }
+  .student-report>.panel,.student-report>.report-summary { margin:0; padding:30px; }
+  .student-report>.panel:last-child { grid-column:1/-1; }
+  .student-report .report-summary { display:flex; flex-direction:column; justify-content:center; }
+  .ability-row { font-size:14px; grid-template-columns:90px 1fr 40px; }
+  .student-v2 .resource-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 32px; }
+  .student-v2 .resource-grid a { padding:30px 36px 30px 42px; min-height:130px; }
+  .student-v2 .resource-grid b { font-size:22px; }
+  .student-v2 .resource-grid span { font-size:14px; }
+
+  /* Reading remains at a comfortable line length; editing uses a wider canvas. */
+  .cm-modal { padding:28px; }
+  .cm-modal-card { max-height:calc(100dvh - 56px); padding:36px; width:min(680px,100%); scrollbar-gutter:stable; }
+  .cm-modal-close { position:sticky; top:0; float:right; z-index:5; }
+  .cm-modal-card:has(#taskForm),.cm-modal-card:has(.answer-review) { width:min(1000px,100%); padding:36px 48px; }
+  .quiz-head h2 { font-size:30px; }
+  .scenario { font-size:15px; }
+  .question h3 { font-size:18px; }
+  .options { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .options label { padding:18px; font-size:15px; align-items:baseline; }
+  .review-item { padding:24px 0; }
+  .result p,.review-explanation { font-size:14px; }
+  .cm-modal-card:has(.task-studio) { width:min(1380px,100%); padding:0; overflow:hidden; }
+  .cm-modal-card:has(.task-studio) .cm-modal-close { position:absolute; float:none; top:14px; right:14px; }
+  .task-studio { display:flex; flex-direction:column; max-height:calc(100dvh - 56px); }
+  .studio-heading { flex-shrink:0; padding:24px 54px 24px 30px; }
+  .studio-layout { grid-template-columns:180px minmax(0,1fr) 220px; min-height:0; overflow:auto; flex:1; }
+  .studio-nav,.studio-editor,.studio-summary { overflow:auto; min-height:0; }
+  .studio-editor { padding:30px; }
+  .studio-nav>button { padding:15px 12px; }
+  .studio-footer { flex-shrink:0; padding:18px 30px; }
+  .studio-manage-grid { overflow:auto; min-height:0; }
+  #whaleFloat { right:24px; bottom:24px; }
+  #whaleDialog { width:420px; right:28px; bottom:112px; max-height:calc(100dvh - 140px); }
+  #whaleMessages { min-height:100px; }
+  #whaleInput,.whale-message { font-size:15px; }
+
+  /* Resource modules: catalog grids, wide work areas, restrained reading width. */
+  :is(#dbView,#caseView,#quizView,#docView,#calcView,#lawReaderView)>.wx-nav { height:76px; min-height:76px; }
+  :is(#dbView,#caseView,#quizView,#docView,#calcView,#lawReaderView)>.wx-nav .back,
+  :is(#dbView,#caseView,#quizView,#docView,#calcView,#lawReaderView)>.wx-nav .nav-right { top:38px; }
+  #dbView .db-body,#caseView .case-body,#quizView .quiz-body,#docView .doc-body,#calcView .tool-body {
+    width:100%; max-width:1360px; margin:0 auto; padding:32px 48px 96px; scrollbar-gutter:stable;
+  }
+  #caseView .case-cats { width:min(calc(100% - 96px),1264px); margin:20px auto 0; gap:12px; flex-wrap:wrap; }
+  #caseList { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-content:start; gap:18px; }
+  .case-card { margin:0; padding:22px; min-width:0; }
+  .case-card .case-title { white-space:normal; font-size:16px; }
+  .case-card .case-sub { font-size:13px; }
+  #dbContent { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 24px; }
+  #dbContent>.db-category { grid-column:1/-1; font-size:16px; margin-top:18px; }
+  #dbContent>.important-law-list { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+  #dbContent .important-law-card { margin:0; min-width:0; }
+  #dbContent>.law-card { margin:0; min-width:0; padding:22px; }
+  #dbContent>.law-card .law-info { min-width:0; }
+  .db-header { padding:30px; }
+  .db-header h2,.quiz-header h2,.doc-header h2 { font-size:30px; }
+  .db-search input { padding:16px; font-size:16px; }
+  .quiz-menu-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+  .quiz-menu-btn { padding:28px; }
+  .quiz-navbar { max-width:900px; border-radius:14px 14px 0 0; padding:14px 28px; }
+  .doc-type-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+  .doc-result-content { font-size:16px; line-height:2; }
+  #calcView .tool-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px 40px; align-content:start; align-items:start; }
+  #calcTypes { grid-column:1/-1; }
+  #calcForm,#calcResult { min-width:0; }
+  #lawReaderView .lr-body,.case-detail .cd-content { padding:40px max(48px,calc((100% - 920px)/2)) 96px; font-size:16px; line-height:2; }
+  #resourceReturn { bottom:24px!important; right:28px!important; }
+}
+@media (min-width:1280px) {
+  .dash-grid { grid-template-columns:240px minmax(0,1fr) 300px; grid-template-areas:"classes tasks ability" "classes tasks recent" ". tasks logout"; align-items:start; gap:24px; }
+  .dash-grid>div { display:contents; }
+  .dash-grid>div:first-child>.panel:first-child { grid-area:classes; }
+  .dash-grid>div:first-child>.panel:nth-child(2) { grid-area:tasks; }
+  .dash-grid>div:nth-child(2)>.panel:first-child { grid-area:ability; }
+  .dash-grid>div:nth-child(2)>.panel:nth-child(2) { grid-area:recent; }
+  .dash-grid #logout { grid-area:logout; justify-self:start; }
+  .dash-grid .panel { margin:0; padding:22px; }
+  .dash-grid .class-row { flex-wrap:wrap; gap:6px; }
+  .dash-grid .class-row>div { flex-basis:100%; }
+  .dash-grid .ability-row { grid-template-columns:76px 1fr 32px; font-size:12px; gap:7px; }
+}
+@media (min-width:1600px) {
+  .student-class-list { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .student-v2 .resource-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media (min-width:1024px) and (max-height:720px) {
+  .studio-heading { padding-block:16px; }
+  .studio-heading p,.studio-coach { display:none; }
+  .studio-footer { padding-block:12px; }
+  .welcome-layout { min-height:600px; }
+}
