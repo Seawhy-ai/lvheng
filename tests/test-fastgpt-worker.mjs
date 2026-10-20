@@ -48,7 +48,7 @@ res=await worker.fetch(new Request("https://proxy.example/api/chat",{
 assert.equal(res.status,200);
 assert.equal(captured.url,"https://relay.example/api/v1/chat/completions");
 assert.equal(captured.init.headers["x-relay-token"],relayEnv.FASTGPT_RELAY_TOKEN);
-assert.equal(captured.init.redirect,"error");
+assert.equal(captured.init.redirect,"manual");
 assert.equal(captured.init.headers.authorization,"Bearer test-only-not-a-real-key");
 console.log("Worker authenticated relay forwarding passed");
 
@@ -86,3 +86,10 @@ res=await worker.fetch(chatRequest(),relayEnv);
 assert.equal(res.status,504);
 assert.match(await res.text(),/UPSTREAM_TIMEOUT/);
 console.log("Safe configuration and network diagnostics passed");
+globalThis.fetch=async(url,init)=>{
+  assert.equal(init.redirect,"manual");
+  return new Response(null,{status:307,headers:{location:"https://untrusted.example"}});
+};
+res=await worker.fetch(chatRequest(),relayEnv);
+assert.equal(res.status,502);
+assert.match(await res.text(),/UPSTREAM_REDIRECT_REFUSED/);

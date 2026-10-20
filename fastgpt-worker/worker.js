@@ -26,7 +26,7 @@ async function deepseek(env,messages,{stream=false,structured=false}={}){
   let response;
   try{
     response=await fetch("https://api.deepseek.com/chat/completions",{
-      method:"POST",redirect:"error",signal:controller.signal,
+      method:"POST",redirect:"manual",signal:controller.signal,
       headers:{"content-type":"application/json",authorization:"Bearer "+env.DEEPSEEK_API_KEY},
       body:JSON.stringify({
         model:env.DEEPSEEK_MODEL||"deepseek-flash",
@@ -41,6 +41,10 @@ async function deepseek(env,messages,{stream=false,structured=false}={}){
   }catch{
     fail(controller.signal.aborted?"[DEEPSEEK_TIMEOUT] DeepSeek响应超时":"[DEEPSEEK_FETCH_FAILED] 无法连接DeepSeek官方接口",controller.signal.aborted?504:502);
   }finally{clearTimeout(timer)}
+  if(response.status>=300&&response.status<400){
+    await response.body?.cancel();
+    fail("[DEEPSEEK_REDIRECT_REFUSED] 已阻止DeepSeek接口重定向，未转发密钥",502);
+  }
   if(!response.ok){
     const errors={
       400:["DEEPSEEK_REQUEST_INVALID","DeepSeek请求参数不被接受，请检查模型配置"],
@@ -81,14 +85,20 @@ async function upstreamFetch(env,url,options){
   // Use AbortController for runtime compatibility; never expose raw exception messages.
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(),95000);
+  let response;
   try{
-    return await fetch(url,{...options,redirect:"error",signal:controller.signal});
+    response=await fetch(url,{...options,redirect:"manual",signal:controller.signal});
   }catch(error){
     if(controller.signal.aborted||error?.name==="TimeoutError"||error?.name==="AbortError")
       diagnostic("UPSTREAM_TIMEOUT","上游连接超时，请稍后重试",504);
     diagnostic(env.FASTGPT_RELAY_URL?"RELAY_FETCH_FAILED":"DIRECT_FETCH_FAILED",
       env.FASTGPT_RELAY_URL?"Worker无法连接中转服务":"Worker无法直连FastGPT，请检查中转配置",502);
   }finally{clearTimeout(timer)}
+  if(response.status>=300&&response.status<400){
+    await response.body?.cancel();
+    diagnostic("UPSTREAM_REDIRECT_REFUSED","已阻止上游重定向，未转发密钥",502);
+  }
+  return response;
 }
 function modelJson(data){let value=data&&data.choices&&data.choices[0]&&data.choices[0].message?data.choices[0].message.content:null;if(value&&typeof value==="object")return value;if(typeof value!=="string")fail("智能体返回格式异常",502);value=value.trim().replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/,"");const a=value.indexOf("{"),b=value.lastIndexOf("}");if(a<0||b<a)fail("智能体未返回结构化结果",502);const out=safeParse(value.slice(a,b+1),null);if(!out||typeof out!=="object"||Array.isArray(out))fail("智能体返回格式异常",502);return out}
 function strings(value,fallback=[]){if(!Array.isArray(value))return fallback;return value.slice(0,8).map(x=>String(x||"").trim().slice(0,300)).filter(Boolean)}

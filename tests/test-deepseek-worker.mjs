@@ -31,7 +31,7 @@ assert.equal(captured.body.model,"deepseek-flash");
 assert.equal(captured.body.appId,undefined);
 assert.equal(captured.body.chatId,undefined);
 assert.equal(captured.body.thinking.type,"disabled");
-assert.equal(captured.init.redirect,"error");
+assert.equal(captured.init.redirect,"manual");
 res=await worker.fetch(request("/api/agent/coach",{message:"兼职工资还没有支付，应该先收集什么材料？"}),env);
 assert.equal(res.status,200);
 assert.equal((await res.json()).coach.source,"deepseek");
@@ -59,3 +59,10 @@ res=await worker.fetch(request("/api/chat",{stream:true,messages:[{role:"user",c
 assert.equal(res.headers.get("content-type"),"text/event-stream");
 assert.equal(await res.text(),sse);
 console.log("DeepSeek provider, authenticated coach, errors and streaming passed");
+globalThis.fetch=async(url,init)=>{
+  assert.equal(init.redirect,"manual");
+  return new Response(null,{status:302,headers:{location:"https://untrusted.example"}});
+};
+res=await worker.fetch(request(),env);
+assert.equal(res.status,502);
+assert.match(await res.text(),/DEEPSEEK_REDIRECT_REFUSED/);
