@@ -7,6 +7,10 @@ FASTGPT_BASE_URL = "https://fastgpt.sangfor.com.cn:19443"
 FASTGPT_APP_ID = "6a8260f5f70be1cf2fe82255"
 ALLOWED_ORIGINS = "https://seawhy-ai.github.io"
 
+# 可选：部署 Node 中转后再填写，不要填写组委会原地址
+# FASTGPT_RELAY_URL = "https://你的中转服务域名"
+# 同时在 Worker Secret 添加 FASTGPT_RELAY_TOKEN，与中转服务一致。
+
 # 创建 D1 后取消注释并填写 database_id：
 # [[d1_databases]]
 # binding = "DB"

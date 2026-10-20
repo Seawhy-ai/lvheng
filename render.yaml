@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: lvheng-fastgpt-relay
+    runtime: node
+    plan: free
+    buildCommand: node --check fastgpt-relay/server.mjs
+    startCommand: node fastgpt-relay/server.mjs
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: FASTGPT_RELAY_TOKEN
+        generateValue: true

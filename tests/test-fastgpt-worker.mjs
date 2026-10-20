@@ -39,3 +39,15 @@ assert.equal(captured.body.messages[0].content, "欠薪怎么办");
 assert.equal(captured.init.headers.authorization, "Bearer test-only-not-a-real-key");
 assert.equal(res.headers.get("access-control-allow-origin"), "https://seawhy-ai.github.io");
 console.log("FastGPT Worker: 3/3 tests passed");
+
+const relayEnv={...env,FASTGPT_RELAY_URL:"https://relay.example",FASTGPT_RELAY_TOKEN:"test-relay-token-01234567890123456789"};
+res=await worker.fetch(new Request("https://proxy.example/api/chat",{
+  method:"POST",headers:{"content-type":"application/json"},
+  body:JSON.stringify({stream:false,messages:[{role:"user",content:"test"}]})
+}),relayEnv);
+assert.equal(res.status,200);
+assert.equal(captured.url,"https://relay.example/api/v1/chat/completions");
+assert.equal(captured.init.headers["x-relay-token"],relayEnv.FASTGPT_RELAY_TOKEN);
+assert.equal(captured.init.redirect,"error");
+assert.equal(captured.init.headers.authorization,"Bearer test-only-not-a-real-key");
+console.log("Worker authenticated relay forwarding passed");
