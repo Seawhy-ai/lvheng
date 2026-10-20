@@ -28,6 +28,11 @@ window.createWhaleExperience = function (ctx) {
       document.querySelectorAll('[data-scenario]').forEach(b=>b.onclick=()=>open(ctx.templates[b.dataset.scenario].scenario));
     }
     document.querySelectorAll('.student-bottom button').forEach((b,i)=>{b.querySelector('i').innerHTML=icon(i);b.setAttribute('aria-current',b.classList.contains('on')?'page':'false');});
+    if(tab==='resources'){
+      const resources=[['laws','法律法规库','检索现行法条与全文'],['cases','指导案例库','查看权威裁判规则'],['quiz','题库练习','章节练习与错题巩固'],['documents','法律文书','按类型查阅文书模板'],['calculator','法律计算器','利息、补偿与诉讼费用']];
+      document.querySelector('.resource-grid').innerHTML=resources.map(([route,title,desc])=>'<a href="law.html?resource='+route+'&from=classroom"><b>'+title+'</b><span>'+desc+'</span></a>').join('');
+      const coachButton=document.createElement('button');coachButton.className='secondary';coachButton.textContent='和小衡梳理问题';coachButton.style.marginTop='20px';coachButton.onclick=()=>open();document.querySelector('.resource-grid').after(coachButton);
+    }
     mount();window.scrollTo({top:0});
   }
   return {decorate};
