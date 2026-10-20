@@ -70,7 +70,7 @@ window.createTaskStudio=function(ctx){
         field("难度",'<select id="studioDifficulty">'+["基础","进阶","挑战"].map(x=>'<option '+(settings().difficulty===x?'selected':'')+'>'+x+'</option>').join('')+'</select>')+
         field("截止时间（本地时间，可留空）",'<input type="datetime-local" id="studioDue" value="'+localDate(settings().dueAt)+'">')+'</div>'+
         '<div class="studio-policy"><b>提交规则</b><span>每名学生提交一次；截止后禁止提交；客观题按答案评分。</span></div><button class="primary" id="studioGenerate">✦ 按目标生成整份草稿</button><p class="studio-muted">生成内容不会自动发布；法条及答案需要教师核验。</p>'+
-        (settings().teacherNote?'<div class="studio-policy"><b>AI审核提醒</b><span>'+esc(settings().teacherNote)+'</span></div>':'')+'</div>'+
+        (settings().teacherNote?'<div class="studio-policy"><b>小衡的审核提醒</b><span>'+esc(settings().teacherNote)+'</span></div>':'')+'</div>'+
         (preview?previewHtml():q?'<div class="studio-question">'+field("题干",'<textarea id="studioPrompt" maxlength="500" rows="3">'+esc(q.prompt)+'</textarea>')+
         q.options.map((o,i)=>field(String.fromCharCode(65+i)+" · 选项",input("studioOption"+i,o,200))).join('')+
         field("正确答案",'<select id="studioAnswer">'+q.options.map((o,i)=>'<option value="'+i+'" '+(q.answer===i?'selected':'')+'>'+String.fromCharCode(65+i)+'</option>').join('')+'</select>')+
@@ -108,7 +108,7 @@ window.createTaskStudio=function(ctx){
     }
     async function generate(single=false){
       if(busy)return;sync();
-      if(!ctx.online()){toast("单机模式不生成AI内容，请连接共享后端");return}
+      if(!ctx.online()){toast("当前预览不支持生成内容，请返回正式学习空间");return}
       const index=current;
       const instruction=document.getElementById("studioInstruction")?.value||"";
       working(true,single?"小衡正在重写这一题…":"小衡正在设计完整任务，请稍候…");
@@ -121,7 +121,7 @@ window.createTaskStudio=function(ctx){
           draft.title=r.draft.title;draft.scenario=r.draft.scenario;draft.content.questions=r.draft.content.questions;
           settings().teacherNote=r.draft.teacherNote;current=0;
         }
-        source="AI辅助草稿 · 待教师核验";dirty=true;reviewed=false;render();
+        source="小衡辅助草稿 · 待教师核验";dirty=true;reviewed=false;render();
       }catch(e){toast(e.message)}finally{working(false)}
     }
     async function save(publish){

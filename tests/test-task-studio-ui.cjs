@@ -6,7 +6,7 @@ const assert=require("node:assert/strict");
   const errors=[];page.on("pageerror",e=>errors.push(e.message));
   page.on("dialog",d=>d.accept());
   await page.addInitScript(()=>localStorage.setItem("lvheng_classroom_api_v1",""));
-  await page.goto("http://127.0.0.1:8765/classroom.html");
+  await page.goto("http://127.0.0.1:8765/classroom.html?preview=local");
   await page.click("#teacherEntry");await page.click("#newTask");
   await page.fill("#studioTitle","测试：证据识别任务");
   await page.fill("#studioDue","2099-01-01T12:00");
