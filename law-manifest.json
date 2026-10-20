@@ -5,9 +5,9 @@
   "start_url": "/lvheng/classroom.html",
   "scope": "/lvheng/",
   "display": "standalone",
-  "orientation": "portrait",
-  "theme_color": "#1a5276",
-  "background_color": "#ffffff",
+  "orientation": "any",
+  "theme_color": "#f7f8f3",
+  "background_color": "#f7f8f3",
   "icons": [
     {
       "src": "icon-192.png",
@@ -27,5 +27,6 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "id": "/lvheng/"
 }
