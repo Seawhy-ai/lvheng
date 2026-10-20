@@ -10,7 +10,9 @@ function id(){return crypto.randomUUID()}function now(){return new Date().toISOS
 function code(){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",bytes=crypto.getRandomValues(new Uint8Array(6));return[...bytes].map(b=>chars[b%chars.length]).join("")}
 function b64(bytes){return btoa(String.fromCharCode(...new Uint8Array(bytes)))}
 async function sha(value){return b64(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(value)))}
-async function passwordHash(password,salt){const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(password),"PBKDF2",false,["deriveBits"]);return b64(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:new TextEncoder().encode(salt),iterations:120000},key,256))}
+// Cloudflare Workers Web Crypto limits PBKDF2 to 100000 iterations.
+const PASSWORD_ITERATIONS=100000;
+async function passwordHash(password,salt){const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(password),"PBKDF2",false,["deriveBits"]);return b64(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:new TextEncoder().encode(salt),iterations:PASSWORD_ITERATIONS},key,256))}
 async function newSession(db,userId){const token=b64(crypto.getRandomValues(new Uint8Array(32))).replace(/[+/=]/g,""),expires=new Date(Date.now()+7*864e5).toISOString();await db.prepare("INSERT INTO sessions (token_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)").bind(await sha(token),userId,expires,now()).run();return{token,expiresAt:expires}}
 async function auth(request,env,role){const raw=(request.headers.get("authorization")||"").replace(/^Bearer\s+/i,"");if(!raw)fail("请先登录",401);const row=await env.DB.prepare("SELECT u.id,u.role,u.display_name,u.username FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?").bind(await sha(raw),now()).first();if(!row)fail("登录已过期，请重新登录",401);if(role&&row.role!==role)fail("没有操作权限",403);return row}
 async function ownClass(db,classId,teacherId){const row=await db.prepare("SELECT * FROM classes WHERE id=? AND teacher_id=?").bind(classId,teacherId).first();if(!row)fail("班级不存在或无权访问",404);return row}

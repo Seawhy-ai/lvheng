@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import {pbkdf2Sync} from "node:crypto";
 
 const source=fs.readFileSync(new URL("../fastgpt-worker/worker.js",import.meta.url),"utf8");
 const mod=await import("data:text/javascript;base64,"+Buffer.from(source).toString("base64"));
@@ -27,6 +28,7 @@ const h2=await mod.passwordHash("safe-password","salt-a");
 const h3=await mod.passwordHash("safe-password","salt-b");
 assert.equal(h1,h2);
 assert.notEqual(h1,h3);
+assert.equal(h1,pbkdf2Sync("safe-password","salt-a",100000,32,"sha256").toString("base64"));
 
 const parsed=mod.modelJson({choices:[{message:{content:'```json\n{"summary":"基于真实数据"}\n```'}}]});
 assert.equal(parsed.summary,"基于真实数据");
