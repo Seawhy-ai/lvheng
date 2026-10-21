@@ -6,4 +6,16 @@
 #whaleDialog>header,#whaleForm,#whaleDialog>footer { flex-shrink:0; }
 #whaleMessages { flex:1 1 auto; min-height:80px; overflow-y:auto; overflow-wrap:anywhere; }
 .whale-message.from-user { color:#24483e!important; }
+.whale-title { display:flex; align-items:center; gap:7px; }
+#whaleHelpBtn { display:grid; place-items:center; width:19px; height:19px; padding:0; border:1px solid #73917c; border-radius:50%; background:transparent; color:#58765f; font-size:12px; font-weight:600; cursor:pointer; position:relative; }
+#whaleHelpBtn::after { content:""; position:absolute; inset:-9px; }
+.whale-help { position:absolute; inset:0; z-index:4; overflow-y:auto; padding:24px; background:#fffef8; border-radius:22px; }
+.whale-help>small { color:#729076; font-size:12px; }
+.whale-help h2 { font-size:21px; line-height:1.5; margin:14px 0 20px; }
+.whale-help h3 { font-size:15px; margin:18px 0 8px; }
+.whale-help p,.whale-help li { font-size:13px; line-height:1.85; color:#5f7566; }
+.whale-help ol { padding-left:20px; }
+.whale-help li { margin-bottom:8px; }
+.help-example { background:#edf2e7; padding:10px 12px; border-radius:10px; }
+#whaleHelpDone { width:100%; margin-top:14px; }
 @media(prefers-reduced-motion:reduce){.whale-mode-bar button{transition:none}}

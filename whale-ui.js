@@ -31,13 +31,17 @@ window.createWhaleExperience = function (ctx) {
     if(document.getElementById('whaleLayer') && owner===ctx.user().id)return;
     if(dragCleanup)dragCleanup();document.getElementById('whaleLayer')?.remove();
     if(owner!==ctx.user().id){conversations={quick:fresh(),guided:fresh()};mode='quick';owner=ctx.user().id;}
-    const layer=document.createElement('div');layer.id='whaleLayer';layer.innerHTML=`<button id="whaleFloat" aria-label="打开鲸鱼学习助手" aria-expanded="false"><span>问问小衡</span>${whale}<i></i></button><section id="whaleDialog" role="dialog" aria-label="小衡学习助手" hidden><header><div>${whale}<span><b>小衡 · 学习搭子</b><small>陪你把问题想清楚</small></span></div><button id="whaleClose" aria-label="关闭助手">×</button></header><div class="whale-mode-bar"><div role="group" aria-label="回答模式"><button type="button" data-whale-mode="quick">快问快答</button><button type="button" data-whale-mode="guided">一步一步来</button></div><small id="whaleModeHint"></small></div><div id="whaleMessages" role="log" aria-live="polite"></div><form id="whaleForm"><label class="sr-only" for="whaleInput">你的问题</label><textarea id="whaleInput" rows="2" maxlength="2000" placeholder="告诉我，你卡在哪一步？" required minlength="1"></textarea><button aria-label="发送问题">↑</button></form><footer><span>从一个好问题开始。</span><button type="button" id="whalePrivacy">使用与隐私</button></footer></section>`;document.body.append(layer);
+    const layer=document.createElement('div');layer.id='whaleLayer';layer.innerHTML=`<button id="whaleFloat" aria-label="打开鲸鱼学习助手" aria-expanded="false"><span>问问小衡</span>${whale}<i></i></button><section id="whaleDialog" role="dialog" aria-label="小衡学习助手" hidden><header><div>${whale}<span><span class="whale-title"><b>小衡 · 学习搭子</b><button type="button" id="whaleHelpBtn" aria-label="查看小衡使用教程" aria-controls="whaleHelp" aria-expanded="false">?</button></span><small>陪你把问题想清楚</small></span></div><button id="whaleClose" aria-label="关闭助手">×</button></header><div class="whale-mode-bar"><div role="group" aria-label="回答模式"><button type="button" data-whale-mode="quick">即问即答</button><button type="button" data-whale-mode="guided">循循善导</button></div><small id="whaleModeHint"></small></div><div id="whaleMessages" role="log" aria-live="polite"></div><form id="whaleForm"><label class="sr-only" for="whaleInput">你的问题</label><textarea id="whaleInput" rows="2" placeholder="告诉我，你卡在哪一步？" required></textarea><button aria-label="发送问题">↑</button></form><footer><span>从一个好问题开始。</span><button type="button" id="whalePrivacy">使用与隐私</button></footer><section id="whaleHelp" tabindex="-1" class="whale-help" aria-label="小衡使用教程" hidden><small>小衡使用指南</small><h2>选一种适合你的交流方式</h2><h3>即问即答</h3><p>想了解概念或得到建议时，直接提问。小衡先回答，再根据你的追问展开。</p><p class="help-example">试试：劳动仲裁是什么意思？</p><h3>循循善导</h3><p>面对复杂情境时，从事情经过开始。小衡一次问一个关键问题，陪你整理事实、证据和行动步骤。</p><p class="help-example">试试：我做完兼职，老板一直拖欠工资。</p><h3>怎么使用</h3><ol><li>选择模式，输入问题后点击发送箭头。</li><li>可以简短提问，也可以详细描述；输入框没有固定字数限制。超出服务处理能力时会提示失败。</li><li>本次打开页面期间，两种模式分别保留对话和草稿，切换不会混在一起。</li><li>鲸鱼可以拖动位置；遇到不确定的法律结论，请核验依据或向教师请教。</li></ol><button type="button" class="primary" id="whaleHelpDone">知道了，开始交流</button></section></section>`;document.body.append(layer);
     renderMessages();updateControls();
     document.querySelectorAll('[data-whale-mode]').forEach(b=>b.onclick=()=>switchMode(b.dataset.whaleMode));
+    const help=document.getElementById('whaleHelp'),helpButton=document.getElementById('whaleHelpBtn');
+    function closeHelp(){help.hidden=true;helpButton.setAttribute('aria-expanded','false');helpButton.focus()}
+    helpButton.onclick=()=>{help.hidden=false;helpButton.setAttribute('aria-expanded','true');help.scrollTop=0;help.focus({preventScroll:true})};
+    document.getElementById('whaleHelpDone').onclick=closeHelp;
     bindDrag(document.getElementById('whaleFloat'));
     document.getElementById('whalePrivacy').onclick=()=>{document.getElementById('whaleDialog').hidden=true;document.getElementById('whaleFloat').setAttribute('aria-expanded','false');ctx.privacy();};
     const close=()=>{document.getElementById('whaleDialog').hidden=true;document.getElementById('whaleFloat').setAttribute('aria-expanded','false');document.getElementById('whaleFloat').focus();};
-    document.getElementById('whaleClose').onclick=close;layer.onkeydown=e=>{if(e.key==='Escape')close();};
+    document.getElementById('whaleClose').onclick=close;layer.onkeydown=e=>{if(e.key==='Escape'){if(!help.hidden)closeHelp();else close();}};
     document.getElementById('whaleForm').onsubmit=async e=>{
       e.preventDefault();const state=conversations[mode],requestMode=mode,requestOwner=owner;
       const input=document.getElementById('whaleInput'),message=input.value.trim();
@@ -50,7 +54,7 @@ window.createWhaleExperience = function (ctx) {
         if(!ctx.user()||ctx.user().id!==requestOwner||owner!==requestOwner)return;
         let answer;
         if(requestMode==='quick'){
-          if(!c||typeof c.answer!=='string'||!c.answer.trim())throw Error('快问快答暂不可用，请稍后重试或切换到一步一步来');
+          if(!c||typeof c.answer!=='string'||!c.answer.trim())throw Error('即问即答暂不可用，请稍后重试或切换到循循善导');
           answer=c.answer;
         }else answer=[c.source==='local-demo'?'［本地规则提示］':'',c.diagnosis,c.nextQuestion].filter(Boolean).join('\n\n');
         state.messages.push({role:'assistant',content:answer});
