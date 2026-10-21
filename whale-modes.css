@@ -1,0 +1,9 @@
+.whale-mode-bar { padding:10px 16px 12px; flex-shrink:0; border-bottom:1px solid #e2e9dc; }
+.whale-mode-bar>div { display:grid; grid-template-columns:1fr 1fr; gap:5px; background:#eaf0e4; padding:4px; border-radius:13px; }
+.whale-mode-bar button { border:0; background:transparent; color:#63786a; border-radius:10px; padding:10px 8px; font:inherit; font-size:13px; cursor:pointer; transition:background .18s,color .18s,box-shadow .18s; }
+.whale-mode-bar button.on { background:#fffef8; color:#245747; font-weight:650; box-shadow:0 2px 8px #234c3c0c; }
+#whaleModeHint { display:block; padding-top:8px; text-align:center; font-size:11px; color:#7c8f7b; }
+#whaleDialog>header,#whaleForm,#whaleDialog>footer { flex-shrink:0; }
+#whaleMessages { flex:1 1 auto; min-height:80px; overflow-y:auto; overflow-wrap:anywhere; }
+.whale-message.from-user { color:#24483e!important; }
+@media(prefers-reduced-motion:reduce){.whale-mode-bar button{transition:none}}

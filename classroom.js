@@ -142,7 +142,7 @@ createTaskForm=function(classId){taskStudio.edit(classId)};
 aiTaskForm=function(classId){taskStudio.edit(classId,null,true)};
 var oldBindTeacher=bindTeacher;
 bindTeacher=function(selected){oldBindTeacher(selected);taskStudio.bind()};
-var whaleExperience=window.createWhaleExperience({api:api,esc:esc,user:function(){return session.user},online:function(){return !!apiBase},templates:templates,privacy:showPrivacy,logout:clearSession,navigate:function(tab){studentDashboard(tab)}});
+var whaleExperience=window.createWhaleExperience({api:api,esc:esc,user:function(){return session&&session.user},online:function(){return !!apiBase},templates:templates,privacy:showPrivacy,logout:clearSession,navigate:function(tab){studentDashboard(tab)}});
 function showAbout(){
  showModal('<article class="about-sheet"><small>关于律衡</small><h2>从生活出发，让法律素养成为行动能力。</h2><p>律衡是面向法律素养教学的学习与管理应用，连接教师的任务设计、学生的情境训练和基于作答记录的教学反馈。</p><h3>我们关注什么</h3><p>帮助学生看清事实、辨别证据、核对规则，并选择合理的解决路径；帮助教师发现学习难点，安排有针对性的巩固练习。</p><h3>小衡的角色</h3><p>小衡通过大模型提供学习辅助与相似题练习，生成内容需要核验，不替代教师判断或专业法律意见。</p><p>项目：律衡 · 法律素养教学管理平台</p><button class="primary" id="aboutDone">继续探索</button></article>');
  document.getElementById("aboutDone").onclick=closeModal;

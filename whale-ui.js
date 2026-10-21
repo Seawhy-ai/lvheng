@@ -3,20 +3,64 @@ window.createWhaleExperience = function (ctx) {
   const whale = `<svg viewBox="0 0 240 190" fill="none" aria-hidden="true"><defs><linearGradient id="whaleBlue" x2="1" y2="1"><stop stop-color="#73d7dc"/><stop offset="1" stop-color="#147b9b"/></linearGradient></defs><ellipse cx="117" cy="173" rx="69" ry="9" fill="#123f62" opacity=".12"/><path d="M173 93c18 9 24-4 21-21 20 2 30-10 32-25 10 33-2 64-30 69-8 40-51 58-100 47-44-9-69-34-64-65 4-34 34-53 74-49 34 3 52 20 67 44Z" fill="url(#whaleBlue)" stroke="#164657" stroke-width="3"/><path d="M38 118c28 20 58 13 80 5 26-9 48 7 61 13-22 27-63 33-99 15-21-10-35-20-42-33Z" fill="#e1f5e8"/><rect x="51" y="76" width="97" height="50" rx="24" fill="#143f52"/><path d="M71 100q7-12 14 0m35 0q7-12 14 0" stroke="#b4f7e9" stroke-width="5" stroke-linecap="round"/><path d="M93 109q8 8 17 0" stroke="#b4f7e9" stroke-width="3" stroke-linecap="round"/><path d="M117 138q8 32 38 19l-22-28" fill="#309db2" stroke="#164657" stroke-width="3"/><path d="M98 48V29" stroke="#164657" stroke-width="3"/><circle cx="98" cy="22" r="8" fill="#f5c968"/><path d="M55 58l-7-10m96 11 7-9" stroke="#a9e4df" stroke-width="5" stroke-linecap="round"/></svg>`;
   const icons = ['<path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/>','<path d="M4 4h16v17H4zM8 8h8M8 12h8M8 16h4"/>','<path d="M4 20V10m8 10V4m8 16v-7"/>','<path d="M3 5q5-2 9 1 4-3 9-1v15q-5-2-9 0-4-2-9 0ZM12 6v14"/>'];
   const icon = i => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+icons[i]+'</svg>';
-  let history = [], busy = false, owner = '', dragCleanup = null;
-  function bubble(text, user) { const item=document.createElement('div'); item.className='whale-message '+(user?'from-user':'');item.textContent=text;document.getElementById('whaleMessages').append(item);item.scrollIntoView({block:'nearest'}); }
+  let owner = '', dragCleanup = null, mode = 'quick';
+  const fresh=()=>({messages:[],draft:'',busy:false});
+  let conversations={quick:fresh(),guided:fresh()};
+  function bubble(text, user) { const log=document.getElementById('whaleMessages');if(!log)return;const item=document.createElement('div');item.className='whale-message '+(user?'from-user':'');item.textContent=text;log.append(item);log.scrollTop=log.scrollHeight; }
+  function renderMessages(){
+    const log=document.getElementById('whaleMessages');if(!log)return;log.replaceChildren();
+    bubble(mode==='quick'?'想问什么，直接告诉我。我会先给你清楚的回答。':'一起慢慢理清楚。我会每次问一个关键问题，陪你找到下一步。');
+    conversations[mode].messages.forEach(m=>bubble(m.content,m.role==='user'));
+    if(conversations[mode].busy)bubble('小衡正在回复…');
+  }
+  function updateControls(){
+    const input=document.getElementById('whaleInput'),button=document.querySelector('#whaleForm button');if(!input)return;
+    input.placeholder=mode==='quick'?'直接提问，例如：什么是劳动仲裁？':'告诉我事情经过，我们一步一步梳理';
+    button.disabled=conversations[mode].busy;button.textContent=conversations[mode].busy?'…':'↑';
+    document.querySelectorAll('[data-whale-mode]').forEach(b=>{const active=b.dataset.whaleMode===mode;b.classList.toggle('on',active);b.setAttribute('aria-pressed',String(active))});
+    document.getElementById('whaleModeHint').textContent=mode==='quick'?'先给回答，再按需展开':'一次一个问题，逐步梳理';
+  }
+  function switchMode(nextMode){
+    if(nextMode===mode)return;
+    conversations[mode].draft=document.getElementById('whaleInput').value;mode=nextMode;
+    document.getElementById('whaleInput').value=conversations[mode].draft;
+    renderMessages();updateControls();
+  }
   function open(prompt) { const panel=document.getElementById('whaleDialog');panel.hidden=false;document.getElementById('whaleFloat').setAttribute('aria-expanded','true');if(prompt)document.getElementById('whaleInput').value=prompt;document.getElementById('whaleInput').focus(); }
   function mount() {
     if(document.getElementById('whaleLayer') && owner===ctx.user().id)return;
     if(dragCleanup)dragCleanup();document.getElementById('whaleLayer')?.remove();
-    if(owner!==ctx.user().id){history=[];owner=ctx.user().id;}
-    const layer=document.createElement('div');layer.id='whaleLayer';layer.innerHTML=`<button id="whaleFloat" aria-label="打开鲸鱼学习助手" aria-expanded="false"><span>问问小衡</span>${whale}<i></i></button><section id="whaleDialog" role="dialog" aria-label="小衡学习助手" hidden><header><div>${whale}<span><b>小衡 · 学习搭子</b><small>陪你把问题想清楚</small></span></div><button id="whaleClose" aria-label="关闭助手">×</button></header><div id="whaleMessages" role="log" aria-live="polite"></div><form id="whaleForm"><label class="sr-only" for="whaleInput">你的问题</label><textarea id="whaleInput" rows="2" maxlength="2000" placeholder="告诉我，你卡在哪一步？" required minlength="8"></textarea><button aria-label="发送问题">↑</button></form><footer><span>从一个好问题开始。</span><button type="button" id="whalePrivacy">使用与隐私</button></footer></section>`;document.body.append(layer);
-    bubble('嗨，我是小衡。一起从事实、证据和依据出发，找到下一步。你想聊什么？');history.forEach(m=>bubble(m.content,m.role==='user'));
+    if(owner!==ctx.user().id){conversations={quick:fresh(),guided:fresh()};mode='quick';owner=ctx.user().id;}
+    const layer=document.createElement('div');layer.id='whaleLayer';layer.innerHTML=`<button id="whaleFloat" aria-label="打开鲸鱼学习助手" aria-expanded="false"><span>问问小衡</span>${whale}<i></i></button><section id="whaleDialog" role="dialog" aria-label="小衡学习助手" hidden><header><div>${whale}<span><b>小衡 · 学习搭子</b><small>陪你把问题想清楚</small></span></div><button id="whaleClose" aria-label="关闭助手">×</button></header><div class="whale-mode-bar"><div role="group" aria-label="回答模式"><button type="button" data-whale-mode="quick">快问快答</button><button type="button" data-whale-mode="guided">一步一步来</button></div><small id="whaleModeHint"></small></div><div id="whaleMessages" role="log" aria-live="polite"></div><form id="whaleForm"><label class="sr-only" for="whaleInput">你的问题</label><textarea id="whaleInput" rows="2" maxlength="2000" placeholder="告诉我，你卡在哪一步？" required minlength="1"></textarea><button aria-label="发送问题">↑</button></form><footer><span>从一个好问题开始。</span><button type="button" id="whalePrivacy">使用与隐私</button></footer></section>`;document.body.append(layer);
+    renderMessages();updateControls();
+    document.querySelectorAll('[data-whale-mode]').forEach(b=>b.onclick=()=>switchMode(b.dataset.whaleMode));
     bindDrag(document.getElementById('whaleFloat'));
     document.getElementById('whalePrivacy').onclick=()=>{document.getElementById('whaleDialog').hidden=true;document.getElementById('whaleFloat').setAttribute('aria-expanded','false');ctx.privacy();};
     const close=()=>{document.getElementById('whaleDialog').hidden=true;document.getElementById('whaleFloat').setAttribute('aria-expanded','false');document.getElementById('whaleFloat').focus();};
     document.getElementById('whaleClose').onclick=close;layer.onkeydown=e=>{if(e.key==='Escape')close();};
-    document.getElementById('whaleForm').onsubmit=async e=>{e.preventDefault();if(busy)return;const input=document.getElementById('whaleInput'),message=input.value.trim();if(message.length<8)return;busy=true;const button=e.target.querySelector('button');button.disabled=true;button.textContent='…';bubble(message,true);input.value='';try{const context=history.slice(-4).map(m=>(m.role==='user'?'学生：':'陪练：')+m.content).join('\n');const r=await ctx.api('aiCoach',{message:(context+'\n学生：'+message).slice(-2000)});const c=r.coach;const answer=[c.source==='local-demo'?'［本地规则提示］':'',c.diagnosis,c.nextQuestion].filter(Boolean).join('\n\n');history.push({role:'user',content:message},{role:'assistant',content:answer});bubble(answer); }catch(err){bubble('这次连接没有成功：'+err.message+'。可以稍后重试。');}finally{busy=false;button.disabled=false;button.textContent='↑';}};
+    document.getElementById('whaleForm').onsubmit=async e=>{
+      e.preventDefault();const state=conversations[mode],requestMode=mode,requestOwner=owner;
+      const input=document.getElementById('whaleInput'),message=input.value.trim();
+      if(state.busy||!message)return;
+      const history=state.messages.filter(m=>!m.error).slice(-6).map(m=>({role:m.role,content:m.content}));
+      state.busy=true;state.messages.push({role:'user',content:message});state.draft='';input.value='';
+      renderMessages();updateControls();
+      try{
+        const r=await ctx.api('aiCoach',{mode:requestMode,message,history}),c=r.coach;
+        if(!ctx.user()||ctx.user().id!==requestOwner||owner!==requestOwner)return;
+        let answer;
+        if(requestMode==='quick'){
+          if(!c||typeof c.answer!=='string'||!c.answer.trim())throw Error('快问快答暂不可用，请稍后重试或切换到一步一步来');
+          answer=c.answer;
+        }else answer=[c.source==='local-demo'?'［本地规则提示］':'',c.diagnosis,c.nextQuestion].filter(Boolean).join('\n\n');
+        state.messages.push({role:'assistant',content:answer});
+      }catch(err){
+        state.messages.push({role:'assistant',content:'这次未能回复：'+err.message,error:true});
+      }finally{
+        state.busy=false;
+        if(ctx.user()&&ctx.user().id===requestOwner&&owner===requestOwner&&mode===requestMode&&document.getElementById('whaleLayer')){renderMessages();updateControls()}
+      }
+    };
   }
   function bindDrag(button) {
     const key='lvheng_whale_position_v1';let moved=false,start=null,suppressUntil=0;
