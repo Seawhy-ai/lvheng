@@ -178,11 +178,39 @@ async function upstreamFetch(env,url,options){
 }
 function modelJson(data){let value=data&&data.choices&&data.choices[0]&&data.choices[0].message?data.choices[0].message.content:null;if(value&&typeof value==="object")return value;if(typeof value!=="string")fail("智能体返回格式异常",502);value=value.trim().replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/,"");const a=value.indexOf("{"),b=value.lastIndexOf("}");if(a<0||b<a)fail("智能体未返回结构化结果",502);const out=safeParse(value.slice(a,b+1),null);if(!out||typeof out!=="object"||Array.isArray(out))fail("智能体返回格式异常",502);return out}
 function strings(value,fallback=[]){if(!Array.isArray(value))return fallback;return value.slice(0,8).map(x=>String(x||"").trim().slice(0,300)).filter(Boolean)}
+function coachResponse(data,mode,source){
+  const choice=data?.choices?.[0],message=choice?.message;
+  if(choice?.finish_reason==="length")fail("回复未完整生成，请再试一次",502);
+  let content=message?.content;
+  if(Array.isArray(content))content=content.filter(p=>p&&p.type==="text"&&typeof p.text==="string").map(p=>p.text).join("\n");
+  if((content===null||content===undefined||content==="")&&typeof message?.refusal==="string")content=message.refusal;
+  let raw=null;
+  if(content&&typeof content==="object"&&!Array.isArray(content))raw=content;
+  else if(typeof content==="string"){
+    content=content.trim();
+    if(!content)fail("暂时没有收到有效回复，请再试一次",502);
+    if(content.startsWith("{")||content.startsWith("```")){
+      raw=safeParse(content.replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/,""),null);
+      if(!raw||typeof raw!=="object"||Array.isArray(raw))fail("回复未完整生成，请再试一次",502);
+    }
+  }else fail("暂时没有收到有效回复，请再试一次",502);
+  if(mode==="quick"){
+    const answer=raw?raw.answer:content;
+    if(typeof answer!=="string"||!answer.trim())fail("暂时没有收到有效回复，请再试一次",502);
+    return {mode,answer:answer.trim(),source};
+  }
+  if(raw){
+    if(typeof raw.diagnosis!=="string"||!raw.diagnosis.trim()||typeof raw.nextQuestion!=="string")fail("回复未完整生成，请再试一次",502);
+    return {...cleanCoach(raw,source),mode};
+  }
+  // A usable natural-language coaching reply is not a format error.
+  return {mode,stage:"学习引导",diagnosis:content,nextQuestion:"",missingFacts:[],laws:[],evidence:[],actions:[],ability:{},source};
+}
 function cleanCoach(value,source="fastgpt"){return{stage:String(value.stage||"形成性反馈").slice(0,30),diagnosis:String(value.diagnosis||"需要继续补充关键事实。 ").trim().slice(0,500),nextQuestion:String(value.nextQuestion||"还有哪些能够证明事情经过的原始材料？").slice(0,300),missingFacts:strings(value.missingFacts),laws:strings(value.laws),evidence:strings(value.evidence),actions:strings(value.actions),ability:value.ability&&typeof value.ability==="object"?value.ability:{},source}}
 function cleanInsight(value,source="fastgpt"){return{summary:String(value.summary||"已根据有效提交形成班级诊断。 ").trim().slice(0,800),findings:strings(value.findings),groups:strings(value.groups),interventions:strings(value.interventions),source}}
 function validateContent(content){if(!content||typeof content!=="object"||!Array.isArray(content.questions)||content.questions.length!==5)fail("任务必须包含5个能力环节");const seen=new Set();content.questions.forEach((q,i)=>{q.prompt=text(q.prompt,`第${i+1}题`,5,500);if(!Array.isArray(q.options)||q.options.length<2||q.options.length>6)fail(`第${i+1}题选项数量无效`);q.options=q.options.map((x,j)=>text(x,`第${i+1}题选项${j+1}`,1,200));q.answer=Number(q.answer);if(!Number.isInteger(q.answer)||q.answer<0||q.answer>=q.options.length)fail(`第${i+1}题答案无效`);q.ability=ABILITIES.includes(q.ability)?q.ability:ABILITIES[i];q.explain=text(q.explain||"请结合事实和规则重新判断。",`第${i+1}题解析`,2,500);seen.add(q.ability)});if(seen.size!==5)fail("五个题目必须分别对应五项能力");return content}
 function evaluate(content,answers){if(!Array.isArray(answers)||answers.length!==5)fail("请完成全部5个环节");const scores={},details=[];content.questions.forEach((q,i)=>{const selected=Number(answers[i]),ok=selected===q.answer,score=ok?20:8;scores[q.ability]=score;details.push({ability:q.ability,correct:ok,score,selected,answer:q.answer,explain:q.explain})});return{scores,total:Object.values(scores).reduce((a,b)=>a+b,0),details}}
-async function fastgpt(env,messages,chatId){if(aiProvider(env)==="deepseek"){const response=await deepseek(env,messages,{structured:true});try{return await response.json()}catch{fail("[DEEPSEEK_RESPONSE_INVALID] DeepSeek返回格式异常",502)}}if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await upstreamFetch(env,base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:chatId||id(),stream:false,detail:true,messages:messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"")}))})})}catch(e){if(e.status)throw e;fail("[UPSTREAM_SETUP_FAILED] 上游请求初始化失败",502)}if(!upstream.ok)fail("FastGPT调用失败",502);return upstream.json()}
+async function fastgpt(env,messages,chatId,options={}){if(aiProvider(env)==="deepseek"){const response=await deepseek(env,messages,{structured:options.structured!==false});try{return await response.json()}catch{fail("[DEEPSEEK_RESPONSE_INVALID] DeepSeek返回格式异常",502)}}if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await upstreamFetch(env,base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:chatId||id(),stream:false,detail:true,messages:messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"")}))})})}catch(e){if(e.status)throw e;fail("[UPSTREAM_SETUP_FAILED] 上游请求初始化失败",502)}if(!upstream.ok)fail("FastGPT调用失败",502);return upstream.json()}
 async function chatProxy(env,input,origin){if(aiProvider(env)==="deepseek"){const response=await deepseek(env,input.messages,{stream:input.stream!==false});return new Response(response.body,{status:response.status,headers:{"content-type":response.headers.get("content-type")||"application/json","cache-control":"no-store",...cors(origin,env)}})}if(!env.FASTGPT_API_KEY)fail("FastGPT尚未配置",503);const base=(env.FASTGPT_BASE_URL||"https://fastgpt.sangfor.com.cn:19443").replace(/\/$/,"");let upstream;try{upstream=await upstreamFetch(env,base+"/api/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+env.FASTGPT_API_KEY},body:JSON.stringify({appId:env.FASTGPT_APP_ID||"6a8260f5f70be1cf2fe82255",chatId:typeof input.chatId==="string"?input.chatId.slice(0,80):id(),stream:input.stream!==false,detail:input.detail!==false,messages:input.messages.slice(-10).map(m=>({role:["assistant","system"].includes(m.role)?m.role:"user",content:String(m.content||"")}))})})}catch(e){if(e.status)throw e;fail("[UPSTREAM_SETUP_FAILED] 上游请求初始化失败",502)}const headers=new Headers(upstream.headers);Object.entries(cors(origin,env)).forEach(([k,v])=>headers.set(k,v));headers.set("cache-control","no-store");headers.delete("set-cookie");return new Response(upstream.body,{status:upstream.status,headers})}
 function knowledgeLabel(q,title){
   if(typeof q.knowledgePoint==="string"&&q.knowledgePoint.trim())return q.knowledgePoint.trim().slice(0,180);
@@ -275,15 +303,13 @@ if(p==="/api/agent/coach"&&request.method==="POST"){
     return {role:m.role,content:m.content};
   });
   const system=mode==="quick"
-    ? '你是律衡学习助手小衡，使用即问即答模式。像正常的对话助手一样直接回应当前问题：先给清楚的答案或结论，再按需要补充理由、例子或操作步骤。简单问题简短回答，复杂问题充分解释；不要把每次回答变成反问，不要强制学生完成分步练习。缺少必要事实时明确假设或仅问必要的澄清问题。根据本次对话处理追问。法律问题注意适用条件，不编造法条，不保证个案结果，不索要敏感信息。回答用自然中文短段落，避免Markdown标记。只输出JSON：{"answer":"完整回答"}。'
+    ? '你是律衡学习助手小衡，使用即问即答模式。像正常的对话助手一样直接回应当前问题：先给清楚的答案或结论，再按需要补充理由、例子或操作步骤。简单问题简短回答，复杂问题充分解释；不要把每次回答变成反问，不要强制学生完成分步练习。缺少必要事实时明确假设或仅问必要的澄清问题。根据本次对话处理追问。法律问题注意适用条件，不编造法条，不保证个案结果，不索要敏感信息。回答用自然中文短段落，避免Markdown标记。直接输出回答正文，不要JSON包装。'
     : '你是律衡学生学习陪练智能体，使用循循善导模式。目标是培养法律素养，不代替律师，不直接跳到最终答案。结合对话历史识别已经补充的事实，不要重复询问已回答的问题。先简要诊断，再只提出一个最关键的追问；逐步提供检索范围、证据提示和递进行动。只输出JSON：{"stage":"事实追问","diagnosis":"","nextQuestion":"","missingFacts":[""],"laws":[""],"evidence":[""],"actions":[""],"ability":{"issue":0,"fact":0,"evidence":0,"law":0,"path":0}}。不要求身份证号、住址等敏感信息；不编造法条。';
-  const data=await fastgpt(env,[{role:"system",content:system},...history,{role:"user",content:message}],"coach-"+user.id+"-"+mode);
-  const raw=modelJson(data);
-  if(mode==="quick"){
-    if(typeof raw.answer!=="string"||!raw.answer.trim())fail("即问即答返回不完整，请重试",502);
-    return reply({coach:{mode,answer:raw.answer.trim().slice(0,8000),source:aiProvider(env)}},200,origin,env);
+  for(let attempt=0;attempt<2;attempt++){
+    const data=await fastgpt(env,[{role:"system",content:system+(attempt?"\n上次未生成完整回复，请简洁地重新回答并确保输出完整。":"")},...history,{role:"user",content:message}],"coach-"+user.id+"-"+mode+"-"+id(),{structured:mode!=="quick"});
+    try{return reply({coach:coachResponse(data,mode,aiProvider(env))},200,origin,env)}
+    catch(error){if(attempt===1)throw error}
   }
-  return reply({coach:{...cleanCoach(raw,aiProvider(env)),mode}},200,origin,env);
 }
 if(p==="/api/agent/class-insight"&&request.method==="POST"){if(user.role!=="teacher")fail("仅教师可生成学情诊断",403);const v=await json(request),classId=text(v.classId,"班级ID",5,80),cls=await ownClass(env.DB,classId,user.id),rows=await env.DB.prepare("SELECT s.total_score,s.scores_json,t.title taskTitle FROM submissions s JOIN tasks t ON t.id=s.task_id WHERE t.class_id=? ORDER BY s.submitted_at DESC LIMIT 200").bind(cls.id).all(),list=(rows.results||[]).map(r=>({task:r.taskTitle,total:r.total_score,scores:safeParse(r.scores_json,{})}));if(!list.length)return reply({insight:{summary:"当前还没有有效提交，智能体不会虚构学情。",findings:["暂无可分析的班级任务数据"],groups:[],interventions:["先发布任务并等待学生提交"],source:"rules"}},200,origin,env);const data=await fastgpt(env,[{role:"system",content:"你是律衡班级学情诊断智能体。输入是匿名化的真实任务成绩与五维得分。不得虚构人数或表现，不得推断敏感信息。只输出JSON：{\"summary\":\"\",\"findings\":[\"\"],\"groups\":[\"\"],\"interventions\":[\"\"]}。findings说明共性薄弱点，groups只能按学习需要分层，interventions给出下一课可执行建议，并提示教师最终确认。"},{role:"user",content:JSON.stringify({className:cls.name,submissionCount:list.length,submissions:list})}],"insight-"+cls.id);return reply({insight:cleanInsight(modelJson(data),aiProvider(env))},200,origin,env)}
 return reply({error:"Not found"},404,origin,env)}
