@@ -34,7 +34,22 @@ const assert=require('node:assert/strict');
   await p.screenshot({path:'/tmp/story-room-'+width+'.png'});
   await p.keyboard.press('Escape');assert.equal(await p.locator('.story-room').count(),0);
   await p.click('[data-scenario="labor"]');assert.equal(await p.locator('.evidence-slip').count(),4);assert.match(await p.inputValue('#storyAdvice'),/核实出勤/);
-  await p.click('.story-close');await p.click('[data-scenario="rent"]');assert.equal(await p.locator('#whaleDialog').isVisible(),true);
+  await p.click('.story-close');
+  for(const [scenario,name,keys,expected] of [['rent','小禾',['contract','condition','deduction','payment'],'押金'],['consumer','阿澈',['listing','actual','order','aftersale'],'耳机']]){
+   await p.click('[data-scenario="'+scenario+'"]');assert.equal(await p.locator('.evidence-slip').count(),0);assert.equal(await p.inputValue('#storyAdvice'),'');
+   assert.match(await p.locator('.story-person').innerText(),new RegExp(name));
+   const hint=await p.locator('#storyQuestion').getAttribute('placeholder');
+   for(const key of keys)await p.click('[data-prompt="'+key+'"]');
+   assert.equal(await p.locator('.evidence-slip').count(),4);assert.notEqual(await p.locator('#storyQuestion').getAttribute('placeholder'),hint);
+   await p.locator('.evidence-slip').first().locator('summary').click();await p.check('[data-evidence="'+keys[0]+'"]');
+   await p.fill('#storyAdvice','先保存原始材料，核实差异，再明确诉求并书面沟通。');await p.click('.story-review');
+   await p.waitForFunction(()=>!document.querySelector('.story-review').disabled);
+   assert.match(calls.at(-1).message,new RegExp(expected));assert.ok(!calls.at(-1).message.includes('入职前的聊天'));
+   assert.equal(await p.locator('.story-room').evaluate(e=>e.scrollWidth>e.clientWidth),false);
+   await p.locator('.story-room').evaluate(e=>e.scrollTop=0);await p.screenshot({path:'/tmp/story-'+scenario+'-'+width+'.png'});
+   await p.click('.story-close');
+  }
+  await p.click('[data-scenario="labor"]');assert.equal(await p.locator('.evidence-slip').count(),4);assert.match(await p.inputValue('#storyAdvice'),/核实出勤/);await p.click('.story-close');
   assert.deepEqual(errors,[]);await p.close();console.log('PASS story room:',width,'evidence, safe text, AI reflection, resume, other scenarios');
  }}finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exit(1)});
