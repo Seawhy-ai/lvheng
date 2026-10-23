@@ -21,5 +21,29 @@ window.createReportJournal=function(ctx){
  function teacher(dash,tasks){const insights=dash.questionInsights;
   return '<section class="teaching-evidence"><header><small>从班级作答出发</small><h2>下一堂课，先看哪里？</h2><p>错误分布是事实；学生为什么这样选择，仍需课堂追问确认。</p></header><div class="teaching-completion">'+tasks.filter(t=>t.status==='published').map(t=>'<div><b>'+e(t.title)+'</b><span>'+Number(t.submissionCount||0)+' / '+Number(dash.stats.students||0)+' 人已提交</span></div>').join('')+'</div>'+(Array.isArray(insights)?insights.length?insights.slice(0,5).map((q,i)=>'<article class="teaching-question"><div><span class="teaching-count">'+q.wrong+'<small>/ '+q.attempts+' 份作答错误</small></span><small>'+e(q.taskTitle)+' · 第 '+(q.questionIndex+1)+' 题</small><h3>'+e(q.label)+'</h3><p>'+e(q.prompt)+'</p><details><summary>查看错误分布和参考依据</summary>'+q.wrongChoices.map(c=>'<p>'+e(c.text)+' <b>· '+c.count+' 次</b></p>').join('')+'<p>参考答案：'+e(q.answer)+'</p><p>'+e(q.explain)+'</p></details><button class="secondary" data-teaching-focus="'+i+'">围绕此考点备课 ↗</button></div></article>').join(''):'<p class="journal-unavailable">当前已记录作答中暂未发现错题；没有作答时不生成诊断。</p>':'<p class="journal-unavailable">逐题错误分布暂不可用，提交统计仍可查看。</p>')+'</section>';
  }
- return {render,bind,record,teacher};
+ function focusedRender(report){
+  const template=document.createElement('template');template.innerHTML=render(report);
+  const reviews=report.taskReviews||[],points=reviews.flatMap((t,i)=>(t.review||[]).map(q=>({...q,taskIndex:i})));
+  const weak=points.filter(q=>!q.correct),next=weak[0]||points[0];
+  const ability={issue:'问题识别',fact:'事实判断',evidence:'证据选择',law:'依据核验',path:'路径选择'};
+  const topic=q=>ability[q.ability]||q.label||'本次错题';
+  const cover=template.content.querySelector('.journal-cover');
+  cover.innerHTML='<div><small>你的下一步 / NEXT STEP</small><h2>'+e(next?(weak.length?'先练一练：'+topic(next):'答得不错，换个情境试试'):'从第一份班级任务开始')+'</h2><p>'+e(next?(weak.length?'根据已记录的作答，先从这道题重新理解依据，再用相似题检验。':'已记录题目均答对。尝试相似情境，看看能否独立作出判断。'):'提交任务后，这里会告诉你先回顾什么、接着练什么。')+'</p>'+(next?'<div class="journal-actions"><button class="journal-primary" data-task-practice="'+next.taskIndex+'" data-question="'+next.questionIndex+'">'+(weak.length?'开始针对练习':'挑战相似情境')+' ↗</button><button class="journal-review-link" data-review-task="'+next.taskIndex+'">先看作答依据 ↓</button></div>':'')+'</div><div class="journal-seal"><b>'+Number(report.completed||0)+'</b><span>份任务已完成</span></div>';
+  const focus=document.createElement('div');focus.className='journal-focus';
+  focus.innerHTML='<div><small>需要回顾</small><h3>'+ (weak.length?weak.length+' 道题，逐个解决':'暂未发现错题')+'</h3><p>'+e(weak.length?[...new Set(weak.map(topic))].slice(0,3).join(' · '):points.length?'继续用新情境检验理解。':'暂无逐题数据，不推断薄弱点。')+'</p></div><div><small>已有基础</small><h3>'+points.filter(q=>q.correct).length+' 道题判断正确</h3><p>查看任务记录，可以找到你的选择与参考解析。</p></div>';
+  cover.after(focus);
+  template.content.querySelectorAll('.journal-task').forEach((article,i)=>{
+   const body=article.querySelector('.journal-task-body'),header=body.querySelector('header');
+   const details=document.createElement('details');details.className='journal-task-fold';details.dataset.taskIndex=i;
+   const summary=document.createElement('summary');summary.innerHTML=header.innerHTML+'<span class="journal-open-label">查看记录 ＋</span>';header.remove();
+   details.append(summary);while(body.firstChild)details.append(body.firstChild);body.append(details);
+  });
+  return template.innerHTML;
+ }
+ function focusedBind(){bind();document.querySelectorAll('[data-review-task]').forEach(b=>b.onclick=()=>{
+  const fold=document.querySelector('[data-task-index="'+b.dataset.reviewTask+'"]');if(!fold)return;
+  fold.open=true;const evidence=fold.querySelector('.journal-evidence');if(evidence)evidence.open=true;
+  fold.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+ })}
+ return {render:focusedRender,bind:focusedBind,record,teacher};
 };

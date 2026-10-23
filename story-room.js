@@ -22,12 +22,35 @@
     dialog.innerHTML=`<div class="story-shell"><header class="story-top"><span>律衡 / 生活来信 <small>教学模拟 · 自主探索</small></span><button class="story-close" aria-label="关闭情境">×</button></header><div class="story-layout"><section class="story-conversation"><header class="story-heading"><span class="story-date">一封还没有答案的来信</span><h1 id="storyTitle">${story.title}</h1><p>先别急着给建议。你想问${story.name}什么？</p></header><div class="story-person"><img class="xiaolin-avatar" src="${avatar}" width="64" height="64" alt="${story.name}的手绘头像"><div><b>${story.name}</b><small>${story.description} · 模拟人物</small></div><i>正在等你的想法</i></div><div class="story-messages" role="log" aria-label="与${story.name}的对话" aria-live="polite"></div><form class="story-ask"><label class="sr-only" for="storyQuestion">你想问${story.name}什么</label><textarea id="storyQuestion" rows="2" placeholder="当时怎么约定的？有没有留下聊天记录？" required></textarea><button type="submit" aria-label="发送提问">发送 ↗</button></form><div class="story-prompts" aria-label="提问灵感"></div><button class="story-hint" type="button"><img src="whale-mascot.png" alt="">没头绪？让小衡提醒一句 <span>↗</span></button><p class="story-whisper" role="status"></p></section><aside class="story-notebook"><div class="notebook-heading"><span>我的调查笔记</span><small>随提问慢慢展开</small></div><div class="story-evidence"></div><div class="story-letter"><span class="story-date">写给${story.name}</span><h2>现在，你会怎么建议？</h2><p>选出值得引用的材料，说说依据、还缺什么，以及下一步。</p><label class="sr-only" for="storyAdvice">给${story.name}的建议</label><textarea id="storyAdvice" rows="5" placeholder="${story.name}，我建议先……因为……还需要确认……"></textarea><button class="story-review">和小衡一起回看 ↗</button><div class="story-reflection" aria-live="polite"></div></div><p class="story-boundary">材料为教学编写，角色回复按情境匹配，不代表真实案件。探索记录仅在本次页面会话保留，不计入班级成绩。</p></aside></div></div>`;
     document.body.append(dialog);dialog.showModal();
     const notebookJump=document.createElement('button');notebookJump.className='story-notebook-jump';notebookJump.type='button';dialog.querySelector('.story-prompts').after(notebookJump);
-    notebookJump.onclick=()=>dialog.querySelector('.story-notebook').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    notebookJump.onclick=()=>setStage('evidence');
     const q=s=>dialog.querySelector(s);
+    const stages=document.createElement('nav');stages.className='story-stages';stages.setAttribute('aria-label','探索阶段');
+    stages.innerHTML='<button data-stage="talk">01 <span>听他说</span></button><button data-stage="evidence">02 <span>找依据</span><small class="story-clue-count"></small></button><button data-stage="advice">03 <span>给建议</span></button>';
+    q('.story-top').after(stages);
+    const guide=document.createElement('div');guide.className='story-guide';
+    guide.innerHTML='<small>从这里开始</small><b>选一个问题，听听'+story.name+'怎么说</b><p>点击下方问题即可提问，也可以输入自己的疑问。</p>';
+    q('.story-prompts').before(guide);
+    const onward=document.createElement('button');onward.className='story-next';onward.textContent='整理好依据，写下建议 →';q('.story-evidence').after(onward);
+    onward.onclick=()=>setStage('advice');
+    function setStage(stage){
+      dialog.dataset.stage=stage;
+      stages.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.stage===stage)));
+      q('.story-conversation').hidden=stage!=='talk';
+      q('.story-notebook').hidden=stage==='talk';
+      q('.story-evidence').hidden=stage==='advice';
+      q('.notebook-heading').hidden=stage==='advice';
+      q('.story-letter').hidden=stage!=='advice';
+      onward.hidden=stage!=='evidence';
+      dialog.scrollTop=0;
+    }
+    stages.querySelectorAll('button').forEach(b=>b.onclick=()=>setStage(b.dataset.stage));
+    setStage('talk');
     function close(){alive=false;dialog.close();dialog.remove();if(trigger?.isConnected)trigger.focus({preventScroll:true})}
     q('.story-close').onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close()});
     function renderMessages(){q('.story-messages').innerHTML=state.messages.map(m=>`<div class="story-bubble ${m.role==='you'?'from-you':''}"><small>${m.role==='you'?'你':`<img class="message-avatar" src="${avatar}" width="28" height="28" alt="">${story.name}`}</small><p>${escape(m.text)}</p></div>`).join('');q('.story-messages').scrollTop=q('.story-messages').scrollHeight}
     function renderEvidence(){
+      q('.story-clue-count').textContent=state.found.length+' / '+Object.keys(cases).length;
+      guide.querySelector('small').textContent=state.found.length?'继续探索 · 已发现 '+state.found.length+' 份材料':'从这里开始';
       const nextClue=Object.keys(cases).find(k=>!state.found.includes(k));
       q('#storyQuestion').placeholder=nextClue?cases[nextClue].question:'可以继续核对已有材料，或在调查笔记里写下你的建议。';
       q('#storyAdvice').placeholder=state.selected.length?'结合你引用的「'+cases[state.selected[0]].title+'」，说说建议的依据、待核实的事实和下一步……':state.found.length?'先勾选值得引用的材料，再写下：我建议……因为……':`先和${story.name}聊聊，再把你的想法写在这里。`;

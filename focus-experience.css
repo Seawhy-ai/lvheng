@@ -1,0 +1,52 @@
+/* Action-first report and progressive story workspace. */
+.journal-cover{background:#214f43;color:#fffdf5;border:0;border-radius:24px;padding:32px}
+.journal-cover h2{font-family:inherit;font-weight:700;font-size:clamp(26px,3vw,38px);line-height:1.35;max-width:680px;overflow-wrap:anywhere}
+.journal-cover small,.journal-cover p{color:#d6e4d7}.journal-seal{border-color:#92b3a3;transform:none}
+.journal-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:24px}
+.journal-primary{background:#f0d59a;color:#264d42;border:0;border-radius:12px;padding:15px 22px;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;min-height:48px}
+.journal-review-link{background:transparent;border:0;color:#fffdf5;padding:12px;cursor:pointer;text-decoration:underline;text-underline-offset:5px}
+.journal-focus{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;margin:24px 0 30px}
+.journal-focus>div{padding:8px 22px;border-left:4px solid #c59d57}.journal-focus>div+div{border-color:#97b49f}
+.journal-focus small{color:#657967}.journal-focus h3{margin:6px 0;font-size:21px}.journal-focus p{font-size:14px;margin:0;color:#607467}
+.journal-task-body{padding-bottom:12px}.journal-task-fold{background:#fffdf7;border:1px solid #dce4d9;border-radius:16px;padding:0 22px;scroll-margin-top:24px}
+.journal-task-fold>summary{display:flex;gap:16px;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.journal-task-fold>summary::-webkit-details-marker{display:none}.journal-task-fold>summary>div{flex:1;min-width:0}
+.journal-task-fold h2{font-size:18px}.journal-open-label{font-size:12px;color:#547360;white-space:nowrap}
+.journal-task-fold[open]{padding-bottom:22px}.journal-task-fold[open]>summary{border-bottom:1px solid #e0e5da}
+.journal-path button{background:#2b5447;color:white;text-decoration:none;border-radius:10px;padding:12px 16px}
+.journal-findings p{max-height:110px;overflow:auto}.journal-boundary{font-size:12px}
+.story-stages{display:flex;gap:8px;padding:18px 28px;background:#f8f7f0;border-bottom:1px solid #dedfd3}
+.story-stages button{flex:1;display:flex;align-items:center;justify-content:center;gap:12px;min-height:52px;border:1px solid #d6dfd2;border-radius:12px;background:transparent;color:#5a7263}
+.story-stages button[aria-pressed="true"]{background:#244f43;color:#fff;border-color:#244f43;box-shadow:0 5px 14px #244f4318}
+.story-stages button span{font-weight:600}.story-clue-count{font-size:11px}
+.story-room .story-layout{display:block;min-height:0;max-width:880px;margin:auto}
+.story-room [hidden]{display:none!important}
+.story-room .story-notebook{border:0;background:transparent;padding:28px 42px}
+.story-heading h1{font-size:clamp(28px,3vw,38px);margin:8px 0}.story-heading h1 br{display:none}
+.story-person{margin:18px 0 12px}.story-messages{max-height:260px;min-height:0}
+.story-conversation{display:flex;flex-direction:column;padding-top:24px}
+.story-heading{order:0}.story-person{order:1}.story-messages{order:2}.story-guide{order:3}.story-prompts{order:4}.story-ask{order:5}.story-notebook-jump{order:6}.story-hint{order:7}.story-whisper{order:8}
+.story-guide{margin-top:14px}.story-guide small{display:block;color:#96753c;font-size:11px}.story-guide b{display:block;margin-top:5px;font-size:17px}.story-guide p{font-size:12px;color:#627664;margin:5px 0}
+.story-prompts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.story-prompts button{border-radius:12px;background:#e4ecdf;border-color:#bacdb4;color:#284e40;padding:16px;font-size:14px;min-height:56px;box-shadow:0 3px 0 #d0ddc9}
+.story-prompts button:hover{background:#d7e5ce;transform:translateY(-2px)}
+.story-ask{border:1px solid #cbd6c5;border-radius:14px;background:#fffdf8;padding:10px;margin-top:8px}
+.story-room textarea{font-size:16px!important}.story-notebook-jump{background:#244f43;color:#fff;padding:14px 20px;border-radius:12px;text-decoration:none;margin-top:16px;align-self:flex-start}
+.story-letter{margin-top:0;border-top:0;padding-top:0}.story-letter h2{font-size:30px;font-weight:700}
+.story-next{background:#244f43;color:white;border:0;padding:15px 20px;border-radius:12px;font-size:15px}
+.notebook-empty{padding:22px 10px}.story-review{font-size:15px;padding:16px 24px}.evidence-slip{border-radius:10px}
+.journal-primary:focus-visible,.journal-review-link:focus-visible,.journal-task-fold>summary:focus-visible{outline:3px solid #c59d57;outline-offset:4px}
+@media(max-width:600px){.journal-cover{padding:24px}.journal-seal{display:none}.journal-focus{grid-template-columns:1fr;gap:16px}.journal-task{grid-template-columns:1fr}.journal-task-rail{display:none}.journal-task-fold{padding:0 16px}.journal-task-fold>summary{flex-wrap:wrap;gap:8px}.journal-task-fold>summary>div{flex-basis:100%}.journal-open-label{margin-left:auto}.story-stages{padding:12px;gap:6px}.story-stages button{gap:5px;font-size:12px}.story-stages small{font-size:10px}.story-conversation,.story-room .story-notebook{padding:22px}.story-prompts{grid-template-columns:1fr}.story-person i{display:none}.journal-actions{align-items:stretch;flex-direction:column}}
+@media(prefers-reduced-motion:no-preference){.story-prompts button,.story-stages button{transition:background .18s,transform .18s}.story-letter,.story-evidence{animation:letter-arrive .25s ease}}
+
+/* Shared forms: readable feedback, reachable controls and keyboard navigation. */
+body.modal-open{overflow:hidden}
+.cm-modal-card{overscroll-behavior:contain;max-height:calc(100dvh - 32px);padding-top:56px}
+.cm-modal-close{width:44px;height:44px;cursor:pointer}
+#modal .auth-error{padding:12px 14px;border:1px solid #e5b4a7;border-radius:12px;background:#fff3ef;color:#913c28;font-size:14px;line-height:1.6;text-align:left}
+#modal .field label{font-size:13px}
+#modal .field input,#modal .field textarea{font-size:16px;min-height:44px}
+#modal button{min-height:44px}
+button:focus-visible,a:focus-visible{outline:3px solid #247a92;outline-offset:3px}
+.cm-toast{max-width:calc(100vw - 32px);width:max-content;white-space:normal;text-align:center;line-height:1.6}
+@media(prefers-reduced-motion:reduce){.auth-spinner{animation:none}}
