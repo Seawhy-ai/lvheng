@@ -4,3 +4,5 @@
 /* iOS zooms editable fields below 16px. Keep pinch zoom available. */
 @media(max-width:900px),(pointer:coarse){html body input:not([type="checkbox"]):not([type="radio"]),html body textarea,html body select,html body .story-room textarea{font-size:16px!important}}
 .auth-pending{display:inline-flex;gap:10px;align-items:center;justify-content:center}.auth-spinner{display:inline-block;width:17px;height:17px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:auth-spin .8s linear infinite}.auth-status{font-size:12px;line-height:1.8;color:#607760;margin:12px 0 0}.form[aria-busy="true"] button:disabled{cursor:wait;opacity:.75}@keyframes auth-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.auth-spinner{animation:none;border-right-color:currentColor;opacity:.65}}
+/* Stop viewport rubber-banding without locking scrolling or pinch zoom. */
+html,body{overscroll-behavior-y:none}
