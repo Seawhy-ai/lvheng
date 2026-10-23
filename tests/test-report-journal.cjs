@@ -18,7 +18,7 @@ try{for(const width of [390,1024,1440]){
  await page.locator('[data-task-practice]').first().click();await page.waitForSelector('#similarForm');for(let i=0;i<3;i++)await page.check('input[name="practice'+i+'"][value="0"]');await page.click('#similarForm .primary');await page.click('#modalClose');
  assert.match(await page.locator('[data-practice-status]').innerText(),/3\/3/);assert.match(await page.locator('[data-practice-status]').innerText(),/不等同于已经掌握/);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:'/tmp/journal-'+width+'.png',fullPage:true});
- await page.evaluate(()=>localStorage.setItem('lvheng_classroom_session_v1',JSON.stringify({user:{id:'t1',role:'teacher',name:'教师'},token:'test'})));await page.reload();await page.waitForSelector('.teaching-evidence');
+ await page.evaluate(()=>localStorage.setItem('lvheng_classroom_session_v1',JSON.stringify({user:{id:'t1',role:'teacher',name:'教师'},token:'test'})));await page.reload();await page.click('[data-teacher-page=insights]');await page.waitForSelector('.teaching-evidence');
  await page.click('[data-teaching-focus]');await page.waitForSelector('#studioGoal');assert.match(await page.inputValue('#studioGoal'),/排班与实际出勤/);
  const states=await page.evaluate(()=>{
   const journal=window.createReportJournal({esc:s=>String(s),user:()=>({id:'edge'}),practice:()=>{}});

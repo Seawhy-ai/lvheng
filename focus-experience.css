@@ -50,3 +50,30 @@ body.modal-open{overflow:hidden}
 button:focus-visible,a:focus-visible{outline:3px solid #247a92;outline-offset:3px}
 .cm-toast{max-width:calc(100vw - 32px);width:max-content;white-space:normal;text-align:center;line-height:1.6}
 @media(prefers-reduced-motion:reduce){.auth-spinner{animation:none}}
+
+/* Teacher workspace: one purpose per route, with a shared class context. */
+.teacher-workspace{display:grid;grid-template-columns:190px minmax(0,1fr);gap:28px;align-items:start}
+.teacher-sidebar{position:sticky;top:90px;padding:20px 14px;background:#fff;border:1px solid var(--line);border-radius:20px}
+.teacher-sidebar>small{display:block;margin:0 12px 16px;color:var(--muted)}
+.teacher-sidebar nav{display:grid;gap:6px}
+.teacher-sidebar nav a{display:block;padding:14px 16px;border-radius:12px;text-decoration:none;color:var(--ink);font-size:14px;font-weight:600}
+.teacher-sidebar nav a:hover{background:#f0f6f4}
+.teacher-sidebar nav a[aria-current=page]{background:#245b50;color:white}
+.teacher-sidebar-footer{border-top:1px solid var(--line);margin-top:24px;padding-top:12px}
+.teacher-content{min-width:0}
+.teacher-context{display:flex;gap:14px;align-items:center;justify-content:flex-end;margin-bottom:20px;font-size:13px;color:var(--muted)}
+.teacher-context select{max-width:75%;min-height:44px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:white;color:var(--ink);font:inherit}
+.teacher-page[hidden]{display:none!important}
+.teacher-page>.panel,.teacher-page>.agent-console,.teacher-page>#aiInsight{margin-bottom:20px}
+.teacher-page .kpis{margin-top:0}
+.teacher-next{padding:28px!important}
+.teacher-next h2{font-size:24px;margin:12px 0}
+.teacher-next p{color:var(--muted);line-height:1.8}
+.teacher-next>div{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.teacher-next a{display:inline-flex;text-decoration:none;align-items:center;min-height:44px;padding:12px 18px;border-radius:12px}
+#teacher-tasks .panel-head{gap:12px;flex-wrap:wrap}
+#teacher-tasks .panel-head .primary{margin-left:auto}
+#teacher-insights>#aiInsight{min-height:44px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:#245b50;color:#fff}
+@media(max-width:760px){.teacher-workspace{grid-template-columns:1fr;gap:16px}.teacher-sidebar{position:static;padding:8px}.teacher-sidebar>small,.teacher-sidebar-footer{display:none}.teacher-sidebar nav{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.teacher-sidebar nav a{padding:13px 2px;text-align:center;font-size:12px}.teacher-context{justify-content:space-between}.teacher-page .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.teacher-next{padding:20px!important}}
+
+@media(max-width:760px){.teacher-sidebar-footer{display:block;margin-top:8px;padding-top:4px;text-align:right}.teacher-sidebar-footer .text-btn{min-height:36px;margin:0}}
