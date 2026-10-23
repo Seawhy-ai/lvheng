@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 const source=fs.readFileSync(new URL("../fastgpt-worker/worker.js",import.meta.url),"utf8");
-const {default:worker,learningDiagnosis,cleanSimilarPractice}=await import("data:text/javascript;base64,"+Buffer.from(source).toString("base64"));
+const {default:worker,learningDiagnosis,cleanSimilarPractice,taskLearningRecords,classQuestionInsights}=await import("data:text/javascript;base64,"+Buffer.from(source).toString("base64"));
 const question={ability:"law",prompt:"主张惩罚性赔偿前应核对哪些条件？",options:["评论数量","消费者权益保护法第55条适用条件","粉丝数","包装颜色"],answer:1,explain:"应核验消费欺诈及惩罚性赔偿的适用条件。"};
 const row={id:"sub1",task_id:"task-1",taskTitle:"网购纠纷",title:"网购纠纷",content_json:JSON.stringify({questions:[question]}),feedback_json:JSON.stringify([{correct:false,selected:0,answer:1,explain:question.explain}]),total_score:40,scores_json:'{"law":8}',submitted_at:"2026-10-21"};
 const d=learningDiagnosis([row]);
@@ -10,6 +10,11 @@ assert.equal(d.points[0].label,"消费欺诈与惩罚性赔偿");assert.equal(d.
 assert.equal(learningDiagnosis([]).points.length,0);
 const good={...row,feedback_json:JSON.stringify([{correct:true,selected:1,answer:1}])};
 assert.equal(learningDiagnosis([row,good]).points[0].accuracy,50);
+assert.equal(taskLearningRecords([row])[0].review[0].selected,"评论数量");
+assert.equal(taskLearningRecords([good])[0].correct,1);
+assert.equal(taskLearningRecords([{...row,feedback_json:"bad"}])[0].questionCount,0);
+const insight=classQuestionInsights([row,good]);assert.equal(insight[0].wrong,1);assert.equal(insight[0].attempts,2);assert.equal(insight[0].wrongChoices[0].count,1);
+assert.equal(classQuestionInsights([good]).length,0);
 assert.equal(learningDiagnosis([{...row,feedback_json:"not json"}]).questionCount,0);
 const raw={questions:[0,1,2].map(i=>({...question,prompt:question.prompt+i}))};
 assert.equal(cleanSimilarPractice(raw).questions.length,3);

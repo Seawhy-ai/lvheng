@@ -14,7 +14,7 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict");
   });
   await p.goto("http://127.0.0.1:8765/classroom.html");
   await p.waitForSelector("#atlasContinue");
-  await p.click('[data-snav="report"]');await p.waitForSelector(".knowledge-point");
+  await p.click('[data-snav="report"]');await p.getByText('查看跨任务知识点分析',{exact:true}).click();await p.waitForSelector(".knowledge-point");
   assert.match(await p.locator(".knowledge-analysis").innerText(),/消费欺诈与惩罚性赔偿/);
   await p.click(".knowledge-evidence summary");assert.match(await p.locator(".knowledge-evidence").innerText(),/评论数量/);
   await p.screenshot({path:"/tmp/lvheng-knowledge-mobile.png",fullPage:true});
@@ -33,7 +33,7 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict");
   await p.screenshot({path:"/tmp/lvheng-compact-resources.png",fullPage:true});
   await p.click("#aboutBtn");await p.waitForSelector(".about-sheet");await p.click("#aboutDone");
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
-  await p.setViewportSize({width:1440,height:950});await p.click('[data-snav="report"]');await p.waitForSelector(".knowledge-analysis");
+  await p.setViewportSize({width:1440,height:950});await p.click('[data-snav="report"]');await p.getByText('查看跨任务知识点分析',{exact:true}).click();await p.waitForSelector(".knowledge-analysis");
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   assert.deepEqual(errors,[]);console.log("PASS: compact resource/footer, About position, evidence, AI generation and practice feedback");
  }finally{await browser.close()}

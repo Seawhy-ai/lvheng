@@ -1,0 +1,22 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
+try{for(const width of [390,1440]){
+ const page=await browser.newPage({viewport:{width,height:950},serviceWorkers:'block'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(()=>{if(!localStorage.getItem('lvheng_classroom_session_v1'))localStorage.setItem('lvheng_classroom_session_v1',JSON.stringify({user:{id:'s1',role:'student',name:'测试'},token:'test'}))});
+ const question={questionIndex:0,ability:'evidence',label:'排班与实际出勤的区分',prompt:'排班表能直接证明实际出勤吗？',correct:false,selected:'一定能',answer:'还需核实实际履行',explain:'排班是工作安排，不必然等于到岗。'};
+ const task={id:'sub1',taskId:'task1',taskTitle:'兼职欠薪',className:'法治一班',total:88,correct:0,questionCount:1,submittedAt:'2026-10-23',review:[question]};
+ await page.route('https://lvheng-api.yhtbw5tps7.workers.dev/**',async route=>{const path=new URL(route.request().url()).pathname;let json={tasks:[]};
+ if(path==='/api/student/report')json={report:{completed:1,average:88,taskReviews:[task],recent:[task]}};
+ if(path==='/api/student/similar-practice')json={practice:{note:'自主巩固，不计入班级成绩',questions:[0,1,2].map(i=>({prompt:'补充题'+i,options:['应核实','不核实'],answer:0,explain:'需要核实材料是否能支持结论。'}))}};
+ if(path==='/api/classes')json={classes:[{id:'c1',name:'法治一班',code:'ABC123',studentCount:2}]};
+ if(path==='/api/classes/c1/dashboard')json={stats:{students:2,publishedTasks:1,submissions:2,average:88,abilities:{}},recent:[],questionInsights:[{...question,taskId:'task1',taskTitle:'兼职欠薪',wrong:1,attempts:2,wrongChoices:[{text:'一定能',count:1}]}]};
+ await route.fulfill({json});});
+ await page.goto('http://127.0.0.1:8765/classroom.html');await page.click('[data-snav="report"]');await page.waitForSelector('.journal-task');
+ await page.click('.journal-evidence summary');assert.match(await page.locator('.journal-evidence').innerText(),/一定能/);
+ await page.locator('[data-task-practice]').first().click();await page.waitForSelector('#similarForm');for(let i=0;i<3;i++)await page.check('input[name="practice'+i+'"][value="0"]');await page.click('#similarForm .primary');await page.click('#modalClose');
+ assert.match(await page.locator('[data-practice-status]').innerText(),/3\/3/);assert.match(await page.locator('[data-practice-status]').innerText(),/不等同于已经掌握/);
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:'/tmp/journal-'+width+'.png',fullPage:true});
+ await page.evaluate(()=>localStorage.setItem('lvheng_classroom_session_v1',JSON.stringify({user:{id:'t1',role:'teacher',name:'教师'},token:'test'})));await page.reload();await page.waitForSelector('.teaching-evidence');
+ await page.click('[data-teaching-focus]');await page.waitForSelector('#studioGoal');assert.match(await page.inputValue('#studioGoal'),/排班与实际出勤/);
+ assert.deepEqual(errors,[]);await page.close();console.log('PASS report journal',width,'task evidence, practice return, teacher preparation');
+}}finally{await browser.close()}})().catch(e=>{console.error(e);process.exit(1)});

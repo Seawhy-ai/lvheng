@@ -31,6 +31,7 @@ window.createLearningReport=function(ctx){
     e.preventDefault();const fd=new FormData(e.target);let correct=0;
     const review=p.questions.map((q,i)=>{const selected=Number(fd.get("practice"+i)),ok=selected===q.answer;if(ok)correct++;return '<article class="review-item '+(ok?'is-correct':'needs-review')+'"><small>第 '+(i+1)+' 题 · '+(ok?'判断正确':'需要巩固')+'</small><h3>'+ctx.esc(q.prompt)+'</h3><p>你的选择：'+ctx.esc(q.options[selected])+'</p><p class="review-answer">参考答案：'+ctx.esc(q.options[q.answer])+'</p><div class="review-explanation">'+ctx.esc(q.explain)+'</div></article>'}).join("");
     e.target.hidden=true;
+    if(ctx.onPracticeComplete)ctx.onPracticeComplete(point,{correct,total:p.questions.length});
     target.querySelector("#similarFeedback").innerHTML='<h2>答对 '+correct+' / 3 题</h2><p>'+(correct===3?'本组题表现良好，试着说明每题的判断理由。':'对照下面的解析，找出漏掉的条件，再回顾原考点。')+'</p>'+review+'<button type="button" class="secondary" id="practiceAgain">再生成一组</button>';
     target.querySelector("#practiceAgain").onclick=()=>generate(point);
     target.querySelector("#similarFeedback").scrollIntoView({block:"start",behavior:"smooth"});
@@ -41,5 +42,5 @@ window.createLearningReport=function(ctx){
    const retry=document.createElement("button");retry.className="secondary";retry.textContent="重新生成";retry.onclick=()=>generate(point);target.append(retry);
   }
  }
- return {render,bind};
+ return {render,bind,generate};
 };
