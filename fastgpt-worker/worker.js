@@ -337,6 +337,15 @@ if(p==="/api/agent/class-insight"&&request.method==="POST"){if(user.role!=="teac
 return reply({error:"Not found"},404,origin,env)}
 async function classroomExtras(request,env,url,user,origin){
  const path=url.pathname,match=path.match(/^\/api\/classes\/([^/]+)$/);
+ const membersMatch=path.match(/^\/api\/classes\/([^/]+)\/members$/);
+ if((match&&request.method==="PATCH")||(membersMatch&&request.method==="GET")){
+  if(user.role!=="teacher")fail("仅教师可管理班级",403);
+  const classroom=await ownClass(env.DB,(match||membersMatch)[1],user.id);
+  if(classroom.archived)fail("班级已删除",409);
+  if(match){const body=await json(request),name=text(body.name,"班级名称",2,50);await env.DB.prepare("UPDATE classes SET name=? WHERE id=? AND teacher_id=?").bind(name,classroom.id,user.id).run();return reply({ok:true,name},200,origin,env)}
+  const rows=await env.DB.prepare("SELECT u.id,u.display_name name,u.username,m.joined_at joinedAt,(SELECT COUNT(*) FROM submissions s JOIN tasks t ON t.id=s.task_id WHERE s.student_id=u.id AND t.class_id=m.class_id) submissions FROM class_members m JOIN users u ON u.id=m.student_id WHERE m.class_id=? ORDER BY m.joined_at,u.id").bind(classroom.id).all();
+  return reply({members:rows.results||[]},200,origin,env);
+ }
  if(match&&request.method==="DELETE"){
   if(user.role!=="teacher")fail("仅教师可删除班级",403);
   const classroom=await ownClass(env.DB,match[1],user.id),body=await json(request);
