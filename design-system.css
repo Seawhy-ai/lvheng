@@ -1,0 +1,103 @@
+/* Single palette for all learning, teaching and resource surfaces. Loaded last. */
+:root{--ui-bg:#f5f7f5;--ui-surface:#fff;--ui-ink:#193b3e;--ui-muted:#647b73;--ui-line:#dce6df;--ui-primary:#246b60;--ui-primary-hover:#1d584f;--ui-soft:#e7f1ec;--ui-dark:#193b3e;--ui-warning:#946321;--ui-warning-bg:#fff4e2;--ui-danger:#a64239;--ui-danger-bg:#fff0ed;--ui-radius:14px;--ink:var(--ui-ink);--muted:var(--ui-muted);--blue:var(--ui-primary);--blue2:#518c7d;--green:var(--ui-primary);--line:var(--ui-line);--soft:var(--ui-soft);--j-ink:var(--ui-ink);--j-blue:var(--ui-primary);--j-line:var(--ui-line);--j-soft:var(--ui-soft)}
+body:not(.dark),body.student-mode,body.teacher-mode{background:var(--ui-bg);color:var(--ui-ink)}
+body:not(.dark) .cm-header{background:var(--ui-surface);border-color:var(--ui-line);height:68px;backdrop-filter:none}
+body:not(.dark) :is(.cm-brand,.cm-brand b,.brand-nav a,.student-page-head h1,.workspace-description+h1){color:var(--ui-ink)}
+body:not(.dark) :is(.cm-brand small,.brand-nav span,.student-page-head small,.student-page-head p,.workspace-description,.site-footer,.site-footer button){color:var(--ui-muted)}
+body:not(.dark) :is(button,a,input,textarea,select,summary):focus-visible{outline:3px solid #83b8a7;outline-offset:3px}
+body:not(.dark) :is(input[type=radio],input[type=checkbox]){accent-color:var(--ui-primary)}
+body:not(.dark) :is(.primary,.agent-primary,.rs-primary,.journal-primary,.story-next,.story-notebook-jump,#aiTask,.atlas-copy button,.student-class-task:not(.done)>button,#whaleForm button[type=submit]){background:var(--ui-primary);border-color:var(--ui-primary);color:#fff;border-radius:10px;box-shadow:none;min-height:44px}
+body:not(.dark) :is(.primary,.agent-primary,.rs-primary,#aiTask,.atlas-copy button):hover:not(:disabled){background:var(--ui-primary-hover);border-color:var(--ui-primary-hover)}
+body:not(.dark) :is(.secondary,.row-btn,.rs-secondary,.agent-secondary,.teacher-refresh,.class-invite button,.student-class-task.done>button){background:var(--ui-surface);border:1px solid var(--ui-line);color:var(--ui-primary);border-radius:10px;box-shadow:none}
+body:not(.dark) :is(.panel,.rs-card,.law-news-card,.cm-modal-card,.student-class-task,.welcome-entry){background:var(--ui-surface);border-color:var(--ui-line);border-radius:var(--ui-radius);box-shadow:none}
+body:not(.dark) :is(.form h2,.form h3,.student-page-head h1,.report-studio h2,.report-studio h3,.teacher-page h2,.teacher-page h3,.atlas-greeting h1,.atlas-section-title h2,.resource-card>b){color:var(--ui-ink)}
+body:not(.dark) :is(.field input,.field textarea,.field select,.report-studio select,.report-studio textarea,.news-filters input,.news-filters select,.teacher-context select,#whaleInput){background:white;border-color:var(--ui-line);color:var(--ui-ink);border-radius:9px}
+body:not(.dark) :is(.form>p,.news-count,.report-studio .rs-note,.report-studio .rs-boundary,.law-news-card p,.resource-description){color:var(--ui-muted)}
+body:not(.dark) .site-footer{border-color:var(--ui-line)}
+/* One active-navigation treatment, irrespective of which student page is open. */
+body.student-mode .student-bottom{background:white;border-color:var(--ui-line)}
+body.student-mode .student-bottom::before{background:var(--ui-soft)}
+body.student-mode .student-bottom button{color:var(--ui-muted)}
+body.student-mode .student-bottom button.on{color:var(--ui-primary)}
+body.teacher-mode .teacher-sidebar{background:var(--ui-dark);color:#b9cec5}
+body.teacher-mode .teacher-sidebar nav a{color:#b9cec5}
+body.teacher-mode .teacher-sidebar nav a:hover{background:#28534e;color:white}
+body.teacher-mode .teacher-sidebar nav a[aria-current=page]{background:var(--ui-primary);color:white;box-shadow:none}
+body.teacher-mode .teacher-sidebar-footer .text-btn,.workspace-label,.sidebar-class small{color:#b9cec5}
+body.teacher-mode :is(.teacher-context,.teacher-refresh,.dash-head small){color:var(--ui-muted)}
+body.teacher-mode .dash-head h1{color:var(--ui-ink)}
+/* Learning home and resources use white surfaces; illustrations keep scene colors. */
+body.student-mode .atlas-hero{background:var(--ui-soft);border:1px solid var(--ui-line);border-radius:20px}
+body.student-mode .atlas-copy h2{color:var(--ui-ink)}
+body.student-mode .atlas-copy h2 span{color:var(--ui-primary)}
+body.student-mode :is(.atlas-copy p,.atlas-label,.atlas-progress p,.atlas-progress small,.atlas-resource){color:var(--ui-muted)}
+body.student-mode .progress-ring>span{background:var(--ui-bg);color:var(--ui-ink)}
+body.student-mode .resource-grid .resource-card{background:white;border:1px solid var(--ui-line);box-shadow:none}
+body.student-mode .resource-grid .resource-card:hover{border-color:#8db5a5;box-shadow:0 6px 20px #193b3e0d}
+body.student-mode .resource-icon{background:var(--ui-soft);color:var(--ui-primary);box-shadow:none}
+body.student-mode .resource-card-foot{color:var(--ui-primary)}
+body.student-mode .student-class-task{border:1px solid var(--ui-line);border-radius:14px}
+body.student-mode .student-class-task>span{color:var(--ui-muted)}
+body.student-mode .student-page-head{padding:0;margin:0 0 22px}
+body.student-mode .student-page-head h1{font-size:27px}
+.welcome-entry{box-shadow:6px 8px 0 var(--ui-soft)!important}.entry-icon{background:var(--ui-soft);color:var(--ui-primary)}
+/* Report and teacher analysis share the same analytical language. */
+body:not(.dark) .rs-cover{background:var(--ui-dark);border-color:var(--ui-dark)}
+body:not(.dark) .rs-cover h2{color:white}.rs-cover small,.rs-cover p,.rs-cover>span{color:#c1d5cd}.rs-cover>span{border-color:#668e7f}
+body:not(.dark) :is(.rs-tabs,.insight-tabs,.whale-mode-bar>div){background:var(--ui-soft)}
+body:not(.dark) :is(.rs-tabs button,.insight-tabs button,.whale-mode-bar button){color:var(--ui-muted)}
+body:not(.dark) :is(.rs-tabs button[aria-selected=true],.insight-tabs button[aria-selected=true],.whale-mode-bar button.on){background:white;color:var(--ui-primary);box-shadow:0 2px 6px #193b3e0d}
+body:not(.dark) :is(.rs-next,.teacher-mode .insight-hero,.teacher-mode .agent-console,.teacher-mode .ai-advice){background:var(--ui-soft);border-color:var(--ui-line);color:var(--ui-ink)}
+body:not(.dark) :is(.rs-next h2,.rs-next small,.teacher-mode .insight-hero h2,.teacher-mode .insight-hero-number b,.teacher-mode .ai-advice h2,.teacher-mode .agent-console h2){color:var(--ui-primary)}
+body:not(.dark) :is(.rs-next p,.rs-next>small,.teacher-mode .insight-hero p,.teacher-mode .insight-hero small,.teacher-mode .insight-hero-number span,.teacher-mode .ai-advice p,.teacher-mode .agent-console p){color:var(--ui-muted)}
+body.teacher-mode .ai-advice button{background:var(--ui-primary);color:white}
+body:not(.dark) :is(.rs-kpis article,.teacher-mode .kpi){background:white;border-color:var(--ui-line);border-top:3px solid #82aa9b}
+body:not(.dark) :is(.rs-kpis b,.teacher-mode .kpi b,.rs-calibration b,.insight-summary-strip b){color:var(--ui-primary)}
+body:not(.dark) :is(.rs-kpis small,.teacher-mode .kpi small,.rs-calibration small,.rs-title small,.radar-values span){color:var(--ui-muted)}
+body:not(.dark) .radar-area{fill:#246b6026;stroke:var(--ui-primary)}
+body:not(.dark) .radar-point{fill:var(--ui-primary)}
+body:not(.dark) .radar-label{fill:var(--ui-muted)}
+body:not(.dark) .radar-values>div{background:var(--ui-soft)}
+body:not(.dark) .radar-values b{color:var(--ui-primary)}
+body:not(.dark) .rs-question-list button[aria-current=true]{background:var(--ui-soft);border-color:#7aa794;box-shadow:0 0 0 1px #7aa794}
+body:not(.dark) :is(.rs-question-list b,.rs-chain label>span,.rs-title h2,.rs-next-action b,.rs-explanation summary){color:var(--ui-ink)}
+body:not(.dark) :is(.rs-explanation,.rs-counterfactual,.news-question,.form-note,.review-explanation){background:#f1f5f2;color:var(--ui-muted)}
+body:not(.dark) .journey-entry,body:not(.dark) .journey-entry:nth-child(n){background:white;border-color:var(--ui-line);color:var(--ui-primary)}
+body:not(.dark) .journey-entry .entry-number{color:var(--ui-muted)}
+body.teacher-mode #teacher-classes .class-row.active{background:var(--ui-soft)}
+body.teacher-mode .class-row.active .class-selected{background:#d7e9df;color:var(--ui-primary)}
+body.teacher-mode .class-avatar,body.teacher-mode .class-item:nth-child(n) .class-avatar{background:var(--ui-soft);color:var(--ui-primary)}
+body.teacher-mode #teacher-classes .class-invite{background:#f9fbf9;border-color:var(--ui-line)}
+body.teacher-mode .class-invite code{color:var(--ui-primary)}
+body.teacher-mode .news-page-head{background:white;border-color:var(--ui-line)}
+body.teacher-mode :is(.news-page-head h2,.news-page-head small,.news-meta>span){color:var(--ui-primary)}
+body.teacher-mode .news-page-head p{color:var(--ui-muted)}
+body.teacher-mode .news-meta>span{background:var(--ui-soft)}
+/* Amber communicates review/uncertainty; red is reserved for errors/destructive actions. */
+body:not(.dark) :is(.rs-answer-pair>div:first-child,.lesson-evidence,.service-notice,.calibration-feedback,.rs-calibration article:last-child){background:var(--ui-warning-bg);border-color:#ead8b8;color:var(--ui-warning)}
+body:not(.dark) :is(.rs-alert,.priority-meta>span,.rs-calibration article:last-child b){color:var(--ui-warning)}
+body:not(.dark) :is(.delete-class,#modal .auth-error){color:var(--ui-danger);border-color:#e8c6c1;background:var(--ui-danger-bg)}
+body:not(.dark) .options label:has(input:checked){background:var(--ui-soft);border-color:#82ad9a}
+body:not(.dark) #whaleDialog{background:white;border-color:var(--ui-line)}
+body:not(.dark) #whaleDialog>header{background:var(--ui-soft)}
+body:not(.dark) .whale-message.from-user{background:var(--ui-soft)!important;color:var(--ui-ink)}
+body:not(.dark) .story-stages{background:var(--ui-bg);border-color:var(--ui-line)}
+body:not(.dark) .story-stages button{color:var(--ui-muted);border-color:var(--ui-line)}
+body:not(.dark) .story-stages button[aria-pressed=true]{background:var(--ui-primary);color:white;border-color:var(--ui-primary);box-shadow:none}
+body:not(.dark) .story-prompts button{background:white;color:var(--ui-primary);border-color:var(--ui-line);box-shadow:none}
+/* Standalone library: retain dark mode and apply the shared light theme. */
+body:not(.dark):has(#dbView){--bg:var(--ui-bg);--nav-bg:var(--ui-surface);--card-bg:var(--ui-surface);--card-border:var(--ui-line);--text:var(--ui-ink);--text2:var(--ui-muted);--accent:var(--ui-primary);--accent-light:var(--ui-soft);--icon-bg:var(--ui-soft);--input-bg:var(--ui-surface);--input-border:var(--ui-line)}
+body:not(.dark) .wx-nav{background:var(--ui-surface)!important;border-color:var(--ui-line)}
+body:not(.dark) .db-header{background:var(--ui-soft)!important}
+body:not(.dark) .db-tab.on{background:var(--ui-primary)!important;color:white!important}
+body:not(.dark) :is(.db-card,.case-card,.doc-card,.calc-card){background:white;border-color:var(--ui-line)!important;border-radius:14px!important}
+body:not(.dark) #resourceReturn{background:var(--ui-primary)!important;color:white}
+@media(max-width:760px){body:not(.dark) .cm-header{height:58px}.student-mode .student-page-head h1{font-size:25px}.student-mode .student-page-head{margin-bottom:18px}}
+body:not(.dark) .rs-trend polyline{stroke:var(--ui-primary)}
+body:not(.dark) .rs-trend circle{fill:var(--ui-primary)}
+body:not(.dark) .rs-trend path{stroke:var(--ui-line)}
+body:not(.dark) .rs-trend text{fill:var(--ui-muted)}
+html:has(body:not(.dark)){background:var(--ui-bg)}
+body:not(.dark) .toast{background:var(--ui-dark);color:white}
+body:not(.dark) :is(.calc-type2.on,.calc-type.on,.doc-btn.primary,.quiz-btn.primary){background:var(--ui-primary)!important;border-color:var(--ui-primary);color:white;box-shadow:none}
+body:not(.dark) :is(.calc-btn,.doc-btn,.quiz-btn){box-shadow:none}
