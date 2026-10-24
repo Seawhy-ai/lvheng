@@ -11,12 +11,10 @@ try{for(const width of [390,1024,1440]){
  if(path==='/api/classes')json={classes:[{id:'c1',name:'法治一班',code:'ABC123',studentCount:2}]};
  if(path==='/api/classes/c1/dashboard')json={stats:{students:2,publishedTasks:1,submissions:2,average:88,abilities:{}},recent:[],questionInsights:[{...question,taskId:'task1',taskTitle:'兼职欠薪',wrong:1,attempts:2,wrongChoices:[{text:'一定能',count:1}]}]};
  await route.fulfill({json});});
- await page.goto('http://127.0.0.1:8766/classroom.html');await page.click('[data-snav="report"]');await page.waitForSelector('.journal-task');
- assert.equal(await page.locator('.journal-primary').isVisible(),true);
- assert.equal(await page.locator('.journal-task-fold').getAttribute('open'),null);
- await page.click('[data-review-task]');assert.match(await page.locator('.journal-evidence').innerText(),/一定能/);
- await page.locator('[data-task-practice]').first().click();await page.waitForSelector('#similarForm');for(let i=0;i<3;i++)await page.check('input[name="practice'+i+'"][value="0"]');await page.click('#similarForm .primary');await page.click('#modalClose');
- assert.match(await page.locator('[data-practice-status]').innerText(),/3\/3/);assert.match(await page.locator('[data-practice-status]').innerText(),/不等同于已经掌握/);
+ await page.goto('http://127.0.0.1:8766/classroom.html');await page.click('[data-snav="report"]');await page.waitForSelector('.report-studio');
+ await page.locator('[data-open-evidence]').first().click();assert.match(await page.locator('.rs-answer-pair').innerText(),/一定能/);
+ await page.locator('[data-practice-point]').first().click();await page.waitForSelector('#similarForm');for(let i=0;i<3;i++){await page.check('input[name="practice'+i+'"][value="0"]');await page.check('input[name="confidence'+i+'"][value="high"]')}await page.click('#similarForm .primary');await page.click('#modalClose');
+ await page.click('#rs-tab-practice');assert.match(await page.locator('.rs-run').innerText(),/3 \/ 3/);assert.match(await page.locator('#rsPanel').innerText(),/不代表已经掌握/);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:'/tmp/journal-'+width+'.png',fullPage:true});
  await page.evaluate(()=>localStorage.setItem('lvheng_classroom_session_v1',JSON.stringify({user:{id:'t1',role:'teacher',name:'教师'},token:'test'})));await page.reload();await page.click('[data-teacher-page=insights]');await page.click('#tab-evidence');await page.waitForSelector('.teaching-evidence');
  await page.click('[data-teaching-focus]');await page.waitForSelector('#studioGoal');assert.match(await page.inputValue('#studioGoal'),/排班与实际出勤/);

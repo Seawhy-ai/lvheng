@@ -288,14 +288,16 @@ function showAbout(){
  showModal('<article class="about-sheet"><small>关于律衡</small><h2>从生活出发，让法律素养成为行动能力。</h2><p>律衡是面向法律素养教学的学习与管理应用，连接教师的任务设计、学生的情境训练和基于作答记录的教学反馈。</p><h3>我们关注什么</h3><p>帮助学生看清事实、辨别证据、核对规则，并选择合理的解决路径；帮助教师发现学习难点，安排有针对性的巩固练习。</p><h3>小衡的角色</h3><p>小衡通过大模型提供学习辅助与相似题练习，生成内容需要核验，不替代教师判断或专业法律意见。</p><p>项目：律衡 · 法律素养教学管理平台</p><button class="primary" id="aboutDone">继续探索</button></article>');
  document.getElementById("aboutDone").onclick=closeModal;
 }
-var learningReport=window.createLearningReport({esc:esc,abilities:abilities,showModal:showModal,onPracticeComplete:function(point,result){reportJournal.record(point,result)},generate:function(input){
+var learningReport=window.createLearningReport({esc:esc,abilities:abilities,user:function(){return session&&session.user},showModal:showModal,onPracticeComplete:function(point,result){reportJournal.record(point,result)},generate:function(input){
  if(!apiBase)return Promise.reject(Error("自主生成需要连接模型服务，当前预览不生成模拟AI题目"));
  return request("/api/student/similar-practice",{method:"POST",body:input});
 }});
 var reportJournal=window.createReportJournal({esc:esc,user:function(){return session&&session.user},practice:function(point){learningReport.generate(point)}});
+var studentReportStudio=window.createStudentReportStudio({esc:esc,knowledge:function(report){return learningReport.render(report)},bindKnowledge:function(){learningReport.bind()},user:function(){return session&&session.user},radar:function(values){return renderAbilityRadar(values).replace(/班级/g,"个人")},practice:function(point){learningReport.generate(point)},goClass:function(){studentDashboard("class")}});
+reportJournal.render=studentReportStudio.render;reportJournal.bind=studentReportStudio.bind;reportJournal.record=studentReportStudio.record;
 var baseStudentReport=renderStudentReport;
 renderStudentReport=function(report){
- return reportJournal.render(report)+'<details class="journal-grades"><summary>查看跨任务知识点分析</summary>'+learningReport.render(report)+'</details>';
+ return reportJournal.render(report);
 };
 var studentRenderId=0,studentTab="home";
 async function studentDashboard(tab){document.body.classList.remove("teacher-mode");
@@ -325,7 +327,7 @@ async function studentDashboard(tab){document.body.classList.remove("teacher-mod
     if(!current())return;
     if(tab==="home")panel.innerHTML="";
     else if(tab==="class")panel.innerHTML='<section class="student-page-head"><small>课堂任务</small><h1>班级任务</h1><p>从真实情境出发，完成判断，回顾每一步。</p></section><div class="student-class-list">'+(tasks.length?tasks.map(function(t){return '<article class="student-class-task '+(t.submissionId?'done':'')+'"><span>'+esc(t.className||"班级任务")+'</span><h2>'+esc(t.title)+'</h2><p>'+esc(t.scenario)+'</p><button data-student-task="'+esc(t.id)+'">'+(t.submissionId?'已提交 · '+t.totalScore+'分 · 查看报告':'开始五步任务 →')+'</button></article>'}).join(""):'<div class="empty"><b>暂时没有班级任务</b>教师发布后会出现在这里。</div>')+'</div>';
-    else if(tab==="report")panel.innerHTML='<section class="student-page-head"><small>记录每一次进步</small><h1>我的学习报告</h1><p>从班级任务出发，找到依据，再练一次。</p></section>'+renderStudentReport(report);
+    else if(tab==="report")panel.innerHTML='<section class="student-page-head"><small>从真实作答出发</small><h1>我的学习报告</h1><p>看表现、查依据、做验证。</p></section>'+renderStudentReport(report);
     else panel.innerHTML='<section class="student-page-head"><small>按需查阅</small><h1>学习资源</h1><p>法条、案例、题库、文书与计算工具。</p></section><div class="resource-grid"></div>';
     whaleExperience.decorate(tab,tasks);
     if(tab==="class"){var newsSection=document.createElement("section");newsSection.className="student-class-news";panel.append(newsSection);lawNews.student(newsSection)}
