@@ -45,3 +45,6 @@ Create the next cinematic shot of this same fictional scene, preserving the SAME
 ## 数据边界
 
 新增的照片对照、条款标记和调查板保存在本设备剧情存档。现有课堂提交仍仅提交先前定义的已读材料、分支选择和复盘文字；不把新增操作冒充教师已收到的数据。本次前端升级不要求修改 Worker。
+
+## MP4 开场短片
+`videos/drama/deposit-opening.mp4`：1280×720、30 fps、H.264/AAC，约 18 秒，faststart。使用上面的两张原创 AI 图片制作三段运镜、淡入淡出，合入原有三段合成旁白；不是生成式人物动作视频。中文字幕位于 `videos/drama/deposit-opening.zh.vtt`。浏览器原生播放器支持暂停、进度拖动、全屏和重播；结束后由用户进入选择。
