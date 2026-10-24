@@ -335,6 +335,20 @@ if(p==="/api/agent/coach"&&request.method==="POST"){
 }
 if(p==="/api/agent/class-insight"&&request.method==="POST"){if(user.role!=="teacher")fail("仅教师可生成学情诊断",403);const v=await json(request),classId=text(v.classId,"班级ID",5,80),cls=await ownClass(env.DB,classId,user.id),rows=await env.DB.prepare("SELECT s.total_score,s.scores_json,t.title taskTitle FROM submissions s JOIN tasks t ON t.id=s.task_id WHERE t.class_id=? ORDER BY s.submitted_at DESC LIMIT 200").bind(cls.id).all(),list=(rows.results||[]).map(r=>({task:r.taskTitle,total:r.total_score,scores:safeParse(r.scores_json,{})}));if(!list.length)return reply({insight:{summary:"当前还没有有效提交，智能体不会虚构学情。",findings:["暂无可分析的班级任务数据"],groups:[],interventions:["先发布任务并等待学生提交"],source:"rules"}},200,origin,env);const data=await fastgpt(env,[{role:"system",content:"你是律衡班级学情诊断智能体。输入是匿名化的真实任务成绩与五维得分。不得虚构人数或表现，不得推断敏感信息。只输出JSON：{\"summary\":\"\",\"findings\":[\"\"],\"groups\":[\"\"],\"interventions\":[\"\"]}。findings说明共性薄弱点，groups只能按学习需要分层，interventions给出下一课可执行建议，并提示教师最终确认。"},{role:"user",content:JSON.stringify({className:cls.name,submissionCount:list.length,submissions:list})}],"insight-"+cls.id);return reply({insight:cleanInsight(modelJson(data),aiProvider(env))},200,origin,env)}
 return reply({error:"Not found"},404,origin,env)}
+let newsFeedCache=null;
+async function findNewsArticle(newsId){
+ const curated=NEWS_CATALOG.find(a=>a.id===newsId);if(curated)return curated;
+ if(!newsFeedCache||Date.now()-newsFeedCache.at>300000){
+  let response;try{response=await fetch("https://seawhy-ai.github.io/lvheng/data/legal-news.json",{signal:AbortSignal.timeout(10000),headers:{"Cache-Control":"no-cache"}})}catch{fail("新闻源暂不可用，请稍后重试",503)}
+  if(!response.ok)fail("新闻源暂不可用，请稍后重试",503);
+  const data=await response.json();if(!Array.isArray(data.articles))fail("新闻源格式异常",503);
+  newsFeedCache={at:Date.now(),articles:data.articles};
+ }
+ const article=newsFeedCache.articles.find(a=>a.id===newsId);if(!article)return null;
+ let url;try{url=new URL(article.url)}catch{return null}
+ if(url.protocol!=="https:"||url.hostname!=="www.chinanews.com.cn")return null;
+ return article;
+}
 async function classroomExtras(request,env,url,user,origin){
  const path=url.pathname,match=path.match(/^\/api\/classes\/([^/]+)$/);
  const membersMatch=path.match(/^\/api\/classes\/([^/]+)\/members$/);
@@ -363,7 +377,7 @@ async function classroomExtras(request,env,url,user,origin){
  }else if(request.method!=="GET")fail("仅教师可转发新闻",403);
  await env.DB.prepare("CREATE TABLE IF NOT EXISTS news_shares (id TEXT PRIMARY KEY, class_id TEXT NOT NULL REFERENCES classes(id), news_id TEXT NOT NULL, article_json TEXT NOT NULL, shared_at TEXT NOT NULL, UNIQUE(class_id,news_id))").run();
  if(request.method==="POST"){
-  const article=NEWS_CATALOG.find(item=>item.id===body.newsId);if(!article)fail("新闻不存在，请刷新页面",404);
+  const article=await findNewsArticle(body.newsId);if(!article)fail("新闻不存在，请刷新页面",404);
   await env.DB.prepare("INSERT OR IGNORE INTO news_shares (id,class_id,news_id,article_json,shared_at) VALUES (?,?,?,?,?)").bind(id(),classroom.id,article.id,JSON.stringify(article),now()).run();
   return reply({ok:true,newsId:article.id},200,origin,env);
  }

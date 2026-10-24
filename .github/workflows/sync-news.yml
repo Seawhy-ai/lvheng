@@ -1,0 +1,51 @@
+name: Refresh legal news
+on:
+  schedule:
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/sync_news.py', '.github/workflows/sync-news.yml']
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: legal-news-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/sync_news.py
+      - name: Save news snapshot
+        run: |
+          git config user.name 'lvheng-news-bot'
+          git config user.email 'news-bot@users.noreply.github.com'
+          git add data/legal-news.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh legal news snapshot'
+            git pull --rebase origin main
+            git push origin main
+          fi
+      # GITHUB_TOKEN commits do not trigger another Pages build, so deploy explicitly.
+      - uses: actions/configure-pages@v5
+      - name: Prepare public site
+        run: |
+          mkdir -p /tmp/lvheng-pages
+          git archive HEAD | tar -x -C /tmp/lvheng-pages
+          rm -rf /tmp/lvheng-pages/.github /tmp/lvheng-pages/tests /tmp/lvheng-pages/fastgpt-worker
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/lvheng-pages
+      - uses: actions/deploy-pages@v4
+        id: deployment
