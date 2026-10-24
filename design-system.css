@@ -101,3 +101,4 @@ html:has(body:not(.dark)){background:var(--ui-bg)}
 body:not(.dark) .toast{background:var(--ui-dark);color:white}
 body:not(.dark) :is(.calc-type2.on,.calc-type.on,.doc-btn.primary,.quiz-btn.primary){background:var(--ui-primary)!important;border-color:var(--ui-primary);color:white;box-shadow:none}
 body:not(.dark) :is(.calc-btn,.doc-btn,.quiz-btn){box-shadow:none}
+body:not(.dark) :is(#calcView button,.db-tab.on){box-shadow:none!important}
