@@ -46,5 +46,11 @@ Create the next cinematic shot of this same fictional scene, preserving the SAME
 
 新增的照片对照、条款标记和调查板保存在本设备剧情存档。现有课堂提交仍仅提交先前定义的已读材料、分支选择和复盘文字；不把新增操作冒充教师已收到的数据。本次前端升级不要求修改 Worker。
 
-## MP4 开场短片
-`videos/drama/deposit-opening.mp4`：1280×720、30 fps、H.264/AAC，约 18 秒，faststart。使用上面的两张原创 AI 图片制作三段运镜、淡入淡出，合入原有三段合成旁白；不是生成式人物动作视频。中文字幕位于 `videos/drama/deposit-opening.zh.vtt`。浏览器原生播放器支持暂停、进度拖动、全屏和重播；结束后由用户进入选择。
+## 当前开场与新版配音
+已恢复 MP4 改动前的动态分镜版，原 MP4 不再用于播放。保留重新开始按钮和现场证据调查。
+新版旁白：`audio/drama/opening-natural-1.mp3` 至 `opening-natural-3.mp3`。使用 Microsoft zh-CN-XiaoxiaoNeural 普通话女声（通过 edge-tts 合成），语速 -5%，不是人工录音。三段分镜分别为 7、8.7、7.9 秒，留足语音尾部停顿。
+
+配音文本：
+1. 搬走已经十天了。小禾还在等房东退回那两千块钱的押金。
+2. 房东发来一条消息：墙上有痕迹，得把整个房间重新刷一遍。押金就不退了。
+3. 可小禾记得，刚搬进来时，墙上就有那道痕迹。接下来，你会怎么做？
