@@ -135,3 +135,14 @@ body:not(.dark) .report-studio .rs-next,body:not(.dark).teacher-mode .insight-he
 body:not(.dark) .report-studio .rs-next h2,body:not(.dark).teacher-mode .insight-hero h2,body:not(.dark).teacher-mode .insight-hero-number b{color:var(--card-peach-ink)}
 body:not(.dark).teacher-mode :is(.agent-console,.ai-advice){background:var(--card-lilac);border-color:var(--card-lilac-line)}
 body:not(.dark).teacher-mode :is(.agent-console,.ai-advice) h2{color:var(--card-lilac-ink)}
+/* Route heading receives focus for screen readers, without looking selected. */
+body.teacher-mode .dash-head h1[tabindex="-1"]:focus{outline:none}
+body:not(.dark) .priority-question:nth-child(n){background:#fffdf9;border-color:#e5dfd3;border-top:3px solid #c7aa77;--card-accent:#775d34}
+body:not(.dark) .priority-question .priority-meta>span{color:#775d34}
+body:not(.dark) .priority-question summary{color:#425c56}
+.class-content-tabs{display:flex;gap:8px;margin:0 0 24px;border-bottom:1px solid var(--ui-line);padding:0 0 10px}
+.class-content-tabs button{border:0;border-radius:10px;background:transparent;color:#526961;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer}
+.class-content-tabs button[aria-selected=true]{background:#e5edf8;color:#365d87}
+.class-content-tabs button span{margin-left:8px;font-size:12px}
+.student-class-list[hidden],.student-class-news[hidden]{display:none!important}
+#studentProfileForm{display:grid;gap:16px}#profileStatus{margin:0;font-size:13px;color:#76532d}.account-sheet #accountDone{margin-top:16px}
