@@ -3,7 +3,7 @@ import concurrent.futures, datetime as dt, hashlib, html, json, re, urllib.reque
 from pathlib import Path
 BASE=Path(__file__).resolve().parents[1]
 UTC=dt.timezone.utc
-KEYWORDS=re.compile(r'纠纷|侵权|判决|判赔|获赔|索赔|维权|诈骗|起诉|诉讼|欠薪|拖欠工资|侵犯|退费|退款|造谣|违法解除|高空抛物|劳动仲裁')
+KEYWORDS=re.compile(r'纠纷|侵权|判决|判赔|获赔|索赔|维权|诈骗|起诉|诉讼|欠薪|拖欠工资|侵犯|退费|退款|造谣|违法解除|高空抛物|劳动仲裁|获刑|判刑|赔偿|盗用|著作权|虚假宣传|霸王条款|售假|不正当竞争|个人信息泄露')
 EXCLUDE=re.compile(r'会议|座谈|培训|宣传活动|工作报告|工作会议|审结.*件|蓝图|优选地|呈增长态势|有什么特点')
 TOPICS=[('消费维权',r'消费|退款|退费|商家|网购|直播|预付|食品|产品'),('劳动权益',r'劳动|工资|欠薪|加班|解雇|辞退|员工|职场'),('数字与人格权',r'AI|人工智能|肖像|声音|隐私|个人信息|造谣|名誉|网暴|平台'),('财产与合同',r'合同|租|房|物业|财产|投资|银行|借款|理财'),('公共安全',r'诈骗|高空|交通|刑|伤害')]
 def classify(title):
@@ -12,7 +12,7 @@ def parse_archive(raw, now):
  rows=[]
  for url,title in re.findall(r'<div class="dd_bt">\s*<a href="([^"]+)"[^>]*>(.*?)</a>',raw,re.S):
   title=html.unescape(re.sub('<[^>]+>','',title)).strip()
-  m=re.fullmatch(r'/(?:sh|cj|gn|fz|life)/(?P<year>\d{4})/(?P<month>\d{2})-(?P<day>\d{2})/\d+\.shtml',url)
+  m=re.fullmatch(r'/(?:[a-z]+)/(?P<year>\d{4})/(?P<month>\d{2})-(?P<day>\d{2})/\d+\.shtml',url)
   if not m or not KEYWORDS.search(title) or EXCLUDE.search(title):continue
   date=dt.date(int(m['year']),int(m['month']),int(m['day']))
   if not 0 <= (now.date()-date).days <=90:continue
@@ -43,7 +43,10 @@ def run():
  if not success:raise RuntimeError('All sources failed; previous news retained. '+str(errors))
  rows=sorted((a for a in articles.values() if not EXCLUDE.search(a['title']) and 0 <= (local.date()-dt.date.fromisoformat(a['publishedAt'])).days<=90),key=lambda a:(a['publishedAt'],a['id']),reverse=True)[:120]
  if not rows:raise RuntimeError('No relevant news; previous news retained')
- result={'updatedAt':now.isoformat(),'intervalMinutes':30,'sources':[{'name':'中国新闻网','url':'https://www.chinanews.com.cn/scroll-news/news1.html'}],'partial':bool(errors),'failedPages':len(errors),'articles':rows}
+ old_ids={a['id'] for a in previous['articles']}
+ new_count=sum(a['id'] not in old_ids for a in rows)
+ changed=rows!=previous['articles']
+ result={'newArticleCount':new_count,'contentUpdatedAt':now.isoformat() if changed else previous.get('contentUpdatedAt',previous.get('updatedAt',now.isoformat())),'latestPublishedAt':max(a['publishedAt'] for a in rows),'updatedAt':now.isoformat(),'intervalMinutes':30,'sources':[{'name':'中国新闻网','url':'https://www.chinanews.com.cn/scroll-news/news1.html'}],'partial':bool(errors),'failedPages':len(errors),'articles':rows}
  path.parent.mkdir(exist_ok=True);path.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
  print(f'{len(rows)} articles; {success}/{len(urls)} archive pages fetched')
  if errors:print('\n'.join(errors))

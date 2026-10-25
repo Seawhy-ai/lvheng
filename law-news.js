@@ -5,7 +5,7 @@ window.createLawNews=function(ctx){
  async function teacher(target,classroom){
   let catalog=fallback.slice(),sent=new Set(),ready=false,limit=12,loading=false,loaded=false;
   const pending=new Set();
-  target.innerHTML='<div class="news-page-head"><div><small>法律争议 · 新闻线索</small><h2>法律新闻</h2><p class="news-updated" role="status">正在读取最新新闻…</p></div><button class="secondary" id="refreshNews">刷新新闻</button></div><div class="news-filters"><label>关键词<input type="search" id="newsSearch" placeholder="搜索事件、权益或来源"></label><label>类别<select id="newsCategory"><option value="">全部类别</option></select></label><label>报道时间<select id="newsPeriod"><option value="30">近30天</option><option value="7">近7天</option><option value="90">近90天</option></select></label></div><p class="news-count"></p><p class="news-feedback" role="status"></p><div class="law-news-grid"></div><button class="secondary news-more" hidden>加载更多</button>';
+  target.innerHTML='<div class="news-page-head"><div><small>法律争议 · 新闻线索</small><h2>法律新闻</h2><p class="news-updated" role="status">正在读取最新新闻…</p></div><button class="secondary" id="refreshNews">检查新闻更新</button></div><div class="news-filters"><label>关键词<input type="search" id="newsSearch" placeholder="搜索事件、权益或来源"></label><label>类别<select id="newsCategory"><option value="">全部类别</option></select></label><label>报道时间<select id="newsPeriod"><option value="30">近30天</option><option value="7">近7天</option><option value="90">近90天</option></select></label></div><p class="news-count"></p><p class="news-feedback" role="status"></p><div class="law-news-grid"></div><button class="secondary news-more" hidden>加载更多</button>';
   const feedback=target.querySelector('.news-feedback'),status=target.querySelector('.news-updated'),grid=target.querySelector('.law-news-grid'),search=target.querySelector('#newsSearch'),category=target.querySelector('#newsCategory'),period=target.querySelector('#newsPeriod'),more=target.querySelector('.news-more'),refresh=target.querySelector('#refreshNews');
   function draw(){
    const query=search.value.trim().toLowerCase(),cutoff=new Date();cutoff.setDate(cutoff.getDate()-Number(period.value));const date=cutoff.toLocaleDateString('sv-SE');
@@ -18,20 +18,20 @@ window.createLawNews=function(ctx){
    if(loading)return;loading=true;refresh.disabled=true;refresh.textContent='正在刷新…';const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),15000);
    try{const response=await fetch('data/legal-news.json?t='+Date.now(),{cache:'no-store',signal:controller.signal});if(!response.ok)throw Error('读取失败');const data=await response.json();if(!Array.isArray(data.articles)||!data.updatedAt)throw Error('数据不完整');if(!target.isConnected)return;
     catalog=data.articles;loaded=true;const selected=category.value;category.innerHTML='<option value="">全部类别</option>'+Array.from(new Set(catalog.map(a=>a.category))).sort().map(c=>'<option>'+esc(c)+'</option>').join('');category.value=selected;
-    const when=new Date(data.updatedAt),stale=Date.now()-when.getTime()>2*60*60*1000;
-    status.textContent='每30分钟自动检查（调度可能延迟） · 最近检查：'+when.toLocaleString('zh-CN')+(stale?' · 更新已延迟，当前显示保留内容':'')+(data.partial?' · 部分来源暂不可用':'')+'。新闻标题自动筛选，转发前请阅读原文。';draw();
-   }catch(error){if(target.isConnected){status.textContent=loaded?'刷新失败，保留已加载新闻，请稍后重试。':'自动新闻暂不可用，当前显示原有精选案例。';draw()}}finally{clearTimeout(timeout);loading=false;if(target.isConnected){refresh.disabled=false;refresh.textContent='刷新新闻'}}
+    const when=new Date(data.updatedAt),stale=Date.now()-when.getTime()>2*60*60*1000; const newest=catalog.reduce((v,a)=>a.publishedAt>v?a.publishedAt:v,'');
+    status.textContent='最近采集：'+when.toLocaleString('zh-CN')+' · 最新报道：'+newest+' · '+catalog.length+' 条'+(Number.isInteger(data.newArticleCount)?' · 本轮新增 '+data.newArticleCount+' 条':'')+(stale?'。采集已延迟，当前保留上次内容。':'。')+(data.partial?'部分来源暂不可用。':'')+'此按钮检查已采集内容，不会即时抓取新闻源。';draw();
+   }catch(error){if(target.isConnected){status.textContent=loaded?'刷新失败，保留已加载新闻，请稍后重试。':'自动新闻暂不可用，当前显示原有精选案例。';draw()}}finally{clearTimeout(timeout);loading=false;if(target.isConnected){refresh.disabled=false;refresh.textContent='检查新闻更新'}}
   }
   [search,category,period].forEach(control=>control.addEventListener(control===search?'input':'change',()=>{limit=12;draw()}));more.onclick=()=>{limit+=12;draw()};refresh.onclick=load;
   async function shares(){if(!classroom)return;try{const result=await ctx.api('newsShares',{classId:classroom.id});if(!target.isConnected)return;sent=new Set((result.shares||[]).map(s=>s.newsId));ready=true;draw()}catch(error){if(!target.isConnected)return;feedback.textContent='暂时无法读取班级分享：'+error.message;const retry=document.createElement('button');retry.className='text-btn';retry.textContent='重新连接';retry.onclick=()=>{feedback.textContent='';shares()};feedback.append(retry)}}
   draw();await Promise.all([load(),shares()]);
   // Refresh an open news view without discarding its filters; stop when its class view is replaced.
-  const timer=setInterval(()=>{if(!target.isConnected){clearInterval(timer);return}if(!target.hidden&&!document.hidden)load()},30*60*1000);
+  const timer=setInterval(()=>{if(!target.isConnected){clearInterval(timer);return}if(!target.hidden&&!document.hidden)load()},5*60*1000);
  }
  async function student(target){
-  target.innerHTML='<h2>老师分享的法律新闻</h2><p role="status">正在读取班级分享…</p>';
-  try{const result=await ctx.api('newsShares',{});if(!target.isConnected)return;target.innerHTML='<h2>老师分享的法律新闻</h2>'+(result.shares?.length?'<div class="law-news-grid">'+cards(result.shares,false)+'</div>':'<p class="news-empty">老师转发新闻后，会出现在这里。</p>')}
-  catch(error){if(!target.isConnected)return;target.innerHTML='<h2>老师分享的法律新闻</h2><p>新闻暂未加载成功，不影响完成班级任务。</p><button class="text-btn">重试</button>';target.querySelector('button').onclick=()=>student(target)}
+  target.innerHTML='<h2>老师分享的法律新闻</h2><p class="drama-note">这里只显示老师主动转发的内容，新闻库更新不会自动转发。</p><p role="status">正在读取班级分享…</p>';
+  try{const result=await ctx.api('newsShares',{});if(!target.isConnected)return;target.innerHTML='<h2>老师分享的法律新闻</h2><p class="drama-note">这里只显示老师主动转发的内容，新闻库更新不会自动转发。</p>'+(result.shares?.length?'<div class="law-news-grid">'+cards(result.shares,false)+'</div>':'<p class="news-empty">老师转发新闻后，会出现在这里。</p>')}
+  catch(error){if(!target.isConnected)return;target.innerHTML='<h2>老师分享的法律新闻</h2><p class="drama-note">这里只显示老师主动转发的内容，新闻库更新不会自动转发。</p><p>新闻暂未加载成功，不影响完成班级任务。</p><button class="text-btn">重试</button>';target.querySelector('button').onclick=()=>student(target)}
  }
  return{teacher,student};
 };

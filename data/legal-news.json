@@ -1,5 +1,8 @@
 {
-  "updatedAt": "2026-10-25T05:22:09.709395+00:00",
+  "newArticleCount": 12,
+  "contentUpdatedAt": "2026-10-25T09:53:29.583510+00:00",
+  "latestPublishedAt": "2026-10-25",
+  "updatedAt": "2026-10-25T09:53:29.583510+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -29,6 +32,30 @@
       "publishedAt": "2026-10-23",
       "source": "中国新闻网",
       "url": "https://www.chinanews.com.cn/fz/2026/10-23/10719566.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-5c9e9b58147cbab5a2f2",
+      "title": "民生调查局｜涂了就能摘掉眼镜？记者卧底调查护眼膏虚假宣传乱象",
+      "category": "法律争议",
+      "publishedAt": "2026-10-23",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/10-23/10719988.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-fbb5f585b6dfbe22ff78",
+      "title": "一边欠薪345万，一边送女儿海外出道：这笔账法律怎么算？",
+      "category": "劳动权益",
+      "publishedAt": "2026-10-22",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cul/2026/10-22/10718869.shtml",
       "summary": "",
       "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
@@ -71,6 +98,18 @@
       "curation": "headline"
     },
     {
+      "id": "cn-f4bbabc56fb7da8b6dcd",
+      "title": "聚焦网络食品销售虚假宣传等问题 市场监管总局公布6起典型案例",
+      "category": "消费维权",
+      "publishedAt": "2026-10-21",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/10-21/10718595.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
       "id": "cn-eca43f7627d22f8e8a91",
       "title": "夫妻花67.3万购名表不试不挑 反常消费牵出投资诈骗",
       "category": "消费维权",
@@ -95,6 +134,18 @@
       "curation": "headline"
     },
     {
+      "id": "cn-6c5bde34b6c234735d3f",
+      "title": "分工演戏、索要高额赔偿！警方打掉企业“碰瓷式”涉恶团伙",
+      "category": "法律争议",
+      "publishedAt": "2026-10-21",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/10-21/10718479.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
       "id": "cn-47941386e2655d76ebbd",
       "title": "蹭影视剧热度卖酒被判赔偿五百万 法院：有一定影响的商业标识不得擅自使用",
       "category": "法律争议",
@@ -107,12 +158,84 @@
       "curation": "headline"
     },
     {
+      "id": "cn-3c8df5eeaa7ee36eb61e",
+      "title": "广东高院首次发布涉东盟商事海事纠纷典型案例",
+      "category": "法律争议",
+      "publishedAt": "2026-10-21",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/aseaninfo/2026/10-21/10718623.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-ea29f26ccfce8dd818a5",
+      "title": "韩国华城电池厂火灾涉事企业代表终审获刑4年",
+      "category": "公共安全",
+      "publishedAt": "2026-10-20",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gj/2026/10-20/10717848.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-bc9cd8c0ccad1e064b46",
+      "title": "杨小伟一审获刑12年 曾任国家广播电视总局副局长等职",
+      "category": "公共安全",
+      "publishedAt": "2026-10-20",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/10-20/10717982.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-ac74f10bf5928ed50a6e",
+      "title": "破坏红树林后补种，海南法院：不等于赔偿义务终结",
+      "category": "法律争议",
+      "publishedAt": "2026-10-20",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/10-20/10718087.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-4602ac472fabd90572ac",
+      "title": "广东首宗老年人权益保护消费民事公益诉讼胜诉 受损消费者可领赔偿金",
+      "category": "消费维权",
+      "publishedAt": "2026-10-19",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/dwq/2026/10-19/10717111.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
       "id": "cn-4354ca0460a088ba94e2",
       "title": "30分钟“极速维权”这样跑出来",
       "category": "法律争议",
       "publishedAt": "2026-10-19",
       "source": "中国新闻网",
       "url": "https://www.chinanews.com.cn/sh/2026/10-19/10717207.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-8b131c5c47216c629bf2",
+      "title": "火遍全网的发菜到底是什么“菜”？有店主因采卖获刑",
+      "category": "公共安全",
+      "publishedAt": "2026-10-17",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/10-17/10716223.shtml",
       "summary": "",
       "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
@@ -137,6 +260,18 @@
       "publishedAt": "2026-10-16",
       "source": "中国新闻网",
       "url": "https://www.chinanews.com.cn/fz/2026/10-16/10715512.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-c2041b915ef63c0886dc",
+      "title": "随身“消毒卡”虚假宣传 中消协胜诉 企业退一赔三",
+      "category": "法律争议",
+      "publishedAt": "2026-10-15",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/10-15/10714917.shtml",
       "summary": "",
       "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
@@ -257,6 +392,18 @@
       "publishedAt": "2026-10-12",
       "source": "中国新闻网",
       "url": "https://www.chinanews.com.cn/fz/2026/10-12/10712120.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
+    {
+      "id": "cn-12a4e67f62d4684fd478",
+      "title": "江西省政协原副主席胡幼桃一审获刑13年",
+      "category": "公共安全",
+      "publishedAt": "2026-10-12",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/10-12/10712258.shtml",
       "summary": "",
       "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
