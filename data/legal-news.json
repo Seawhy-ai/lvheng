@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T00:33:39.384419+00:00",
+  "updatedAt": "2026-10-25T05:22:09.709395+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -10,6 +10,18 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-8e3f98514e99d5bcbfaf",
+      "title": "AI换脸明星带货泛滥，维权难点到底在哪？",
+      "category": "数字与人格权",
+      "publishedAt": "2026-10-25",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/10-25/10720562.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline"
+    },
     {
       "id": "cn-965fad9ae5774271702a",
       "title": "批量包装“完美恋人”诱导打赏 婚恋型诈骗团伙63人获刑",
