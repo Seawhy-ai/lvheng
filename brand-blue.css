@@ -76,3 +76,80 @@ body.teacher-mode .insight-overview .ability-radar svg {width:100%;max-width:280
 }
 body.teacher-mode .insight-overview .ability-radar {width:100%;max-width:none}
 body.student-mode .student-class-list .drama-note {padding:12px 24px;margin:0;border-bottom:1px solid var(--ui-line)}
+/* Student navigation belongs to the shared brand header. */
+body:not(.student-mode) .cm-header .student-bottom {display:none}
+body.student-mode .cm-header {display:flex;position:sticky;top:0;z-index:40;height:68px;gap:28px;padding:0 32px;background:#fff}
+body.student-mode .cm-header .cm-brand {flex-shrink:0}
+body.student-mode .cm-header .brand-nav {margin-left:auto;order:3}
+body.student-mode .cm-header .brand-nav>span {display:none}
+body.student-mode .cm-header .student-bottom {position:static;inset:auto;transform:none;width:auto;max-width:none;display:flex;flex-direction:row;gap:6px;padding:0;margin:0;border:0;border-radius:0;box-shadow:none;background:transparent;backdrop-filter:none;order:2}
+body.student-mode .cm-header .student-bottom::before {display:none}
+body.student-mode .cm-header .student-bottom button {display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 19px;min-height:44px;font-size:14px;border-radius:9px;white-space:nowrap}
+body.student-mode .cm-header .student-bottom button svg {width:19px;height:19px}
+body.student-mode #view {width:min(calc(100% - 64px),1200px);margin:0 auto;padding:22px 0 32px}
+body.student-mode .site-footer {width:min(calc(100% - 64px),1200px);margin:24px auto 0;padding:20px 0}
+/* Every assignment gets a divider, including the nested drama assignment. */
+body.student-mode .student-class-list .student-class-task,
+body.student-mode .student-class-list .student-class-task:last-child {border-bottom:1px solid #cad9ee}
+body.student-mode .student-class-list>.student-class-task:last-child {border-bottom:0}
+body.student-mode .student-class-list .student-class-task {padding:17px 20px}
+body.student-mode .student-class-list .student-class-task:hover {background:#f8faff}
+/* Compact home: retain the artwork and mascot without oversized panels. */
+body.student-mode .atlas-greeting {margin:0 0 16px}
+body.student-mode .atlas-greeting h1 {font-size:22px}
+body.student-mode .atlas-hero {min-height:0;height:230px;grid-template-columns:1.2fr 1fr;border-radius:16px}
+body.student-mode .atlas-copy {padding:24px 30px}
+body.student-mode .atlas-copy h2 {font-size:30px;line-height:1.3;margin:12px 0}
+body.student-mode .atlas-copy p,body.student-mode .atlas-label,body.student-mode .atlas-progress p {display:none}
+body.student-mode .atlas-copy button {margin-top:8px;padding:10px 16px}
+body.student-mode .atlas-ocean>svg,body.student-mode .atlas-ocean>img {max-width:230px;max-height:190px;width:70%;object-fit:contain}
+body.student-mode .atlas-ocean .orbit {width:210px}
+body.student-mode .atlas-ocean .orbit-two {width:160px}
+body.student-mode .orbit-note {display:none}
+body.student-mode .atlas-progress {padding:16px 0;gap:16px}
+body.student-mode .progress-ring {width:46px;height:46px;padding:4px}
+body.student-mode .drama-launch {min-height:0;padding:24px;margin-top:20px;border-radius:14px}
+body.student-mode .drama-launch h2 {font-size:25px;margin:9px 0}
+body.student-mode .drama-launch p {font-size:13px;margin:8px 0}
+body.student-mode .drama-launch small {display:none}
+body.student-mode .drama-library {margin:18px 0;padding:0}
+body.student-mode .drama-library .panel-head {margin-bottom:12px}
+body.student-mode .drama-library .panel-head h2 {font-size:18px}
+body.student-mode .library-cards {gap:16px}
+body.student-mode .library-cards article {display:grid;grid-template-columns:36% minmax(0,1fr);border-radius:12px}
+body.student-mode .library-cards article>img {height:100%;min-height:175px;object-fit:cover}
+body.student-mode .library-cards article>div {padding:16px}
+body.student-mode .library-cards h3 {font-size:19px;margin:7px 0}
+body.student-mode .library-cards p {font-size:12px;margin:8px 0}
+body.student-mode .library-cards .drama-note,body.student-mode .drama-library .panel-head>span {display:none}
+body.student-mode .library-cards button {padding:9px 13px;min-height:40px;font-size:12px}
+body.student-mode .atlas-section-title {margin:20px 0 12px}
+body.student-mode .atlas-scenarios>button {padding:16px;border-radius:12px;min-height:0}
+body.student-mode .scene-art {height:75px}
+body.student-mode .scene-art img {width:72px;height:72px;object-fit:contain}
+body.student-mode .atlas-scenarios h3 {font-size:17px;margin:8px 0 12px}
+body.student-mode .atlas-resource>span {display:none}
+@media(max-width:760px){
+ body.student-mode .cm-header {height:60px;padding:0 12px;gap:8px}
+ body.student-mode .cm-header .cm-brand {gap:5px}
+ body.student-mode .cm-header .cm-brand b {font-size:17px}
+ body.student-mode .cm-header .cm-brand img {width:30px;height:30px}
+ body.student-mode .cm-header .brand-nav {display:none}
+ body.student-mode .cm-header .student-bottom {flex:1;gap:2px;justify-content:flex-end}
+ body.student-mode .cm-header .student-bottom button {padding:9px 9px;font-size:12px;gap:0}
+ body.student-mode .cm-header .student-bottom button i {display:none}
+ body.student-mode #view,body.student-mode .site-footer {width:calc(100% - 28px);margin-left:auto;margin-right:auto}
+ body.student-mode .atlas-hero {height:195px;grid-template-columns:1.4fr 1fr}
+ body.student-mode .atlas-copy {padding:22px 18px}
+ body.student-mode .atlas-copy h2 {font-size:24px}
+ body.student-mode .atlas-ocean {position:relative;inset:auto;width:auto;opacity:1}
+ body.student-mode .atlas-ocean>svg,body.student-mode .atlas-ocean>img {width:120px;max-height:150px}
+ body.student-mode .atlas-ocean .orbit {width:130px}
+ body.student-mode .atlas-ocean .orbit-two {width:100px}
+ body.student-mode .library-cards {grid-template-columns:1fr;gap:12px}
+ body.student-mode .library-cards article>img {min-height:150px}
+ body.student-mode .atlas-scenarios {gap:12px}
+ body.student-mode .atlas-scenarios>button {min-width:190px}
+}
+body.student-mode .student-class-list[hidden],body.student-mode .student-class-news[hidden] {display:none!important}
+body.student-mode .student-page-head>p,body.student-mode .library-history>p {display:none}

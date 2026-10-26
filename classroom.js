@@ -316,10 +316,12 @@ async function studentDashboard(tab){document.body.classList.remove("teacher-mod
   studentTab=tab;document.body.classList.add("student-mode");
   var view=document.getElementById("view");
   if(!view.querySelector(".student-v2")){
+    document.querySelector(".cm-header .student-bottom")?.remove();
     view.innerHTML='<section class="student-v2"></section><nav class="student-bottom" aria-label="学生空间导航">'+["home","class","report","resources"].map(function(t,i){return '<button data-snav="'+t+'"><i aria-hidden="true">'+["⌂","▤","◇","▣"][i]+'</i><span>'+["首页","班级","报告","资源"][i]+'</span></button>'}).join("")+'</nav>';
     view.querySelectorAll("[data-snav]").forEach(function(b){b.onclick=function(){if(studentTab!==b.dataset.snav)studentDashboard(b.dataset.snav)}});
   }
-  var panel=view.querySelector(".student-v2"),nav=view.querySelector(".student-bottom");
+  var freshNav=view.querySelector(".student-bottom");if(freshNav)document.querySelector(".cm-header").append(freshNav);
+  var panel=view.querySelector(".student-v2"),nav=document.querySelector(".cm-header .student-bottom");
   nav.style.setProperty("--active-tab",["home","class","report","resources"].indexOf(tab));
   nav.querySelectorAll("button").forEach(function(b){var active=b.dataset.snav===tab;b.classList.toggle("on",active);b.setAttribute("aria-current",active?"page":"false")});
   panel.setAttribute("aria-busy","true");
@@ -331,7 +333,7 @@ async function studentDashboard(tab){document.body.classList.remove("teacher-mod
     if(tab==="report")report=(await api("report")).report;
     if(!current())return;
     if(tab==="home")panel.innerHTML="";
-    else if(tab==="class")panel.innerHTML='<section class="student-page-head"><small>我的课堂</small><h1>班级学习</h1><p>完成课堂任务，阅读教师分享的法律新闻。</p></section><div class="student-class-list">'+(tasks.length?tasks.map(function(t){return '<article class="student-class-task '+(t.submissionId?'done':'')+'"><span>'+esc(t.className||"班级任务")+'</span><h2>'+esc(t.title)+'</h2><p>'+esc(t.scenario)+'</p><button data-student-task="'+esc(t.id)+'">'+(t.submissionId?'已提交 · '+t.totalScore+'分 · 查看报告':'开始五步任务 →')+'</button></article>'}).join(""):'<div class="empty"><b>暂时没有班级任务</b>教师发布后会出现在这里。</div>')+'</div>';
+    else if(tab==="class")panel.innerHTML='<section class="student-page-head"><small>我的课堂</small><h1>班级学习</h1></section><div class="student-class-list">'+(tasks.length?tasks.map(function(t){return '<article class="student-class-task '+(t.submissionId?'done':'')+'"><span>'+esc(t.className||"班级任务")+'</span><h2>'+esc(t.title)+'</h2><p>'+esc(t.scenario)+'</p><button data-student-task="'+esc(t.id)+'">'+(t.submissionId?'已提交 · '+t.totalScore+'分 · 查看报告':'开始五步任务 →')+'</button></article>'}).join(""):'<div class="empty"><b>暂时没有班级任务</b>教师发布后会出现在这里。</div>')+'</div>';
     else if(tab==="report")panel.innerHTML='<section class="student-page-head"><small>从真实作答出发</small><h1>我的学习报告</h1><p>看表现、查依据、做验证。</p></section>'+renderStudentReport(report);
     else panel.innerHTML='<section class="student-page-head"><small>按需查阅</small><h1>学习资源</h1><p>法条、案例、题库、文书与计算工具。</p></section><div class="resource-grid"></div>';
     whaleExperience.decorate(tab,tasks);
