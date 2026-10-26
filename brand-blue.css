@@ -35,3 +35,44 @@ body.dark :is(.journey-scenarios button,.journey-learn-card,.journey-panel,.jour
 body.dark :is(.journey-scenarios small,.journey-learn-card p,.journey-panel p) {color:#adc2df}
 body.dark .journey-brand p,body.dark .journey-section a {color:#91bfff}
 body.dark .bottom-nav {background:#172a45;border-color:#344b6c;color:#d6e5fa}
+/* Compact classroom lists: keep full task text, with a consistent action column. */
+body.student-mode .student-class-list {display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid var(--ui-line);border-radius:14px;overflow:hidden}
+body.student-mode .student-class-list .drama-class {display:contents}
+body.student-mode .student-class-list .student-class-task {display:grid;grid-template-columns:minmax(0,1fr) 240px;grid-template-areas:'meta action' 'title action' 'description action';gap:5px 24px;padding:20px 24px;margin:0;min-height:0;background:#fff;border:0;border-bottom:1px solid var(--ui-line);border-radius:0;box-shadow:none}
+body.student-mode .student-class-list .student-class-task:last-child {border-bottom:0}
+body.student-mode .student-class-task>span {grid-area:meta;font-size:12px}
+body.student-mode .student-class-task>h2 {grid-area:title;font-size:18px;line-height:1.5;margin:0}
+body.student-mode .student-class-task>p {grid-area:description;font-size:13px;line-height:1.7;margin:0;max-width:860px}
+body.student-mode .student-class-task>button {grid-area:action;align-self:center;justify-self:end;width:auto;max-width:240px;margin:0;padding:11px 16px;min-height:44px;font-size:13px;line-height:1.5}
+/* News uses the same row rhythm on teacher and student pages. */
+body:not(.dark) .law-news-grid {display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid var(--ui-line);border-radius:14px;overflow:hidden}
+body:not(.dark) .law-news-grid .law-news-card {display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:7px 24px;padding:20px 24px;margin:0;min-height:0;border:0;border-bottom:1px solid var(--ui-line);border-radius:0;box-shadow:none;background:#fff}
+body:not(.dark) .law-news-grid .law-news-card:last-child {border-bottom:0}
+.law-news-grid .law-news-card>:not(footer) {grid-column:1}
+.law-news-grid .law-news-card .news-meta {justify-content:flex-start;gap:14px;font-size:12px}
+.law-news-grid .law-news-card h3 {font-size:18px;line-height:1.5;margin:0}
+.law-news-grid .law-news-card p {font-size:13px;line-height:1.7;margin:0}
+.law-news-grid .law-news-card .news-question {margin:2px 0;padding:0;background:none}
+.law-news-grid .news-question summary {font-size:12px;color:var(--ui-primary);cursor:pointer;padding:5px 0}
+.law-news-grid .news-question b {display:block;padding:10px 14px;background:var(--ui-soft);border-radius:8px;font-size:13px}
+.law-news-grid .law-news-card footer {grid-column:2;grid-row:1 / span 7;align-self:center;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;margin:0;padding:0;gap:12px}
+.law-news-grid .law-news-card footer button {max-width:220px;min-height:44px;font-size:13px}
+/* Align the teaching observation and radar as two equal-height panels. */
+body.teacher-mode .insight-overview {align-items:stretch}
+body.teacher-mode .insight-observation {display:flex;flex-direction:column;gap:16px;min-width:0}
+body.teacher-mode .insight-observation .insight-hero {flex:1;display:flex;flex-direction:column;justify-content:center;margin:0;padding:24px}
+body.teacher-mode .insight-observation .insight-summary-strip {margin:0;flex-shrink:0}
+body.teacher-mode .insight-observation>button {align-self:flex-start;margin:0;min-height:44px}
+body.teacher-mode .insight-overview>.panel {display:flex;flex-direction:column;height:100%;box-sizing:border-box}
+body.teacher-mode .insight-overview .ability-radar {flex:1;display:flex;flex-direction:column;justify-content:center}
+body.teacher-mode .insight-overview .ability-radar svg {width:100%;max-width:280px;align-self:center}
+@media(max-width:1150px){body.teacher-mode .insight-overview>.panel{height:auto}body.teacher-mode .insight-observation .insight-hero{flex:none}}
+@media(max-width:760px){
+ body.student-mode .student-class-list .student-class-task {grid-template-columns:minmax(0,1fr);grid-template-areas:'meta' 'title' 'description' 'action';padding:17px 16px;gap:6px}
+ body.student-mode .student-class-task>button {justify-self:start;max-width:100%;margin-top:6px}
+ body.student-mode .student-class-task>h2,.law-news-grid .law-news-card h3 {font-size:17px}
+ body:not(.dark) .law-news-grid .law-news-card {grid-template-columns:minmax(0,1fr);padding:17px 16px;gap:7px}
+ .law-news-grid .law-news-card footer {grid-column:1;grid-row:auto;flex-direction:row;align-items:center;justify-content:space-between;margin-top:6px}
+}
+body.teacher-mode .insight-overview .ability-radar {width:100%;max-width:none}
+body.student-mode .student-class-list .drama-note {padding:12px 24px;margin:0;border-bottom:1px solid var(--ui-line)}
