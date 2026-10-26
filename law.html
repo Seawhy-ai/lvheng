@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#1665d8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="律衡" />
   <meta name="description" content="律衡——面向普通公众的免费法律知识智能体：听得懂的法律解释＋有依据的法条引用＋可执行的维权指引。劳动欠薪、消费维权、租房押金、民间借贷、交通事故、婚姻家庭等高频场景即时问答，对接 12348/12315/12333 公共维权资源，数据存本机、离线可用、开源可复刻。西南民族大学法学院 · 舞猴。" />
   <meta name="keywords" content="律衡,法律咨询,普法,法律援助,12348,免费法律咨询,劳动纠纷,消费维权,租房纠纷,民间借贷,交通事故" />
-  <link rel="icon" href="icon-192.png" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152.png" />
+  <link rel="icon" href="platform-logo.png?v=blue-1" />
+  <link rel="apple-touch-icon" href="platform-logo.png?v=blue-1" />
+  <link rel="apple-touch-icon" sizes="152x152" href="platform-logo.png?v=blue-1" />
   <link rel="manifest" href="law-manifest.json" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="律衡 · 全民法律知识普惠智能体" />
@@ -40,7 +40,7 @@
     body.dark{
       --bg:#0f0f0f;--nav-bg:#1a1a1a;--card-bg:#1f1f1f;--card-border:#333;
       --text:#f5f5f5;--text2:#a3a3a3;--input-bg:#222;--input-border:#3a3a3a;
-      --ai-bubble:#262626;--user-bubble:#054740;--bubble-shadow:none;
+      --ai-bubble:#262626;--user-bubble:#072045;--bubble-shadow:none;
       --invite-bg:#111;--accent:#5dade2;--accent-light:rgba(93,173,226,0.18);--icon-bg:#262c36;
       --modal-overlay:rgba(0,0,0,0.75);--toast-bg:#444;--toast-text:#e5e5e5;
     }
@@ -97,14 +97,14 @@
     /* 内部滚动容器 / 导航条在非默认背景下透明，让半透明视图真正透出背景（卡片本身仍不透明） */
     body.bg-on .wx-nav,body.bg-on .chat-area,body.bg-on .lr-search-wrap,body.bg-on .cd-nav{background:transparent}
     /* 森林 */
-    .home-bg.bg-forest{background:linear-gradient(180deg,#e9f8ee,#cdeedd 45%,#a7e0c3 75%,#8ed4b2)}
-    body.dark .home-bg.bg-forest{background:linear-gradient(180deg,#072317,#0b3a28 55%,#083325)}
+    .home-bg.bg-forest{background:linear-gradient(180deg,#e9eff8,#cddaee 45%,#a7bee0 75%,#8eaad4)}
+    body.dark .home-bg.bg-forest{background:linear-gradient(180deg,#071223,#0b1e3a 55%,#081933)}
     .home-bg.bg-forest .bg-layer{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:forestFloat 12s ease-in-out infinite}
     .home-bg.bg-forest .bg-layer:nth-child(1){width:60vw;height:60vw;background:radial-gradient(circle,rgba(46,196,120,.75),transparent 70%);top:-15%;left:-10%}
     .home-bg.bg-forest .bg-layer:nth-child(2){width:48vw;height:48vw;background:radial-gradient(circle,rgba(34,160,120,.7),transparent 70%);bottom:-10%;right:-8%;animation-delay:-5s}
     .home-bg.bg-forest .bg-layer:nth-child(3){width:40vw;height:40vw;background:radial-gradient(circle,rgba(122,214,132,.65),transparent 70%);top:35%;left:55%;animation-delay:-9s}
     @keyframes forestFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,6vh) scale(1.15)}}
-    .home-bg.bg-forest ~ .welcome-hero .typewriter{color:#0e5c40}
+    .home-bg.bg-forest ~ .welcome-hero .typewriter{color:#0e2d5c}
     /* 日落 */
     .home-bg.bg-sunset{background:linear-gradient(180deg,#fff3e0,#ffd9b3 35%,#ffb27d 65%,#ff8c5a)}
     body.dark .home-bg.bg-sunset{background:linear-gradient(180deg,#2a1705,#4a2410 55%,#3a1c08)}
@@ -122,7 +122,7 @@
     .hbg-swatch.bg-aurora{background:linear-gradient(135deg,rgba(102,126,234,.8),rgba(240,147,251,.7))}
     .hbg-swatch.bg-starry{background:linear-gradient(180deg,#0b1026,#1a2b52)}
     .hbg-swatch.bg-ocean{background:linear-gradient(180deg,#dff2ff,#8cc8ff)}
-    .hbg-swatch.bg-forest{background:linear-gradient(180deg,#e9f8ee,#8ed4b2)}
+    .hbg-swatch.bg-forest{background:linear-gradient(180deg,#e9eff8,#8eaad4)}
     .hbg-swatch.bg-sunset{background:linear-gradient(180deg,#fff3e0,#ff8c5a)}
     .hbg-name{font-size:14px;font-weight:600;color:var(--text)}
     .hbg-desc{font-size:11px;color:var(--text2)}
@@ -283,13 +283,13 @@
     .bubble-swatch{width:36px;height:26px;border-radius:9px;cursor:pointer;border:2px solid var(--card-border);transition:all .15s;flex-shrink:0;padding:0;background:var(--user-bubble)}
     .bubble-swatch.on{border-color:var(--accent);transform:scale(1.1);box-shadow:0 0 0 2px var(--accent-light)}
     .bubble-swatch.s-law{background:linear-gradient(135deg,#eef6ff,#d5e9ff)}
-    .bubble-swatch.s-mint{background:linear-gradient(135deg,#e9f8f2,#cdf0df)}
+    .bubble-swatch.s-mint{background:linear-gradient(135deg,#e9eff8,#cddbf0)}
     .bubble-swatch.s-sunset{background:linear-gradient(135deg,#fff3e4,#ffdcc0)}
     .bubble-swatch.s-aurora{background:linear-gradient(135deg,#667eea,#a26df0)}
     .bubble-swatch.s-ocean{background:linear-gradient(135deg,#1a5276,#2f6fb0)}
     body.bubble-classic .msg.user .msg-content{background:var(--user-bubble)}
     body.bubble-law .msg.user .msg-content{background:linear-gradient(135deg,#eef6ff,#d5e9ff);color:#173a5e}
-    body.bubble-mint .msg.user .msg-content{background:linear-gradient(135deg,#e9f8f2,#cdf0df);color:#1a5c43}
+    body.bubble-mint .msg.user .msg-content{background:linear-gradient(135deg,#e9eff8,#cddbf0);color:#1a345c}
     body.bubble-sunset .msg.user .msg-content{background:linear-gradient(135deg,#fff3e4,#ffdcc0);color:#6b3a12}
     body.bubble-aurora .msg.user .msg-content{background:linear-gradient(135deg,#667eea,#a26df0);color:#fff}
     body.bubble-ocean .msg.user .msg-content{background:linear-gradient(135deg,#1a5276,#2f6fb0);color:#fff}
@@ -546,16 +546,16 @@
         .quiz-card.wrong{border-color:#e74c3c;background:rgba(231,76,60,0.05)}
         .quiz-q-num{font-size:11px;color:var(--text2);margin-bottom:6px;font-weight:600;letter-spacing:.5px}
         .q-diff{margin-left:8px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;vertical-align:1px;letter-spacing:0}
-        .q-diff.d1{background:#e8f6ef;color:#1e8449}
+        .q-diff.d1{background:#e8eef6;color:#1e4784}
         .q-diff.d2{background:#fef4e4;color:#b9770e}
         .q-diff.d3{background:#fdecea;color:#c0392b}
         .q-diff.case{background:#f0e8fb;color:#8e44ad}
-        .q-diff.multi{background:#e4f6f6;color:#0e7c86}
-        body.dark .q-diff.d1{background:rgba(39,174,96,.18);color:#58d68d}
+        .q-diff.multi{background:#e4ebf6;color:#0e3e86}
+        body.dark .q-diff.d1{background:rgba(39,174,96,.18);color:#588ad6}
         body.dark .q-diff.d2{background:rgba(243,156,18,.18);color:#f5b34a}
         body.dark .q-diff.d3{background:rgba(231,76,60,.18);color:#ee9a86}
         body.dark .q-diff.case{background:rgba(155,89,182,.18);color:#c39ade}
-        body.dark .q-diff.multi{background:rgba(14,124,134,.18);color:#4db8c0}
+        body.dark .q-diff.multi{background:rgba(14,124,134,.18);color:#4d7bc0}
         .quiz-case{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 12px;margin-bottom:12px;font-size:13px;line-height:1.7;color:var(--text);white-space:pre-line}
         .quiz-q-text{font-size:15px;line-height:1.6;margin-bottom:14px;font-weight:500}
         .quiz-options{display:flex;flex-direction:column;gap:8px}
@@ -689,7 +689,7 @@
 .api-config{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:14px 16px;margin-bottom:16px}
 .api-config h5{font-size:13px;font-weight:600;margin:0 0 8px;color:var(--text);display:flex;align-items:center;gap:6px}
 .api-config .api-status{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
-.api-config .api-status.set{background:#d4edda;color:#155724}
+.api-config .api-status.set{background:#d4deed;color:#152f57}
 .api-config .api-status.unset{background:#fff3cd;color:#856404}
 .api-config input{width:100%;padding:10px 12px;border:1.5px solid var(--card-border);border-radius:12px;font-size:13px;font-family:monospace;background:var(--input-bg);color:var(--text);outline:none;margin-bottom:8px;transition:border-color .15s}
 .api-config input:focus{border-color:var(--accent)}
@@ -914,7 +914,7 @@ body.dark .wr-bar{background:linear-gradient(180deg,#3d7fb8,#2565a0)}
 .fl-btn{flex:1;border:none;border-radius:12px;padding:12px 0;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;color:#fff}
 .fl-btn.no{background:#e74c3c}
 .fl-btn.mid{background:#f39c12}
-.fl-btn.yes{background:#27ae60}
+.fl-btn.yes{background:#275dae}
 .fl-btn:active{opacity:.85}
 .deb-topic{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer;transition:all .15s}
 .deb-topic:active{transform:scale(.98);border-color:var(--accent)}
@@ -959,13 +959,13 @@ body .lr-art-text,body #lawModalText,body .case-detail .cd-section.card p,body .
 .exam-hist-sum{display:flex;gap:10px;margin-bottom:14px}
 .exam-rec{display:flex;align-items:center;gap:12px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:11px 14px;margin-bottom:10px}
 .exam-rec .er-score{flex-shrink:0;width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800}
-.exam-rec.good .er-score{background:rgba(39,174,96,.14);color:#27ae60}
+.exam-rec.good .er-score{background:rgba(39,174,96,.14);color:#275dae}
 .exam-rec.mid .er-score{background:rgba(243,156,18,.14);color:#e67e22}
 .exam-rec.bad .er-score{background:rgba(231,76,60,.12);color:#e74c3c}
 .exam-rec .er-info{flex:1;min-width:0}
 .exam-rec .er-line1{font-size:14px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .exam-rec .er-line2{font-size:11px;color:var(--text2);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-body.dark .exam-rec.good .er-score{background:rgba(39,174,96,.2);color:#58d68d}
+body.dark .exam-rec.good .er-score{background:rgba(39,174,96,.2);color:#588ad6}
 body.dark .exam-rec.mid .er-score{background:rgba(243,156,18,.2);color:#f5b34a}
 body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 
@@ -982,7 +982,7 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
 .mat-item{display:flex;align-items:center;gap:12px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer;transition:all .15s}
 .mat-item:active{transform:scale(.98);background:var(--input-bg)}
 .mat-ic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:12px;font-weight:700}
-.mat-ic.pdf{background:#e74c3c}.mat-ic.doc{background:#2980b9}.mat-ic.txt{background:#27ae60}
+.mat-ic.pdf{background:#e74c3c}.mat-ic.doc{background:#2980b9}.mat-ic.txt{background:#275dae}
 .mat-info{flex:1;min-width:0}
 .mat-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mat-meta{font-size:11px;color:var(--text2);margin-top:3px}
@@ -1035,12 +1035,12 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     .pc-task.pc-done{opacity:.55}
     .pc-tdesc{font-size:10px;color:var(--text2);flex:1;text-align:right;padding:0 6px}
     .pc-tdone{font-size:10px;font-weight:700;flex-shrink:0}
-    .pc-task.pc-done .pc-tdone{color:#27ae60}
+    .pc-task.pc-done .pc-tdone{color:#275dae}
     .pc-task:not(.pc-done) .pc-tdone{color:var(--accent)}
     .pc-txn{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:8px 2px;font-size:12px;color:var(--text);border-bottom:1px solid var(--card-border)}
     .pc-txn .pc-tm{font-size:10px;color:var(--text2);flex:1;text-align:right;padding:0 6px}
     .pc-amt{font-weight:800;flex-shrink:0}
-    .pc-plus{color:#27ae60}
+    .pc-plus{color:#275dae}
     .pc-minus{color:#e74c3c}
     .modal-close{position:absolute;top:10px;right:10px;width:28px;height:28px;border:none;border-radius:50%;background:var(--input-bg);color:var(--text2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;line-height:1;z-index:5}
     .modal-close:active{transform:scale(.9)}
@@ -1112,16 +1112,16 @@ body.dark .exam-rec.bad .er-score{background:rgba(231,76,60,.2);color:#ee9a86}
     .role-card .rd{font-size:10.5px;color:var(--text2);margin-top:3px;line-height:1.4}
     .role-card .rt{font-size:9.5px;color:var(--accent);margin-top:4px}
     /* ===== 各角色主题（主题色 + 用户气泡） ===== */
-    body[data-role="worker"]{--accent:#0e7c66;--accent-strong:#0a5847;--accent-light:rgba(14,124,102,.10);--user-bubble:#C9EDE4}
-    body.dark[data-role="worker"]{--accent:#3fbf9f;--accent-strong:#7ddcc6;--accent-light:rgba(63,191,159,.18);--user-bubble:#0b4f41}
+    body[data-role="worker"]{--accent:#0e3a7c;--accent-strong:#0a2958;--accent-light:rgba(14,124,102,.10);--user-bubble:#c9d7ed}
+    body.dark[data-role="worker"]{--accent:#3f72bf;--accent-strong:#7da3dc;--accent-light:rgba(63,191,159,.18);--user-bubble:#0b264f}
     body[data-role="lawschool"]{--accent:#1a5276;--accent-strong:#0e3347;--accent-light:rgba(26,82,118,.08);--user-bubble:#C5DFF8}
-    body.dark[data-role="lawschool"]{--accent:#5dade2;--accent-strong:#8fc0ee;--accent-light:rgba(93,173,226,.18);--user-bubble:#054740}
+    body.dark[data-role="lawschool"]{--accent:#5dade2;--accent-strong:#8fc0ee;--accent-light:rgba(93,173,226,.18);--user-bubble:#072045}
     body[data-role="student"]{--accent:#7c3aed;--accent-strong:#5b21b6;--accent-light:rgba(124,58,237,.10);--user-bubble:#E3DAFB}
     body.dark[data-role="student"]{--accent:#a78bfa;--accent-strong:#c4b5fd;--accent-light:rgba(167,139,250,.18);--user-bubble:#3a2a66}
     body[data-role="consumer"]{--accent:#d97706;--accent-strong:#92400e;--accent-light:rgba(217,119,6,.10);--user-bubble:#FCE3C8}
     body.dark[data-role="consumer"]{--accent:#f59e0b;--accent-strong:#fbbf24;--accent-light:rgba(245,158,11,.18);--user-bubble:#5c3a10}
     body[data-role="renter"]{--accent:#0e7490;--accent-strong:#155e75;--accent-light:rgba(14,116,144,.10);--user-bubble:#CDEDF5}
-    body.dark[data-role="renter"]{--accent:#22b8d4;--accent-strong:#67e8f9;--accent-light:rgba(34,184,212,.18);--user-bubble:#0b4453}
+    body.dark[data-role="renter"]{--accent:#2269d4;--accent-strong:#6fa3f1;--accent-light:rgba(34,184,212,.18);--user-bubble:#0b4453}
     body[data-role="citizen"]{--accent:#4A90D9;--accent-strong:#2b6cb0;--accent-light:rgba(74,144,217,.10);--user-bubble:#D6E8FB}
     body.dark[data-role="citizen"]{--accent:#7db4ea;--accent-strong:#a9cdf3;--accent-light:rgba(125,180,234,.18);--user-bubble:#1f3b5c}
     body[data-role="senior"]{--accent:#b45309;--accent-strong:#7c2d12;--accent-light:rgba(180,83,9,.12);--user-bubble:#FFE8C2}
@@ -1380,7 +1380,7 @@ body.kbd-system #globalBg{pointer-events:none}
 .st-banner .st-btn.ghost{margin-top:8px}
 .st-deltas{display:flex;justify-content:center;gap:8px;margin-bottom:6px}
 .st-delta{font-size:12px;font-weight:800;border-radius:10px;padding:5px 11px;background:var(--card-bg);box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.st-delta.up{color:#27ae60}
+.st-delta.up{color:#275dae}
 .st-delta.down{color:#e74c3c}
 
 
@@ -1395,7 +1395,7 @@ body.kbd-system #globalBg{pointer-events:none}
   <div class="home-bg" id="homeBg"></div>
   <main class="journey-home">
     <header class="journey-brand">
-      <div class="journey-mark"><img src="whale-mascot.png" alt="" width="48" height="48"></div>
+      <div class="journey-mark"><img src="platform-logo.png" alt="律衡平台标志" width="48" height="48"></div>
       <div><p>律衡</p><h1>把法律问题理清楚</h1></div>
       <button class="journey-profile" id="homeProfileBtn" onclick="goToProfile()" aria-label="个人中心"></button>
     </header>
@@ -1690,7 +1690,7 @@ body.kbd-system #globalBg{pointer-events:none}
   </div>
   <div class="about-body">
 
-    <div class="about-logo"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L12 21"/><path d="M5 3 L5 21"/><path d="M19 3 L19 21"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div>
+    <div class="about-logo"><img src="platform-logo.png" alt="律衡平台标志" width="64" height="64"></div>
     <div class="about-name">律衡</div>
     <div class="about-ver">v4.6.0 · 全民法律知识普惠智能体 · 2026.09.04</div>
     <div class="about-desc">面向普通公众的法律素养教育智能体：听得懂的解释 · 有依据的法条 · 可执行的训练<br>学习记录存本机；启用AI时必要对话将发送给模型服务商；源码开源</div>
@@ -2284,15 +2284,15 @@ body.kbd-system #globalBg{pointer-events:none}
 <!-- Toast -->
 <div id="toast" style="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--toast-bg);color:var(--toast-text);padding:10px 20px;border-radius:20px;font-size:13px;z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.2)"></div>
 
-<script src="templates.js?v=1.3.0"></script>
-<script src="quiz_data.js?v=1.5.0"></script>
-<script src="case_data.js?v=2.0.0"></script>
-<script src="quiz_extra.js?v=1.0.0"></script>
-<link rel="stylesheet" href="finals.css?v=2.0.0">
-<link rel="stylesheet" href="visual-polish.css?v=1.0.0">
-<link rel="stylesheet" href="desktop.css?v=1.0.0">
-<script defer src="finals.js?v=2.0.0"></script>
-<script defer src="resource-route.js?v=1.0.0"></script>
+<script src="templates.js?v=20261026-blue1"></script>
+<script src="quiz_data.js?v=20261026-blue1"></script>
+<script src="case_data.js?v=20261026-blue1"></script>
+<script src="quiz_extra.js?v=20261026-blue1"></script>
+<link rel="stylesheet" href="finals.css?v=20261026-blue1">
+<link rel="stylesheet" href="visual-polish.css?v=20261026-blue1">
+<link rel="stylesheet" href="desktop.css?v=20261026-blue1">
+<script defer src="finals.js?v=20261026-blue1"></script>
+<script defer src="resource-route.js?v=20261026-blue1"></script>
 <script>
 // ============================================================
 // TYPWRITER + LEGAL QUOTES
@@ -9088,6 +9088,6 @@ function renderStoryEnding() {
 }
 
 </script>
-<link rel="stylesheet" href="design-system.css?v=1.0.0"></body>
+<link rel="stylesheet" href="design-system.css?v=20261026-blue1"><link rel="stylesheet" href="brand-blue.css?v=20261026-blue1"></body>
 </html>
 

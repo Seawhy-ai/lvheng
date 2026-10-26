@@ -2,7 +2,7 @@
 .student-bottom { isolation:isolate; --active-tab:0; }
 .student-bottom::before {
   content:""; position:absolute; z-index:-1; left:8px; top:8px; bottom:8px;
-  width:calc((100% - 16px)/4); border-radius:12px; background:#e8efe4;
+  width:calc((100% - 16px)/4); border-radius:12px; background:#e3e8f0;
   transform:translateX(calc(var(--active-tab)*100%));
   transition:transform 240ms cubic-bezier(.22,.8,.25,1);
   pointer-events:none;
@@ -11,8 +11,8 @@
 .student-bottom button:active { transform:scale(.95); }
 .student-bottom button i { transition:transform 200ms ease; }
 .student-bottom button.on i { transform:translateY(-2px); }
-.student-loading { min-height:240px; display:grid; align-content:center; justify-items:center; gap:14px; color:#708277; font-size:14px; }
-.student-loading span { width:28px; height:28px; border:3px solid #dce6dc; border-top-color:#39785e; border-radius:50%; animation:student-spin .8s linear infinite; }
+.student-loading { min-height:240px; display:grid; align-content:center; justify-items:center; gap:14px; color:#5b7397; font-size:14px; }
+.student-loading span { width:28px; height:28px; border:3px solid #d7dfeb; border-top-color:#395278; border-radius:50%; animation:student-spin .8s linear infinite; }
 @keyframes student-spin { to { transform:rotate(360deg); } }
 @media(min-width:1024px){
   .student-bottom button { height:56px; box-sizing:border-box; }

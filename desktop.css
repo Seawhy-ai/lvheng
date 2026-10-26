@@ -43,7 +43,7 @@
   }
   .student-bottom button { display:flex; gap:14px; padding:17px 14px; font-size:14px; border-radius:9px; }
   .student-bottom button i { display:flex; align-items:center; }
-  .student-bottom button.on { background:#e8efe4; color:#245747; }
+  .student-bottom button.on { background:#e3e8f0; color:#243857; }
   .student-mode .site-footer {
     width:min(calc(100% - 280px),1232px); max-width:none;
     margin-left:max(232px,calc((100vw - 1440px)/2 + 208px)); padding:24px 0 30px;

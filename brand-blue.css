@@ -1,0 +1,37 @@
+/* Platform identity: blue shield logo; 小衡 keeps the whale mascot. */
+:root {
+  --ui-bg:#f4f7fc; --ui-surface:#fff; --ui-ink:#152e52;
+  --ui-muted:#60728d; --ui-line:#dbe4f1;
+  --ui-primary:#1665d8; --ui-primary-hover:#1053b5;
+  --ui-soft:#eaf2ff; --ui-dark:#102d59;
+  --blue:var(--ui-primary); --blue2:#4687df;
+  --ink:var(--ui-ink); --muted:var(--ui-muted); --line:var(--ui-line);
+  --soft:var(--ui-soft); --j-blue:var(--ui-primary); --j-ink:var(--ui-ink);
+  --j-line:var(--ui-line); --j-soft:var(--ui-soft);
+}
+.cm-brand img,.journey-mark img,.platform-brand-logo {
+  object-fit:contain;background:#fff;border-radius:10px;
+}
+.cm-brand img {width:46px;height:46px;padding:3px;box-sizing:border-box}
+.platform-brand-logo {width:42px;height:42px;padding:3px}
+.journey-mark {background:#fff;border:1px solid var(--ui-line);box-shadow:none}
+.journey-mark img {width:44px;height:44px}
+body:not(.dark) :is(button,a,input,textarea,select,summary):focus-visible {outline-color:#78aafa}
+body.teacher-mode .teacher-sidebar {background:linear-gradient(165deg,#102d59,#143e76);color:#d5e5fb}
+body.teacher-mode .teacher-sidebar nav a {color:#d5e5fb}
+body.teacher-mode .teacher-sidebar nav a:hover {background:#214f8b;color:#fff}
+body.teacher-mode .teacher-sidebar nav a[aria-current=page] {background:#2272df;color:#fff}
+body.teacher-mode :is(.teacher-sidebar-footer .text-btn,.workspace-label,.sidebar-class small) {color:#bed4f1}
+body.student-mode .atlas-hero {background:linear-gradient(120deg,#eaf2ff,#eff8ff);border-color:#d4e3f7}
+body:not(.dark) .rs-cover {background:linear-gradient(120deg,#102d59,#164b92)}
+body:not(.dark) .rs-cover :is(small,p),body:not(.dark) .rs-cover>span {color:#d1e2fa}
+body:not(.dark) .radar-area {fill:#1665d826;stroke:#1665d8}
+body:not(.dark) .radar-point {fill:#1665d8}
+body:not(.dark) #whaleDialog>header {background:linear-gradient(120deg,#eaf2ff,#f3f8ff)}
+body.dark {--ui-primary:#79b5ff;--ui-primary-hover:#a0ccff;--ui-soft:#142e50;--ui-ink:#e5efff;--ui-muted:#a8bbd6;--ui-line:#304563}
+@media(max-width:760px){.cm-brand img{width:39px;height:39px}.platform-brand-logo{width:36px;height:36px}}
+/* Keep the resource centre readable in its optional dark theme. */
+body.dark :is(.journey-scenarios button,.journey-learn-card,.journey-panel,.journey-task,.journey-resource-card) {background:#1b304e;border-color:#344b6c;color:#e5efff}
+body.dark :is(.journey-scenarios small,.journey-learn-card p,.journey-panel p) {color:#adc2df}
+body.dark .journey-brand p,body.dark .journey-section a {color:#91bfff}
+body.dark .bottom-nav {background:#172a45;border-color:#344b6c;color:#d6e5fa}
