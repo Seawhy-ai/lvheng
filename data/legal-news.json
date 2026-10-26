@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-10-25T23:18:08.838264+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-10-26T11:35:28.417571+00:00",
   "latestPublishedAt": "2026-10-26",
-  "updatedAt": "2026-10-26T07:04:52.913126+00:00",
+  "updatedAt": "2026-10-26T11:35:28.417571+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,36 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-c53997d0906ae549ea58",
+      "title": "男子用AI生成视频谎称“父亲患癌去世” 诈骗好友170万元去炒股",
+      "category": "数字与人格权",
+      "publishedAt": "2026-10-26",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/10-26/10721156.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261026/b6c3779e-33c8-408c-bd60-9303c99674d2_zsite.jpeg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-26/10721156.shtml",
+      "imageCheckedAt": "2026-10-26T11:35:31.681017+00:00"
+    },
+    {
+      "id": "cn-6f4ca7e6708b07ddcd32",
+      "title": "向骑手销售抢单“外挂”被判赔300万元，一个硬件为何触碰法律红线？",
+      "category": "法律争议",
+      "publishedAt": "2026-10-26",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/10-26/10721171.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "",
+      "imageCheckedAt": "2026-10-26T11:35:31.701764+00:00"
+    },
     {
       "id": "cn-3d50b882f30c6c491e44",
       "title": "“仅靠道歉无法了事” 蒙古国考虑就草原火灾向日企索赔",
