@@ -184,3 +184,14 @@ body.student-mode .report-studio .rs-note{margin:8px 0 0;font-size:10px;line-hei
 .law-news-card.has-source-image>:not(.news-thumbnail):not(footer){grid-column:2!important}
 .law-news-card.has-source-image>footer{grid-column:3!important}
 @media(max-width:700px){.law-news-card.has-source-image{grid-template-columns:84px minmax(0,1fr)!important;column-gap:12px!important}.news-thumbnail img{width:84px;height:66px}.law-news-card.has-source-image>footer{grid-column:2!important;grid-row:auto!important}.law-news-card.has-source-image>.news-thumbnail{align-self:start}}
+/* One observation panel shares both outer edges with the class radar. */
+body.teacher-mode .insight-overview{align-items:stretch}
+body.teacher-mode .insight-overview>.insight-observation{background:#fff;border:1px solid #dce6f5;border-radius:16px;padding:20px;gap:14px;box-sizing:border-box;height:100%}
+body.teacher-mode .insight-observation .insight-hero{flex:1;justify-content:flex-start;padding:20px;border-radius:11px}
+body.teacher-mode .insight-observation .insight-hero-number{margin-top:auto;padding-top:16px}
+body.teacher-mode .insight-observation .insight-summary-strip{border:0;border-radius:0;padding:12px 0;background:transparent}
+body.teacher-mode .insight-observation>button{align-self:stretch;width:100%;min-height:40px}
+body.teacher-mode .insight-overview>.panel{height:auto;padding:20px;border-radius:16px}
+body.teacher-mode .insight-overview .ability-radar{justify-content:flex-start}
+body.teacher-mode .insight-overview .ability-radar svg{max-width:260px;max-height:260px}
+@media(max-width:1150px){body.teacher-mode .insight-overview>.insight-observation{height:auto}body.teacher-mode .insight-observation .insight-hero{flex:auto}}
