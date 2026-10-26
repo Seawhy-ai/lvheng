@@ -1,6 +1,8 @@
 """Collect headline links only; do not republish article bodies or invent case facts."""
 import concurrent.futures, datetime as dt, hashlib, html, json, re, urllib.request
 from pathlib import Path
+from html.parser import HTMLParser
+from urllib.parse import urljoin, urlparse
 BASE=Path(__file__).resolve().parents[1]
 UTC=dt.timezone.utc
 KEYWORDS=re.compile(r'纠纷|侵权|判决|判赔|获赔|索赔|维权|诈骗|起诉|诉讼|欠薪|拖欠工资|侵犯|退费|退款|造谣|违法解除|高空抛物|劳动仲裁|获刑|判刑|赔偿|盗用|著作权|虚假宣传|霸王条款|售假|不正当竞争|个人信息泄露')
@@ -24,6 +26,40 @@ def fetch(url):
  req=urllib.request.Request(url,headers={'User-Agent':'LvHeng-News/1.0 (+https://seawhy-ai.github.io/lvheng/)'})
  with urllib.request.urlopen(req,timeout=25) as res:return res.read(2500000).decode('utf-8','replace')
 
+
+class ArticleImages(HTMLParser):
+ def __init__(self):
+  super().__init__();self.depth=0;self.images=[]
+ def handle_starttag(self,tag,attrs):
+  a=dict(attrs)
+  if tag=='div':
+   if self.depth:self.depth+=1
+   elif 'left_zw' in a.get('class','').split():self.depth=1
+  if self.depth and tag=='img':
+   src=a.get('data-src') or a.get('src','')
+   if src and not re.search(r'logo|qrcode|qr_code|weixin|icon|loading',src,re.I):self.images.append(src)
+ def handle_endtag(self,tag):
+  if tag=='div' and self.depth:self.depth-=1
+
+def extract_article_image(raw,article_url):
+ parser=ArticleImages();parser.feed(raw)
+ for src in parser.images:
+  url=urljoin(article_url,html.unescape(src))
+  parts=urlparse(url)
+  if parts.scheme in ('https','http') and any(parts.hostname==h or parts.hostname.endswith('.'+h) for h in ('chinanews.com.cn','chinanews.com','cns.com.cn')):
+   return url.replace('http://','https://',1)
+ return ''
+
+def enrich_images(rows):
+ pending=[a for a in rows if not a.get('imageCheckedAt')][:40]
+ def enrich(a):
+  try:
+   raw=fetch(a['url']);image=extract_article_image(raw,a['url'])
+   a['imageUrl']=image;a['imageSourceUrl']=a['url'] if image else '';a['imageCheckedAt']=dt.datetime.now(UTC).isoformat()
+  except Exception as exc:print('Image lookup failed:',a['id'],str(exc))
+ with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:list(pool.map(enrich,pending))
+ return rows
+
 def run():
  now=dt.datetime.now(UTC); local=now.astimezone(dt.timezone(dt.timedelta(hours=8)))
  path=BASE/'data/legal-news.json'
@@ -37,12 +73,13 @@ def run():
    try:
     raw=task.result()
     if 'dd_bt' not in raw:raise ValueError('news list missing')
-    for article in parse_archive(raw,local):articles[article['id']]=article
+    for article in parse_archive(raw,local):articles[article['id']]={**articles.get(article['id'],{}),**article}
     success+=1
    except Exception as exc:errors.append(futures[task]+': '+str(exc))
  if not success:raise RuntimeError('All sources failed; previous news retained. '+str(errors))
  rows=sorted((a for a in articles.values() if not EXCLUDE.search(a['title']) and 0 <= (local.date()-dt.date.fromisoformat(a['publishedAt'])).days<=90),key=lambda a:(a['publishedAt'],a['id']),reverse=True)[:120]
  if not rows:raise RuntimeError('No relevant news; previous news retained')
+ enrich_images(rows)
  old_ids={a['id'] for a in previous['articles']}
  new_count=sum(a['id'] not in old_ids for a in rows)
  changed=rows!=previous['articles']

@@ -1,3 +1,91 @@
+// Class-scoped communication and student name approval.
+async function communicationSchema(db){
+for(const sql of [
+"CREATE TABLE IF NOT EXISTS student_profiles (student_id TEXT PRIMARY KEY REFERENCES users(id), student_number TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL)",
+"CREATE TABLE IF NOT EXISTS classroom_messages (id TEXT PRIMARY KEY,sender_id TEXT NOT NULL,recipient_id TEXT NOT NULL,kind TEXT NOT NULL,body TEXT NOT NULL,created_at TEXT NOT NULL,read_at TEXT,client_id TEXT NOT NULL,UNIQUE(sender_id,client_id))",
+"CREATE INDEX IF NOT EXISTS messages_recipient ON classroom_messages(recipient_id,read_at,created_at)",
+"CREATE TABLE IF NOT EXISTS student_name_requests (id TEXT PRIMARY KEY,student_id TEXT NOT NULL,teacher_id TEXT NOT NULL,previous_name TEXT NOT NULL,requested_name TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'pending',created_at TEXT NOT NULL,reviewed_at TEXT)",
+"CREATE UNIQUE INDEX IF NOT EXISTS one_pending_name ON student_name_requests(student_id) WHERE status='pending'"
+])await db.prepare(sql).run();
+}
+async function communicationPeers(db,user){
+const sql=user.role==='teacher'?"SELECT u.id,u.display_name name,GROUP_CONCAT(DISTINCT c.name) classes FROM users u JOIN class_members m ON m.student_id=u.id JOIN classes c ON c.id=m.class_id WHERE c.teacher_id=? AND c.archived=0 AND u.role='student' GROUP BY u.id ORDER BY u.display_name":"SELECT u.id,u.display_name name,GROUP_CONCAT(DISTINCT c.name) classes FROM users u JOIN classes c ON c.teacher_id=u.id JOIN class_members m ON m.class_id=c.id WHERE m.student_id=? AND c.archived=0 AND u.role='teacher' GROUP BY u.id ORDER BY u.display_name";
+return (await db.prepare(sql).bind(user.id).all()).results||[];
+}
+async function submitNameRequest(db,user,name,teacherId){
+const peers=await communicationPeers(db,user);const teacher=teacherId?peers.find(p=>p.id===teacherId):peers[0];
+if(!teacher)fail('请先加入教师的班级',403);
+const pending=await db.prepare("SELECT * FROM student_name_requests WHERE student_id=? AND status='pending'").bind(user.id).first();
+if(pending){if(pending.requested_name===name)return pending;fail('已有改名申请等待审批',409)}
+const row={id:id(),student_id:user.id,teacher_id:teacher.id,previous_name:user.display_name,requested_name:name,status:'pending',created_at:now()};
+try{await db.prepare("INSERT INTO student_name_requests(id,student_id,teacher_id,previous_name,requested_name,status,created_at) VALUES(?,?,?,?,?,'pending',?)").bind(row.id,user.id,teacher.id,user.display_name,name,row.created_at).run()}catch(e){if(String(e).includes('UNIQUE'))fail('已有改名申请等待审批',409);throw e}
+return row;
+}
+async function communicationRoute(request,env,url,user,origin){
+const p=url.pathname,method=request.method;
+if(!p.startsWith('/api/messages')&&!p.startsWith('/api/name-requests')&&p!=='/api/student/profile')return null;
+const db=env.DB;await communicationSchema(db);const respond=(v,status=200)=>reply(v,status,origin,env);
+if(p==='/api/student/profile'&&(method==='GET'||method==='PATCH')){
+if(user.role!=='student')fail('仅学生可修改个人资料',403);
+let nameRequest=null;
+if(method==='PATCH'){
+const v=await json(request),name=text(v.name,'姓名',2,30),number=text(v.studentNumber||'','学号',0,40);
+if(/[\x00-\x1f\x7f]/.test(name+number))fail('姓名或学号含无效字符');
+if(name!==user.display_name)nameRequest=await submitNameRequest(db,user,name,v.teacherId);
+await db.prepare("INSERT INTO student_profiles(student_id,student_number,updated_at) VALUES(?,?,?) ON CONFLICT(student_id) DO UPDATE SET student_number=excluded.student_number,updated_at=excluded.updated_at").bind(user.id,number,now()).run();
+}
+const profile=await db.prepare('SELECT student_number FROM student_profiles WHERE student_id=?').bind(user.id).first();
+nameRequest=nameRequest||await db.prepare('SELECT r.*,u.display_name teacherName FROM student_name_requests r JOIN users u ON u.id=r.teacher_id WHERE student_id=? ORDER BY created_at DESC LIMIT 1').bind(user.id).first();
+return respond({profile:{name:user.display_name,studentNumber:profile?.student_number||''},nameRequest});
+}
+const peers=await communicationPeers(db,user),ids=new Set(peers.map(p=>p.id));
+if(p==='/api/messages/contacts'&&method==='GET'){
+const unread=(await db.prepare('SELECT sender_id,COUNT(*) count FROM classroom_messages WHERE recipient_id=? AND read_at IS NULL GROUP BY sender_id').bind(user.id).all()).results||[];
+return respond({contacts:peers.map(p=>({...p,unread:unread.find(r=>r.sender_id===p.id)?.count||0}))});
+}
+if(p==='/api/messages/status'&&method==='GET'){
+const rows=(await db.prepare('SELECT sender_id,COUNT(*) count FROM classroom_messages WHERE recipient_id=? AND read_at IS NULL GROUP BY sender_id').bind(user.id).all()).results||[];
+const pending=user.role==='teacher'?(await db.prepare("SELECT COUNT(*) count FROM student_name_requests WHERE teacher_id=? AND status='pending'").bind(user.id).first()).count:0;
+return respond({unread:rows.filter(r=>ids.has(r.sender_id)).reduce((s,r)=>s+r.count,0),pending});
+}
+if(p==='/api/messages'&&method==='GET'){
+const peer=url.searchParams.get('peer');if(!ids.has(peer))fail('只能查看自己班级的师生会话',403);
+const before=url.searchParams.get('before')||'9999';
+const rows=(await db.prepare('SELECT * FROM classroom_messages WHERE ((sender_id=? AND recipient_id=?) OR (sender_id=? AND recipient_id=?)) AND (created_at || id) < ? ORDER BY created_at DESC,id DESC LIMIT 51').bind(user.id,peer,peer,user.id,before).all()).results||[];
+const more=rows.length>50;rows.splice(50);const cursor=more?rows.at(-1).created_at+rows.at(-1).id:null;return respond({messages:rows.reverse(),cursor});
+}
+if(p==='/api/messages'&&method==='POST'){
+const v=await json(request),peer=text(v.recipientId,'收件人',1,100),body=text(v.body,'消息',1,2000),clientId=text(v.clientId,'消息编号',8,100),kind=v.kind||'chat';
+if(!ids.has(peer))fail('只能联系自己班级的老师或学生',403);
+if(!['chat','feedback'].includes(kind)||(kind==='feedback'&&user.role!=='teacher'))fail('仅教师可以发送点评',403);
+await db.prepare('INSERT OR IGNORE INTO classroom_messages(id,sender_id,recipient_id,kind,body,created_at,client_id) VALUES(?,?,?,?,?,?,?)').bind(id(),user.id,peer,kind,body,now(),clientId).run();
+const message=await db.prepare('SELECT * FROM classroom_messages WHERE sender_id=? AND client_id=?').bind(user.id,clientId).first();
+if(message.recipient_id!==peer||message.body!==body||message.kind!==kind)fail('消息编号重复，请重新发送',409);
+return respond({message},201);
+}
+if(p==='/api/messages/read'&&method==='POST'){
+const v=await json(request);if(!ids.has(v.peer))fail('无权访问此会话',403);
+await db.prepare('UPDATE classroom_messages SET read_at=? WHERE recipient_id=? AND sender_id=? AND read_at IS NULL AND created_at<=?').bind(now(),user.id,v.peer,text(v.through,'阅读时间',1,40)).run();return respond({ok:true});
+}
+if(p==='/api/name-requests'&&method==='GET'){
+const column=user.role==='teacher'?'teacher_id':'student_id';
+const rows=(await db.prepare(`SELECT r.*,u.display_name studentName FROM student_name_requests r JOIN users u ON u.id=r.student_id WHERE r.${column}=? ORDER BY created_at DESC LIMIT 100`).bind(user.id).all()).results||[];
+return respond({requests:rows});
+}
+const match=p.match(/^\/api\/name-requests\/([^/]+)\/decision$/);
+if(match&&method==='POST'){
+if(user.role!=='teacher')fail('仅教师可以审批',403);
+const v=await json(request);if(!['approved','rejected'].includes(v.decision))fail('审批结果无效');
+const row=await db.prepare('SELECT * FROM student_name_requests WHERE id=? AND teacher_id=?').bind(match[1],user.id).first();
+if(!row)fail('申请不存在',404);if(!ids.has(row.student_id))fail('学生已不在你的班级',403);if(row.status!=='pending')fail('申请已处理',409);
+const updates=[];
+if(v.decision==='approved')updates.push(db.prepare("UPDATE users SET display_name=? WHERE id=? AND role='student' AND EXISTS(SELECT 1 FROM student_name_requests WHERE id=? AND status='pending')").bind(row.requested_name,row.student_id,row.id));
+updates.push(db.prepare("UPDATE student_name_requests SET status=?,reviewed_at=? WHERE id=? AND status='pending'").bind(v.decision,now(),row.id));
+const result=await db.batch(updates);if(!result.at(-1)?.meta?.changes)fail('申请已处理',409);return respond({ok:true});
+}
+return respond({error:'Not found'},404);
+}
+
 const NEWS_CATALOG=[{"id": "20261016-ai-voice", "title": "AI模仿他人声音带货，委托商家也要担责吗？", "category": "AI与人格权", "publishedAt": "2026-10-16", "eventNote": "2026年10月公布案例；涉案推广行为发生于2024年。", "source": "澎湃新闻", "url": "https://www.thepaper.cn/newsDetail_forward_34262393", "summary": "北京互联网法院公布一起声音与肖像侵权案例：主播未经授权使用他人形象及AI合成声音推广图书，委托公司因未审查授权被认定承担侵权责任。", "question": "公开视频是否可以任意用于商业推广？委托方应核验哪些授权？"}, {"id": "20261016-livestream-fraud", "title": "廉价工艺品包装成高价藏品，直播营销何时构成诈骗？", "category": "直播与消费者保护", "publishedAt": "2026-10-16", "eventNote": "2026年10月公布案例；法院于2026年5月作出判决。", "source": "新华社", "url": "https://www.xinhuanet.com/20261016/4599d036ffa6413fba069833d84a5acb/c.html", "summary": "最高检公布的案例涉及直播间编造故事、夸大藏品价值，196名被害人被骗930万余元。法院对相关人员以诈骗罪判刑。", "question": "夸张宣传与诈骗的区别是什么？消费者应保存哪些直播及交易证据？"}, {"id": "20261012-investor-protection", "title": "理财亏损就只能自担？银行的风险告知义务引发争议", "category": "金融消费", "publishedAt": "2026-10-12", "eventNote": "2026年10月发布典型案例；本报道未说明该案具体裁判日期。", "source": "新华社", "url": "https://www.xinhuanet.com/20261012/52f6c537e28445b1b44e21e580469817/c.html", "summary": "四部门发布金融消费者保护案例。其中一起理财合同纠纷中，银行未充分说明产品风险等关键信息，被认定应对投资本金损失承担相应赔偿责任。", "question": "投资风险自担的前提是什么？签署风险告知书是否足以证明销售方已尽责？"}];
 /* 律衡教学管理后端：D1 业务数据 + FastGPT AI 服务。密钥仅使用 Worker Secret。 */
 const JSON_HEADERS={"content-type":"application/json; charset=utf-8"};
@@ -282,19 +370,13 @@ function cleanSimilarPractice(raw){
   return {questions,note:"AI生成的巩固练习，仅用于自主学习；疑难答案请与教师核对，不计入班级成绩。"};
 }
 async function route(request,env,url,origin){const p=url.pathname;
-if(p==="/health")return reply({ok:true,service:"lvheng-classroom-api",version:"2026-10-24.5",interactiveDrama:1,studentProfile:1,classManagement:1,newsFeed:1,taskStudio:1,coachModes:1,learningReport:2,similarPractice:1,database:!!env.DB,fastgpt:!!env.FASTGPT_API_KEY,deepseek:!!env.DEEPSEEK_API_KEY,provider:aiProvider(env),configured:aiProvider(env)==="deepseek"?!!env.DEEPSEEK_API_KEY:!!env.FASTGPT_API_KEY},200,origin,env);
+if(p==="/health")return reply({ok:true,service:"lvheng-classroom-api",version:"2026-10-26.1",messages:1,nameApproval:1,interactiveDrama:1,studentProfile:1,classManagement:1,newsFeed:1,taskStudio:1,coachModes:1,learningReport:2,similarPractice:1,database:!!env.DB,fastgpt:!!env.FASTGPT_API_KEY,deepseek:!!env.DEEPSEEK_API_KEY,provider:aiProvider(env),configured:aiProvider(env)==="deepseek"?!!env.DEEPSEEK_API_KEY:!!env.FASTGPT_API_KEY},200,origin,env);
 if(p==="/api/chat"&&request.method==="POST"){const v=await json(request);if(!Array.isArray(v.messages)||!v.messages.length)fail("messages must be a non-empty array");return chatProxy(env,v,origin)}
 if(!env.DB)fail("数据库尚未绑定",503);
 if(p==="/api/auth/teacher/register"&&request.method==="POST"){const v=await json(request);verifyTeacherSetup(env,v.setupCode);const username=text(v.username,"账号",3,40).toLowerCase(),name=text(v.name,"姓名",2,30),password=text(v.password,"密码",8,80);if(await env.DB.prepare("SELECT 1 ok FROM users WHERE username=?").bind(username).first())fail("账号已存在",409);const userId=id(),salt=id(),hash=await passwordHash(password,salt);await env.DB.prepare("INSERT INTO users (id,role,username,display_name,password_hash,password_salt,created_at) VALUES (?,'teacher',?,?,?,?,?)").bind(userId,username,name,hash,salt,now()).run();return reply(publicUser({id:userId,role:"teacher",display_name:name,username},await newSession(env.DB,userId)),201,origin,env)}
 if(p==="/api/auth/login"&&request.method==="POST"){const v=await json(request),username=text(v.username,"账号",3,80).toLowerCase(),password=text(v.password,"密码",4,80),user=await env.DB.prepare("SELECT * FROM users WHERE username=?").bind(username).first();if(!user||await passwordHash(password,user.password_salt)!==user.password_hash)fail("账号或密码错误",401);return reply(publicUser(user,await newSession(env.DB,user.id)),200,origin,env)}
 if(p==="/api/auth/student/join"&&request.method==="POST"){const v=await json(request),classCode=text(v.classCode,"班级码",6,6).toUpperCase(),name=text(v.name,"姓名",2,30),pin=text(v.pin,"学习密码",4,20),cls=await env.DB.prepare("SELECT * FROM classes WHERE join_code=? AND archived=0").bind(classCode).first();if(!cls)fail("班级码无效",404);const username=(classCode+"-"+name).toLowerCase();let user=await env.DB.prepare("SELECT * FROM users WHERE username=?").bind(username).first();if(user){if(await passwordHash(pin,user.password_salt)!==user.password_hash)fail("姓名已使用，请输入原学习密码",409)}else{const userId=id(),salt=id(),hash=await passwordHash(pin,salt);await env.DB.prepare("INSERT INTO users (id,role,username,display_name,password_hash,password_salt,created_at) VALUES (?,'student',?,?,?,?,?)").bind(userId,username,name,hash,salt,now()).run();user={id:userId,role:"student",username,display_name:name};await env.DB.prepare("INSERT OR IGNORE INTO class_members (class_id,student_id,joined_at) VALUES (?,?,?)").bind(cls.id,userId,now()).run()}return reply({...publicUser(user,await newSession(env.DB,user.id)),classroom:{id:cls.id,name:cls.name,code:cls.join_code}},200,origin,env)}
-const user=await auth(request,env);if(p==="/api/student/profile"&&(request.method==="GET"||request.method==="PATCH")){
-if(user.role!=="student")fail("仅学生可修改个人资料",403);
-let values;if(request.method==="PATCH"){const v=await json(request);values={name:text(v.name,"姓名",2,30),studentNumber:text(v.studentNumber||"","学号",0,40)};if(/[\x00-\x1f\x7f]/.test(values.name+values.studentNumber))fail("姓名或学号含无效字符")}
-await env.DB.prepare("CREATE TABLE IF NOT EXISTS student_profiles (student_id TEXT PRIMARY KEY REFERENCES users(id), student_number TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL)").run();
-if(values){await env.DB.batch([env.DB.prepare("UPDATE users SET display_name=? WHERE id=? AND role='student'").bind(values.name,user.id),env.DB.prepare("INSERT INTO student_profiles (student_id,student_number,updated_at) VALUES (?,?,?) ON CONFLICT(student_id) DO UPDATE SET student_number=excluded.student_number,updated_at=excluded.updated_at").bind(user.id,values.studentNumber,now())]);return reply({profile:values},200,origin,env)}
-const profile=await env.DB.prepare("SELECT student_number FROM student_profiles WHERE student_id=?").bind(user.id).first();return reply({profile:{name:user.display_name,studentNumber:profile?.student_number||""}},200,origin,env);
-}const drama=await dramaRoute(request,env,url,user,origin);if(drama)return drama;const classroomExtra=await classroomExtras(request,env,url,user,origin);if(classroomExtra)return classroomExtra;const studio=await studioRoute(request,env,url,user,origin);if(studio)return studio;
+const user=await auth(request,env);const communication=await communicationRoute(request,env,url,user,origin);if(communication)return communication;const drama=await dramaRoute(request,env,url,user,origin);if(drama)return drama;const classroomExtra=await classroomExtras(request,env,url,user,origin);if(classroomExtra)return classroomExtra;const studio=await studioRoute(request,env,url,user,origin);if(studio)return studio;
 if(p==="/api/student/similar-practice"&&request.method==="POST"){
   if(user.role!=="student")fail("仅学生可生成巩固练习",403);
   const input=await json(request),taskId=text(input.taskId,"任务ID",1,80),index=input.questionIndex;
