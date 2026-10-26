@@ -133,7 +133,7 @@
   .doc-type-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
   .doc-result-content { font-size:16px; line-height:2; }
   #calcView .tool-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px 40px; align-content:start; align-items:start; }
-  #calcTypes { grid-column:1/-1; }
+  #calcTypes, #calcView .calc-types { grid-column:1/-1; }
   #calcForm,#calcResult { min-width:0; }
   #lawReaderView .lr-body,.case-detail .cd-content { padding:40px max(48px,calc((100% - 920px)/2)) 96px; font-size:16px; line-height:2; }
   #resourceReturn { bottom:24px!important; right:28px!important; }
