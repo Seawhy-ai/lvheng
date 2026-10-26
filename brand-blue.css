@@ -195,3 +195,6 @@ body.teacher-mode .insight-overview>.panel{height:auto;padding:20px;border-radiu
 body.teacher-mode .insight-overview .ability-radar{justify-content:flex-start}
 body.teacher-mode .insight-overview .ability-radar svg{max-width:260px;max-height:260px}
 @media(max-width:1150px){body.teacher-mode .insight-overview>.insight-observation{height:auto}body.teacher-mode .insight-observation .insight-hero{flex:auto}}
+.law-news-card.has-source-image{grid-template-columns:164px minmax(0,1fr) 190px!important}
+.news-thumbnail img{width:164px;height:104px;object-position:top center}
+@media(max-width:700px){.law-news-card.has-source-image{grid-template-columns:100px minmax(0,1fr)!important}.news-thumbnail img{width:100px;height:76px}}

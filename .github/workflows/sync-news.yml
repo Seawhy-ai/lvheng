@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/sync_news.py', '.github/workflows/sync-news.yml']
+    paths: ['scripts/sync_news.py', '.github/workflows/sync-news.yml', 'scripts/news_thumbnails.mjs']
 permissions:
   contents: write
   pages: write
@@ -27,11 +27,18 @@ jobs:
         with:
           python-version: '3.11'
       - run: python scripts/sync_news.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+      - run: node scripts/news_thumbnails.mjs
       - name: Save news snapshot
         run: |
           git config user.name 'lvheng-news-bot'
           git config user.email 'news-bot@users.noreply.github.com'
-          git add data/legal-news.json
+          git add data/legal-news.json data/news-images
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh legal news snapshot'
             git pull --rebase origin main

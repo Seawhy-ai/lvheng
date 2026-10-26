@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 2,
-  "contentUpdatedAt": "2026-10-26T11:35:28.417571+00:00",
+  "newArticleCount": 0,
+  "contentUpdatedAt": "2026-10-25T23:18:08.838264+00:00",
   "latestPublishedAt": "2026-10-26",
-  "updatedAt": "2026-10-26T11:35:28.417571+00:00",
+  "updatedAt": "2026-10-26T07:04:52.913126+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,36 +13,6 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
-    {
-      "id": "cn-c53997d0906ae549ea58",
-      "title": "男子用AI生成视频谎称“父亲患癌去世” 诈骗好友170万元去炒股",
-      "category": "数字与人格权",
-      "publishedAt": "2026-10-26",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/sh/2026/10-26/10721156.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261026/b6c3779e-33c8-408c-bd60-9303c99674d2_zsite.jpeg",
-      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-26/10721156.shtml",
-      "imageCheckedAt": "2026-10-26T11:35:31.681017+00:00"
-    },
-    {
-      "id": "cn-6f4ca7e6708b07ddcd32",
-      "title": "向骑手销售抢单“外挂”被判赔300万元，一个硬件为何触碰法律红线？",
-      "category": "法律争议",
-      "publishedAt": "2026-10-26",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/fz/2026/10-26/10721171.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:35:31.701764+00:00"
-    },
     {
       "id": "cn-3d50b882f30c6c491e44",
       "title": "“仅靠道歉无法了事” 蒙古国考虑就草原火灾向日企索赔",
@@ -55,8 +25,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.100792+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/10-26/10720875.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.100792+00:00",
+      "thumbnail": "data/news-images/cn-3d50b882f30c6c491e44.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-8e3f98514e99d5bcbfaf",
@@ -70,8 +42,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.114917+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-25/10720562.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.114917+00:00",
+      "thumbnail": "data/news-images/cn-8e3f98514e99d5bcbfaf.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-965fad9ae5774271702a",
@@ -85,8 +59,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.154038+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-23/10719566.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.154038+00:00",
+      "thumbnail": "data/news-images/cn-965fad9ae5774271702a.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-5c9e9b58147cbab5a2f2",
@@ -101,7 +77,9 @@
       "curation": "headline",
       "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/10/22/0cc7bcd9b21b4a2bac67059a14879760.jpeg",
       "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/10-23/10719988.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:19.165762+00:00"
+      "imageCheckedAt": "2026-10-26T11:26:19.165762+00:00",
+      "thumbnail": "data/news-images/cn-5c9e9b58147cbab5a2f2.jpg",
+      "thumbnailKind": "photo"
     },
     {
       "id": "cn-fbb5f585b6dfbe22ff78",
@@ -116,7 +94,9 @@
       "curation": "headline",
       "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/10/21/09cc30481b1c4a0e8f26f56cc2bfb7cf.jpg",
       "imageSourceUrl": "https://www.chinanews.com.cn/cul/2026/10-22/10718869.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:19.439528+00:00"
+      "imageCheckedAt": "2026-10-26T11:26:19.439528+00:00",
+      "thumbnail": "data/news-images/cn-fbb5f585b6dfbe22ff78.jpg",
+      "thumbnailKind": "photo"
     },
     {
       "id": "cn-d5877205843c9a38bf77",
@@ -130,8 +110,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.557859+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-22/10718830.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.557859+00:00",
+      "thumbnail": "data/news-images/cn-d5877205843c9a38bf77.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-4e99bcf7f8a41fd0fad7",
@@ -146,7 +128,9 @@
       "curation": "headline",
       "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/10/22/17c0940d38924feeba67862d260b0b61.png",
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-22/10719026.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:19.570917+00:00"
+      "imageCheckedAt": "2026-10-26T11:26:19.570917+00:00",
+      "thumbnail": "data/news-images/cn-4e99bcf7f8a41fd0fad7.png",
+      "thumbnailKind": "photo"
     },
     {
       "id": "cn-007909b4c88dfd69c026",
@@ -160,8 +144,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.545101+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-22/10719119.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.545101+00:00",
+      "thumbnail": "data/news-images/cn-007909b4c88dfd69c026.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-f4bbabc56fb7da8b6dcd",
@@ -175,8 +161,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.768222+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/10-21/10718595.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.768222+00:00",
+      "thumbnail": "data/news-images/cn-f4bbabc56fb7da8b6dcd.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-eca43f7627d22f8e8a91",
@@ -190,8 +178,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.874139+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-21/10718444.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.874139+00:00",
+      "thumbnail": "data/news-images/cn-eca43f7627d22f8e8a91.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-b4324bfe26c0ec0b9635",
@@ -205,8 +195,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.887882+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-21/10718374.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.887882+00:00",
+      "thumbnail": "data/news-images/cn-b4324bfe26c0ec0b9635.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-6c5bde34b6c234735d3f",
@@ -220,8 +212,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:19.862779+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-21/10718479.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:19.862779+00:00",
+      "thumbnail": "data/news-images/cn-6c5bde34b6c234735d3f.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-47941386e2655d76ebbd",
@@ -235,8 +229,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.047306+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-21/10718284.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.047306+00:00",
+      "thumbnail": "data/news-images/cn-47941386e2655d76ebbd.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-3c8df5eeaa7ee36eb61e",
@@ -250,8 +246,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.197682+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/aseaninfo/2026/10-21/10718623.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.197682+00:00",
+      "thumbnail": "data/news-images/cn-3c8df5eeaa7ee36eb61e.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-ea29f26ccfce8dd818a5",
@@ -265,8 +263,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.214918+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/10-20/10717848.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.214918+00:00",
+      "thumbnail": "data/news-images/cn-ea29f26ccfce8dd818a5.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-bc9cd8c0ccad1e064b46",
@@ -280,8 +280,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.228748+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/10-20/10717982.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.228748+00:00",
+      "thumbnail": "data/news-images/cn-bc9cd8c0ccad1e064b46.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-ac74f10bf5928ed50a6e",
@@ -296,7 +298,9 @@
       "curation": "headline",
       "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261020/fb549e6e-94df-4cc5-a407-7802ab1e0a87_zsite.jpg",
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-20/10718087.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:20.305029+00:00"
+      "imageCheckedAt": "2026-10-26T11:26:20.305029+00:00",
+      "thumbnail": "data/news-images/cn-ac74f10bf5928ed50a6e.jpg",
+      "thumbnailKind": "photo"
     },
     {
       "id": "cn-4602ac472fabd90572ac",
@@ -310,8 +314,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.496573+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/dwq/2026/10-19/10717111.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.496573+00:00",
+      "thumbnail": "data/news-images/cn-4602ac472fabd90572ac.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-4354ca0460a088ba94e2",
@@ -325,8 +331,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.484936+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-19/10717207.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.484936+00:00",
+      "thumbnail": "data/news-images/cn-4354ca0460a088ba94e2.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-8b131c5c47216c629bf2",
@@ -340,8 +348,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.618123+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-17/10716223.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.618123+00:00",
+      "thumbnail": "data/news-images/cn-8b131c5c47216c629bf2.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-7d604e782fdceec0728d",
@@ -355,8 +365,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.626749+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-16/10715697.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.626749+00:00",
+      "thumbnail": "data/news-images/cn-7d604e782fdceec0728d.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-06f92a22a45b3322fcad",
@@ -370,8 +382,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.756881+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-16/10715512.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.756881+00:00",
+      "thumbnail": "data/news-images/cn-06f92a22a45b3322fcad.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-c2041b915ef63c0886dc",
@@ -385,8 +399,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.773646+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/10-15/10714917.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.773646+00:00",
+      "thumbnail": "data/news-images/cn-c2041b915ef63c0886dc.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-59774df97c742a927413",
@@ -400,8 +416,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.932447+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-15/10714757.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.932447+00:00",
+      "thumbnail": "data/news-images/cn-59774df97c742a927413.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-fc2b2513d47780ca83b6",
@@ -415,8 +433,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:20.953018+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-14/10714413.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:20.953018+00:00",
+      "thumbnail": "data/news-images/cn-fc2b2513d47780ca83b6.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-73612879a32661618884",
@@ -430,8 +450,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.061768+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/10-14/10714602.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.061768+00:00",
+      "thumbnail": "data/news-images/cn-73612879a32661618884.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-da41f02c074876478296",
@@ -445,8 +467,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.157364+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-13/10713622.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.157364+00:00",
+      "thumbnail": "data/news-images/cn-da41f02c074876478296.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-cf62fed45569e20b3f8d",
@@ -460,8 +484,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.253286+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-13/10713793.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.253286+00:00",
+      "thumbnail": "data/news-images/cn-cf62fed45569e20b3f8d.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-219faf6a041be781f756",
@@ -475,8 +501,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.270579+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/10-13/10713521.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.270579+00:00",
+      "thumbnail": "data/news-images/cn-219faf6a041be781f756.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-167d86dd7fba39159830",
@@ -490,8 +518,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.336751+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-13/10713670.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.336751+00:00",
+      "thumbnail": "data/news-images/cn-167d86dd7fba39159830.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-d399e8ae0343566fbff6",
@@ -505,8 +535,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.522442+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-12/10711895.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.522442+00:00",
+      "thumbnail": "data/news-images/cn-d399e8ae0343566fbff6.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-8c3f93b13391adecd7e6",
@@ -520,8 +552,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.548031+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-12/10711168.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.548031+00:00",
+      "thumbnail": "data/news-images/cn-8c3f93b13391adecd7e6.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-6c07272210e61c08c40c",
@@ -535,8 +569,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.565634+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-12/10712120.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.565634+00:00",
+      "thumbnail": "data/news-images/cn-6c07272210e61c08c40c.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-12a4e67f62d4684fd478",
@@ -550,8 +586,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-10-26T11:26:21.649228+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/10-12/10712258.shtml",
+      "imageCheckedAt": "2026-10-26T11:26:21.649228+00:00",
+      "thumbnail": "data/news-images/cn-12a4e67f62d4684fd478.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-db23c1903deadfae82af",
@@ -566,7 +604,9 @@
       "curation": "headline",
       "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/10/11/eea026da5733437da05bbfd87ad9969e.jpg",
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-11/10710932.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.957656+00:00"
+      "imageCheckedAt": "2026-10-26T11:26:21.957656+00:00",
+      "thumbnail": "data/news-images/cn-db23c1903deadfae82af.jpg",
+      "thumbnailKind": "photo"
     }
   ]
 }
