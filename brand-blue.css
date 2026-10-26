@@ -198,3 +198,7 @@ body.teacher-mode .insight-overview .ability-radar svg{max-width:260px;max-heigh
 .law-news-card.has-source-image{grid-template-columns:164px minmax(0,1fr) 190px!important}
 .news-thumbnail img{width:164px;height:104px;object-position:top center}
 @media(max-width:700px){.law-news-card.has-source-image{grid-template-columns:100px minmax(0,1fr)!important}.news-thumbnail img{width:100px;height:76px}}
+/* Separate student destinations without adding a second navigation bar. */
+body.student-mode .cm-header .student-bottom button{position:relative}
+body.student-mode .cm-header .student-bottom button+button::after{content:"";position:absolute;left:-4px;top:50%;transform:translateY(-50%);width:1px;height:18px;background:#d9e3f2;pointer-events:none}
+@media(max-width:640px){body.student-mode .cm-header .student-bottom button+button::after{left:-1px;height:14px}}
