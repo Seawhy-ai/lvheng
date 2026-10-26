@@ -198,5 +198,10 @@
     "id": "20261012-investor-protection",
     "thumbnail": "data/news-images/20261012-investor-protection.jpg",
     "thumbnailKind": "article"
+  },
+  "https://www.chinanews.com.cn/fz/2026/10-26/10721305.shtml": {
+    "id": "cn-25ae347e6b540a8b9ad7",
+    "thumbnail": "data/news-images/cn-25ae347e6b540a8b9ad7.jpg",
+    "thumbnailKind": "article"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 2,
-  "contentUpdatedAt": "2026-10-26T11:52:47.052131+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-10-26T12:04:59.901491+00:00",
   "latestPublishedAt": "2026-10-26",
-  "updatedAt": "2026-10-26T11:52:47.052131+00:00",
+  "updatedAt": "2026-10-26T12:04:59.901491+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -62,6 +62,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/10-26/10720875.shtml",
       "imageCheckedAt": "2026-10-26T11:26:19.100792+00:00",
       "thumbnail": "data/news-images/cn-3d50b882f30c6c491e44.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-25ae347e6b540a8b9ad7",
+      "title": "饼干罐、啤酒箱竟装现金 警惕电信诈骗新手段",
+      "category": "公共安全",
+      "publishedAt": "2026-10-26",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/10-26/10721305.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-26/10721305.shtml",
+      "imageCheckedAt": "2026-10-26T12:05:03.375743+00:00",
+      "thumbnail": "data/news-images/cn-25ae347e6b540a8b9ad7.jpg",
       "thumbnailKind": "article"
     },
     {
