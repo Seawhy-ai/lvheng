@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-10-26T12:04:59.901491+00:00",
-  "latestPublishedAt": "2026-10-26",
-  "updatedAt": "2026-10-26T20:10:52.733398+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-10-26T23:55:55.625577+00:00",
+  "latestPublishedAt": "2026-10-27",
+  "updatedAt": "2026-10-26T23:55:55.625577+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-df123b976a15ec5ff180",
+      "title": "救人反被索赔46万元？“好人条款”守住朴素正义",
+      "category": "法律争议",
+      "publishedAt": "2026-10-27",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/10-27/10721445.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-27/10721445.shtml",
+      "imageCheckedAt": "2026-10-26T23:56:00.078223+00:00",
+      "thumbnail": "data/news-images/cn-df123b976a15ec5ff180.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-c53997d0906ae549ea58",
       "title": "男子用AI生成视频谎称“父亲患癌去世” 诈骗好友170万元去炒股",
