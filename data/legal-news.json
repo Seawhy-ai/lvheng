@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-10-26T23:55:55.625577+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-10-27T16:02:43.153346+00:00",
   "latestPublishedAt": "2026-10-27",
-  "updatedAt": "2026-10-27T10:38:04.141467+00:00",
+  "updatedAt": "2026-10-27T16:02:43.153346+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -28,6 +28,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-27/10721445.shtml",
       "imageCheckedAt": "2026-10-26T23:56:00.078223+00:00",
       "thumbnail": "data/news-images/cn-df123b976a15ec5ff180.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-7cd35071aba1356d6968",
+      "title": "中介承诺“精准荐岗”却货不对板 消费者终获全额退款",
+      "category": "消费维权",
+      "publishedAt": "2026-10-27",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/10-27/10721836.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-27/10721836.shtml",
+      "imageCheckedAt": "2026-10-27T16:02:48.799530+00:00",
+      "thumbnail": "data/news-images/cn-7cd35071aba1356d6968.jpg",
       "thumbnailKind": "article"
     },
     {
