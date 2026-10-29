@@ -27,6 +27,11 @@ test('real SQLite and HTTP: auth, class, task, report, restart and safety', asyn
   assert.equal((await api('/api/auth/login',{username:'teacher',password:'long-password'})).status,200);
   const cls=await api('/api/classes',{name:'测试班级'},token);assert.equal(cls.status,201);
   const student=await api('/api/auth/student/join',{classCode:cls.data.classroom.code,name:'测试学生',pin:'123456'});assert.equal(student.status,200);
+  assert.equal((await api('/api/auth/student/login',{name:'测试学生',password:'123456'})).status,200);
+  assert.equal((await api('/api/auth/student/login',{name:'测试学生',password:'wrong'})).status,401);
+  const cls2=await api('/api/classes',{name:'另一班级'},token);
+  assert.equal((await api('/api/auth/student/join',{classCode:cls2.data.classroom.code,name:'测试学生',pin:'123456'})).status,200);
+  assert.equal((await api('/api/auth/student/login',{name:'测试学生',password:'123456'})).status,409);
   const content={questions:['issue','fact','evidence','law','path'].map(ability=>({ability,prompt:'选择需要核实的事实是什么？',options:['核实原始材料','直接推断结论'],answer:0,explain:'应先核实原始材料，再判断事实。'}))};
   const task=await api('/api/tasks',{classId:cls.data.classroom.id,title:'兼职测试任务',scenario:'同学兼职结束后没有收到约定的工资，需要核实材料。',content},token);
   assert.equal(task.status,201,JSON.stringify(task));
@@ -37,5 +42,5 @@ test('real SQLite and HTTP: auth, class, task, report, restart and safety', asyn
   const oversized=await fetch(base+'/api/auth/login',{method:'POST',body:'x'.repeat(129*1024)});assert.equal(oversized.status,413);
   assert.equal((await fetch(base+'/healthz',{headers:{origin:'https://untrusted.invalid'}})).status,403);
  } finally {await new Promise(resolve=>server.close(resolve));DB.close();}
- const reopened=openDatabase(path);assert.equal((await reopened.prepare('SELECT COUNT(*) n FROM users').first()).n,2);reopened.close();
+ const reopened=openDatabase(path);assert.equal((await reopened.prepare('SELECT COUNT(*) n FROM users').first()).n,3);reopened.close();
 });
