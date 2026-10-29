@@ -9,6 +9,10 @@ import { createBackend } from './server.mjs';
 test('real SQLite and HTTP: auth, class, task, report, restart and safety', async () => {
  const path=join(mkdtempSync(join(tmpdir(),'lvheng-test-')),'test.sqlite');
  const DB=openDatabase(path),server=createBackend({DB,TEACHER_SETUP_CODE:'test-code-12345'});
+ await DB.prepare('CREATE TABLE batch_test (n INTEGER UNIQUE)').run();
+ await DB.batch([DB.prepare('INSERT INTO batch_test VALUES (?)').bind(1),DB.prepare('INSERT INTO batch_test VALUES (?)').bind(2)]);
+ await assert.rejects(DB.batch([DB.prepare('INSERT INTO batch_test VALUES (?)').bind(3),DB.prepare('INSERT INTO batch_test VALUES (?)').bind(2)]));
+ assert.equal((await DB.prepare('SELECT COUNT(*) n FROM batch_test').first()).n,2);
  server.listen(0,'127.0.0.1');await once(server,'listening');
  const base='http://127.0.0.1:'+server.address().port;
  async function api(path,body,token,method=body?'POST':'GET') {

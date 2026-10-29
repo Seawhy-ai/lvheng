@@ -12,12 +12,18 @@ export function openDatabase(path) {
   for (const table of ['users','sessions','classes','class_members','tasks','submissions']) db.prepare(`SELECT * FROM ${table} LIMIT 0`).all();
   return {
     close: () => db.close(),
+    batch: async (statements) => {
+      db.exec('BEGIN');
+      try { const results = statements.map(s => s.runSync()); db.exec('COMMIT'); return results; }
+      catch (error) { db.exec('ROLLBACK'); throw error; }
+    },
     prepare(sql) {
       const statement = db.prepare(sql);
       const wrap = (params = []) => ({
         bind: (...values) => wrap(values),
         first: async (column) => { const row = statement.get(...params); return column ? row?.[column] ?? null : row ?? null; },
         all: async () => ({ success: true, results: statement.all(...params) }),
+        runSync: () => { const result = statement.run(...params); return { success: true, meta: { changes: Number(result.changes), last_row_id: Number(result.lastInsertRowid) } }; },
         run: async () => { const result = statement.run(...params); return { success: true, meta: { changes: Number(result.changes), last_row_id: Number(result.lastInsertRowid) } }; }
       });
       return wrap();
