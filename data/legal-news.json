@@ -1,8 +1,8 @@
 {
   "newArticleCount": 1,
-  "contentUpdatedAt": "2026-10-29T08:33:26.617889+00:00",
+  "contentUpdatedAt": "2026-10-29T15:35:58.265301+00:00",
   "latestPublishedAt": "2026-10-29",
-  "updatedAt": "2026-10-29T08:33:26.617889+00:00",
+  "updatedAt": "2026-10-29T15:35:58.265301+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-e1bc6a28c7441d210800",
+      "title": "新疆兵团优化妇女儿童发展环境 全面提升维权服务质效",
+      "category": "法律争议",
+      "publishedAt": "2026-10-29",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/10-29/10723055.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261029/5c043bbd-829f-4bcd-9712-068f80a27a32_zsite.jpg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/10-29/10723055.shtml",
+      "imageCheckedAt": "2026-10-29T15:36:01.361301+00:00",
+      "thumbnail": "data/news-images/cn-e1bc6a28c7441d210800.jpg",
+      "thumbnailKind": "photo"
+    },
     {
       "id": "cn-af8bc187aa082e39c4df",
       "title": "我的声音被AI“偷”走了，咋维权？",
