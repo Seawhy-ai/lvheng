@@ -1,8 +1,8 @@
 {
   "newArticleCount": 2,
-  "contentUpdatedAt": "2026-10-30T06:31:00.516350+00:00",
+  "contentUpdatedAt": "2026-10-30T13:40:18.170976+00:00",
   "latestPublishedAt": "2026-10-30",
-  "updatedAt": "2026-10-30T06:31:00.516350+00:00",
+  "updatedAt": "2026-10-30T13:40:18.170976+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -31,6 +31,21 @@
       "thumbnailKind": "photo"
     },
     {
+      "id": "cn-85f6437b0fc47ff5e246",
+      "title": "涉供暖季这些高发纠纷，最高法发布典型案例",
+      "category": "法律争议",
+      "publishedAt": "2026-10-30",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/10-30/10723457.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "",
+      "imageCheckedAt": "2026-10-30T13:40:22.461944+00:00"
+    },
+    {
       "id": "cn-360307ef6f4077d8e9d1",
       "title": "“空气消毒卡”除菌消杀率超99.99%？中消协：涉虚假宣传",
       "category": "法律争议",
@@ -46,6 +61,23 @@
       "imageCheckedAt": "2026-10-30T06:31:05.883967+00:00",
       "thumbnail": "data/news-images/cn-360307ef6f4077d8e9d1.jpg",
       "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-0ebabacd68b9330f7b05",
+      "title": "检察公益诉讼法草案将三审 拟完善管辖和审判程序",
+      "category": "法律争议",
+      "publishedAt": "2026-10-30",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/10-30/10723361.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/10-30/10723361.shtml",
+      "imageCheckedAt": "2026-10-30T13:40:22.322637+00:00",
+      "thumbnail": "data/news-images/cn-0ebabacd68b9330f7b05.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-e1bc6a28c7441d210800",
