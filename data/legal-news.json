@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-10-29T15:35:58.265301+00:00",
-  "latestPublishedAt": "2026-10-29",
-  "updatedAt": "2026-10-30T00:27:24.825881+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-10-30T06:31:00.516350+00:00",
+  "latestPublishedAt": "2026-10-30",
+  "updatedAt": "2026-10-30T06:31:00.516350+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,40 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-ae1dd25bac4b4ed6de02",
+      "title": "茉莉奶白门店回应联名玻璃杯爆裂：可退款回收",
+      "category": "消费维权",
+      "publishedAt": "2026-10-30",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/10-30/10723241.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/10/30/34c7c96ab6424008ba6edb15c1fd9d5f.jpg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/10-30/10723241.shtml",
+      "imageCheckedAt": "2026-10-30T06:31:05.646614+00:00",
+      "thumbnail": "data/news-images/cn-ae1dd25bac4b4ed6de02.jpg",
+      "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-360307ef6f4077d8e9d1",
+      "title": "“空气消毒卡”除菌消杀率超99.99%？中消协：涉虚假宣传",
+      "category": "法律争议",
+      "publishedAt": "2026-10-30",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/10-30/10723251.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/10/30/3a927a2b4ba64398b974e3f479ee525d.jpg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-30/10723251.shtml",
+      "imageCheckedAt": "2026-10-30T06:31:05.883967+00:00",
+      "thumbnail": "data/news-images/cn-360307ef6f4077d8e9d1.jpg",
+      "thumbnailKind": "photo"
+    },
     {
       "id": "cn-e1bc6a28c7441d210800",
       "title": "新疆兵团优化妇女儿童发展环境 全面提升维权服务质效",
