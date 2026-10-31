@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-10-30T13:40:18.170976+00:00",
-  "latestPublishedAt": "2026-10-30",
-  "updatedAt": "2026-10-31T08:55:27.345489+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-10-31T15:21:58.633466+00:00",
+  "latestPublishedAt": "2026-10-31",
+  "updatedAt": "2026-10-31T15:21:58.633466+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,40 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-7219393910019e89ddea",
+      "title": "道歉可以，赔偿免谈？英国首相回应奴隶贸易历史责任",
+      "category": "法律争议",
+      "publishedAt": "2026-10-31",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gj/2026/10-31/10724002.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/10-31/10724002.shtml",
+      "imageCheckedAt": "2026-10-31T15:22:02.073977+00:00",
+      "thumbnail": "data/news-images/cn-7219393910019e89ddea.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-144366f7d4a35250f404",
+      "title": "130名持马来西亚护照人员涉嫌网络诈骗在巴基斯坦被捕",
+      "category": "公共安全",
+      "publishedAt": "2026-10-31",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gj/2026/10-31/10724089.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/10-31/10724089.shtml",
+      "imageCheckedAt": "2026-10-31T15:22:02.018065+00:00",
+      "thumbnail": "data/news-images/cn-144366f7d4a35250f404.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-ae1dd25bac4b4ed6de02",
       "title": "茉莉奶白门店回应联名玻璃杯爆裂：可退款回收",
