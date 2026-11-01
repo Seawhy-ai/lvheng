@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-10-31T15:21:58.633466+00:00",
-  "latestPublishedAt": "2026-10-31",
-  "updatedAt": "2026-11-01T09:23:08.341605+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-01T16:26:20.358653+00:00",
+  "latestPublishedAt": "2026-11-01",
+  "updatedAt": "2026-11-01T16:26:20.358653+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-427490b36ba2ea4370a0",
+      "title": "代办“超级签”落地后发现竟是旅游签 中介该如何赔偿？",
+      "category": "法律争议",
+      "publishedAt": "2026-11-01",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-01/10724513.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-01/10724513.shtml",
+      "imageCheckedAt": "2026-11-01T16:26:23.306410+00:00",
+      "thumbnail": "data/news-images/cn-427490b36ba2ea4370a0.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-7219393910019e89ddea",
       "title": "道歉可以，赔偿免谈？英国首相回应奴隶贸易历史责任",
