@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 6,
-  "contentUpdatedAt": "2026-11-02T07:42:30.573486+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-11-02T17:27:30.264504+00:00",
   "latestPublishedAt": "2026-11-02",
-  "updatedAt": "2026-11-02T07:42:30.573486+00:00",
+  "updatedAt": "2026-11-02T17:27:30.264504+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-dfdaaf805fcd78d6a41b",
+      "title": "英国数百雇主因非法欠薪遭处罚",
+      "category": "劳动权益",
+      "publishedAt": "2026-11-02",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gj/2026/11-02/10725019.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/11-02/10725019.shtml",
+      "imageCheckedAt": "2026-11-02T17:27:34.012126+00:00",
+      "thumbnail": "data/news-images/cn-dfdaaf805fcd78d6a41b.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-dbbafd4e6a868389fbb8",
       "title": "中国拟修改刑事诉讼法 加强被害人权利保障",
@@ -28,6 +45,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-02/10724734.shtml",
       "imageCheckedAt": "2026-11-02T07:42:34.406158+00:00",
       "thumbnail": "data/news-images/cn-dbbafd4e6a868389fbb8.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-ba11527d2dd702827950",
+      "title": "7天“剧本”套路聊天 揭秘“AI生成女友”网恋诈骗流水线",
+      "category": "数字与人格权",
+      "publishedAt": "2026-11-02",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-02/10724801.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-02/10724801.shtml",
+      "imageCheckedAt": "2026-11-02T17:27:34.031527+00:00",
+      "thumbnail": "data/news-images/cn-ba11527d2dd702827950.jpg",
       "thumbnailKind": "article"
     },
     {
