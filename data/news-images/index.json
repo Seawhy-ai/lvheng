@@ -333,5 +333,10 @@
     "id": "cn-ba11527d2dd702827950",
     "thumbnail": "data/news-images/cn-ba11527d2dd702827950.jpg",
     "thumbnailKind": "article"
+  },
+  "https://www.chinanews.com.cn/fz/2026/11-03/10725329.shtml": {
+    "id": "cn-b76d33a0ccfc0f0bcb7f",
+    "thumbnail": "data/news-images/cn-b76d33a0ccfc0f0bcb7f.jpg",
+    "thumbnailKind": "article"
   }
 }
