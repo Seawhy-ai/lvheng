@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-03T15:12:52.521613+00:00",
-  "latestPublishedAt": "2026-11-03",
-  "updatedAt": "2026-11-04T01:25:18.659113+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-04T08:04:37.582212+00:00",
+  "latestPublishedAt": "2026-11-04",
+  "updatedAt": "2026-11-04T08:04:37.582212+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-c986a583a493b8b360f7",
+      "title": "中国驻加拿大使馆提醒在加中国公民防范网络交友敲诈等诈骗行为",
+      "category": "公共安全",
+      "publishedAt": "2026-11-04",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/hr/2026/11-04/10725983.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/hr/2026/11-04/10725983.shtml",
+      "imageCheckedAt": "2026-11-04T08:04:41.669814+00:00",
+      "thumbnail": "data/news-images/cn-c986a583a493b8b360f7.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-d63acb4c2ecd42a07545",
       "title": "中国东航原董事长刘绍勇一审获刑14年",
