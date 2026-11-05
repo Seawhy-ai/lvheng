@@ -1,8 +1,8 @@
 {
   "newArticleCount": 3,
-  "contentUpdatedAt": "2026-11-05T02:33:40.402842+00:00",
+  "contentUpdatedAt": "2026-11-05T09:52:32.553347+00:00",
   "latestPublishedAt": "2026-11-05",
-  "updatedAt": "2026-11-05T02:33:40.402842+00:00",
+  "updatedAt": "2026-11-05T09:52:32.553347+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,40 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-feca75b82e7b209d3f1c",
+      "title": "“十五五”期间 山西将对欠薪等突出问题开展监督、整治",
+      "category": "劳动权益",
+      "publishedAt": "2026-11-05",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/11-05/10726693.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261105/9bae7dca-5c05-4898-b9a4-8c74ebf9a670_zsite.jpg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/11-05/10726693.shtml",
+      "imageCheckedAt": "2026-11-05T09:52:36.848404+00:00",
+      "thumbnail": "data/news-images/cn-feca75b82e7b209d3f1c.jpg",
+      "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-e42dedfcd9b7d2f3fce8",
+      "title": "自驾上珠峰大本营被拦路 游客起诉景区“侵犯路权”",
+      "category": "法律争议",
+      "publishedAt": "2026-11-05",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-05/10726451.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-05/10726451.shtml",
+      "imageCheckedAt": "2026-11-05T09:52:37.389796+00:00",
+      "thumbnail": "data/news-images/cn-e42dedfcd9b7d2f3fce8.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-c7b4b7ac708e1e36e754",
       "title": "无端贬损、排挤孤立、越界骚扰……破解对抗“职场软暴力”维权难题",
@@ -42,8 +76,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-11-05T02:34:22.966384+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-05/10726362.shtml",
+      "imageCheckedAt": "2026-11-05T02:34:22.966384+00:00",
+      "thumbnail": "data/news-images/cn-bcd14c024f5585dd3f16.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-6f5394ea87afa80b7ff9",
@@ -60,6 +96,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-05/10726387.shtml",
       "imageCheckedAt": "2026-11-05T02:34:22.987520+00:00",
       "thumbnail": "data/news-images/cn-6f5394ea87afa80b7ff9.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-09b915fd01e4496313af",
+      "title": "不法分子冒充海关实施招聘诈骗 海关总署发布严正声明",
+      "category": "公共安全",
+      "publishedAt": "2026-11-05",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-05/10726548.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-05/10726548.shtml",
+      "imageCheckedAt": "2026-11-05T09:52:37.130474+00:00",
+      "thumbnail": "data/news-images/cn-09b915fd01e4496313af.jpg",
       "thumbnailKind": "article"
     },
     {
