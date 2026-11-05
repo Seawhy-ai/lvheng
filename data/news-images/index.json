@@ -363,5 +363,15 @@
     "id": "cn-8cd607324db53880d695",
     "thumbnail": "data/news-images/cn-8cd607324db53880d695.jpg",
     "thumbnailKind": "photo"
+  },
+  "https://www.chinanews.com.cn/sh/2026/11-05/10726338.shtml": {
+    "id": "cn-c7b4b7ac708e1e36e754",
+    "thumbnail": "data/news-images/cn-c7b4b7ac708e1e36e754.jpg",
+    "thumbnailKind": "article"
+  },
+  "https://www.chinanews.com.cn/sh/2026/11-05/10726387.shtml": {
+    "id": "cn-6f5394ea87afa80b7ff9",
+    "thumbnail": "data/news-images/cn-6f5394ea87afa80b7ff9.jpg",
+    "thumbnailKind": "article"
   }
 }
