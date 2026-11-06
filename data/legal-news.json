@@ -1,8 +1,8 @@
 {
   "newArticleCount": 4,
-  "contentUpdatedAt": "2026-11-06T03:41:34.112081+00:00",
+  "contentUpdatedAt": "2026-11-06T11:33:27.409892+00:00",
   "latestPublishedAt": "2026-11-06",
-  "updatedAt": "2026-11-06T03:41:34.112081+00:00",
+  "updatedAt": "2026-11-06T11:33:27.409892+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -28,6 +28,40 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-06/10726997.shtml",
       "imageCheckedAt": "2026-11-06T03:41:37.692477+00:00",
       "thumbnail": "data/news-images/cn-d05a242dd7ad149859ea.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-c6c81684169e88ea24c1",
+      "title": "北京严厉打击欠薪行为 公布五起侵害劳动者合法权益典型案例",
+      "category": "劳动权益",
+      "publishedAt": "2026-11-06",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-06/10727407.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-06/10727407.shtml",
+      "imageCheckedAt": "2026-11-06T11:33:29.883002+00:00",
+      "thumbnail": "data/news-images/cn-c6c81684169e88ea24c1.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-c5bf2437e706b91a2840",
+      "title": "澳门特区初级法院判决区锦新危害国家安全案罪成",
+      "category": "法律争议",
+      "publishedAt": "2026-11-06",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/dwq/2026/11-06/10727370.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/dwq/2026/11-06/10727370.shtml",
+      "imageCheckedAt": "2026-11-06T11:33:30.173364+00:00",
+      "thumbnail": "data/news-images/cn-c5bf2437e706b91a2840.jpg",
       "thumbnailKind": "article"
     },
     {
@@ -65,6 +99,23 @@
       "thumbnailKind": "article"
     },
     {
+      "id": "cn-93cef718490bdaba76cd",
+      "title": "中国出台检察公益诉讼法 明确可对外国组织违法行为提起公益诉讼",
+      "category": "法律争议",
+      "publishedAt": "2026-11-06",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-06/10727428.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-06/10727428.shtml",
+      "imageCheckedAt": "2026-11-06T11:33:30.074323+00:00",
+      "thumbnail": "data/news-images/cn-93cef718490bdaba76cd.jpg",
+      "thumbnailKind": "article"
+    },
+    {
       "id": "cn-8e03fad73913a680bcc8",
       "title": "检察公益诉讼有了专门法律",
       "category": "法律争议",
@@ -80,6 +131,23 @@
       "imageCheckedAt": "2026-11-06T03:41:37.418169+00:00",
       "thumbnail": "data/news-images/cn-8e03fad73913a680bcc8.jpg",
       "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-3d2f5cc31259f8ffe792",
+      "title": "澳门特区初级法院判决区锦新危害国家安全案罪成",
+      "category": "法律争议",
+      "publishedAt": "2026-11-06",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/dwq/2026/11-06/10727380.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/dwq/2026/11-06/10727380.shtml",
+      "imageCheckedAt": "2026-11-06T11:33:30.136059+00:00",
+      "thumbnail": "data/news-images/cn-3d2f5cc31259f8ffe792.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-feca75b82e7b209d3f1c",
