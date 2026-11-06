@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 4,
-  "contentUpdatedAt": "2026-11-06T11:33:27.409892+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-06T18:30:26.098701+00:00",
   "latestPublishedAt": "2026-11-06",
-  "updatedAt": "2026-11-06T11:33:27.409892+00:00",
+  "updatedAt": "2026-11-06T18:30:26.098701+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -131,6 +131,23 @@
       "imageCheckedAt": "2026-11-06T03:41:37.418169+00:00",
       "thumbnail": "data/news-images/cn-8e03fad73913a680bcc8.jpg",
       "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-59413c1b056f34a5ae75",
+      "title": "受权发布丨中华人民共和国检察公益诉讼法",
+      "category": "法律争议",
+      "publishedAt": "2026-11-06",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-06/10727610.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-06/10727610.shtml",
+      "imageCheckedAt": "2026-11-06T18:30:29.192195+00:00",
+      "thumbnail": "data/news-images/cn-59413c1b056f34a5ae75.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-3d2f5cc31259f8ffe792",
