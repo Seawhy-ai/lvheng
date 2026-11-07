@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 3,
-  "contentUpdatedAt": "2026-11-07T03:15:12.173830+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-11-07T10:25:58.761957+00:00",
   "latestPublishedAt": "2026-11-07",
-  "updatedAt": "2026-11-07T03:15:12.173830+00:00",
+  "updatedAt": "2026-11-07T10:25:58.761957+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-c5499941ab6edf71637a",
+      "title": "顾客称外卖吃出头发申请仅退款，结果老板是光头，律师解读",
+      "category": "消费维权",
+      "publishedAt": "2026-11-07",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-07/10727879.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-07/10727879.shtml",
+      "imageCheckedAt": "2026-11-07T10:26:02.379430+00:00",
+      "thumbnail": "data/news-images/cn-c5499941ab6edf71637a.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-a73a22c3fbaf785bae6f",
       "title": "复刻声音商用，可识别性是侵权认定核心",
@@ -25,8 +42,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-11-07T03:15:15.475887+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/11-07/10727745.shtml",
+      "imageCheckedAt": "2026-11-07T03:15:15.475887+00:00",
+      "thumbnail": "data/news-images/cn-a73a22c3fbaf785bae6f.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-8ddb68aa63709cd74e91",
@@ -60,6 +79,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-07/10727766.shtml",
       "imageCheckedAt": "2026-11-07T03:15:15.470408+00:00",
       "thumbnail": "data/news-images/cn-834e38923cb644a53504.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-4e3606a5bd2657858dd4",
+      "title": "刑事诉讼法修改进程引热议：把“管住权力、保障权利”落到实处",
+      "category": "公共安全",
+      "publishedAt": "2026-11-07",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-07/10727937.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-07/10727937.shtml",
+      "imageCheckedAt": "2026-11-07T10:26:02.406188+00:00",
+      "thumbnail": "data/news-images/cn-4e3606a5bd2657858dd4.jpg",
       "thumbnailKind": "article"
     },
     {
