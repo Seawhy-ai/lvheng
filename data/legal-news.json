@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 2,
-  "contentUpdatedAt": "2026-11-07T10:25:58.761957+00:00",
+  "newArticleCount": 3,
+  "contentUpdatedAt": "2026-11-07T16:38:23.036679+00:00",
   "latestPublishedAt": "2026-11-07",
-  "updatedAt": "2026-11-07T10:25:58.761957+00:00",
+  "updatedAt": "2026-11-07T16:38:23.036679+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-e7478c10fd03a2ae8915",
+      "title": "柬埔寨官方：过去16个月起诉并羁押电诈犯罪嫌疑人逾五千名",
+      "category": "法律争议",
+      "publishedAt": "2026-11-07",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gj/2026/11-07/10728150.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/11-07/10728150.shtml",
+      "imageCheckedAt": "2026-11-07T16:38:28.420352+00:00",
+      "thumbnail": "data/news-images/cn-e7478c10fd03a2ae8915.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-c5499941ab6edf71637a",
       "title": "顾客称外卖吃出头发申请仅退款，结果老板是光头，律师解读",
@@ -28,6 +45,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-07/10727879.shtml",
       "imageCheckedAt": "2026-11-07T10:26:02.379430+00:00",
       "thumbnail": "data/news-images/cn-c5499941ab6edf71637a.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-a93639b2f620614fbb46",
+      "title": "“免费鉴宝、高价回收” 起底专盯老人的直播诈骗链",
+      "category": "消费维权",
+      "publishedAt": "2026-11-07",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-07/10728182.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-07/10728182.shtml",
+      "imageCheckedAt": "2026-11-07T16:38:28.881494+00:00",
+      "thumbnail": "data/news-images/cn-a93639b2f620614fbb46.jpg",
       "thumbnailKind": "article"
     },
     {
@@ -96,6 +130,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-07/10727937.shtml",
       "imageCheckedAt": "2026-11-07T10:26:02.406188+00:00",
       "thumbnail": "data/news-images/cn-4e3606a5bd2657858dd4.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-1649816326cdcb66a767",
+      "title": "原创性“中国方案”→国家法律制度 检察公益诉讼法明年起施行",
+      "category": "法律争议",
+      "publishedAt": "2026-11-07",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-07/10728166.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-07/10728166.shtml",
+      "imageCheckedAt": "2026-11-07T16:38:28.642717+00:00",
+      "thumbnail": "data/news-images/cn-1649816326cdcb66a767.jpg",
       "thumbnailKind": "article"
     },
     {
