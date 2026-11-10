@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 1,
-  "contentUpdatedAt": "2026-11-09T20:46:32.292429+00:00",
-  "latestPublishedAt": "2026-11-09",
-  "updatedAt": "2026-11-09T20:46:32.292429+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-11-10T02:58:42.524708+00:00",
+  "latestPublishedAt": "2026-11-10",
+  "updatedAt": "2026-11-10T02:58:42.524708+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,40 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-697af5a27dad571ed218",
+      "title": "遏制职场“软侵权”，守护数字时代的和谐劳动关系",
+      "category": "劳动权益",
+      "publishedAt": "2026-11-10",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-10/10729194.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-10/10729194.shtml",
+      "imageCheckedAt": "2026-11-10T02:58:46.079559+00:00",
+      "thumbnail": "data/news-images/cn-697af5a27dad571ed218.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-0a553e89d195be9ac4bd",
+      "title": "员工疑因玩梗“画地为牢”遭辞退？律师解读：如属实，企业或涉嫌违法解除",
+      "category": "劳动权益",
+      "publishedAt": "2026-11-10",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cul/2026/11-10/10729233.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/11/09/4b43a80744534a42b9c1f95ce013d521.jpg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/cul/2026/11-10/10729233.shtml",
+      "imageCheckedAt": "2026-11-10T02:58:46.009458+00:00",
+      "thumbnail": "data/news-images/cn-0a553e89d195be9ac4bd.jpg",
+      "thumbnailKind": "photo"
+    },
     {
       "id": "cn-cb65864bfa47247f3368",
       "title": "中国海警舰艇编队在中国钓鱼岛及其附属岛屿领海内维权巡航",
