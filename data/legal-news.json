@@ -1,8 +1,8 @@
 {
   "newArticleCount": 2,
-  "contentUpdatedAt": "2026-11-11T03:09:28.556568+00:00",
+  "contentUpdatedAt": "2026-11-11T11:02:15.014737+00:00",
   "latestPublishedAt": "2026-11-11",
-  "updatedAt": "2026-11-11T03:09:28.556568+00:00",
+  "updatedAt": "2026-11-11T11:02:15.014737+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,40 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-80bcad7f35d370355508",
+      "title": "宁夏发布“掌上维权攻略” 多渠道护航劳动者依法讨薪",
+      "category": "劳动权益",
+      "publishedAt": "2026-11-11",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-11/10730115.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-11/10730115.shtml",
+      "imageCheckedAt": "2026-11-11T11:02:18.735217+00:00",
+      "thumbnail": "data/news-images/cn-80bcad7f35d370355508.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-65ebb5b07c93032bde3f",
+      "title": "原创内容被判“AI生成未标识” 用户起诉平台，法院认定→",
+      "category": "数字与人格权",
+      "publishedAt": "2026-11-11",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/11-11/10730318.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/11-11/10730318.shtml",
+      "imageCheckedAt": "2026-11-11T11:02:18.745937+00:00",
+      "thumbnail": "data/news-images/cn-65ebb5b07c93032bde3f.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-148e1a5aeb0efc116aff",
       "title": "公安机关依法严打网络售假犯罪 公布10起典型案例",
