@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 1,
-  "contentUpdatedAt": "2026-11-11T18:43:20.502754+00:00",
-  "latestPublishedAt": "2026-11-11",
-  "updatedAt": "2026-11-11T18:43:20.502754+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-11-12T01:02:55.216719+00:00",
+  "latestPublishedAt": "2026-11-12",
+  "updatedAt": "2026-11-12T01:02:55.216719+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,38 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-e35eaa79083cb6817015",
+      "title": "拜登在爱尔兰遭抗议者扔掷物品  一男子被起诉",
+      "category": "法律争议",
+      "publishedAt": "2026-11-12",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gj/2026/11-12/10730600.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/11/12/5a58461aa80343269c7a74beeb8bc882.jpeg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gj/2026/11-12/10730600.shtml",
+      "imageCheckedAt": "2026-11-12T01:02:58.272829+00:00",
+      "thumbnail": "data/news-images/cn-e35eaa79083cb6817015.jpg",
+      "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-21959528e6cd3b93f5fa",
+      "title": "一离职员工被索赔二十余万元 工作交接义务边界何在",
+      "category": "劳动权益",
+      "publishedAt": "2026-11-12",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/11-12/10730590.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "",
+      "imageCheckedAt": "2026-11-12T01:02:58.475896+00:00"
+    },
     {
       "id": "cn-f406e7359de7b3ee1f4b",
       "title": "事关东方通特别代表人诉讼，证监会回应",
