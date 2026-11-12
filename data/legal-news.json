@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-12T01:02:55.216719+00:00",
+  "newArticleCount": 3,
+  "contentUpdatedAt": "2026-11-12T17:07:20.036631+00:00",
   "latestPublishedAt": "2026-11-12",
-  "updatedAt": "2026-11-12T08:22:56.959042+00:00",
+  "updatedAt": "2026-11-12T17:07:20.036631+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -31,6 +31,57 @@
       "thumbnailKind": "photo"
     },
     {
+      "id": "cn-d5ac5785caae36c0cf9e",
+      "title": "花钱就能进央国企？一图拆解四类诈骗套路",
+      "category": "公共安全",
+      "publishedAt": "2026-11-12",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/edu/2026/11-12/10731056.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/11/12/b978f42bae304ce9ae48d75ebe82b980.png",
+      "imageSourceUrl": "https://www.chinanews.com.cn/edu/2026/11-12/10731056.shtml",
+      "imageCheckedAt": "2026-11-12T17:07:23.909761+00:00",
+      "thumbnail": "data/news-images/cn-d5ac5785caae36c0cf9e.png",
+      "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-9b750d4ae766888aaba6",
+      "title": "月入过万招司机？检察官揭露“套路运”诈骗连环计",
+      "category": "公共安全",
+      "publishedAt": "2026-11-12",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/11-12/10731095.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/11-12/10731095.shtml",
+      "imageCheckedAt": "2026-11-12T17:07:23.950891+00:00",
+      "thumbnail": "data/news-images/cn-9b750d4ae766888aaba6.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-40babd9be7b72a6cf83f",
+      "title": "从“手搓电池”到盗版手办 上海警方披露民生领域制售假案件",
+      "category": "法律争议",
+      "publishedAt": "2026-11-12",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-12/10730938.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261112/82807a1b-0ab9-45ee-99e0-bd110989c0eb_zsite.jpeg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-12/10730938.shtml",
+      "imageCheckedAt": "2026-11-12T17:07:23.971693+00:00",
+      "thumbnail": "data/news-images/cn-40babd9be7b72a6cf83f.jpg",
+      "thumbnailKind": "photo"
+    },
+    {
       "id": "cn-21959528e6cd3b93f5fa",
       "title": "一离职员工被索赔二十余万元 工作交接义务边界何在",
       "category": "劳动权益",
@@ -42,8 +93,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-11-12T01:02:58.475896+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/11-12/10730590.shtml",
+      "imageCheckedAt": "2026-11-12T01:02:58.475896+00:00",
+      "thumbnail": "data/news-images/cn-21959528e6cd3b93f5fa.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-f406e7359de7b3ee1f4b",
