@@ -1,8 +1,8 @@
 {
   "newArticleCount": 1,
-  "contentUpdatedAt": "2026-11-16T09:48:39.076454+00:00",
+  "contentUpdatedAt": "2026-11-16T20:31:08.878890+00:00",
   "latestPublishedAt": "2026-11-16",
-  "updatedAt": "2026-11-16T09:48:39.076454+00:00",
+  "updatedAt": "2026-11-16T20:31:08.878890+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -29,6 +29,23 @@
       "imageCheckedAt": "2026-11-16T02:12:22.188746+00:00",
       "thumbnail": "data/news-images/cn-addc7ff234076aa454dd.jpg",
       "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-992950dbc88d612453e6",
+      "title": "山西林草新政：防火期延长46天 火灾追责赔偿修复一体落地",
+      "category": "法律争议",
+      "publishedAt": "2026-11-16",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-16/10733064.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261116/1c7d8ab2-d26d-4f46-8898-5b4f43f97fba_zsite.jpg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-16/10733064.shtml",
+      "imageCheckedAt": "2026-11-16T20:31:11.698944+00:00",
+      "thumbnail": "data/news-images/cn-992950dbc88d612453e6.jpg",
+      "thumbnailKind": "photo"
     },
     {
       "id": "cn-7d52a77cb42e416a688c",
