@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 2,
+  "newArticleCount": 0,
   "contentUpdatedAt": "2026-11-17T11:57:05.630509+00:00",
   "latestPublishedAt": "2026-11-17",
-  "updatedAt": "2026-11-17T11:57:05.630509+00:00",
+  "updatedAt": "2026-11-17T20:58:13.717365+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -59,8 +59,10 @@
       "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
       "curation": "headline",
       "imageUrl": "",
-      "imageSourceUrl": "",
-      "imageCheckedAt": "2026-11-17T11:57:09.939839+00:00"
+      "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/11-17/10733626.shtml",
+      "imageCheckedAt": "2026-11-17T11:57:09.939839+00:00",
+      "thumbnail": "data/news-images/cn-1b2997b4934882f381fa.jpg",
+      "thumbnailKind": "article"
     },
     {
       "id": "cn-addc7ff234076aa454dd",
