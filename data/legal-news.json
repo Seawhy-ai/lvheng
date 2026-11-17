@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 1,
-  "contentUpdatedAt": "2026-11-17T03:12:26.770817+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-11-17T11:57:05.630509+00:00",
   "latestPublishedAt": "2026-11-17",
-  "updatedAt": "2026-11-17T03:12:26.770817+00:00",
+  "updatedAt": "2026-11-17T11:57:05.630509+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -29,6 +29,38 @@
       "imageCheckedAt": "2026-11-17T03:12:29.664893+00:00",
       "thumbnail": "data/news-images/cn-72876844f9241dc07237.jpg",
       "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-5552bfc22ae1d9ede984",
+      "title": "直播间“低价甩卖”藏猫腻 上海杨浦警方捣毁一售假团伙",
+      "category": "消费维权",
+      "publishedAt": "2026-11-17",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-17/10733310.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261117/7232c81d-b380-440b-8948-c669925c606b_zsite.jpeg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-17/10733310.shtml",
+      "imageCheckedAt": "2026-11-17T11:57:10.299833+00:00",
+      "thumbnail": "data/news-images/cn-5552bfc22ae1d9ede984.jpg",
+      "thumbnailKind": "photo"
+    },
+    {
+      "id": "cn-1b2997b4934882f381fa",
+      "title": "警惕不法分子假借汽车召回实施诈骗！市场监管总局发布提醒",
+      "category": "公共安全",
+      "publishedAt": "2026-11-17",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/11-17/10733626.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "",
+      "imageCheckedAt": "2026-11-17T11:57:09.939839+00:00"
     },
     {
       "id": "cn-addc7ff234076aa454dd",
