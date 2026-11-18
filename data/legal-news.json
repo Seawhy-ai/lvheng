@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-18T02:55:33.935018+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-18T20:35:56.005965+00:00",
   "latestPublishedAt": "2026-11-18",
-  "updatedAt": "2026-11-18T11:48:21.110453+00:00",
+  "updatedAt": "2026-11-18T20:35:56.005965+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -28,6 +28,23 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-18/10733936.shtml",
       "imageCheckedAt": "2026-11-18T02:55:37.739849+00:00",
       "thumbnail": "data/news-images/cn-c8b870b9a6bc98e2ee8e.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-b7f96551cfb94470a8c4",
+      "title": "中国银行原副行长林景臻一审获刑13年",
+      "category": "财产与合同",
+      "publishedAt": "2026-11-18",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-18/10734299.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-18/10734299.shtml",
+      "imageCheckedAt": "2026-11-18T20:35:58.974190+00:00",
+      "thumbnail": "data/news-images/cn-b7f96551cfb94470a8c4.jpg",
       "thumbnailKind": "article"
     },
     {
@@ -2034,23 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-12/10711168.shtml",
       "imageCheckedAt": "2026-10-26T11:26:21.548031+00:00",
       "thumbnail": "data/news-images/cn-8c3f93b13391adecd7e6.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-6c07272210e61c08c40c",
-      "title": "代办“超级签证”落地后发现竟是旅游签？法院判决代办机构承担赔偿责任",
-      "category": "法律争议",
-      "publishedAt": "2026-10-12",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/fz/2026/10-12/10712120.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-12/10712120.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.565634+00:00",
-      "thumbnail": "data/news-images/cn-6c07272210e61c08c40c.jpg",
       "thumbnailKind": "article"
     }
   ]
