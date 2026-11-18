@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-17T11:57:05.630509+00:00",
-  "latestPublishedAt": "2026-11-17",
-  "updatedAt": "2026-11-17T20:58:13.717365+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-11-18T02:55:33.935018+00:00",
+  "latestPublishedAt": "2026-11-18",
+  "updatedAt": "2026-11-18T02:55:33.935018+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,40 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-c8b870b9a6bc98e2ee8e",
+      "title": "国台办回应台检调部门起诉高金素梅",
+      "category": "法律争议",
+      "publishedAt": "2026-11-18",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-18/10733936.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/11-18/10733936.shtml",
+      "imageCheckedAt": "2026-11-18T02:55:37.739849+00:00",
+      "thumbnail": "data/news-images/cn-c8b870b9a6bc98e2ee8e.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-305755949a9c9a98c1ef",
+      "title": "汤泉馆直播引流，质疑者被拉黑……律师称涉嫌侵权",
+      "category": "消费维权",
+      "publishedAt": "2026-11-18",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/11-18/10733875.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/11-18/10733875.shtml",
+      "imageCheckedAt": "2026-11-18T02:55:37.543494+00:00",
+      "thumbnail": "data/news-images/cn-305755949a9c9a98c1ef.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-72876844f9241dc07237",
       "title": "餐品送达却仍遭退款 揭秘外卖代下单诈骗套路",
@@ -2018,40 +2052,6 @@
       "imageCheckedAt": "2026-10-26T11:26:21.565634+00:00",
       "thumbnail": "data/news-images/cn-6c07272210e61c08c40c.jpg",
       "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-12a4e67f62d4684fd478",
-      "title": "江西省政协原副主席胡幼桃一审获刑13年",
-      "category": "公共安全",
-      "publishedAt": "2026-10-12",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/gn/2026/10-12/10712258.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/10-12/10712258.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.649228+00:00",
-      "thumbnail": "data/news-images/cn-12a4e67f62d4684fd478.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-db23c1903deadfae82af",
-      "title": "办“社保卡金卡”能提高报销、领补贴？警惕诈骗新话术",
-      "category": "公共安全",
-      "publishedAt": "2026-10-11",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/sh/2026/10-11/10710932.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "https://i2.chinanews.com.cn/simg/cmshd/2026/10/11/eea026da5733437da05bbfd87ad9969e.jpg",
-      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-11/10710932.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.957656+00:00",
-      "thumbnail": "data/news-images/cn-db23c1903deadfae82af.jpg",
-      "thumbnailKind": "photo"
     }
   ]
 }
