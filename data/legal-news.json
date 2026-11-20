@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-19T10:25:25.169229+00:00",
-  "latestPublishedAt": "2026-11-19",
-  "updatedAt": "2026-11-20T01:18:01.388347+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-20T09:12:24.632887+00:00",
+  "latestPublishedAt": "2026-11-20",
+  "updatedAt": "2026-11-20T09:12:24.632887+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-3812b6ebab5e783b3367",
+      "title": "有中国公民在委内瑞拉遭网络电信诈骗，中使馆发布提醒",
+      "category": "公共安全",
+      "publishedAt": "2026-11-20",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/hr/2026/11-20/10735022.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/hr/2026/11-20/10735022.shtml",
+      "imageCheckedAt": "2026-11-20T09:12:30.380407+00:00",
+      "thumbnail": "data/news-images/cn-3812b6ebab5e783b3367.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-cb7c83ef53669d7352d4",
       "title": "“歌手厉娜卷入借贷纠纷”引热议，律师解读",
@@ -2034,23 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-13/10713670.shtml",
       "imageCheckedAt": "2026-10-26T11:26:21.336751+00:00",
       "thumbnail": "data/news-images/cn-167d86dd7fba39159830.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-d399e8ae0343566fbff6",
-      "title": "快递保价，为何起纠纷？",
-      "category": "法律争议",
-      "publishedAt": "2026-10-12",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/sh/2026/10-12/10711895.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-12/10711895.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.522442+00:00",
-      "thumbnail": "data/news-images/cn-d399e8ae0343566fbff6.jpg",
       "thumbnailKind": "article"
     }
   ]
