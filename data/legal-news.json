@@ -1,8 +1,8 @@
 {
   "newArticleCount": 1,
-  "contentUpdatedAt": "2026-11-20T09:12:24.632887+00:00",
+  "contentUpdatedAt": "2026-11-20T17:50:34.407778+00:00",
   "latestPublishedAt": "2026-11-20",
-  "updatedAt": "2026-11-20T09:12:24.632887+00:00",
+  "updatedAt": "2026-11-20T17:50:34.407778+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-92a4f4308c6991ffcc1b",
+      "title": "宁夏首次发布“宁夏枸杞”商标维权典型案例 多梯度打击商标侵权",
+      "category": "法律争议",
+      "publishedAt": "2026-11-20",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-20/10735552.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "https://i2.chinanews.com.cn/simg/ypt/2026/261120/ee94e3c4-299c-4d2a-a526-e0da3ac5c581_zsite.jpeg",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-20/10735552.shtml",
+      "imageCheckedAt": "2026-11-20T17:50:37.849015+00:00",
+      "thumbnail": "data/news-images/cn-92a4f4308c6991ffcc1b.jpg",
+      "thumbnailKind": "photo"
+    },
     {
       "id": "cn-3812b6ebab5e783b3367",
       "title": "有中国公民在委内瑞拉遭网络电信诈骗，中使馆发布提醒",
@@ -2034,23 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/10-13/10713521.shtml",
       "imageCheckedAt": "2026-10-26T11:26:21.270579+00:00",
       "thumbnail": "data/news-images/cn-219faf6a041be781f756.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-167d86dd7fba39159830",
-      "title": "19800元享终身免费旅居康养？北京警方打掉一养老诈骗团伙",
-      "category": "公共安全",
-      "publishedAt": "2026-10-13",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/fz/2026/10-13/10713670.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-13/10713670.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.336751+00:00",
-      "thumbnail": "data/news-images/cn-167d86dd7fba39159830.jpg",
       "thumbnailKind": "article"
     }
   ]
