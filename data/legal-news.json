@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 1,
-  "contentUpdatedAt": "2026-11-22T01:22:55.445334+00:00",
+  "newArticleCount": 2,
+  "contentUpdatedAt": "2026-11-22T08:52:52.133839+00:00",
   "latestPublishedAt": "2026-11-22",
-  "updatedAt": "2026-11-22T01:22:55.445334+00:00",
+  "updatedAt": "2026-11-22T08:52:52.133839+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,40 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-e9105e35d26a76ad5e88",
+      "title": "邮寄假律师函为境外诈骗铺路 兼职代发为何沦为犯罪一环？",
+      "category": "公共安全",
+      "publishedAt": "2026-11-22",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-22/10735969.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-22/10735969.shtml",
+      "imageCheckedAt": "2026-11-22T08:52:55.972196+00:00",
+      "thumbnail": "data/news-images/cn-e9105e35d26a76ad5e88.jpg",
+      "thumbnailKind": "article"
+    },
+    {
+      "id": "cn-b38a9499e55654fdc6a5",
+      "title": "直播公司设计合同陷阱收割违约金 女主播没赚到钱反被索赔十万元",
+      "category": "消费维权",
+      "publishedAt": "2026-11-22",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/11-22/10736027.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/11-22/10736027.shtml",
+      "imageCheckedAt": "2026-11-22T08:52:55.959129+00:00",
+      "thumbnail": "data/news-images/cn-b38a9499e55654fdc6a5.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-3d477453ce15a3e6650e",
       "title": "网络交友被骗压岁钱 警惕针对青少年的“小额多次式诈骗”",
@@ -2017,40 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/gn/2026/10-14/10714602.shtml",
       "imageCheckedAt": "2026-10-26T11:26:21.061768+00:00",
       "thumbnail": "data/news-images/cn-73612879a32661618884.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-da41f02c074876478296",
-      "title": "本地来电成诈骗“帮凶” 民警演示远程控机完整流程→",
-      "category": "公共安全",
-      "publishedAt": "2026-10-13",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/sh/2026/10-13/10713622.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-13/10713622.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.157364+00:00",
-      "thumbnail": "data/news-images/cn-da41f02c074876478296.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-cf62fed45569e20b3f8d",
-      "title": "短剧“洗稿”小说被判侵权，海南法院详解判定逻辑",
-      "category": "法律争议",
-      "publishedAt": "2026-10-13",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/sh/2026/10-13/10713793.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-13/10713793.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.253286+00:00",
-      "thumbnail": "data/news-images/cn-cf62fed45569e20b3f8d.jpg",
       "thumbnailKind": "article"
     }
   ]
