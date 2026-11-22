@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-20T17:50:34.407778+00:00",
-  "latestPublishedAt": "2026-11-20",
-  "updatedAt": "2026-11-21T21:13:16.757848+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-22T01:22:55.445334+00:00",
+  "latestPublishedAt": "2026-11-22",
+  "updatedAt": "2026-11-22T01:22:55.445334+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-3d477453ce15a3e6650e",
+      "title": "网络交友被骗压岁钱 警惕针对青少年的“小额多次式诈骗”",
+      "category": "公共安全",
+      "publishedAt": "2026-11-22",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-22/10735944.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-22/10735944.shtml",
+      "imageCheckedAt": "2026-11-22T01:22:58.849797+00:00",
+      "thumbnail": "data/news-images/cn-3d477453ce15a3e6650e.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-92a4f4308c6991ffcc1b",
       "title": "宁夏首次发布“宁夏枸杞”商标维权典型案例 多梯度打击商标侵权",
@@ -2034,23 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-13/10713793.shtml",
       "imageCheckedAt": "2026-10-26T11:26:21.253286+00:00",
       "thumbnail": "data/news-images/cn-cf62fed45569e20b3f8d.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-219faf6a041be781f756",
-      "title": "金融消费投资维权，这些细节请留意",
-      "category": "消费维权",
-      "publishedAt": "2026-10-13",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/cj/2026/10-13/10713521.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/cj/2026/10-13/10713521.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:21.270579+00:00",
-      "thumbnail": "data/news-images/cn-219faf6a041be781f756.jpg",
       "thumbnailKind": "article"
     }
   ]

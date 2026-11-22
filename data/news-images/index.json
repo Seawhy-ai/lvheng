@@ -643,5 +643,10 @@
     "id": "cn-92a4f4308c6991ffcc1b",
     "thumbnail": "data/news-images/cn-92a4f4308c6991ffcc1b.jpg",
     "thumbnailKind": "photo"
+  },
+  "https://www.chinanews.com.cn/sh/2026/11-22/10735944.shtml": {
+    "id": "cn-3d477453ce15a3e6650e",
+    "thumbnail": "data/news-images/cn-3d477453ce15a3e6650e.jpg",
+    "thumbnailKind": "article"
   }
 }
