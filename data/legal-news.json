@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-22T17:11:11.236920+00:00",
-  "latestPublishedAt": "2026-11-22",
-  "updatedAt": "2026-11-23T03:10:15.460332+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-23T12:52:53.861432+00:00",
+  "latestPublishedAt": "2026-11-23",
+  "updatedAt": "2026-11-23T12:52:53.861432+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-d52cdc319fcf4c2bb89a",
+      "title": "奖助学金将陆续到账 这些诈骗套路要当心",
+      "category": "公共安全",
+      "publishedAt": "2026-11-23",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-23/10736518.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-23/10736518.shtml",
+      "imageCheckedAt": "2026-11-23T12:52:56.880247+00:00",
+      "thumbnail": "data/news-images/cn-d52cdc319fcf4c2bb89a.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-e9105e35d26a76ad5e88",
       "title": "邮寄假律师函为境外诈骗铺路 兼职代发为何沦为犯罪一环？",
@@ -2034,23 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-15/10714757.shtml",
       "imageCheckedAt": "2026-10-26T11:26:20.932447+00:00",
       "thumbnail": "data/news-images/cn-59774df97c742a927413.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-fc2b2513d47780ca83b6",
-      "title": "警惕！专盯留学生的“冒充公检法”诈骗",
-      "category": "公共安全",
-      "publishedAt": "2026-10-14",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/fz/2026/10-14/10714413.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-14/10714413.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:20.953018+00:00",
-      "thumbnail": "data/news-images/cn-fc2b2513d47780ca83b6.jpg",
       "thumbnailKind": "article"
     }
   ]
