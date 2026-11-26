@@ -728,5 +728,10 @@
     "id": "cn-828528feb1a7a9aab19c",
     "thumbnail": "data/news-images/cn-828528feb1a7a9aab19c.jpg",
     "thumbnailKind": "article"
+  },
+  "https://www.chinanews.com.cn/fz/2026/11-26/10737949.shtml": {
+    "id": "cn-98c0ec210686054ccbbd",
+    "thumbnail": "data/news-images/cn-98c0ec210686054ccbbd.jpg",
+    "thumbnailKind": "article"
   }
 }

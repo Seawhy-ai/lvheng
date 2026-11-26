@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-25T14:59:46.851255+00:00",
-  "latestPublishedAt": "2026-11-25",
-  "updatedAt": "2026-11-25T23:39:10.684925+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-26T05:29:19.919901+00:00",
+  "latestPublishedAt": "2026-11-26",
+  "updatedAt": "2026-11-26T05:29:19.919901+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-98c0ec210686054ccbbd",
+      "title": "刑事诉讼法第四次修改：把“管住权力、保障权利”落到实处",
+      "category": "公共安全",
+      "publishedAt": "2026-11-26",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/fz/2026/11-26/10737949.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/11-26/10737949.shtml",
+      "imageCheckedAt": "2026-11-26T05:29:24.283763+00:00",
+      "thumbnail": "data/news-images/cn-98c0ec210686054ccbbd.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-ea4e97e0562ba2220f4d",
       "title": "佛具店老板以“消灾解难”为名销售佛像诈骗近13万元",
@@ -2034,23 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/10-21/10718374.shtml",
       "imageCheckedAt": "2026-10-26T11:26:19.887882+00:00",
       "thumbnail": "data/news-images/cn-b4324bfe26c0ec0b9635.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-6c5bde34b6c234735d3f",
-      "title": "分工演戏、索要高额赔偿！警方打掉企业“碰瓷式”涉恶团伙",
-      "category": "法律争议",
-      "publishedAt": "2026-10-21",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/fz/2026/10-21/10718479.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-21/10718479.shtml",
-      "imageCheckedAt": "2026-10-26T11:26:19.862779+00:00",
-      "thumbnail": "data/news-images/cn-6c5bde34b6c234735d3f.jpg",
       "thumbnailKind": "article"
     }
   ]
