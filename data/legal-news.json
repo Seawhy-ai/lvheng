@@ -1,8 +1,8 @@
 {
-  "newArticleCount": 0,
-  "contentUpdatedAt": "2026-11-27T19:01:25.455571+00:00",
-  "latestPublishedAt": "2026-11-27",
-  "updatedAt": "2026-11-28T02:01:21.437049+00:00",
+  "newArticleCount": 1,
+  "contentUpdatedAt": "2026-11-28T10:30:25.028792+00:00",
+  "latestPublishedAt": "2026-11-28",
+  "updatedAt": "2026-11-28T10:30:25.028792+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -13,6 +13,23 @@
   "partial": false,
   "failedPages": 0,
   "articles": [
+    {
+      "id": "cn-e1aeb613fb1aae15500f",
+      "title": "兰州大学：“交费包过”“不用上课”等为虚假宣传 保留追责权利",
+      "category": "法律争议",
+      "publishedAt": "2026-11-28",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-28/10739208.shtml",
+      "summary": "",
+      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
+      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
+      "curation": "headline",
+      "imageUrl": "",
+      "imageSourceUrl": "https://www.chinanews.com.cn/sh/2026/11-28/10739208.shtml",
+      "imageCheckedAt": "2026-11-28T10:30:29.458618+00:00",
+      "thumbnail": "data/news-images/cn-e1aeb613fb1aae15500f.jpg",
+      "thumbnailKind": "article"
+    },
     {
       "id": "cn-eefdd70f20c7e3780317",
       "title": "最高法公开宣判利乐垄断后继民事诉讼两案 合计判赔4.92亿元",
@@ -2034,23 +2051,6 @@
       "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-28/10722276.shtml",
       "imageCheckedAt": "2026-10-28T11:41:29.306888+00:00",
       "thumbnail": "data/news-images/cn-77bbb69d2b22a971cbb5.jpg",
-      "thumbnailKind": "article"
-    },
-    {
-      "id": "cn-1f768ca7d5aee0c9e59d",
-      "title": "改名“搬运”AI微短剧是否构成侵权？",
-      "category": "数字与人格权",
-      "publishedAt": "2026-10-28",
-      "source": "中国新闻网",
-      "url": "https://www.chinanews.com.cn/fz/2026/10-28/10722016.shtml",
-      "summary": "",
-      "eventNote": "日期为报道日期，事件发生时间和案件进展请查看原文。",
-      "question": "争议双方各自主张什么？还需要哪些事实和证据才能作出判断？",
-      "curation": "headline",
-      "imageUrl": "",
-      "imageSourceUrl": "https://www.chinanews.com.cn/fz/2026/10-28/10722016.shtml",
-      "imageCheckedAt": "2026-10-28T05:46:55.795162+00:00",
-      "thumbnail": "data/news-images/cn-1f768ca7d5aee0c9e59d.jpg",
       "thumbnailKind": "article"
     }
   ]
